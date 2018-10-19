@@ -6,7 +6,7 @@ import { MaterialModule } from './material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import {RouterModule, Route} from '@angular/router';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
