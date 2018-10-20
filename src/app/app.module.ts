@@ -5,20 +5,21 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import {RouterModule, Route} from '@angular/router';
+import { RouterModule, Route } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { MenuComponent } from './menu/menu.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent}
-  
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -29,4 +30,5 @@ const routes : Route[] = [
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

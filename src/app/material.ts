@@ -1,6 +1,6 @@
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { NgModule } from '@angular/core';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material';
 
 @NgModule({
