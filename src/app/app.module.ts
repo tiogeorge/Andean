@@ -12,6 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 const routes : Route[] = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'menu', component: MenuComponent}
 ];
 
 @NgModule({

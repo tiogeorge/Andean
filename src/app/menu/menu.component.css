@@ -1,0 +1,19 @@
+.menu-principal {
+    background: orange linear-gradient(orange,#ff8c00);
+    color: aliceblue;
+    font-weight: bold;
+}
+
+.menu-principal mat-toolbar-row span{
+    font-size: 24px;
+}
+
+.icono {
+    padding: 0 20px;
+    width: 28px;
+    height: 28px;
+}
+  
+.spacer {
+    flex: 1 1 auto;
+}
