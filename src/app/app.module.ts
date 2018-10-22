@@ -10,13 +10,15 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './carousel/carousel.component';
+import { FooterComponent } from './footer/footer.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'carousel',component:  CarouselComponent},
-  {path: 'home', component: HomeComponent}
+  {path: 'home', component: HomeComponent},
+  {path: 'footer', component: FooterComponent}
 ];
 
 @NgModule({
@@ -25,7 +27,8 @@ const routes : Route[] = [
     LoginComponent,
     HomeComponent,
     MenuComponent,
-    CarouselComponent
+    CarouselComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
