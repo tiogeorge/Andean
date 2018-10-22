@@ -8,9 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Route } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './carousel/carousel.component';
 import { FooterComponent } from './footer/footer.component';
+import { CarouselmultipleComponent } from './carouselmultiple/carouselmultiple.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -28,13 +28,13 @@ const routes : Route[] = [
     HomeComponent,
     MenuComponent,
     CarouselComponent,
-    FooterComponent
+    FooterComponent,
+    CarouselmultipleComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     BrowserAnimationsModule,
-    NgbModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
