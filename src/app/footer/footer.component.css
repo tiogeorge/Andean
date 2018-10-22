@@ -1,0 +1,21 @@
+.icono {
+    padding: 0 30px;
+    width: 30px;
+    height: 30px;
+}
+
+.navbar {
+    height: 64px;
+    background: orange linear-gradient(orange,#ff8c00);
+    color: whitesmoke;
+}
+
+.navbar-brand {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#buscar {
+    width: 32em;
+}
