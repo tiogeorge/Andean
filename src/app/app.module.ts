@@ -15,7 +15,8 @@ const routes : Route[] = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'menu', component: MenuComponent},
-  {path: 'carousel',component:  CarouselComponent}
+  {path: 'carousel',component:  CarouselComponent},
+  {path: 'home', component: HomeComponent}
 ];
 
 @NgModule({
