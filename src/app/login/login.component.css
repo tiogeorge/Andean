@@ -1,19 +1,34 @@
 #footer-login{
-    margin-top: 0px;
+    margin-top: -20px;
 }
 #boton-facebook{
     align-items: center;
     background-color:#4267b2;
     color: white; 
-    width: 100px;
 }
 #boton-google{
     background-color:#b1301f;
     color: white; 
-    width: 100px;
 }
 #boton-twitter{
     background-color:#099bdf;
     color: white; 
-    width: 100px;
 }
+#btniniciosesion{
+    background: orange linear-gradient(orange,#ff8c00);
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+    margin: 3px;
+}
+.form-control:focus {
+    border-color:orange !important;
+    box-shadow: 0 0 5px rgb(235, 134, 41) !important;
+  }

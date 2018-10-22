@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="container">            
   <div class="row">
       <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
@@ -22,18 +23,17 @@
                       
                   </div>
                   <div class="card-body">
-                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit"> Iniciar Sesión</button>
+                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" id="btniniciosesion"> Iniciar Sesión</button>
                   </div>
                   <div class="card-body" id="footer-login">
                       <div class="form-label-group">
-                        <label>Tambien puede acceder con:</label>
-                        
-                        <mat-chip-list>
-                            <mat-chip id="boton-facebook"> Facebook</mat-chip>
-                            <mat-chip id="boton-google" > Google</mat-chip>
-                            <mat-chip id="boton-twitter">Twitter</mat-chip>
-                          </mat-chip-list>
-
+                            <label> Ingresar utilizando :</label>
+                            <button type="button" class="btn btn-default btn-circle" id="boton-facebook"><i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-circle" id="boton-google"><i class="fab fa-google"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-circle" id="boton-twitter"><i class="fab fa-twitter"></i>
+                            </button>                  
                       </div>
                   </div>
               </form>
