@@ -8,11 +8,14 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Route } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CarouselComponent } from './carousel/carousel.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'menu', component: MenuComponent}
+  {path: 'menu', component: MenuComponent},
+  {path: 'carousel',component:  CarouselComponent}
 ];
 
 @NgModule({
@@ -20,12 +23,14 @@ const routes : Route[] = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    MenuComponent
+    MenuComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     BrowserAnimationsModule,
+    NgbModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
