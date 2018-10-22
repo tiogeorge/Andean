@@ -1,13 +1,22 @@
 .icono {
-    padding: 0 30px;
+    padding: 5px 30px;
     width: 30px;
     height: 30px;
 }
 
-.navbar {
+.icono:hover {
+    color: black;
+}
+
+#menu-principal {
+    background: linear-gradient(orange,#ff8c00);
     height: 64px;
-    background: orange linear-gradient(orange,#ff8c00);
     color: whitesmoke;
+}
+
+#categorias {
+    height: 54px;
+    background: linear-gradient(black, gray);
 }
 
 .navbar-brand {
@@ -19,3 +28,36 @@
 #buscar {
     width: 32em;
 }
+
+.btn {
+    padding: 0px;
+}
+
+.btn-link {
+    color: rgb(255, 227, 227);
+}
+ #icono-buscar{
+    padding: 5px 30px 0px 0px;
+    width: 30px;
+    height: 30px;
+ }
+ #icono-buscar :hover {
+     color: black;
+ }
+
+ a{
+     color: whitesmoke;
+ }
+ .navbar-toggler{
+     background: orangered;
+ }
+ .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5");
+ }
+ #icono-mobile {
+     color: whitesmoke;
+     height: 32px;
+     width: 32px;
+ }
+
+ 
