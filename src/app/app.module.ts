@@ -12,6 +12,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { FooterComponent } from './footer/footer.component';
 import { CarouselmultipleComponent } from './carouselmultiple/carouselmultiple.component';
 import { RegistroComponent } from './registro/registro.component';
+import { RestablecerComponent } from './restablecer/restablecer.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -20,7 +21,8 @@ const routes : Route[] = [
   {path: 'carousel',component:  CarouselComponent},
   {path: 'home', component: HomeComponent},
   {path: 'footer', component: FooterComponent},
-  {path: 'registro', component: RegistroComponent}
+  {path: 'registro', component: RegistroComponent},
+  {path: 'restablecer', component: RestablecerComponent}
 ];
 
 @NgModule({
@@ -32,7 +34,8 @@ const routes : Route[] = [
     CarouselComponent,
     FooterComponent,
     CarouselmultipleComponent,
-    RegistroComponent
+    RegistroComponent,
+    RestablecerComponent
   ],
   imports: [
     BrowserModule,
