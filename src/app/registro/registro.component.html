@@ -1,0 +1,74 @@
+<app-menu></app-menu>
+<div class="container">            
+  <div class="row">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
+          <div class="card card-signin my-5">
+              <form class="form-signin"  method="post">
+                  <div class="card-body">
+                      <h5 class="card-title text-center">Nuevo Usuario</h5>
+
+                      <div class="form-label-group">
+                          <label for="txCodigo" class="etiqueta">Nombres</label>
+                          <input type="text" placeholder="Usuario" type="text" name="Ingrese nombres" id="nombres" class="form-control" required autofocus>
+                      </div>
+
+                      <div class="form-label-group">
+                          <label  class="etiqueta">Apellidos</label>
+                          <input type="text" placeholder="Ingrese Apellidos" type="text" name="apellidos" id="apellidos" class="form-control" required>
+                          
+                      </div>
+                      <div class="form-label-group">
+                          <div class="row">
+                            <div class="col col-lg-6">
+                                <label class="etiqueta">Email</label>
+                                <input type="email" placeholder="Ingrese email" type="email" name="email" id="email" class="form-control" required>
+                                
+                            </div>
+                            
+                            <div class="col col-lg-6">
+                                <label class="etiqueta">Contraseña</label>
+                                <input type="password" placeholder="Contraseña" type="password" name="password" id="password" class="form-control" required>
+                                
+                            </div>
+                          </div>
+
+                      </div>
+                      <br>
+                      <div class="form-label-group">
+                          <label><input type="checkbox" value=""> Recibir promociones en tu email</label>
+                      </div>
+                        <div class="form-label-group">
+                            <label>Al registrarse acepta los <a href="/terminosycondiciones" style="color: orange;">terminos y condiciones</a> y nuestras <a href="/politicas">politicas de privacidad</a></label>
+                      </div>                      
+                  </div>
+                  <div class="card-body" style="margin-top: -18px;">
+                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" id="btniniciosesion"> Registrarse</button>
+                  </div>
+                  <div class="card-body" id="footer-login">
+                      <div class="form-label-group">
+                        <div class="row">
+
+                          <div class="col col-lg-6 col-md-12 col-sm-12">
+                              <label> Registrate con :</label>
+                              <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i class="fab fa-facebook-f"></i>
+                              </button>
+                              <button type="button" class="btn btn-primary btn-circle" id="boton-google" placeholder="Google"><i class="fab fa-google"></i>
+                              </button>
+                              <button type="button" class="btn btn-success btn-circle" id="boton-twitter" placeholder="Twitter"><i class="fab fa-twitter"></i>
+                              </button> 
+                          </div>
+                          <div class="col col-lg-6 col-md-12 col-sm-12">
+                              <label style="text-align: right" style="margin-top: 5px;">¿Ya eres usuario? <a routerLink="/login">Inicia Sesion</a></label>
+                              
+                          </div>
+                        </div>
+                                 
+                            
+
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

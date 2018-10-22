@@ -8,13 +8,13 @@
                       <h5 class="card-title text-center">Iniciar Sesión</h5>
 
                       <div class="form-label-group">
-                          <label for="txCodigo" class="etiqueta">Email</label>
-                          <input type="text" placeholder="Usuario" type="text" name="txCodigo" id="Codigo" class="form-control" required autofocus>
+                          <label class="etiqueta">Email</label>
+                          <input type="text" placeholder="Usuario" type="text" name="username" id="username" class="form-control" required autofocus>
                       </div>
 
                       <div class="form-label-group">
-                          <label for="txPass" class="etiqueta">Contraseña</label>
-                          <input type="password" placeholder="Contraseña" type="password" name="txPass" id="Pass" class="form-control" required>
+                          <label class="etiqueta">Contraseña</label>
+                          <input type="password" placeholder="Contraseña" type="password" name="password" id="password" class="form-control" required>
                           
                       </div>
                       <div class="form-label-group">
@@ -23,19 +23,26 @@
                       
                   </div>
                   <div class="card-body">
-                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" id="btniniciosesion"> Iniciar Sesión</button>
+                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" id="btniniciosesion" style="margin-top: -15px;"> Iniciar Sesión</button>
                   </div>
                   <div class="card-body" id="footer-login">
-                      <div class="form-label-group">
-                            <label> Ingresar utilizando :</label>
-                            <button type="button" class="btn btn-default btn-circle" id="boton-facebook"><i class="fab fa-facebook-f"></i>
-                            </button>
-                            <button type="button" class="btn btn-primary btn-circle" id="boton-google"><i class="fab fa-google"></i>
-                            </button>
-                            <button type="button" class="btn btn-success btn-circle" id="boton-twitter"><i class="fab fa-twitter"></i>
-                            </button>                  
-                      </div>
-                  </div>
+                        <div class="row">
+
+                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                    <label> Inicia Sesion con :</label>
+                                    <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-circle" id="boton-google" placeholder="Google"><i class="fab fa-google"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-circle" id="boton-twitter" placeholder="Twitter"><i class="fab fa-twitter"></i>
+                                    </button> 
+                                </div>
+                                <div class="col col-lg-6 col-md-12 col-sm-12">
+                                    <label style="text-align: right" style="margin-top: 5px;">¿Eres nuevo usuario? <a routerLink="/registro" >Registrate</a></label>
+                                    
+                                </div>
+                              </div>
+                </div>
               </form>
           </div>
       </div>
