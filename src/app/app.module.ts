@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CarouselmultipleComponent } from './carouselmultiple/carouselmultiple.component';
 import { RegistroComponent } from './registro/registro.component';
 import { RestablecerComponent } from './restablecer/restablecer.component';
+import { PortafolioComponent } from './portafolio/portafolio.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -35,7 +36,8 @@ const routes : Route[] = [
     FooterComponent,
     CarouselmultipleComponent,
     RegistroComponent,
-    RestablecerComponent
+    RestablecerComponent,
+    PortafolioComponent
   ],
   imports: [
     BrowserModule,
