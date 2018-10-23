@@ -14,7 +14,7 @@ a{
 }
 .icono {
     right: 150px;
-    padding-top: 1.25rem;
+    padding-top: 0.7rem;
     padding-left: 0.35rem;
     width: 30px;
     height: 30px;
@@ -78,6 +78,13 @@ a{
         border-radius: 0%;
         height: 2.1rem;
     }
+    .icono {
+        padding-top: 0.5rem;
+        padding-right: .5rem;
+    }
+    .navbar{
+        padding: 0rem 1rem;
+    }
     #buscar {
         position: absolute;
         width: 26rem;
@@ -87,12 +94,14 @@ a{
     }
     #buscar-form{
         display: inline;
+        padding-right: 1rem;
     }
     #buscar-icon{
         display: none;
     }
     #icono-buscar{
         padding-top: 1rem;
+        padding-left: 1.5rem;
     }
 }
 
@@ -104,12 +113,16 @@ a{
     .icono:hover {
         color: black;
     }
+    
     .navbar-brand{
         font-size: 1.75rem;
     }
     #buscar {
         position: static;
         width: 32rem;
+    }
+    #buscar-form{
+        padding-right: 0rem;
     }
     #categorias {
         height: 54px;
