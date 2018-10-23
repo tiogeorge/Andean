@@ -1,21 +1,102 @@
-.icono {
-    padding: 0 30px;
-    width: 30px;
-    height: 30px;
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;   
 }
 
-.navbar {
-    height: 64px;
-    background: orange linear-gradient(orange,#ff8c00);
-    color: whitesmoke;
+footer{
+    width: 100%;
+    background: #202020;
+    color: white; 
+}
+.container-footer-all{
+    width: 100%;
+    max-width: 1600px;
+    margin: auto;
+    padding: 40px;
+ 
 }
 
-.navbar-brand {
-    color: whitesmoke;
-    font-weight: bold;
-    font-size: 24px;
+.container-body{
+    display: flex;
+    justify-content: space-between;
+}
+.colum1{
+    max-width: width 400px;
+}
+.colum1 h1{
+    font-size: 22px;   
+}
+.colum1 p{
+    font-size: 14px;
+    color: #c7c7c7;
+    margin-top: 20px;  
+    max-width: 400px; 
+}
+.colum2{
+    max-width: width 400px;
+}
+.colum2 h2{
+    font-size: 22px;
+    
+}
+.row{
+    margin-top: 20px;   
+}
+.row img{
+    width: 36px;
+    height: 36px;
+    
+}
+.row label{
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #c7c7c7;
+}
+.colum3 {
+    max-width: 400px;
+}
+.colum3 h3{
+    font-size: 22px;
 }
 
-#buscar {
-    width: 32em;
+.row2 {
+    margin-top: 20px;
+
+}
+
+.row2 img{
+    width: 36px;
+    height: 36px;
+}
+.row2 label{
+    margin-top: 10px;
+    margin-left: 20px;
+
+}
+
+.container-footer{
+    width: 100%;
+    background: #101010;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+
+}
+.copyrigth{
+    color: #c7c7c7;
+
+}
+
+.copyrigth a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;  
+}
+
+.informacion a{
+    text-decoration: none;
+    color: #c7c7c7;
+
 }
