@@ -14,6 +14,8 @@ import { CarouselmultipleComponent } from './carouselmultiple/carouselmultiple.c
 import { RegistroComponent } from './registro/registro.component';
 import { RestablecerComponent } from './restablecer/restablecer.component';
 import { PortafolioComponent } from './portafolio/portafolio.component';
+import { ArticuloDetalleComponent } from './articulo-detalle/articulo-detalle.component';
+import { ArticuloComponent } from './articulo/articulo.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -24,7 +26,9 @@ const routes : Route[] = [
   {path: 'footer', component: FooterComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'restablecer', component: RestablecerComponent},
-  {path: 'multicarro', component:CarouselmultipleComponent}
+  {path: 'multicarro', component:CarouselmultipleComponent},
+  {path: 'articulo', component:ArticuloComponent},
+  {path: 'articulo/:id', component:ArticuloDetalleComponent}
 ];
 
 @NgModule({
@@ -38,7 +42,9 @@ const routes : Route[] = [
     CarouselmultipleComponent,
     RegistroComponent,
     RestablecerComponent,
-    PortafolioComponent
+    PortafolioComponent,
+    ArticuloDetalleComponent,
+    ArticuloComponent
   ],
   imports: [
     BrowserModule,
