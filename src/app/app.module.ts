@@ -23,7 +23,8 @@ const routes : Route[] = [
   {path: 'home', component: HomeComponent},
   {path: 'footer', component: FooterComponent},
   {path: 'registro', component: RegistroComponent},
-  {path: 'restablecer', component: RestablecerComponent}
+  {path: 'restablecer', component: RestablecerComponent},
+  {path: 'multicarro', component:CarouselmultipleComponent}
 ];
 
 @NgModule({

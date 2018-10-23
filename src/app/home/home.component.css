@@ -11,3 +11,7 @@
     display: flex;
     align-items: center;/**/
   }
+  .portfolio-item {
+    margin-bottom: 30px;
+  }
+  
