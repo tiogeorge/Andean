@@ -16,6 +16,7 @@ import { RestablecerComponent } from './restablecer/restablecer.component';
 import { PortafolioComponent } from './portafolio/portafolio.component';
 import { ArticuloDetalleComponent } from './articulo-detalle/articulo-detalle.component';
 import { ArticuloComponent } from './articulo/articulo.component';
+import { ArticulosbusquedaComponent } from './articulosbusqueda/articulosbusqueda.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -28,6 +29,7 @@ const routes : Route[] = [
   {path: 'restablecer', component: RestablecerComponent},
   {path: 'multicarro', component:CarouselmultipleComponent},
   {path: 'articulo', component:ArticuloComponent},
+  {path:'busqueda', component:ArticulosbusquedaComponent},
   {path: 'articulo/:id', component:ArticuloDetalleComponent}
 ];
 
@@ -44,7 +46,8 @@ const routes : Route[] = [
     RestablecerComponent,
     PortafolioComponent,
     ArticuloDetalleComponent,
-    ArticuloComponent
+    ArticuloComponent,
+    ArticulosbusquedaComponent
   ],
   imports: [
     BrowserModule,
