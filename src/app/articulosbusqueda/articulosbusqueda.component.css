@@ -13,3 +13,96 @@
   .portfolio-item {
     margin-bottom: 30px;
   }
+
+  /*material*/
+  .custom-control.material-checkbox {
+    --color: #ff7b00;
+  }
+  .custom-control.material-checkbox .material-control-input {
+    display: none;
+  }
+  .custom-control.material-checkbox .material-control-input:checked ~ .material-control-indicator {
+    border-color: var(--color);
+    -webkit-transform: rotateZ(45deg) translate(1px, -5px);
+            transform: rotateZ(45deg) translate(1px, -5px);
+    width: 10px;
+    border-top: 0px solid rgb(241, 134, 130);
+    border-left: 0px solid rgb(241, 184, 130);
+  }
+  .custom-control.material-checkbox .material-control-indicator {
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ff7b00;
+    transition: 0.3s;
+  }
+  /**/
+
+  /*check*/
+  .checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #f10101;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+  /**/
+  /*slider*/
+  mat-slider {
+    width: 300px;
+  }
+  /*fin slider*/
