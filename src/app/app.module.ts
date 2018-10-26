@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material';
@@ -17,7 +18,7 @@ import { PortafolioComponent } from './portafolio/portafolio.component';
 import { ArticuloDetalleComponent } from './articulo-detalle/articulo-detalle.component';
 import { ArticuloComponent } from './articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './articulosbusqueda/articulosbusqueda.component';
-import { FormsModule } from '@angular/forms';
+
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
