@@ -5,19 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './componentes/login/login.component';
 import { RouterModule, Route } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { MenuComponent } from './menu/menu.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { FooterComponent } from './footer/footer.component';
-import { CarouselmultipleComponent } from './carouselmultiple/carouselmultiple.component';
-import { RegistroComponent } from './registro/registro.component';
-import { RestablecerComponent } from './restablecer/restablecer.component';
-import { PortafolioComponent } from './portafolio/portafolio.component';
-import { ArticuloDetalleComponent } from './articulo-detalle/articulo-detalle.component';
-import { ArticuloComponent } from './articulo/articulo.component';
-import { ArticulosbusquedaComponent } from './articulosbusqueda/articulosbusqueda.component';
+import { HomeComponent } from './componentes/home/home.component';
+import { MenuComponent } from './componentes/menu/menu.component';
+import { CarouselComponent } from './componentes/carousel/carousel.component';
+import { FooterComponent } from './componentes/footer/footer.component';
+import { CarouselmultipleComponent } from './componentes/carouselmultiple/carouselmultiple.component';
+import { RegistroComponent } from './componentes/registro/registro.component';
+import { RestablecerComponent } from './componentes/restablecer/restablecer.component';
+import { PortafolioComponent } from './componentes/portafolio/portafolio.component';
+import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articulo-detalle.component';
+import { ArticuloComponent } from './componentes/articulo/articulo.component';
+import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
 
 
 const routes : Route[] = [
