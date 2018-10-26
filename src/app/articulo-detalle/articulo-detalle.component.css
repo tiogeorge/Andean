@@ -4,34 +4,141 @@
     text-align: center;
     max-width: 100%;
     height: 100%;
+    padding: 0px;
 }
 .row{
     text-align: center;
     background: white;
     margin: 0px;
     margin-top: 2px;
+    padding-top: 50px;
+    margin-bottom: 10px;
+    padding: 0px;
 }
-.cont-imgs-proc{
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 20%;
-    border-style:solid;
-    border-width: 1px;
-    border-color: rgb(57, 58, 58);
+.box-images{
+    width: 100%;
+    margin: auto;
+}
+
+.images-col{
+    width: 95%;
+    background: white;
+    margin: auto;
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    
     
 }
-.select-img-proc{
-    margin: 1px;
-    width: 76%;
-    height: 100%;
-    border-style:solid;
+
+.image-container{
+    width: 95%;
+    height: auto;
+    border: 1px;
+    border-style: solid;
+    border-color: gray; 
+    margin: auto;
+  
+}
+#image-select{
+    background: white;
+    padding: 0px;
+    padding-left: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    
+}
+.item-image{
+    display: inline;
+    margin: 2px;
+    margin-left: 6px;
+    margin-right: 6px;
+    border-style: solid;
     border-width: 1px;
-    border-color: rgb(57, 58, 58);
+    border-color: orange;
+
+    
 }
-#det-art-1{
-    height: 100%;
+
+.imagen{
+    
+    
+    transition: transform .2s;
+
 }
-.pre-img{
-    width: 100%;
-    margin: 3px;
+.imagen:hover {
+    transform: scale(1.2);
 }
+/*@media (min-width: 300px) {
+    .box-images{
+        width: 100%;
+    }
+    .images-col{
+        width: auto;
+        background: white;
+        margin: 0px;
+        padding: 5px;
+    }
+    
+    .image-container{
+        width: auto;
+        height: auto;
+        margin: 5px;
+        border-style: solid;
+        border-color: gray;
+        vertical-align: middle;   
+        position: absolute;
+       
+      
+    }
+}
+
+
+@media (min-width: 768px) {
+   
+    .images-col{
+        width: 20%;
+        background: white;
+        margin: 0px;
+        padding: 5px;
+        float: left;
+    }
+    
+    .image-container{
+        width: 75%;
+        height: auto;
+        margin: 5px;
+        border: 1px;
+        border-style: solid;
+        border-color: gray;
+        vertical-align: middle;   
+        position: relative;
+        
+      
+    }
+    
+}
+@media (min-width: 992px) {
+    .images-col{
+        width: 20%;
+        background: white;
+        margin: 0px;
+        padding: 5px;
+        float: left;
+    }
+    
+    .image-container{
+        width: 75%;
+        height: auto;
+        margin: 5px;
+        border: 1px;
+        border-style: solid;
+        border-color: gray;
+        vertical-align: middle;   
+        position: relative;
+        
+      
+    }
+
+}*/
