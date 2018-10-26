@@ -17,6 +17,7 @@ import { PortafolioComponent } from './portafolio/portafolio.component';
 import { ArticuloDetalleComponent } from './articulo-detalle/articulo-detalle.component';
 import { ArticuloComponent } from './articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './articulosbusqueda/articulosbusqueda.component';
+import { FormsModule } from '@angular/forms';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -52,6 +53,7 @@ const routes : Route[] = [
   imports: [
     BrowserModule,
     MaterialModule,
+    FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)
   ],
