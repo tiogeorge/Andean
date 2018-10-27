@@ -8,25 +8,21 @@
 .cont-images{
     width: 100%;
 }
-.image-select{
-    width: 100%;
-    padding: 5px;
-    
-}
-.list-image{
-    width: 100%;
-}
+
 .imagen{
     width: 100%;
     border: 1px solid gray;
 }
 .list-image{
+    width: 90%;
     padding: 5px;
+    margin: auto;
     display: flex;
     overflow-y: scroll;
+    margin-bottom: 20px;
 }
 .item-image{
-   
+    margin: auto;
     transition: 0.2s;
 }
 .item-image:hover{
@@ -40,8 +36,21 @@
 .name-articulo{
     padding: 10px;
     text-align: left;
+    font-weight: 5px;
+}
+.breadcrumb{
+    padding: 10px;
+    text-align: left;
     font-weight: bold;
 }
+.estrella{
+    margin: 2px;    
+}
+.estrella:hover{
+    content: url("/assets/images/star2.png");
+}
+
+/* navagador chrome*/
 .list-image::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
@@ -55,16 +64,126 @@
     height: 5px;
 	background-color: #F5F5F5;
 }
-/*.list-image::-webkit-scrollbar-button
-{
-	width: 5px;
-	background-color: rgb(87, 87, 87);
-}*/
+
 
 .list-image::-webkit-scrollbar-thumb
 {
     border-radius: 2px;
     width: 2px;
-	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
-	background-color: #555;
+	-webkit-box-shadow: inset 0 0 1px rgba(221, 101, 2, 0.568);
+	background-color:orange;
+}
+.info-articulo{
+    width: 100%;
+    border: 1px solid rgb(255, 255, 255);
+}
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 360px) {
+    .image-select{
+        width: 100%;
+        padding: 5px;
+        
+    }
+    .list-image{
+        width: 100%;
+    }
+    .breadcrumb{
+        width: 100%;
+        background: white;
+        height: 50px;   
+        color: rgb(65, 65, 65);    
+    
+    }
+    .breadcrumb a{
+        color: rgb(54, 53, 50);
+        padding-left:5px;
+        padding-right: 5px; 
+    }
+    .breadcrumb a:hover{
+        color: orange;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    .contenido{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        background: white;
+        
+        padding-bottom: 100px;
+        position: relative;
+    }
+    .cont-images{
+        position: relative;
+        width: 100%;
+    }
+    .image-select{
+        width: 50%;
+        padding: 5px;
+        padding-left: 130px;
+        
+    }
+    .list-image{
+        position: absolute;
+        width: 100px;
+        padding: 5px;
+        display: block;
+        overflow-y: scroll;
+        margin-bottom: 20px;
+        top: 0px;
+        height: 100%;
+        margin-left: 20px;
+    }
+    .list-image::-webkit-scrollbar
+    {
+        width: 5px;
+        height: 0px;
+        background-color: #F5F5F5;
+    }
+    .item-image{
+        margin: auto;
+        transition: 0.2s;
+        width: 80px;
+    }
+    .item-image:hover{
+        transform: scale(1.2);
+    }
+    .info-articulo{
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        width: 50%;
+        border: 1px solid rgb(255, 255, 255);
+        
+    }
+    .name-articulo{
+        padding-left: 30px;
+        width: 70%;
+    }
+    .breadcrumb{
+        width: 100%;
+        background: white;
+        height: 50px;   
+        color: rgb(65, 65, 65);    
+
+    }
+    .breadcrumb a{
+        color: rgb(54, 53, 50);
+        padding-left:5px;
+        padding-right: 5px; 
+    }
+    .breadcrumb a:hover{
+        color: orange;
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+
+}
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    
 }
