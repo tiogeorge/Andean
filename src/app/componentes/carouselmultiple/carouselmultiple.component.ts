@@ -11,5 +11,8 @@ export class CarouselmultipleComponent implements OnInit {
 
   ngOnInit() {
   }
+  "scripts": [
+  '.app/corouselmultiple.complemento.js'
+]
 
 }

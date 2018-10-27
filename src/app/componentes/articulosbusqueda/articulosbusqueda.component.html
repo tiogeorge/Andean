@@ -23,11 +23,14 @@
           </div>
           <div class="col-lg-12">
             <hr>
-            <h4>FILTROS</h4>
+            <h5>FILTROS</h5>
           </div>
           <div class="col-lg-12">
-            <hr>
-          </div>
+              <hr>
+              <h4>Marca</h4>
+              <div class="col-lg-12">
+              </div>
+            </div>
           <div class="col-lg-12">
             <hr>
             <h5>Precio</h5>
@@ -44,13 +47,12 @@
                   <input matInput type="text" placeholder="Value" [(ngModel)]="value">
                 </div>
               </section>
-              <div class="result">
+              <section class="result">
                 <mat-slider thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval" [(ngModel)]="value"
                   [min]="min" [max]="max" tickInterval="1">
                 </mat-slider>
-              </div>
+              </section>>
               <!--fin de slider-->
-           
             </div>
           </div>
         </div>
@@ -89,67 +91,12 @@
               </table>
             </ol>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4" *ngFor="let articulo of listaarticulos" >
             <div class="card h-100">
               <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Articulo 1</a>
-                </h4>
-                <p class="card-text">ABCD EFGH</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Articulo 2</a>
-                </h4>
-                <p class="card-text">ABCD EFGH</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Articulo 3</a>
-                </h4>
-                <p class="card-text">ABCD EFGH</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Articulo 3</a>
-                </h4>
-                <p class="card-text">ABCD EFGH</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Articulo 3</a>
-                </h4>
-                <p class="card-text">ABCD EFGH</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Articulo 3</a>
+                  <a href="#">{{articulo}}</a>
                 </h4>
                 <p class="card-text">ABCD EFGH</p>
               </div>
