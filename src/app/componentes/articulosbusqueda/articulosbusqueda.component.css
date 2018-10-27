@@ -105,4 +105,13 @@
   mat-slider {
     width: 300px;
   }
+  .example-margin {
+    margin: 10px;
+  }
+  .example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 100px;
+  }
   /*fin slider*/
