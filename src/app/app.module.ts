@@ -18,6 +18,7 @@ import { PortafolioComponent } from './componentes/portafolio/portafolio.compone
 import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articulo-detalle.component';
 import { ArticuloComponent } from './componentes/articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const routes : Route[] = [
@@ -56,7 +57,8 @@ const routes : Route[] = [
     MaterialModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
