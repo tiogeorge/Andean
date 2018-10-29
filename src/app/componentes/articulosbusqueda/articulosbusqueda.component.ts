@@ -1,6 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-articulosbusqueda',
   templateUrl: './articulosbusqueda.component.html',
@@ -9,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ArticulosbusquedaComponent implements OnInit {
   selected = 'option2';
   listacategorias: string[] = ['categoria 1', 'categoria 2', 'categoria 3', 'categoria 4', 'categoria 5', 'categoria 6', 'categoria 7', 'categoria 8', 'categoria 9', 'categoria 10'];
-  listaarticulos: string[]=['Articulo 1','Articulo 2','Articulo 3','Articulo 4','Articulo 5','Articulo 6'];
+  listaarticulos: string[]=['Articulo 1','Articulo 2','Articulo 3','Articulo 4','Articulo 5','Articulo 6','Articulo 5','Articulo 6','Articulo 7'];
   //slider
   value = 0;
   min = 0;
