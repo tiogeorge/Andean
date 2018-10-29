@@ -3,8 +3,6 @@ const { Schema } = mongoose;
 
 const usuarioSchema = new Schema({
   correo: {type: String, required: true},
-  tipo_documento: {type: String},
-  numero_documento: {type: String},
   nombres: {type: String, required: true},
   apellidos: {type: String, required: true},
   contrasena: {type: String, required: true},

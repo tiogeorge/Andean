@@ -10,8 +10,6 @@ usuarioController.getUsuarios = async (req, res, next) => {
 usuarioController.createUsuario = async (req, res, next) => {
     const usuario = new Usuario({
         correo: req.body.correo,
-        tipo_documento: req.body.tipo_documento,
-        numero_documento: req.body.numero_documento,
         nombres: req.body.nombres,
         apellidos: req.body.apellidos,
         contrasena: req.body.contrasena

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
-import { Usuario } from '../../modelos/usuario';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+
+declare var M: any;
 
 @Component({
   selector: 'app-registro',
@@ -13,20 +13,18 @@ import { Router } from '@angular/router';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor(private servicioUsuario: UsuarioService, private router:Router) { }
+  constructor(private servicioUsuario: UsuarioService) { }
 
   ngOnInit() {
   }
 
   registrar(form?: NgForm){
     console.log(form.value);
-    this.servicioUsuario.post(form.value);
+    this.servicioUsuario.post(form.value).subscribe(res => {
+      console.log('guardado');
+    });
   }
 
-  ir_menu(){
-    this.router.navigate(['/menu']);
-  }
-    
 }
 
 
