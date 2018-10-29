@@ -1,6 +1,8 @@
 const Usuario = require('../models/usuario');
+const bcrypt = require('bcrypt');
 
 const usuarioController = {};
+const BCRYPT_SALT_ROUNDS = 10;
 
 usuarioController.getUsuarios = async (req, res, next) => {
     const usuarios = await Usuario.find();
@@ -8,11 +10,13 @@ usuarioController.getUsuarios = async (req, res, next) => {
 };
 
 usuarioController.createUsuario = async (req, res, next) => {
+    var salt = bcrypt.genSaltSync();
+    var password = bcrypt.hashSync(req.body.contrasena, salt);
     const usuario = new Usuario({
         correo: req.body.correo,
         nombres: req.body.nombres,
         apellidos: req.body.apellidos,
-        contrasena: req.body.contrasena
+        contrasena: password
     });
     await usuario.save();
     res.json({status: 'Usuario creado'});
