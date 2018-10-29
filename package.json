@@ -23,7 +23,6 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "@types/jquery": "^3.3.22",
     "core-js": "^2.5.4",
     "cors": "^2.8.4",
     "express": "^4.16.4",
