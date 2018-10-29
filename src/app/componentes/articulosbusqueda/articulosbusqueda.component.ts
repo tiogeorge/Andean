@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 
 
@@ -92,6 +92,20 @@ export class ArticulosbusquedaComponent implements OnInit {
     else {
       document.getElementById('colorfiltro').style.display = 'block';
       this.nombreicon3 = "up";
+    }
+  }
+  cambiarvista1() {
+    for (var i = 0; i < this.listaarticulos.length; i++) {
+      document.getElementById('contenedorarticulo' + this.listaarticulos[i]).className = ('col-lg-4');
+      document.getElementById('colart1' + this.listaarticulos[i]).className = ('col-lg-12');
+      document.getElementById('colart2' + this.listaarticulos[i]).className = ('col-lg-12');
+    }
+  }
+  cambiarvista2() {
+    for (var i = 0; i < this.listaarticulos.length; i++) {
+      document.getElementById('contenedorarticulo' + this.listaarticulos[i]).className = ('col-lg-12');
+      document.getElementById('colart1' + this.listaarticulos[i]).className = ('col-lg-4');
+      document.getElementById('colart2' + this.listaarticulos[i]).className = ('col-lg-8');
     }
   }
 }

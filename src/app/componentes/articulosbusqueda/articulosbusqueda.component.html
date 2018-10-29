@@ -112,14 +112,21 @@
                     <th>
                       <p>Encontrados</p>
                     </th>
+                    <th>
+                      <p>Vista</p>
+                    </th>
+                    <th><i class="material-icons" (click)="cambiarvista1()">grid_on</i><i class="material-icons"
+                        (click)="cambiarvista2()">list</i></th>
                   </tr>
                 </thead>
               </table>
             </ol>
           </div>
-          <div class="col-lg-4" *ngFor="let articulo of listaarticulos">
+          <!--        <div class="col-lg-4" *ngFor="let articulo of listaarticulos">
             <div class="card h-100">
-              <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
+                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+              </a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">{{articulo}}</a>
@@ -127,6 +134,25 @@
                 <p class="card-text">ABCD EFGH</p>
               </div>
             </div>
+          </div>-->
+          <hr>
+          <div class="col-lg-4" *ngFor="let articulo of listaarticulos" id="contenedorarticulo{{articulo}}">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12" id="colart1{{articulo}}">
+                  <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
+                    <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+                  </a>
+                </div>
+                <div class="col-lg-12" id="colart2{{articulo}}">
+                  <h4 class="card-title">
+                    <a href="#">{{articulo}}</a>
+                  </h4>
+                  <p class="card-text">ABCD EFGH</p>
+                </div>
+              </div>
+            </div>
+            <hr>
           </div>
         </div>
       </div>
