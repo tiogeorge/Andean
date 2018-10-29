@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http' 
-
 import { Usuario } from '../../modelos/usuario';
+import 'rxjs/add/operator/map';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,17 @@ export class UsuarioService {
     this.usuarioSeleccionado = new Usuario();
   }
   
-  post(usuario: Usuario){
+  registrarUsuario(usuario: Usuario){
     return this.http.post(this.URL_API, usuario);
+  }
+
+  validarUsuario(usuario: Usuario){
+    if(usuario.apellidos == undefined || usuario.nombres == undefined
+      || usuario.contrasena == undefined || usuario.correo == undefined){
+        return false;
+      } else {
+        return true;
+      }
   }
 
   login(usuario: Usuario){

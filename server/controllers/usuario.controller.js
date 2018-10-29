@@ -18,18 +18,17 @@ usuarioController.createUsuario = async (req, res, next) => {
         contrasena: password
     });
     await usuario.save();
-    res.json({status: 'Usuario creado'});
+    res.json({exito: true, msg: 'Usuario creado'});
 };
 
 usuarioController.loginUsuario = async(req, res, next) => {
     const usuario = await Usuario.find({correo: req.body.correo});
     var login = bcrypt.compareSync(req.body.contrasena, usuario.contrasena); 
-    res.json({status: 'Usuario logeado', estado: login});
+    res.json({status: 'Usuario logeado', estado: 'login'});
 }
 
 usuarioController.getUsuario = async (req, res, next) => {
-    const { id } = req.params;
-    const usuario = await Usuario.findById(id);
+    const usuario = await Usuario.find({correo: req.body.correo});
     res.json(usuario);
 };
 
