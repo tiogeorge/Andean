@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { NgForm } from '@angular/forms';
-
-declare var M: any;
 
 @Component({
   selector: 'app-registro',
@@ -11,6 +8,7 @@ declare var M: any;
   styleUrls: ['./registro.component.css'],
   providers: [UsuarioService]
 })
+
 export class RegistroComponent implements OnInit {
 
   constructor(private servicioUsuario: UsuarioService) { }
@@ -19,7 +17,7 @@ export class RegistroComponent implements OnInit {
   }
 
   registrar(form?: NgForm){
-    console.log(form.value);
+    //console.log(form.value);
     this.servicioUsuario.post(form.value).subscribe(res => {
       console.log('guardado');
     });

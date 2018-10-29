@@ -22,6 +22,10 @@ export class UsuarioService {
     return this.http.post(this.URL_API, usuario);
   }
 
+  login(usuario: Usuario){
+    return this.http.post(this.URL_API + '/login',usuario);
+  }
+
   get(){
     return this.http.get(this.URL_API);
   }

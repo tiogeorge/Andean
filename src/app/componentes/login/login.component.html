@@ -2,18 +2,18 @@
   <div class="row">
       <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
           <div class="card card-signin my-5">
-              <form class="form-signin"  method="post">
+              <form #loginForm="ngForm" class="form-signin"  method="post" (ngSubmit)="login(loginForm)">
                   <div class="card-body">
                       <h5 class="card-title text-center"><i class="fas fa-key"></i> Iniciar Sesión</h5>
                       <hr>
                       <div class="form-label-group">
                           <label class="etiqueta">Email</label>
-                          <input type="text" placeholder="Ingrese email" type="text" name="email" id="email" class="form-control" required autofocus>
+                          <input type="text" placeholder="Ingrese email" type="text" name="correo" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo" class="form-control" required autofocus>
                       </div>
 
                       <div class="form-label-group">
                           <label class="etiqueta">Contraseña</label>
-                          <input type="password" placeholder="Ingrese contraseña" type="password" name="password" id="password" class="form-control" required>
+                          <input type="password" placeholder="Ingrese contraseña" type="password" name="contrasena" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.contrasena" class="form-control" required>
                           
                       </div>
                       <div class="form-label-group">
@@ -30,7 +30,7 @@
                         <div class="row">
 
                                 <div class="col col-lg-6 col-md-12 col-sm-12">
-                                    <label> Inicia Sesion con :</label>
+                                    <label> Inicia Sesión con :</label>
                                     <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i class="fab fa-facebook-f"></i>
                                     </button>
                                     <button type="button" class="btn btn-primary btn-circle" id="boton-google" placeholder="Google"><i class="fab fa-google"></i>
