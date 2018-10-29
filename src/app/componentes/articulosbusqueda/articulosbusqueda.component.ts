@@ -1,8 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, OnInit, Injectable } from '@angular/core';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+
 
 
 //filtro marca
@@ -12,6 +10,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   selector: 'app-articulosbusqueda',
   templateUrl: './articulosbusqueda.component.html',
   styleUrls: ['./articulosbusqueda.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
   selected = 'option2';

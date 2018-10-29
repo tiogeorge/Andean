@@ -8,11 +8,12 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import 'hammerjs';
 
 
 @NgModule({
-  imports: [MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatChipsModule, MatInputModule,MatSelectModule,MatListModule,MatSliderModule,MatTreeModule],
-  exports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatIconModule, MatChipsModule, MatInputModule,MatSelectModule,MatListModule,MatSliderModule,MatTreeModule],
+  imports: [MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatChipsModule, MatInputModule,MatSelectModule,MatListModule,MatSliderModule,MatTreeModule,MatTooltipModule],
+  exports: [MatButtonModule, MatCheckboxModule,MatToolbarModule, MatIconModule, MatChipsModule, MatInputModule,MatSelectModule,MatListModule,MatSliderModule,MatTreeModule,MatTooltipModule],
 })
 export class MaterialModule { }

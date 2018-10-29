@@ -42,22 +42,22 @@
             </div>
           </div>
           <div class="col-lg-12" (click)="mostrarcolor()">
-              <hr>
-              <p>Color<i id="icondown3" class="material-icons">keyboard_arrow_{{nombreicon3}}</i></p>
-            </div>
-            <div id="colorfiltro" class="col-lg-12" style="display: none">
-              <hr>
-              <div class="well" style="max-height: 300px;overflow: auto;">
-                <div class="checkbox" *ngFor="let color of listacolor">
-                  <label>
-                    <input type="checkbox" value="">
-                    <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
-                    {{color}}
-                  </label>
-                </div>
+            <hr>
+            <p>Color<i id="icondown3" class="material-icons">keyboard_arrow_{{nombreicon3}}</i></p>
+          </div>
+          <div id="colorfiltro" class="col-lg-12" style="display: none">
+            <hr>
+            <div class="well" style="max-height: 300px;overflow: auto;">
+              <div class="checkbox" *ngFor="let color of listacolor">
+                <label>
+                  <input type="checkbox" value="">
+                  <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                  {{color}}<i id="iconcolor" class="material-icons">color_lens</i>
+                </label>
               </div>
             </div>
-          <div class="col-lg-12" (click)="mostrarprecio()" >
+          </div>
+          <div class="col-lg-12" (click)="mostrarprecio()">
             <hr>
             <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p>
           </div>
@@ -81,7 +81,6 @@
             </section>
             <!--fin de slider-->
           </div>
-
         </div>
       </div>
     </div>
@@ -120,7 +119,7 @@
           </div>
           <div class="col-lg-4" *ngFor="let articulo of listaarticulos">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">{{articulo}}</a>
