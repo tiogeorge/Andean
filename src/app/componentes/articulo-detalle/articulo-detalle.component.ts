@@ -16,7 +16,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
   mouse_over(){
 
-    if(screen.width>=768){
+    if(true){
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
     let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
@@ -37,7 +37,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
   }
   mouse_out(){
-    if(screen.width>=768){
+    if(true){
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
     let imagen = document.getElementById("imagen-zoom") as HTMLImageElement;
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
@@ -57,7 +57,7 @@ export class ArticuloDetalleComponent implements OnInit {
     
   }
   mouse_move(){
-    if(screen.width>=768){
+    if(true){
       console.log("se permite zoom");
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
       let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
@@ -75,9 +75,12 @@ export class ArticuloDetalleComponent implements OnInit {
     }else{
       console.log("no se permite el zoom de la iamgen");
     }
-
  
     
+  }
+  cambiar_imagen(url){
+    let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
+    imageseleccionada.src  = url;
   }
 
 }

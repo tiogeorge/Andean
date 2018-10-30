@@ -100,6 +100,32 @@
     background-color: white;
     cursor:url("/assets/images/lupa-cursor.png"), auto;
 }
+
+.colores{
+    background-color: black; 
+    border: 1px solid orange; 
+    width: 20px; 
+    height: 20px; 
+    display: inline-block ; 
+    margin-right: 5px;
+    margin-top: 7px;
+    transition: 0.5s;
+}
+.contenedor-colores{
+    display: inline;
+    margin-left: -50px;
+}
+.colores:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+.contenedor-detalle{
+    width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 360px) {
     .image-select{

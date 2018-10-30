@@ -23,22 +23,22 @@
             </div>
         </div>
         <div class="list-image" (mouseout)="mouse_out()"> 
-            <div class="item-image">
+            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=1')">
                 <img class="imagen-p" src="//placehold.it/60x50?text=1">
             </div>
-            <div class="item-image">
+            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=2')">
                 <img class="imagen-p" src="//placehold.it/60x50?text=2">
             </div>
-            <div class="item-image">
+            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=3')">
                 <img class="imagen-p" src="//placehold.it/60x50?text=3">
             </div>
-            <div class="item-image">
+            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=4')">
                 <img class="imagen-p" src="//placehold.it/60x50?text=3">
             </div>
-            <div class="item-image">
+            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=5')">
                 <img class="imagen-p" src="//placehold.it/60x50?text=3">
             </div>
-            <div class="item-image">
+            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=6')">
                 <img class="imagen-p" src="//placehold.it/60x50?text=3">
             </div>
         </div>
@@ -76,27 +76,46 @@
                                 </div>
                                 
                             </div>
+                            <div class="row">
+                                    <div class="col-lg-4 col-sm-12 col-sx-12">
+                                            <label style="padding-top: 5px;">Colores disponibles : </label>
+                                    </div>
+                                    <div class="col-lg-8 col-sm-12 col-sx-12">
+                                            <div class="contenedor-colores" style="display: inline">
+                                                <div class="colores"></div>
+                                                <div class="colores"></div>
+                                                <div class="colores"></div>
+                                                <div class="colores"></div>
+                                            </div>
+                                    </div>
+                                    
+                                </div>
                             
                             
                         </div>
                     </div>
                     <div class="col-lg-12">
-                            <button type="button" class="btn btn-primary" onclick="buscar()">Primary</button>
-                            <button type="button" class="btn btn-secondary">Secondary</button>
-                            <button type="button" class="btn btn-success">Success</button>
-                            <button type="button" class="btn btn-danger">Danger</button>
-                            <button type="button" class="btn btn-warning">Warning</button>
-                            <button type="button" class="btn btn-info">Info</button>
-                            <button type="button" class="btn btn-light">Light</button>
-                            <button type="button" class="btn btn-dark">Dark</button>
-                            
-                            <button type="button" class="btn btn-link">Link</button>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                    <button type="button" class="btn btn-primary" onclick="buscar()">PROCESAR COMPRA</button>
+                            </div>
+                            <div class="col-lg-4">
+                                    <button type="button" class="btn btn-secondary" style="background-color: orange; color: white;">AGREGAR AL CARRITO</button>
+                            </div>
+
+                        </div>                      
                     </div>
 
                 </div>
             </div>
         </div>
 
+    </div>
+    <div class="contenedor-detalle">
+        HOLA MUNDO 
     </div>
     
     
