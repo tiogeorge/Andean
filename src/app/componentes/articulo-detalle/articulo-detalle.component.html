@@ -10,19 +10,19 @@
             [Versión Española] Smartphone Xiaomi Pocophone F1 de 6.18" (Android, Memoria interna de 64 GB, RAM de 6 GB, Cámara trasera de 12 MP, Doble Tarjeta SIM, Cámara frontal de 20 MP) Negro / Azul Móviles libres
     </div>
 
-    <div class="cont-images">
-        <div class="image-select" (mouseover)="mouse_over()"  id="imagen-grande-select">
-            <img class="imagen" src="assets/images/prueba.jpg" id="imagen-seleccionada">
+    <div class="cont-images"  id="cont-images">
+        <div class="image-select"   id="imagen-grande-select">
+            <img class="imagen" src="https://i.kinja-img.com/gawker-media/image/upload/s--kBD_p-zN--/c_scale,f_auto,fl_progressive,q_80,w_800/eeor790htuojbxm22k4c.jpg" id="imagen-seleccionada" (mouseover)="mouse_over()">
             
             
             
         </div>
-        <div class="cont-imagen-zoom" id="cont-imagen-zoom" (mouseout)="mouse_out()" (mousemove)="mouse_move()">
-            <div id="imagen-zoom">
+        <div class="cont-imagen-zoom" id="cont-imagen-zoom" (mouseout)="mouse_out()">
+            <div id="imagen-zoom" (mouseout)="mouse_out()" (mousemove)="mouse_move()">
 
             </div>
         </div>
-        <div class="list-image"> 
+        <div class="list-image" (mouseout)="mouse_out()"> 
             <div class="item-image">
                 <img class="imagen-p" src="//placehold.it/60x50?text=1">
             </div>

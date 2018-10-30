@@ -16,7 +16,8 @@ export class ArticuloDetalleComponent implements OnInit {
 
   mouse_over(){
 
-    let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
+    if(screen.width>=768){
+      let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
     let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
     let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
@@ -24,12 +25,20 @@ export class ArticuloDetalleComponent implements OnInit {
     cont.style.height = (imageseleccionada.clientHeight+10)+"px";
     imagen.style.backgroundImage = "url('"+imageseleccionada.src+"')";
     imagen.style.zIndex="-100";
-    imagen.style.transform="scale(3)";
+    imagen.style.transform="scale(3.5)";
     cont.style.display="block";
+    console.log("entro a la imagen");
+      console.log("se permite zoom");
+    }else{
+      console.log("no se permite el zoom de la iamgen");
+    }
+
+    
 
   }
   mouse_out(){
-    let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
+    if(screen.width>=768){
+      let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
     let imagen = document.getElementById("imagen-zoom") as HTMLImageElement;
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
     let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
@@ -39,20 +48,35 @@ export class ArticuloDetalleComponent implements OnInit {
     imagen.style.transform="scale(1)";
     cont.style.width = contenedor.clientWidth+"px";
     cont.style.display="none";
+    console.log("salio de la la imagen");
+      console.log("se permite zoom");
+    }else{
+      console.log("no se permite el zoom de la iamgen");
+    }
+
+    
   }
   mouse_move(){
-    let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
-    let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
-    let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
-    let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
+    if(screen.width>=768){
+      console.log("se permite zoom");
+      let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
+      let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
+      let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
+      let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
+      let contenedor_img = document.getElementById("cont-images") as HTMLDivElement;
+    
+      var x = (event as MouseEvent).pageX;
+      var y = (event as MouseEvent).pageY;
+      var ancho = imageseleccionada.clientWidth;
+      var altopor = ((y - imageseleccionada.offsetTop) / imageseleccionada.clientHeight) * 100 +'%';
   
-    var x = (event as MouseEvent).pageX;
-    var y = (event as MouseEvent).pageY;
-    var ancho = imageseleccionada.clientWidth;
-    var altopor = ((y - imageseleccionada.offsetTop) / imageseleccionada.clientHeight) * 100 +'%';
+      imagen.style.transformOrigin= (((x - imageseleccionada.offsetLeft) / imageseleccionada.clientWidth* 100) )+ "% " +((((y - (contenedor_img.offsetTop+120)) / imageseleccionada.clientHeight) * 100) ) +'%';
+     // console.log(contenedor_img.offsetTop +"   -  "+y);
+    }else{
+      console.log("no se permite el zoom de la iamgen");
+    }
 
-    imagen.style.transformOrigin= (((x - imageseleccionada.offsetLeft) / imageseleccionada.clientWidth* 100) )+ "% " +((((y - imageseleccionada.offsetTop) / imageseleccionada.clientHeight) * 100) - 100) +'%';
-    console.log(altopor);
+ 
     
   }
 

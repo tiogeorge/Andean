@@ -90,15 +90,15 @@
 }
 .cont-imagen-zoom{
     position: absolute;
-    top: 0%;
+    top: -3px;
     left: 130px;
     width: 350px;
     height: 250px;
     z-index: 100;
-    border: 1px solid black;
     overflow: hidden;
     display: none;
     background-color: white;
+    cursor:url("/assets/images/lupa-cursor.png"), auto;
 }
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 360px) {
