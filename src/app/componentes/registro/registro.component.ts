@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario } from '../../modelos/usuario';
 
 
 @Component({
@@ -17,7 +16,7 @@ export class RegistroComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private flashMessage: FlashMessagesService,
+    private flashMessage: NgFlashMessageService,
     private router: Router
   ) { }
 
@@ -25,13 +24,12 @@ export class RegistroComponent implements OnInit {
   }
 
   registrar(form?: NgForm){
+    console.log(form);
     // Campos requeridos
-    if(!this.usuarioService.validarUsuario(form.value)){
-      this.flashMessage.show('Por favor, rellene todos los campos', {cssClass: 'alert-danger', timeout: 3000});
+    /*if(!this.usuarioService.validarUsuario(form.value)){
+      this.flashMessage.showFlashMessage({messages: ['Por favor Complete los campos'], timeout: 3000, type: 'danger'});
       return false;
-    }
-    // Verificar si existe el correo
-    
+    }*/
     // Registro de Usuario
     this.usuarioService.registrarUsuario(form.value).subscribe(res => {
       console.log(res);

@@ -5,6 +5,7 @@
         <form #usuarioForm="ngForm" class="form-signin" (ngSubmit)="registrar(usuarioForm)">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
           <div class="card-body">
+              <ng-flash-message></ng-flash-message>
             <img id="btn-back" src="assets/images/back.png" alt="" routerLink="/login">
             <h5 class="card-title text-center" style="margin-top: -25px;">
               <img src="assets/images/new-user.png">
@@ -34,7 +35,7 @@
 
                 <div class="col col-lg-6">
                   <label class="etiqueta">Contraseña</label>
-                  <input type="password" placeholder="Ingrese contraseña" name="contrasena" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.contrasena"
+                  <input type="password" placeholder="Ingrese contraseña" name="password" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password"
                     class="form-control" required>
 
                 </div>

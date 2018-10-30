@@ -19,6 +19,7 @@ import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articul
 import { ArticuloComponent } from './componentes/articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgFlashMessagesModule } from 'ng-flash-messages';
 
 
 const routes : Route[] = [
@@ -58,6 +59,7 @@ const routes : Route[] = [
     FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
+    NgFlashMessagesModule.forRoot(),
     HttpClientModule
   ],
   providers: [],

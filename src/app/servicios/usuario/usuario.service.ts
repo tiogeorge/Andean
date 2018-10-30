@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http' 
 import { Usuario } from '../../modelos/usuario';
-//import 'rxjs/add/operator/map';
 
 @Injectable({
   providedIn: 'root'
@@ -35,15 +34,4 @@ export class UsuarioService {
     return this.http.post(this.URL_API + '/login',usuario);
   }
 
-  get(){
-    return this.http.get(this.URL_API);
-  }
-
-  put(usuario: Usuario){
-    return this.http.put(this.URL_API + `/${usuario._id}`,usuario);
-  }
-
-  delete(_id: string){
-    return this.http.delete(this.URL_API + `/${_id}`);
-  }
 }
