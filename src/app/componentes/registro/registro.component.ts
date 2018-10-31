@@ -3,6 +3,8 @@ import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { Usuario } from '../../modelos/usuario';
 
 
 @Component({
@@ -24,23 +26,31 @@ export class RegistroComponent implements OnInit {
   }
 
   registrar(form?: NgForm){
-    console.log(form);
     // Campos requeridos
-    /*if(!this.usuarioService.validarUsuario(form.value)){
-      this.flashMessage.showFlashMessage({messages: ['Por favor Complete los campos'], timeout: 3000, type: 'danger'});
-      return false;
-    }*/
-    // Registro de Usuario
-    this.usuarioService.registrarUsuario(form.value).subscribe(res => {
-      console.log(res);
-      /*if(exito){
-        this.flashMessage.show('Su registro se realizó con éxito', {cssClass: 'alert-success', timeout: 5000});
-        this.router.navigate(['/login']);
-      } else {
-        this.flashMessage.show('Algo produjo un error', {cssClass: 'alert-danger', timeout: 5000});
-        this.router.navigate(['/registrar']);
-      }*/
-    });
+    if(!this.usuarioService.validarUsuario(form.value)){
+      this.flashMessage.showFlashMessage({messages: ['Por favor Complete los campos'], timeout: 5000, dismissible: true ,type: 'danger'});
+      this.resetForm(form);
+    }else{
+      // Registro de Usuario
+      this.usuarioService.registrarUsuario(form.value).subscribe(res => {
+        var sres = JSON.stringify(res);
+        var jres = JSON.parse(sres);
+        if(jres.exito){
+          this.flashMessage.showFlashMessage({messages: ['Su cuenta se ha creado con éxito'], timeout: 5000, dismissible: true, type: 'success'});
+          this.router.navigate(['/login']);
+        } else {
+          this.flashMessage.showFlashMessage({messages: ['El correo electrónico usado ya existe'], timeout: 5000,dismissible: true, type: 'danger'});
+          this.resetForm(form)
+        }
+      });
+   }
+  }
+
+  resetForm(form?: NgForm) {
+    if (form) {
+      form.reset();
+      this.usuarioService.usuarioSeleccionado = new Usuario();
+    }
   }
 
 }

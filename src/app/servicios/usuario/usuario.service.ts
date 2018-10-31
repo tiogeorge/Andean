@@ -22,8 +22,8 @@ export class UsuarioService {
   }
 
   validarUsuario(usuario: Usuario){
-    if(usuario.apellidos == undefined || usuario.nombres == undefined
-      || usuario.contrasena == undefined || usuario.correo == undefined){
+    if(usuario.apellidos == "" || usuario.nombres == ""
+      || usuario.password == "" || usuario.correo == ""){
         return false;
       } else {
         return true;
