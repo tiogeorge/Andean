@@ -8,12 +8,15 @@ import { Usuario } from '../../modelos/usuario';
 
 export class UsuarioService {
 
+  private estaLogeado : boolean;
+  public usuarioLogeado: Usuario;
   usuarioSeleccionado: Usuario;
   usuarios: Usuario[];
 
   readonly URL_API = 'http://localhost:3000/api/usuarios';
 
   constructor(private http: HttpClient) { 
+    this.estaLogeado = false;
     this.usuarioSeleccionado = new Usuario();
   }
   
@@ -32,6 +35,16 @@ export class UsuarioService {
 
   login(usuario: Usuario){
     return this.http.post(this.URL_API + '/login',usuario);
+  }
+
+  setUsuarioLogeado(usuario: Usuario){
+    this.estaLogeado = true;
+    this.usuarioLogeado = usuario;
+    localStorage.setItem('currentUser', JSON.stringify(usuario));
+  }
+
+  getUsuarioLogeado() {
+  	return JSON.parse(localStorage.getItem('currentUser'));
   }
 
 }
