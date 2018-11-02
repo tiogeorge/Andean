@@ -5,7 +5,7 @@
         <form #usuarioForm="ngForm" class="form-signin" (ngSubmit)="registrar(usuarioForm)">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
           <div class="card-body">
-              <ng-flash-message></ng-flash-message>
+            <ng-flash-message></ng-flash-message>
             <img id="btn-back" src="assets/images/back.png" alt="" routerLink="/login">
             <h5 class="card-title text-center" style="margin-top: -25px;">
               <img src="assets/images/new-user.png">
@@ -14,33 +14,51 @@
             <hr>
             <div class="form-label-group">
               <label for="txCodigo" class="etiqueta">Nombres</label>
-              <input type="text" placeholder="Ingrese Nombres" name="nombres" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres"
-                class="form-control" required autofocus>
+              <input type="text" placeholder="Ingrese Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres" class="form-control" required autofocus>
+              <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
+                <div *ngIf="nombres.errors.required">
+                  El campo Nombres es requerido.
+                </div>
+              </div>
             </div>
-
             <div class="form-label-group">
               <label class="etiqueta">Apellidos</label>
-              <input type="text" placeholder="Ingrese Apellidos" name="apellidos" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
+              <input type="text" placeholder="Ingrese Apellidos" name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
                 class="form-control" required>
-
+                <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
+                  <div *ngIf="apellidos.errors.required">
+                    El campo Apellidos es requerido.
+                  </div>
+                </div>
             </div>
             <div class="form-label-group">
               <div class="row">
                 <div class="col col-lg-6">
                   <label class="etiqueta">Email</label>
-                  <input type="email" placeholder="Ingrese email" name="correo" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
-                    class="form-control" required>
+                  <input type="email" placeholder="Ingrese email" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
+                    class="form-control" email="true" required>
+                    <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
+                      <div *ngIf="correo.errors.required">
+                        El campo Correo Electrónico es requerido.
+                      </div>
 
+                    </div>
                 </div>
 
                 <div class="col col-lg-6">
                   <label class="etiqueta">Contraseña</label>
-                  <input type="password" placeholder="Ingrese contraseña" name="password" #name="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password"
-                    class="form-control" required>
-
+                  <input type="password" placeholder="Ingrese contraseña" name="password" #password="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password"
+                    class="form-control" required minlength="6">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                      <div *ngIf="password.errors.required">
+                        El campo Contraseña es requerido.
+                      </div>
+                      <div *ngIf="password.errors.minlength">
+                        La contraseña debe tener una longitud mínima de 6 caracteres.
+                      </div>
+                    </div>
                 </div>
               </div>
-
             </div>
             <br>
             <div class="form-label-group">

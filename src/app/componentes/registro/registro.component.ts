@@ -3,7 +3,6 @@ import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { Usuario } from '../../modelos/usuario';
 
 
