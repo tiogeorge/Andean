@@ -1,13 +1,12 @@
 const imagen = require('../models/imagen');
 const express = require('express');
-const multer = require('multer');
 
 const imagenController = {};
 
-var upload = multer({ dest: 'uploads/' })
+
 
 imagenController.subirImagen = async (req,res,next)=>{
-    console.log(req.file);
+    res.send("se subio con exito");
 }
 imagenController.descargarImagen = async (req,res,next)=>{
 

@@ -8,12 +8,14 @@ const {mongoose} = require('./config/database');
 app.set('port',process.env.PORT || 3000);
 
 // Middlewares
+app.use('/imagenes', express.static('imagenes'));
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
 app.use('/api/usuarios', require('./routes/usuario.routes'));
+app.use('/api/imagenes', require('./routes/imagen.routes'));
 
 app.listen(app.get('port'),()=>{
     console.log('Servidor corriendo en el puerto ',app.get('port'));
