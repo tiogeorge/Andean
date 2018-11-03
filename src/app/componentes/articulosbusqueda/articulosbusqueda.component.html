@@ -136,23 +136,29 @@
             </div>
           </div>-->
           <hr>
-          <div class="col-lg-4" *ngFor="let articulo of listaarticulos" id="contenedorarticulo{{articulo}}">
+          <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-12" id="colart1{{articulo}}">
-                  <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
-                    <img class="card-img-top" src="http://placehold.it/700x400" alt="">
-                  </a>
-                </div>
-                <div class="col-lg-12" id="colart2{{articulo}}">
-                  <h4 class="card-title">
-                    <a href="#">{{articulo}}</a>
-                  </h4>
-                  <p class="card-text">ABCD EFGH</p>
+                <div class="col-lg-4" *ngFor="let articulo of listaarticulos" id="contenedorarticulo{{articulo}}">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-lg-12" id="colart1{{articulo}}">
+                        <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
+                          <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+                        </a>
+                      </div>
+                      <div class="col-lg-12" id="colart2{{articulo}}">
+                        <h4 class="card-title">
+                          <a href="#">{{articulo}}</a>
+                        </h4>
+                        <p class="card-text">ABCD EFGH</p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
                 </div>
               </div>
             </div>
-            <hr>
           </div>
         </div>
       </div>
