@@ -1,147 +1,174 @@
 /* Extra small devices (portrait phones, less than 576px)
 No media query since this is the default in Bootstrap*/
-a{
-    color: whitesmoke;
+a {
+  color: whitesmoke;
 }
+
 .btn {
-    padding: 0px;
+  padding: 0px;
 }
+
 .btn-link {
-    color: rgb(255, 227, 227);
+  color: rgb(255, 227, 227);
 }
-.dropdown-menu a{
-    color: black;
+
+.dropdown-menu a {
+  color: black;
 }
+
 .icono {
-    right: 150px;
-    padding-top: 0.7rem;
-    padding-left: 0.35rem;
-    width: 30px;
-    height: 30px;
+  right: 150px;
+  padding-top: 0.7rem;
+  padding-left: 0.35rem;
+  width: 30px;
+  height: 30px;
 }
+
 .navbar-brand {
-    color: whitesmoke;
-    font-weight: bold;
-    font-size: 16px;
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 16px;
 }
-.navbar-toggler{
-     background: rgb(196, 65, 13);
+
+.navbar-toggler {
+  background: rgb(196, 65, 13);
 }
-#buscar-form{
-    display: none;
+
+#buscar-form {
+  display: none;
 }
+
 #categorias {
-    padding: .5rem 0rem;
-    background: linear-gradient(black, rgba(34, 33, 33, 0.877));
+  padding: .5rem 0rem;
+  background: linear-gradient(black, rgba(34, 33, 33, 0.877));
 }
-#categorias .nav-item a{
-    padding-left: 1rem;
+
+#categorias .nav-item a {
+  padding-left: 1rem;
 }
-#icono-buscar{
-    width: 30px;
-    height: 30px;
+
+#icono-buscar {
+  width: 30px;
+  height: 30px;
 }
+
 #icono-buscar :hover {
-    color: black;
+  color: black;
 }
+
 #icono-mobile {
-    color: whitesmoke;
-    height: 32px;
-    width: 32px;
+  color: whitesmoke;
+  height: 32px;
+  width: 32px;
 }
-#menu-icon{
-    color: white;
+
+#menu-icon {
+  color: white;
 }
+
 #menu-iconos {
-    position: absolute;
-    right: 5rem;
-    top: .05rem;
+  position: absolute;
+  right: 5rem;
+  top: .05rem;
 }
+
 #menu-principal {
-    position: relative;
-    background: linear-gradient(orange,#ff8c00);
-    height: 64px;
-    color: whitesmoke;
+  position: relative;
+  background: linear-gradient(orange, #ff8c00);
+  height: 64px;
+  color: whitesmoke;
 }
+
 #nav-menu {
-    border-radius: 0%;
-    border: 0rem;
+  border-radius: 0%;
+  border: 0rem;
 }
+
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-     
-}
+@media (min-width: 576px) {}
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-    .form-control {
-        border-radius: 0%;
-        height: 2.1rem;
-    }
-    .icono {
-        padding-top: 0.5rem;
-        padding-right: .5rem;
-    }
-    .navbar{
-        padding: 0rem 1rem;
-    }
-    #buscar {
-        position: absolute;
-        width: 26rem;
-        display: inline; 
-        top: .95rem;   
-        right: 6rem;  
-    }
-    #buscar-form{
-        display: inline;
-        padding-right: 1rem;
-    }
-    #buscar-icon{
-        display: none;
-    }
-    #icono-buscar{
-        padding-top: 1rem;
-        padding-left: 1.5rem;
-    }
+  .form-control {
+    border-radius: 0%;
+    height: 2.1rem;
+  }
+
+  .icono {
+    padding-top: 0.5rem;
+    padding-right: .5rem;
+  }
+
+  .navbar {
+    padding: 0rem 1rem;
+  }
+
+  #buscar {
+    position: absolute;
+    width: 26rem;
+    display: inline;
+    top: .95rem;
+    right: 6rem;
+  }
+
+  #buscar-form {
+    display: inline;
+    padding-right: 1rem;
+  }
+
+  #buscar-icon {
+    display: none;
+  }
+
+  #icono-buscar {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+  }
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
-    .icono{
-        padding: 5px 30px;
-    }
-    .icono:hover {
-        color: black;
-    }
-    
-    .navbar-brand{
-        font-size: 1.75rem;
-    }
-    #buscar {
-        position: static;
-        width: 32rem;
-    }
-    #buscar-form{
-        padding-right: 0rem;
-    }
-    #categorias {
-        height: 54px;
-    }   
-    #icono-buscar{
-        padding: 5px 30px 0px 0px;
-    }
-    #menu-iconos {
-        position: absolute;
-        padding: 5px 0px;
-        right: 0px;
-        top: .7rem;
-    }
-    #menu-principal {
-        position: relative;
-        right: 0px;
-    }
+  .icono {
+    padding: 5px 30px;
+  }
+
+  .icono:hover {
+    color: black;
+  }
+
+  .navbar-brand {
+    font-size: 1.75rem;
+  }
+
+  #buscar {
+    position: static;
+    width: 32rem;
+  }
+
+  #buscar-form {
+    padding-right: 0rem;
+  }
+
+  #categorias {
+    height: 54px;
+  }
+
+  #icono-buscar {
+    padding: 5px 30px 0px 0px;
+  }
+
+  #menu-iconos {
+    position: absolute;
+    padding: 5px 0px;
+    right: 1.5rem;
+    top: .7rem;
+  }
+
+  #menu-principal {
+    position: relative;
+    right: 0px;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-}
+@media (min-width: 1200px) {}

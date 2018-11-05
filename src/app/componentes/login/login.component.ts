@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
       var jres = JSON.parse(sres);
       if(jres.estado){
         this.flashMessage.showFlashMessage({messages: ['Iniciando sesión'], timeout: 5000, dismissible: true, type: 'success'});
-        this.router.navigate(['/']);
+        this.usuarioService.estaLogeado = true;
         this.usuarioService.setUsuarioLogeado(form.value);
+        this.router.navigate(['/']);       
       } else {
         this.flashMessage.showFlashMessage({messages: [jres.status], timeout: 5000,dismissible: true, type: 'danger'});
         this.resetForm(form)

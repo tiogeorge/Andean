@@ -9,11 +9,14 @@ import { Usuario } from '../../modelos/usuario';
 })
 export class MenuComponent implements OnInit {
 
+  estalogeado : boolean;
   nombre_tienda : string = 'Andean Store';
 
   constructor(
     private usuarioService: UsuarioService
-  ) { }
+  ) { 
+    this.estalogeado = usuarioService.estaLogeado;
+  }
 
   ngOnInit() {
   }

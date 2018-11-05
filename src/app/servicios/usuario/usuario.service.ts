@@ -8,11 +8,10 @@ import { Usuario } from '../../modelos/usuario';
 
 export class UsuarioService {
 
-  private estaLogeado : boolean;
+  public estaLogeado : boolean;
   public usuarioLogeado: Usuario;
-  usuarioSeleccionado: Usuario;
-  usuarios: Usuario[];
-
+  public usuarioSeleccionado: Usuario;
+  public usuarios: Usuario[];
   readonly URL_API = 'http://localhost:3000/api/usuarios';
 
   constructor(private http: HttpClient) { 
@@ -40,11 +39,11 @@ export class UsuarioService {
   setUsuarioLogeado(usuario: Usuario){
     this.estaLogeado = true;
     this.usuarioLogeado = usuario;
-    localStorage.setItem('currentUser', JSON.stringify(usuario));
+    localStorage.setItem('logIn', '1');
   }
 
   getUsuarioLogeado() {
-  	return JSON.parse(localStorage.getItem('currentUser'));
+  	return localStorage.getItem('logIn');
   }
 
 }

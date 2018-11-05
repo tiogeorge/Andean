@@ -15,20 +15,20 @@
             <div class="form-label-group">
               <label for="txCodigo" class="etiqueta">Nombres</label>
               <input type="text" placeholder="Ingrese Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres"
-                class="form-control" required autofocus>
+                class="form-control" style="text-transform: capitalize;" required autofocus>
               <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
                 <div *ngIf="nombres.errors.required">
-                  El campo Nombres es requerido.
+                  El campo Nombres es obligatorio.
                 </div>
               </div>
             </div>
             <div class="form-label-group">
               <label class="etiqueta">Apellidos</label>
               <input type="text" placeholder="Ingrese Apellidos" name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
-                class="form-control" required>
+                class="form-control" style="text-transform: capitalize;" required>
               <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
                 <div *ngIf="apellidos.errors.required">
-                  El campo Apellidos es requerido.
+                  El campo Apellidos es obligatorio.
                 </div>
               </div>
             </div>
@@ -40,10 +40,10 @@
                     class="form-control" email="true" required>
                   <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
                     <div *ngIf="correo.errors.required">
-                      El campo Correo Electrónico es requerido.
+                      El campo Email es obligatorio.
                     </div>
                     <div *ngIf="correo.errors.email">
-                      El Correo debe ser válido.
+                      El Email debe ser válido.
                     </div>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
                     [(ngModel)]="usuarioService.usuarioSeleccionado.password" class="form-control" required minlength="6">
                   <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
                     <div *ngIf="password.errors.required">
-                      El campo Contraseña es requerido.
+                      El campo Contraseña es obligatorio.
                     </div>
                     <div *ngIf="password.errors.minlength">
                       La contraseña debe tener una longitud mínima de 6 caracteres.
@@ -65,7 +65,7 @@
             </div>
             <br>
             <div class="form-label-group">
-              <label><input type="checkbox" value=""> Recibir promociones en tu email</label>
+              <label><input type="checkbox" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en tu email</label>
             </div>
             <div class="form-label-group">
               <label>Al registrarse acepta los <a href="/terminosycondiciones" style="color: orange;">terminos y

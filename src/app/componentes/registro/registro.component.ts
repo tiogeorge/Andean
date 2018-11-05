@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from '../../modelos/usuario';
-
+import { UsuarioService } from '../../servicios/usuario/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -19,7 +18,8 @@ export class RegistroComponent implements OnInit {
     private usuarioService: UsuarioService,
     private flashMessage: NgFlashMessageService,
     private router: Router
-  ) { }
+  ) 
+  { }
 
   ngOnInit() {
   }

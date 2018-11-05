@@ -1,11 +1,12 @@
 export class Usuario {
 
-  constructor(_id = '', correo = '', nombres = '', apellidos = '', password = '') {
+  constructor(_id = '', correo = '', nombres = '', apellidos = '', password = '', promociones = false) {
       this._id = _id;
       this.correo = correo;
       this.nombres = nombres;
       this.apellidos = apellidos;
       this.password = password;
+      this.promociones = promociones;
   }
 
   _id: string;
@@ -13,4 +14,5 @@ export class Usuario {
   nombres: string;
   apellidos: string;
   password: string;
+  promociones: boolean;
 }

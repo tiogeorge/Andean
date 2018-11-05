@@ -16,9 +16,10 @@ usuarioController.crearUsuario = async (req, res, next) => {
     var pass = bcrypt.hashSync(req.body.password, salt);
     const usuario = new Usuario({
       correo: req.body.correo,
-      nombres: req.body.nombres,
-      apellidos: req.body.apellidos,
-      password: pass
+      nombres: req.body.nombres.toUpperCase(),
+      apellidos: req.body.apellidos.toUpperCase(),
+      password: pass,
+      promociones: req.body.promociones
     });
     await usuario.save();
     res.json({
@@ -38,8 +39,8 @@ usuarioController.loginUsuario = async (req, res, next) => {
       estado: false
     });
   } else {
-      console.log(req.body.password);
-      console.log(usuario[0].password);
+    console.log(req.body.password);
+    console.log(usuario[0].password);
     var login = bcrypt.compareSync(req.body.password, usuario[0].password);
     if (!login) {
       res.json({
