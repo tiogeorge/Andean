@@ -13,10 +13,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
-  selected = 'option2';
+  selected = 'option1';
   listacategorias: string[] = ['categoria 1', 'categoria 2', 'categoria 3', 'categoria 4', 'categoria 5', 'categoria 6', 'categoria 7', 'categoria 8', 'categoria 9', 'categoria 10'];
   listamarcas: string[] = ['marca 1', 'marca2', 'marca3', 'marca4', 'marca5', 'marca6', 'marca7', 'marca8'];
-  listaarticulos: string[] = ['Articulo 1', 'Articulo 2', 'Articulo 3', 'Articulo 4', 'Articulo 5', 'Articulo 6', 'Articulo 5', 'Articulo 6', 'Articulo 7'];
+  listaarticulos: string[] = ['Articulo 1', 'Articulo 2', 'Articulo 3', 'Articulo 4', 'Articulo 5', 'Articulo 6', 'Articulo 7', 'Articulo 8', 'Articulo 9'];
   listacolor: string[] = ['color1', 'color2', 'color3', 'color4'];
   //slider
   value = 0;

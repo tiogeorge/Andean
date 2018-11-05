@@ -118,3 +118,48 @@
   .colortooltip {
     background: #ff7d13;
   }
+
+  /*boton flotante*/
+  .btn-group-sm .btn-fab{
+    position: fixed !important;
+    right: 29px;
+  }
+  .btn-group .btn-fab{
+    position: fixed !important;
+    right: 20px;
+  }
+  #main{
+    bottom: 20px;
+  }
+  #mail{
+    bottom: 80px
+  }
+  #sms{
+    bottom: 125px
+  }
+  #autre{
+    bottom: 170px
+  }
+  /*fin boton flotante*/
+
+ /* @media handheld, only screen and (max-width: 767px) {
+    #contenedorfiltro{#botonfiltromodal
+    display:none;
+    }
+  }*/
+  @media screen and ( max-width:767px) {
+    #contenedorfiltro{
+      display:none;
+      }
+    #botonfiltromodal{
+      display: block;
+    }
+  }
+  @media screen and ( min-width:767px) {
+    #contenedorfiltro{
+      display:block;
+      }
+    #botonfiltromodal{
+      display: none;
+    }
+  }
