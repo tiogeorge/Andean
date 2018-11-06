@@ -28,6 +28,7 @@
     "core-js": "^2.5.4",
     "cors": "^2.8.4",
     "express": "^4.16.4",
+    "express-myconnection": "^1.0.4",
     "hammerjs": "^2.0.8",
     "imagemagick": "^0.1.3",
     "imagemin": "^6.0.0",
