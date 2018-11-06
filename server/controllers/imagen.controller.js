@@ -14,8 +14,8 @@ const imageCompressorRun = (input, output, plugins) => {
     return imagemin(input, output, { plugins });
 }
 const compressorPlugins = [
-    mozjpeg({ speed: 1, quality: '20' }),
-    pngquant({ speed: 1, quality: '20' })
+    mozjpeg({ speed: 1, quality: '50' }),
+    pngquant({ speed: 1, quality: '50' })
 ];
 
 
