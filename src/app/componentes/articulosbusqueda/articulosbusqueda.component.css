@@ -140,6 +140,9 @@
   #autre{
     bottom: 170px
   }
+  #modalfiltro{
+    font-size: 13px
+  }
   /*fin boton flotante*/
 
  /* @media handheld, only screen and (max-width: 767px) {
@@ -148,12 +151,15 @@
     }
   }*/
   @media screen and ( max-width:767px) {
-    #contenedorfiltro{
-      display:none;
-      }
-    #botonfiltromodal{
-      display: block;
-    }
+    #contenedorfiltro{display:none;}
+      #titulo1{font-size: 1em;}
+    #botonfiltromodal{display: block;}
+    #rowvista{display:none; width: 50%;}
+    #tbvista{font-size:15px;}
+    #tbordenar{width: 30%;}
+  /*  #tbselecC{width: 20%;}*/
+    #tbselect{width: 50%;}
+    #tbencontrados{display: none;}
   }
   @media screen and ( min-width:767px) {
     #contenedorfiltro{

@@ -53,6 +53,8 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(screen.width);
+    this.cambiaridfiltro();
   }
   mostrarcategoria() {
     if (document.getElementById('categoriafiltro').style.display == 'block') {
@@ -106,6 +108,20 @@ export class ArticulosbusquedaComponent implements OnInit {
       document.getElementById('contenedorarticulo' + this.listaarticulos[i]).className = ('col-lg-12');
       document.getElementById('colart1' + this.listaarticulos[i]).className = ('col-lg-4');
       document.getElementById('colart2' + this.listaarticulos[i]).className = ('col-lg-8');
+    }
+  }
+  cambiaridfiltro() {
+    
+    if (screen.width<767) {
+      document.getElementById('categoriafiltro2').id = ('categoriafiltro');
+      document.getElementById('categoriafiltro').id = ('categoriafiltro2');
+      document.getElementById('marcafiltro2').id = ('marcafiltro');
+      document.getElementById('marcafiltro').id = ('marcafiltro2');
+      document.getElementById('divprecio2').id = ('divprecio');
+      document.getElementById('divprecio').id = ('divprecio2');
+      document.getElementById('colorfiltro2').id = ('colorfiltro');
+      document.getElementById('colorfiltro').id = ('colorfiltro2');
+      document.getElementById('sliderpre').style.width=('95%');
     }
   }
 }
