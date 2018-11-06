@@ -18,6 +18,14 @@ export class ArticulosbusquedaComponent implements OnInit {
   listamarcas: string[] = ['marca 1', 'marca2', 'marca3', 'marca4', 'marca5', 'marca6', 'marca7', 'marca8'];
   listaarticulos: string[] = ['Articulo 1', 'Articulo 2', 'Articulo 3', 'Articulo 4', 'Articulo 5', 'Articulo 6', 'Articulo 7', 'Articulo 8', 'Articulo 9'];
   listacolor: string[] = ['color1', 'color2', 'color3', 'color4'];
+  //efecto
+  centered = false;
+  disabled = false;
+  unbounded = true;
+
+  radius: number=50;
+  color: string='orange';
+  //fin efecto
   //slider
   value = 0;
   min = 0;
