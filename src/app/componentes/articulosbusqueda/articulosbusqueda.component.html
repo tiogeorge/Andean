@@ -89,19 +89,19 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <h3>RESULTADOS DE LA BÚSQUEDA
+            <h3 id="titulo1">RESULTADOS DE LA BÚSQUEDA
               <small>Articulo de referencia</small>
             </h3>
             <hr>
             <ol class="breadcrumb">
-              <table class="table table-responsive">
+              <table id="tbvista" class="table table-responsive">
                 <thead>
                   <tr>
-                    <th width="17%">
+                    <th id="tbordenar" width="17%">
                       <p>Ordenar por:</p>
                     </th>
-                    <th width="35%">
-                      <mat-form-field>
+                    <th id="tbselecC" width="33%">
+                      <mat-form-field id="tbselect">
                         <mat-select [(value)]="selected">
                           <mat-option value="option1">Populares</mat-option>
                           <mat-option value="option2">Mayor precio</mat-option>
@@ -109,10 +109,10 @@
                         </mat-select>
                       </mat-form-field>
                     </th>
-                    <th width="30%">
+                    <th id="tbencontrados" width="30%">
                       <p>Encontrados</p>
                     </th>
-                    <th >
+                    <th id="rowvista">
                       <p>Vista: &nbsp; <i class="material-icons" (click)="cambiarvista1()">grid_on</i>&nbsp;<i class="material-icons"
                         (click)="cambiarvista2()">list</i></p>
                     </th>
@@ -202,7 +202,7 @@
                       <hr>
                       <p>Categorias<i id="icondown1" class="material-icons">keyboard_arrow_{{nombreicon1}}</i></p>
                     </div>
-                    <div id="categoriafiltro" class="col-lg-12" style="display: none">
+                    <div id="categoriafiltro2" class="col-lg-12" style="display: none">
                       <hr>
                       <div class="well" style="max-height: 300px;overflow: auto;">
                         <div class="checkbox" *ngFor="let categoria of listacategorias">
@@ -218,7 +218,7 @@
                       <hr>
                       <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
                     </div>
-                    <div id="marcafiltro" class="col-lg-12" style="display: none">
+                    <div id="marcafiltro2" class="col-lg-12" style="display: none">
                       <hr>
                       <div class="well" style="max-height: 300px;overflow: auto;">
                         <div class="checkbox" *ngFor="let marca of listamarcas">
@@ -234,7 +234,7 @@
                       <hr>
                       <p>Color<i id="icondown3" class="material-icons">keyboard_arrow_{{nombreicon3}}</i></p>
                     </div>
-                    <div id="colorfiltro" class="col-lg-12" style="display: none">
+                    <div id="colorfiltro2" class="col-lg-12" style="display: none">
                       <hr>
                       <div class="well" style="max-height: 300px;overflow: auto;">
                         <div class="checkbox" *ngFor="let color of listacolor">
@@ -250,7 +250,7 @@
                       <hr>
                       <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p>
                     </div>
-                    <div class="col-lg-12" id="divprecio" style="display: none">
+                    <div class="col-lg-12" id="divprecio2" style="display: none">
                       <!--inicio de slider de precio-->
                       <section class="example-section">
                         <div class="example-margin">
@@ -264,7 +264,7 @@
                         </div>
                       </section>
                       <section class="result">
-                        <mat-slider thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval" [(ngModel)]="value"
+                        <mat-slider id="sliderpre" thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval" [(ngModel)]="value"
                           [min]="min" [max]="max" tickInterval="1">
                         </mat-slider>
                       </section>
