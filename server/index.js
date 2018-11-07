@@ -3,7 +3,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
 const mysql = require('mysql');
-const myConnection  = require('express-myconnection')
+const myConnection  = require('express-myconnection');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const {mongoose} = require('./config/database');
 
 // Setting
@@ -30,6 +32,12 @@ app.use('/imagenes', express.static('imagenes'));
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cookieParser());
+app.use(session({
+    secret: 'andeantechnology',
+    resave: false,
+    saveUninitialized: true
+}));
 
 // Routes
 app.use('/api/usuarios', require('./routes/usuario.routes'));
