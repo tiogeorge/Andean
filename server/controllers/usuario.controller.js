@@ -56,4 +56,26 @@ usuarioController.loginUsuario = async (req, res, next) => {
   }
 }
 
+usuarioController.loginAdmin = async (req, res, next) => {
+  req.getConnection(function (error, conn) {
+    var consulta = "SELECT * FROM taempleados WHERE  idEmpleado = '" + req.body.usuario + "' AND Contrasenia = '" + req.body.password + "'";
+    conn.query(consulta, function(err, rows, fields) {
+      if(err) throw err        
+      // if user not found
+      if (rows.length <= 0) {
+        res.json({
+          status: 'Error, usuario o contraseña incorrecta',
+          estado: false
+        });
+      }
+      else {
+        res.json({
+          status: 'Usuario correcto',
+          estado: true
+        })
+      }   
+    })
+  });
+}
+
 module.exports = usuarioController;
