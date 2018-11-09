@@ -7,7 +7,7 @@ import { post } from "selenium-webdriver/http";
   styleUrls: ["./carritocompras.component.css"]
 })
 export class CarritocomprasComponent implements OnInit {
-  listaarticuloscart: string[] = ["Articulo 1", "Artiulo 2", "Articulo 3"];
+  listaarticuloscart: string[] = ["Sony Xperia XZ2 Premium", "Galaxy S9", "iPhone 8 de 64 GB "];
   constructor() {}
 
   ngOnInit() {}
