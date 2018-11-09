@@ -2,9 +2,16 @@
   <div class="row">
     <div class="col-lg-9" id="contenedorarticuloscart">
       <hr />
-      <h5>CARRITO DE COMPRAS</h5>
-      <hr />
       <div class="container">
+        <div class="row">
+          <div class="col-lg-10"><h5>CARRITO DE COMPRAS</h5></div>
+          <div class="col-lg-2"><button class="btn btn-danger" style="font-size: 11px" (click)="eliminartodo()">Eliminar todo<i class="material-icons" style="font-size: 15px">delete_forever</i></button></div>
+          <div></div>
+        </div>
+      </div>
+      <hr />
+      <label id="mencartvacio" style="display: none;">NO TIENES PRODUCTOS EN TU CARRITO</label>
+      <div class="container" id="listacartarticulos">
         <div class="row">
           <div
             class="col-lg-8"
@@ -56,7 +63,7 @@
                       aria-label="Close"
                       matTooltip="Eliminar"
                       matTooltipClass="colortooltip"
-                    >
+                      (click)="eliminaritem(articulo)">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
