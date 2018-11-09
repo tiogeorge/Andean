@@ -19,6 +19,13 @@ export class CarritocomprasComponent implements OnInit {
     else{
       document.getElementById('listaenvio').style.display = 'block';
     }
-    
+  }
+  mostrardivcupon(){
+    if(document.getElementById('seltcupon').style.display == 'block'){
+      document.getElementById('seltcupon').style.display = 'none';
+    }
+    else{
+      document.getElementById('seltcupon').style.display = 'block';
+    }
   }
 }
