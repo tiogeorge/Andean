@@ -25,10 +25,7 @@ import { CarritocomprasComponent } from './carritocompras/carritocompras.compone
 const routes : Route[] = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'menu', component: MenuComponent},
-  {path: 'carousel',component:  CarouselComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'footer', component: FooterComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'restablecer', component: RestablecerComponent},
   {path: 'multicarro', component:CarouselmultipleComponent},
