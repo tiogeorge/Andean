@@ -76,6 +76,8 @@
 .info-articulo{
     width: 100%;
     border: 1px solid rgb(255, 255, 255);
+    position: relative; 
+    margin-top:-350px;
 }
 
 
@@ -151,6 +153,10 @@
     .breadcrumb a:hover{
         color: orange;
     }
+    .info-articulo{
+        position: block;
+        margin-top:0px;
+    }
 }
 
 /* Medium devices (tablets, 768px and up)*/
@@ -173,6 +179,7 @@
         width: 50%;
         padding: 5px;
         padding-left: 130px;
+        height: 340px;
         
     }
     .list-image{
@@ -201,11 +208,12 @@
         transform: scale(1.2);
     }
     .info-articulo{
-        position: absolute;
+        position: relative;
         top: 0px;
         left: 50%;
         width: 50%;
         border: 1px solid rgb(255, 255, 255);
+        margin-top:-350px;
         
     }
     .name-articulo{
@@ -216,7 +224,8 @@
         width: 100%;
         background: white;
         height: 50px;   
-        color: rgb(65, 65, 65);    
+        color: rgb(65, 65, 65);   
+     
 
     }
     .breadcrumb a{

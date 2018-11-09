@@ -1,21 +1,19 @@
 <div class="contenido">
-    <div class="breadcrumb"> 
+    <div class="breadcrumb" style="color: #343a40"> 
         <a href=""> Inicio </a> /
         <a href=""> Articulos </a> /
         <a href=""> Celulares </a> /
-        <a href=""> ?????????? </a> 
+        <a href=""> Huawei P20 Pro Twilight 128GB 6GB RAM Dual Sim </a> 
     </div>
     <hr style="margin-top: -20px;">
-    <div class="name-articulo">
-            [Versión Española] Smartphone Xiaomi Pocophone F1 de 6.18" (Android, Memoria interna de 64 GB, RAM de 6 GB, Cámara trasera de 12 MP, Doble Tarjeta SIM, Cámara frontal de 20 MP) Negro / Azul Móviles libres
+    <div class="name-articulo" style="font-size: 20px; color: black; font-weight: bold;">
+            Huawei P20 Pro Twilight 128GB 6GB RAM Dual Sim
     </div>
 
     <div class="cont-images"  id="cont-images">
-        <div class="image-select"   id="imagen-grande-select">
-            <img class="imagen" src="https://i.kinja-img.com/gawker-media/image/upload/s--kBD_p-zN--/c_scale,f_auto,fl_progressive,q_80,w_800/eeor790htuojbxm22k4c.jpg" id="imagen-seleccionada" (mouseover)="mouse_over()">
-            
-            
-            
+        <div class="image-select"   id="imagen-grande-select" >
+            <img class="imagen" src="assets/images/imagen1.jpg" id="imagen-seleccionada" (mouseover)="mouse_over()" style="padding: 10px;">           
+                        
         </div>
         <div class="cont-imagen-zoom" id="cont-imagen-zoom" (mouseout)="mouse_out()">
             <div id="imagen-zoom" (mouseout)="mouse_out()" (mousemove)="mouse_move()">
@@ -23,23 +21,17 @@
             </div>
         </div>
         <div class="list-image" (mouseout)="mouse_out()"> 
-            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=1')">
-                <img class="imagen-p" src="//placehold.it/60x50?text=1">
+            <div class="item-image" (mouseover) = "cambiar_imagen('assets/images/imagen2.jpg')">
+                <img class="imagen-p" src="assets/images/imagen2.jpg" style="width: 60px; height: 60px;">
             </div>
-            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=2')">
-                <img class="imagen-p" src="//placehold.it/60x50?text=2">
+            <div class="item-image" (mouseover) = "cambiar_imagen('assets/images/imagen1.jpg')">
+                <img class="imagen-p" src="assets/images/imagen1.jpg" style="width: 60px; height: 60px;">
             </div>
-            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=3')">
-                <img class="imagen-p" src="//placehold.it/60x50?text=3">
+            <div class="item-image" (mouseover) = "cambiar_imagen('assets/images/imagen5.jpg')">
+                <img class="imagen-p" src="assets/images/imagen5.jpg" style="width: 60px; height: 60px;">
             </div>
-            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=4')">
-                <img class="imagen-p" src="//placehold.it/60x50?text=3">
-            </div>
-            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=5')">
-                <img class="imagen-p" src="//placehold.it/60x50?text=3">
-            </div>
-            <div class="item-image" (mouseover) = "cambiar_imagen('//placehold.it/600x400?text=6')">
-                <img class="imagen-p" src="//placehold.it/60x50?text=3">
+            <div class="item-image" (mouseover) = "cambiar_imagen('assets/images/imagen7.jpg')">
+                <img class="imagen-p" src="assets/images/imagen7.jpg" style="width: 60px; height: 60px;">
             </div>
         </div>
 
@@ -55,45 +47,36 @@
                                 <img  class="estrella" src="assets/images/star.png">
                                 <img  class="estrella" src="assets/images/star.png">
                                 <label style="padding-left: 10px;">0 Comentarios</label>
+                                
                         </div>                 
                     </div>
+                    
                    
                     <div class="col-lg-12">
+                        <hr>
+                        <div style="padding-left: 10px;">
+                                • 128 GB de memoria interna<br>
+                                • 6 GB de RAM<br>
+                                • Pantalla de 6.1 pulgadas<br>
+                                • Bateria de 4000 mAh<br>
+                                • Sistema Operativo Android<br>
+                        </div>
 
-                        <label style="color: rgb(75, 74, 74); font-size: 40px;">Precio : S/ 0</label>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-2 col-sm-12 col-sx-12">
-                                        <label style="padding-top: 5px;">Cantidad : </label>
-                                </div>
-                                <div class="col-lg-8 col-sm-12 col-sx-12">
-                                        <select class="form-control" id="cantidad" style="width: 100px;">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                        </select>
-                                </div>
-                                
-                            </div>
-                            <div class="row">
-                                    <div class="col-lg-4 col-sm-12 col-sx-12">
-                                            <label style="padding-top: 5px;">Colores disponibles : </label>
-                                    </div>
-                                    <div class="col-lg-8 col-sm-12 col-sx-12">
-                                            <div class="contenedor-colores" style="display: inline">
-                                                <div class="colores"></div>
-                                                <div class="colores"></div>
-                                                <div class="colores"></div>
-                                                <div class="colores"></div>
-                                            </div>
+                        <label style="color: rgb(75, 74, 74); font-size: 20px; font-weight: bold;" >Lo quiero en:</label>
+                       
+                        <mat-tab-group>
+                                <mat-tab label="Prepago" style="overflow: hidden; height: auto;">
+                                    <div class="contenido-tipoprecio" style="padding: 10px;">
+                                            <label for="">Cantidad</label>
                                     </div>
                                     
-                            </div>
-                            
-                            
-                        </div>
+                                        
+                                        
+                                    
+                                </mat-tab>
+                                <mat-tab label="Postpago"> Content 2 </mat-tab>
+                              </mat-tab-group>
+                        
                     </div>
                     <div class="col-lg-12">
                         
@@ -106,6 +89,7 @@
                             <div class="col-lg-4">
                                     <button type="button" class="btn btn-secondary" style="background-color: orange; color: white;"> <i class="fas fa-shopping-cart"></i>
                                         AGREGAR AL CARRITO</button>
+                                        
                             </div>
 
                         </div>                      
@@ -116,8 +100,60 @@
         </div>
      
     </div>
-    <div class="contenedor-detalle">
-        Contenedor Detalle
+    <br>
+    <div class="contenedor-detalle" style="width: 90%">
+        <mat-tab-group style="width: 100%;">
+            <mat-tab label="Detalles del Producto"> 
+                <br>
+                    <div class="card" style="width: 100%" style="">
+                        <div class="card-body">
+                            <h5 class="card-title" style=""> Caracteristicas del Articulo</h5>
+                            <hr style="background-color: rgba(255, 166, 0, 0.507); height: 1px;">
+                            <p class="card-text" style=""><br>
+                                    • 128 GB de memoria interna<br>
+                                    • 6 GB de RAM<br>
+                                    • Pantalla de 6.1 pulgadas<br>
+                                    • Bateria de 4000 mAh<br>
+                                    • Sistema Operativo Android<br><br>
+                            </p>
+
+                            <h5 class="card-title" style=""> Descripcion del Producto</h5>
+                            <hr style="background-color: rgba(255, 166, 0, 0.507); height: 1px;">
+                            <p class="card-text" style=""><br>
+                                Huawei P20 Pro 
+                                Lo mejor de Huawei en tus manos                        
+                                Traemos para ti, el nuevo Huawei P20 Pro equipado con tres cámaras de 40, 20 y 8 megapíxeles para que guardes tus mejores recuerdos.
+                              
+                                Este dispositivo cuenta con una pantalla de 6.1 pulgadas para que disfrutes los mejores videos y aplicaciones en tu equipo con Android.
+                             
+                                El móvil cuenta con una memoria interna de 128 GB y una memoria RAM de 6 GB para tus juegos y apps.
+                                
+                                Este celular cuenta con una bateria de 4000mAh para que lo disfrutes todo el día.
+                             
+                                Este equipo está optimizado para la eficiencia, fiabilidad y resistencia, este atractivo teléfono cabe cómodamente en una mano y se encuentra diseñado para adaptarse a sus necesidades, ofreciendo la versatilidad, funciones y eficacia que se necesitan para lograr realizar las diversas actividades que se puedan presentar en la vida diaria.
+                               
+                                El Huawei P20 Pro llega para sorprender a todos los usuarios y seguidores de la marca con la innovación y tecnología, que los caracteriza.
+                       
+                                Llegó el momento de cambiar, recuerda que lo mejor en Celulares y Smartphones lo encuentras aqui <br>
+                                
+                                <img  src="assets/images/imagen1.jpg" width="50%" height="50%" style="align-content: center; margin-left: 30%">
+                                
+                                
+                                
+                            </p>
+                        </div>
+                    </div>
+            </mat-tab>
+            <mat-tab label="Calificacion"> 
+                Calificacion del producto
+            </mat-tab>
+            <mat-tab label="Sobre la Marca"> 
+                    <img src="assets/images/logomarca.jpg" alt="" width="500px" height="250px">
+             </mat-tab>
+            <mat-tab label="Garantia">
+                Informacion de la garabntia
+            </mat-tab>
+          </mat-tab-group>
     </div>
     
     

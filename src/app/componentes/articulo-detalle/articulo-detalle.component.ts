@@ -25,7 +25,7 @@ export class ArticuloDetalleComponent implements OnInit {
     cont.style.height = (imageseleccionada.clientHeight+10)+"px";
     imagen.style.backgroundImage = "url('"+imageseleccionada.src+"')";
     imagen.style.zIndex="-100";
-    imagen.style.transform="scale(3.5)";
+    imagen.style.transform="scale(2.5)";
     cont.style.display="block";
     console.log("entro a la imagen");
       console.log("se permite zoom");
