@@ -31,7 +31,8 @@ a {
 }
 
 .navbar-toggler {
-  background: rgb(196, 65, 13);
+  background: gray;
+  
 }
 
 #buscar-form {
@@ -40,7 +41,6 @@ a {
 
 #categorias {
   padding: .5rem 0rem;
-  background: linear-gradient(black, rgba(34, 33, 33, 0.877));
 }
 
 #categorias .nav-item a {
@@ -80,7 +80,7 @@ a {
 }
 
 #nav-menu {
-  border-radius: 0%;
+  border-radius: 1%;
   border: 0rem;
 }
 
