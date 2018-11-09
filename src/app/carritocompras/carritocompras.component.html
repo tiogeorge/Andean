@@ -1,24 +1,68 @@
-<div class="col-lg-6" id="contenedorarticulos">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-8" *ngFor="let articulo of listaarticuloscart" id="contenedorarticulo{{articulo}}">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-4" id="colart1{{articulo}}">
-              <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
-                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
-              </a>
+<div class="container-fluid" style="background-color: white">
+  <hr />
+  <h4>CARRITO DE COMPRAS</h4>
+  <hr />
+  <div class="row">
+    <div class="col-lg-8" id="contenedorarticuloscart">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8" *ngFor="let articulo of listaarticuloscart" id="contenedorarticulo{{articulo}}">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4" id="colart1{{articulo}}">
+                  <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
+                    <img class="card-img-top" src="http://placehold.it/700x400" alt=""/>
+                  </a>
+                </div>
+                <div class="col-lg-4" id="colart2{{articulo}}">
+                  <p class="card-title">
+                    <a href="#">{{ articulo }}</a>
+                  </p>
+                  <p class="card-text">ABCD EFGH</p>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                      <label style="font-size: 15px" for="sel1">Cantidad</label>
+                      <select style="font-size: 12px" class="form-control" id="sel1" style="width: 70%">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                    </div>
+                  </div>
+                <div class="col-lg-1">
+                  <div class="example-button-row">
+                   
+                    <button mat-mini-fab  style="background-color: white;color: black;">
+                        <i class="material-icons">clear </i>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-8" id="colart2{{articulo}}">
-              <h4 class="card-title">
-                <a href="#">{{articulo}}</a>
-              </h4>
-              <p class="card-text">ABCD EFGH</p>
-            </div>
+            <hr />
           </div>
         </div>
-        <hr>
       </div>
     </div>
+    <!-- bloqueterminarcompras -->
+    <div class="col-lg-4" style="background-color: white">
+      <h5>RESUMEN DE PEDIDO</h5>
+      <hr />
+      <p>Sub Total</p>
+      <hr />
+      <p>Envio</p>
+      <hr />
+      <p>Calcular Envio</p>
+      <hr />
+      <p>Aplicar Cupón</p>
+      <hr />
+      <p>TOTAL</p>
+      <hr />
+      <button class="btn btn-info">PROCESAR COMPRA</button>
+      <hr />
+    </div>
   </div>
+  <br />
 </div>
