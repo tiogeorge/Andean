@@ -11,7 +11,16 @@ body {
   justify-content: space-between;
  
 }
-
+#imagenes_1 img{
+  height: 200px;
+  max-width: 230px;
+  
+}
+#imagenes_2 img{
+  height: 200px;
+  max-width: 230px;
+  
+}
 @media (min-width: 576px) and (max-width: 767.98px) {
   .slide-box img {
     -ms-flex: 0 0 50%;
