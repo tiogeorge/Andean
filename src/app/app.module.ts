@@ -19,6 +19,7 @@ import { ArticuloComponent } from './componentes/articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
+import { CarritocomprasComponent } from './carritocompras/carritocompras.component';
 
 
 const routes : Route[] = [
@@ -32,8 +33,9 @@ const routes : Route[] = [
   {path: 'restablecer', component: RestablecerComponent},
   {path: 'multicarro', component:CarouselmultipleComponent},
   {path: 'articulo', component:ArticuloComponent},
-  {path:'busqueda', component:ArticulosbusquedaComponent},
-  {path: 'articulo/:id', component:ArticuloDetalleComponent}
+  {path: 'busqueda', component:ArticulosbusquedaComponent},
+  {path: 'articulo/:id', component:ArticuloDetalleComponent},
+  {path: 'cart', component:CarritocomprasComponent}
 ];
 
 @NgModule({
@@ -50,7 +52,8 @@ const routes : Route[] = [
     PortafolioComponent,
     ArticuloDetalleComponent,
     ArticuloComponent,
-    ArticulosbusquedaComponent
+    ArticulosbusquedaComponent,
+    CarritocomprasComponent
   ],
   imports: [
     BrowserModule,
