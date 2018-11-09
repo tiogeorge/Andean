@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { CarritocomprasComponent } from './carritocompras/carritocompras.component';
 import { TerminosComponent } from './componentes/terminos/terminos.component';
+import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
 
 
 const routes : Route[] = [
@@ -34,7 +35,8 @@ const routes : Route[] = [
   {path: 'busqueda', component:ArticulosbusquedaComponent},
   {path: 'articulo/:id', component:ArticuloDetalleComponent},
   {path: 'cart', component:CarritocomprasComponent},
-  {path: 'terminos', component: TerminosComponent}
+  {path: 'terminos', component: TerminosComponent},
+  {path: 'perfil-usuario', component: PerfilUsuarioComponent}
 ];
 
 @NgModule({
@@ -53,7 +55,8 @@ const routes : Route[] = [
     ArticuloComponent,
     ArticulosbusquedaComponent,
     CarritocomprasComponent,
-    TerminosComponent
+    TerminosComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,
