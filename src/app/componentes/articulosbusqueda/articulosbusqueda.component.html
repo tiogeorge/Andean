@@ -139,19 +139,19 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-4" *ngFor="let articulo of listaarticulos" id="contenedorarticulo{{articulo}}">
+                <div class="col-lg-3" *ngFor="let articulo of listaarticulos; index as i" id="contenedorarticulo{{articulo}}">
                   <div class="container-fluid">
                     <div class="row">
                       <div class="col-lg-12" id="colart1{{articulo}}">
-                        <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
-                          <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+                        <a href="/articulo/{{articulo}}" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
+                          <img class="card-img-top" id="articulo" src="{{listaurls[i]}}" alt="{{articulo}}">
                         </a>
                       </div>
                       <div class="col-lg-12" id="colart2{{articulo}}">
                         <h4 class="card-title">
-                          <a href="#">{{articulo}}</a>
+                          <a class="titulo-articulo" href="/articulo/{{articulo}}">{{articulo}}</a>
                         </h4>
-                        <p class="card-text">ABCD EFGH</p>
+                        <p class="card-text">Plan 29.90</p>
                       </div>
                     </div>
                   </div>

@@ -1,0 +1,125 @@
+<div class="container-fluid" style="background-color: white">
+  <div class="row">
+    <div class="col-lg-9" id="contenedorarticuloscart">
+      <hr />
+      <h5>CARRITO DE COMPRAS</h5>
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-8"
+            *ngFor="let articulo of listaarticuloscart"
+            id="contenedorarticulo{{articulo}}"
+          >
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4" id="colart1{{articulo}}">
+                  <a
+                    href="#"
+                    matTooltip="{{articulo}}"
+                    matTooltipClass="colortooltip"
+                  >
+                    <img
+                      class="card-img-top"
+                      src="http://placehold.it/700x400"
+                      alt=""
+                    />
+                  </a>
+                </div>
+                <div class="col-lg-4" id="colart2{{articulo}}">
+                  <p class="card-title">
+                    <a href="#">{{ articulo }}</a>
+                  </p>
+                  <p class="card-text">ABCD EFGH</p>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label style="font-size: 15px" for="sel1">Cantidad</label>
+                    <select
+                      style="font-size: 12px"
+                      class="form-control"
+                      id="sel1"
+                      style="width: 70%"
+                    >
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="example-button-row">
+                    <button
+                      type="button"
+                      class="close"
+                      aria-label="Close"
+                      matTooltip="Eliminar"
+                      matTooltipClass="colortooltip"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bloqueterminarcompras -->
+    <div class="col-lg-3" style="background-color: white">
+      <hr />
+      <h5>RESUMEN DE PEDIDO</h5>
+      <hr />
+      <p>Sub Total</p>
+      <hr />
+      <p>Envio</p>
+      <hr />
+      <p (click)="mostrardivenvio()">Calcular Envio</p>
+      <hr />
+      <div id="listaenvio" style="display: none;">
+          <div class="form-group">
+              <label for="exampleSelect1">Departamento</label>
+              <select class="form-control" id="exampleSelect1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+        <div class="form-group">
+            <label for="exampleSelect2">Provincia</label>
+            <select class="form-control" id="exampleSelect2">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        <div class="form-group">
+            <label for="exampleSelect3">Distrito</label>
+            <select class="form-control" id="exampleSelect3">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        <button class="btn btn-info">CALCULAR</button>
+      </div>
+      <hr />
+      <p>Aplicar Cupón</p>
+      <hr />
+      <p>TOTAL</p>
+      <hr />
+      <button class="btn btn-info">PROCESAR COMPRA</button>
+      <hr />
+    </div>
+  </div>
+  <br />
+</div>

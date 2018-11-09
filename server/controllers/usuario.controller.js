@@ -64,13 +64,13 @@ usuarioController.loginAdmin = async (req, res, next) => {
       // if user not found
       if (rows.length <= 0) {
         res.json({
-          status: 'Error, usuario o contraseña incorrecta',
+          status: 'Usuario y/o contraseña incorrecta.',
           estado: false
         });
       }
       else {
         res.json({
-          status: 'Usuario correcto',
+          status: 'Iniciando sesión.',
           estado: true
         })
       }   

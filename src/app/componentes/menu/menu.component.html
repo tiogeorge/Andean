@@ -9,11 +9,11 @@
     </ul>
     <form id="buscar-form" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" id="buscar" type="search" placeholder="Buscar" aria-label="Search">
-      <button class="btn btn-link my-2 my-sm-0" type="submit">
+      <button class="btn btn-link my-2 my-sm-0" routerLink="/busqueda">
         <mat-icon id="icono-buscar">search</mat-icon>
       </button>
     </form>
-    <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/buscar">
+    <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda">
       <mat-icon id="icono-buscar" class="icono">search</mat-icon>
     </button>
 
@@ -26,7 +26,7 @@
       <button *ngIf="!estalogeado" mat-menu-item routerLink="/login"><mat-icon class="icono">vpn_key</mat-icon> Iniciar Sesión</button>
       <button *ngIf="!estalogeado" mat-menu-item><mat-icon class="icono">person_add</mat-icon> Nuevo Usuario</button>
     </mat-menu>
-    <button type="button" class="btn btn-link" routerLink="/carrito">
+    <button type="button" class="btn btn-link" routerLink="/cart">
       <mat-icon class="icono">shopping_cart</mat-icon>
     </button>
   </div>

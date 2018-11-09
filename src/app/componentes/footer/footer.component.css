@@ -124,6 +124,7 @@ footer {
 }
 
 .titulo-footer {
+  font-size: 1.15rem;
   padding-top: 0.5rem;
   font-weight: bold;
 }
