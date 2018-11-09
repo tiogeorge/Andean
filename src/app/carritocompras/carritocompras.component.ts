@@ -12,5 +12,13 @@ export class CarritocomprasComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  mostrardivenvio(){
+    if(document.getElementById('listaenvio').style.display == 'block'){
+      document.getElementById('listaenvio').style.display = 'none';
+    }
+    else{
+      document.getElementById('listaenvio').style.display = 'block';
+    }
+    
+  }
 }
