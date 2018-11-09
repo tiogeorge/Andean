@@ -1,5 +1,11 @@
 /* Extra small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
+h3 {
+  text-align: center;
+}
+h5 {
+  padding-left: 1rem;
+}
 .terminos {
   padding: 1rem .5rem;
 }
