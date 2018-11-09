@@ -78,7 +78,6 @@
       <p>Envio</p>
       <hr />
       <b><p (click)="mostrardivenvio()">Calcular Envio</p></b>
-      <hr />
       <div id="listaenvio" style="display: none;">
           <div class="form-group">
               <label for="exampleSelect1">Departamento</label>
@@ -110,19 +109,19 @@
               <option>5</option>
             </select>
           </div>
-        <button class="btn btn-info">CALCULAR</button>
+        <button class="btn btn-warning btnandean">CALCULAR</button>
       </div>
       <hr />
       <b><p (click)="mostrardivcupon()">Aplicar Cupón</p></b>
       <div id="seltcupon" style="display: none;">
         <input class="form-control" type="text" placeholder="INGRESAR CODIGO">
         <br>
-        <button class="btn btn-info">APLICAR</button>
+        <button class="btn btn-warning btnandean">APLICAR</button>
       </div>
       <hr />
       <p>TOTAL</p>
       <hr />
-      <button class="btn btn-info">PROCESAR COMPRA</button>
+      <button class="btn btn-warning btnandean" style="background-color: orangered">PROCESAR COMPRA</button>
       <hr />
     </div>
   </div>
