@@ -125,20 +125,23 @@
                                                         <label>Elija el plan postpago que quieres para este equipo:</label>
                                                     </div>
                                                     <div class="col-lg-12">
-                                                        <div class="contenedor-planes" style="height: 100px;display: inline; overflow-x: auto; ">
-                                                            <div class="item-planes" style="display: inline-block; width: 150px; height: 80px;border: 1px solid orange; padding: 10px; margin: 5px;">
-                                                                Plan 1<br>
-                                                                <a href="/fgfg">Ver Detalle</a>
+                                                        <div class="contenedor-planes" style="display: inline; overflow: auto; ">
+                                                            <div class="item-planes" id="plan1" (click)="seleccionarPlan('plan1')">
+                                                                Max Internacional 99.90 <br>
+                                                                <span>S/ 99.90 al mes</span>
+                                                                <button  class="btn btn-link" data-toggle="modal" data-target="#modalPlan" >Ver Detalle</button>
                                                             </div>
-                                                            <div class="item-planes" style="display: inline-block; width: 150px; height: 80px;border: 1px solid orange; padding: 10px; margin: 5px;">
-                                                                    Plan 1<br>
-                                                                    <a href="/fgfg">Ver Detalle</a>
-                                                                </div>
-                                                                <div class="item-planes" style="display: inline-block; width: 150px; height: 80px;border: 1px solid orange; padding: 10px; margin: 5px;">
-                                                                        Plan 1
-                                                                        <br>
-                                                                    <a href="/fgfg">Ver Detalle</a>
-                                                                </div>
+                                                            <div class="item-planes" id="plan2" (click)="seleccionarPlan('plan2')">
+                                                                Max Internacional 99.90 <br>
+                                                                <span>S/ 99.90 al mes</span>
+                                                                <button  class="btn btn-link" data-toggle="modal" data-target="#modalPlan" >Ver Detalle</button>
+                                                            </div>
+                                                            <div class="item-planes" id="plan3" (click)="seleccionarPlan('plan3')">
+                                                                Max Internacional 99.90 <br>
+                                                                <span>S/ 99.90 al mes</span>
+                                                                <button  class="btn btn-link" data-toggle="modal" data-target="#modalPlan" >Ver Detalle</button>
+                                                            </div>
+
 
                                                         </div>
                                                     </div>
@@ -223,10 +226,37 @@
                     <img src="assets/images/logomarca.jpg" alt="" width="500px" height="250px">
              </mat-tab>
             <mat-tab label="Garantia">
-                Informacion de la garabntia
+                Informacion de la garantia
             </mat-tab>
           </mat-tab-group>
     </div>
     
     
 </div>
+
+
+
+<!-- Modal detalle de Plan -->
+<div class="modal fade" id="modalPlan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog"  role="document" style="max-width: 65% !important; margin-left: auto; margin-right: auto; padding-top: 5%;">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: orange;color: white;">
+          <h4 class="modal-title">Max Internacional 99.90</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            Contenido del plan
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="color: white; background-color: orange;">Cerrar</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

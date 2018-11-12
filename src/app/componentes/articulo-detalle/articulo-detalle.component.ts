@@ -13,7 +13,20 @@ export class ArticuloDetalleComponent implements OnInit {
   ngOnInit() {
 
   }
+  seleccionarPlan(idplan){
 
+    var planes = document.getElementsByClassName("item-planes");
+    for(var i=0;i<planes.length;i++){
+      var plan =planes[i] as HTMLDivElement;
+      plan.style.border = "1px solid  orange "
+      plan.style.backgroundColor = "white";
+      plan.style.color="black"; 
+    }
+    var plan = document.getElementById(idplan) as HTMLDivElement;
+    plan.style.border = "1px solid  white "
+    plan.style.backgroundColor = "orange";
+    plan.style.color="white"; 
+  }
   mouse_over(){
 
     if(true){

@@ -50,6 +50,23 @@
     content: url("/assets/images/star2.png");
 }
 
+.item-planes{
+    display: inline-block; 
+    width: 150px; 
+    height: 140px;
+    border: 1px solid orange; 
+    padding: 10px; 
+    margin: 5px;
+    border-radius: 12px;    
+
+}
+.item-planes:hover{
+    background-color: rgba(175, 172, 165, 0.397);
+    cursor: pointer;
+
+}
+
+
 /* navagador chrome*/
 .list-image::-webkit-scrollbar-track
 {
@@ -176,7 +193,7 @@
     }
     .image-select{
         position: relative;
-        width: 50%;
+        width: 45%;
         padding: 5px;
         padding-left: 130px;
         height: 340px;
@@ -190,7 +207,7 @@
         overflow-y: scroll;
         margin-bottom: 20px;
         top: 0px;
-        height: 100%;
+        height: 70%;
         margin-left: 20px;
     }
     .list-image::-webkit-scrollbar
@@ -210,7 +227,7 @@
     .info-articulo{
         position: relative;
         top: 0px;
-        left: 50%;
+        left: 45%;
         width: 50%;
         border: 1px solid rgb(255, 255, 255);
         margin-top:-350px;

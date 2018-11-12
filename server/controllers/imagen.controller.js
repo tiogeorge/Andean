@@ -24,14 +24,17 @@ const imagenController = {};
 
 
 imagenController.subirImagen = function (req,res){
-    imageCompressorRun([`${input}/*.{jpg,jpeg,png}`], output, compressorPlugins)
+
+    
+    //Comprimir imagen
+    /*imageCompressorRun([`${input}/*.{jpg,jpeg,png}`], output, compressorPlugins)
     .then(()=>{
         console.log("se comprimio correctamente");
         res.json({
             exito: true,
             msg: 'Imagen subida y comprimida'
           });
-    });
+    });*/
 
 }
 imagenController.obtenerImagen = async (req,res)=>{
