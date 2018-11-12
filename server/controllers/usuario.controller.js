@@ -48,6 +48,7 @@ usuarioController.loginUsuario = async (req, res, next) => {
         estado: false
       });
     } else {
+      req.session.cont = req.session.cont ? req.session.cont + 1 : 1;
       res.json({
         status: 'Iniciando sesión.',
         estado: true
@@ -58,22 +59,23 @@ usuarioController.loginUsuario = async (req, res, next) => {
 
 usuarioController.loginAdmin = async (req, res, next) => {
   req.getConnection(function (error, conn) {
-    var consulta = "SELECT * FROM taempleados WHERE  idEmpleado = '" + req.body.usuario + "' AND Contrasenia = '" + req.body.password + "'";
-    conn.query(consulta, function(err, rows, fields) {
+    var consulta = "call spuPrin_IniciarSesionUsuario(?,?,?)";
+    var valores = [req.body.usuario, req.body.password, 'web'];
+    conn.query(consulta, valores, function(err, rows, fields) {
       if(err) throw err        
       // if user not found
-      if (rows.length <= 0) {
+      // Se obtiene mensaje, idEmpleado, Nombres, idTipoUusario
+      if (results[0] == 'HECHO'){
+        res.json({
+          status: 'Iniciando sesión',
+          estado: true
+        });
+      }else {
         res.json({
           status: 'Usuario y/o contraseña incorrecta.',
           estado: false
         });
       }
-      else {
-        res.json({
-          status: 'Iniciando sesión.',
-          estado: true
-        })
-      }   
     })
   });
 }
