@@ -6,13 +6,11 @@ const mysql = require('mysql');
 const myConnection  = require('express-myconnection');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const {mongoose} = require('./config/database');
+const mongoose = require('./config/database');
 const MongoStore = require('connect-mongo')(session);
 
 // Setting
 app.set('port',process.env.PORT || 3000);
-
-const MONGO_URL = 'mongodb://127.0.0.1:27017/andeanstore';
 
 var config = require('./config/mysql')
 var dbOptions = {
@@ -41,7 +39,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({
-        url: MONGO_URL,
+        mongooseConnection: mongoose.connection,
         autoReconnect: true
     })
 }));
