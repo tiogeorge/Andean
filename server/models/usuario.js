@@ -27,6 +27,20 @@ const usuarioSchema = new Schema({
   fecha_afiliacion: {
     type: Date,
     default: Date.now
+  },
+  tipoDocumento: {
+    type: String,
+    default: "DNI"
+  },
+  numeroDocumento: {
+    type: String,
+    default: ""
+  },
+  sexo: {
+    type: String
+  },
+  fechaNacimiento: {
+    type: Date
   }
 });
 usuarioSchema.indexes({

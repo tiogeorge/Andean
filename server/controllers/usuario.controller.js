@@ -6,12 +6,16 @@ const salt = bcrypt.genSaltSync();
 usuarioController.actualizarUsuario = async (req, res, next) => {
   try {
     const user = {
+      tipoDocumento: req.body.tipoDocumento,
+      numeroDocumento: req.body.numeroDocumento,
       nombres: req.body.nombres,
       apellidos: req.body.apellidos,
-      promociones: req.body.promociones
+      promociones: req.body.promociones,
+      sexo: req.body.sexo,
+      fechaNacimiento: req.body.fechaNacimiento
     }
-    const usuario = await Usuario.findOneAndUpdate({
-      id: req.params.id
+    const usuario = await Usuario.updateOne({
+      id: req.body._id
     }, {
       $set: user
     }, {
@@ -25,7 +29,7 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
   } catch (err) {
     res.json({
       status: 0,
-      mensaje: " No se pudo actulizar los datos de la categoria : ERROR:" + err
+      mensaje: "No se pudo actulizar los datos de la categoria : ERROR:" + err
 
     });
   }
@@ -47,7 +51,11 @@ usuarioController.crearUsuario = async (req, res, next) => {
       nombres: req.body.nombres.toUpperCase(),
       apellidos: req.body.apellidos.toUpperCase(),
       password: pass,
-      promociones: req.body.promociones
+      promociones: req.body.promociones,
+      tipoDocumento: req.body.tipoDocumento,
+      numeroDocumento: req.body.numeroDocumento,
+      sexo: req.body.sexo,
+      fechaNacimiento: req.body.fechaNacimiento
     });
     await usuario.save();
     res.json({
