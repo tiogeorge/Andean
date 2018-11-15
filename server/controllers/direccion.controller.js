@@ -1,0 +1,65 @@
+const Direccion = require('../models/direccion');
+const direccionController = {};
+
+direccionController.putDireccion = async (req, res, next) => {
+};
+
+direccionController.createDireccion = async (req, res, next) => {
+  try {
+    const direccion = new Direccion(
+      {
+        usuario : req.body.usuario,
+        direccion : req.body.direccion,
+        manzana : req.body.manzana,
+        nroLote : req.body.nroLote,
+        depInterior : req.body.depInterior,
+        urbanizacion :  req.body.urbanizacion,
+        referencia : req.body.referencia,
+        departamento : req.body.departamento,
+        provincia : req.body.provincia,
+        distrito : req.body.distrito,
+      }
+    );
+    await direccion.save();
+    res.json({
+      status : true,
+      msg: "Dirección añadida por éxito."
+    });
+  }catch(e)
+  {
+    res.json({
+      status: false,
+      error: "Error al insertar dirección: " + e
+    })
+  }
+};
+
+direccionController.deleteDireccion = async (req, res, next) => {
+  try {
+    await Direccion.remove({_id: req.params.id});
+    res.json({
+      status: true,
+      msg: "La dirección ha sido eliminada."
+    })
+  } catch (err) {
+    res.json({
+      status: false,
+      mensaje: "Se produjo el siguiente error al eliminar: " + err
+
+    });
+  }
+};
+
+direccionController.getDirecciones = async (req, res, next) => {
+  const direcciones = await Direccion.find({ usuario: req.params.correo});
+  res.json(direcciones);
+};
+
+direccionController.getDireccion = async (req, res, next) => {
+  const direccion = await Direccion.find({
+    id: req.params.id
+  });
+  res.json(direccion);
+};
+
+module.exports = direccionController;
