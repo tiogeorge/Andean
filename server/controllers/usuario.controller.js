@@ -14,22 +14,22 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
       sexo: req.body.sexo,
       fechaNacimiento: req.body.fechaNacimiento
     }
-    const usuario = await Usuario.updateOne({
-      id: req.body._id
+    const usuario = await Usuario.findOneAndUpdate({
+      _id: req.params.id
     }, {
       $set: user
     }, {
       new: false
     });
     res.json({
-      status: 1,
-      mensaje: "Usuario actualizado"
+      estado: true,
+      msg: "Usuario actualizado"
     });
 
   } catch (err) {
     res.json({
-      status: 0,
-      mensaje: "No se pudo actulizar los datos de la categoria : ERROR:" + err
+      estado: false,
+      msg: "No se pudo actulizar los datos de la categoria : ERROR:" + err
 
     });
   }
