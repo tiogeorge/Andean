@@ -25,7 +25,10 @@ const imagenController = {};
 
 imagenController.subirImagen = function (req,res){
 
-    
+    res.json({
+        estado: 1 ,
+        mensaje: 'Imagen subida'
+      });
     //Comprimir imagen
     /*imageCompressorRun([`${input}/*.{jpg,jpeg,png}`], output, compressorPlugins)
     .then(()=>{

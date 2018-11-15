@@ -17,12 +17,13 @@ categoriaController.crearCategoria = async (req, res) => {
         const categoria = new Categoria(req.body);
         await categoria.save();
         res.json({
-            estado:"guardado"
+            estado:1,
+            mensaje:"Categoria se guardo con exito"
         });
     }catch(e){  
-        res.json({
-            estado:"error",
-            mensaje:e
+        res.json({  
+            estado:0,
+            mensaje:"ERROR :"+e
         });
     }
 };
@@ -34,15 +35,15 @@ categoriaController.actualizarCategoria = async(req,res)=>{
             imagen: req.body.imagen,
             padre: req.body.padre
         }
-        const categoria = await Categoria.findOneAndUpdate({id:req.params.id},{$set: cat},{new: true});        
+        const categoria = await Categoria.findOneAndUpdate({_id:req.params.id},{$set: cat},{new: true});        
         res.json({
-            status:1,
+            estado:1,
             mensaje:"Se actuAlizaron los datos correctamente"
         });       
         
     }catch(err){
         res.json({
-            status:0,
+            estado:0,
             mensaje:" No se pudo actulizar los datos de la categoria : ERROR:"+ err                  
             
         });
@@ -52,15 +53,15 @@ categoriaController.actualizarCategoria = async(req,res)=>{
 categoriaController.eliminarCategoria = async (req,res)=>{
     try{
         
-        const categoria = await Categoria.remove({id:req.params.id});        
-        res.json({
-            status:1,
+        const categoria = await Categoria.remove({_id:req.params.id});        
+        res.json({  
+            estado:1,
             mensaje:"Se elimino los datos correctamente"
         });       
         
     }catch(err){
         res.json({
-            status:0,
+            estado:0,
             mensaje:" No se pudo eliminar los datos de la categoria : ERROR:"+ err                  
             
         });
