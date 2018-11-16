@@ -15,7 +15,7 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
       fechaNacimiento: req.body.fechaNacimiento
     }
     const usuario = await Usuario.findOneAndUpdate({
-      _id: req.params.id
+      _id: req.params.idrs
     }, {
       $set: user
     }, {

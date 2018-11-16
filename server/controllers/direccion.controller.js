@@ -2,6 +2,37 @@ const Direccion = require('../models/direccion');
 const direccionController = {};
 
 direccionController.putDireccion = async (req, res, next) => {
+  try {
+    const direccion = {
+      direccion: req.body.direccion,
+      manzana: req.body.manzana,
+      nroLote: req.body.nroLote,
+      depInterior: req.body.depInterior,
+      urbanizacion: req.body.urbanizacion,
+      referencia: req.body.referencia,
+      departamento: req.body.departamento,
+      provincia: req.body.provincia,
+      distrito: req.body.distrito
+    }
+    await Direccion.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: direccion
+    }, {
+      new: false
+    });
+    res.json({
+      status: true,
+      msg: "Dirección actualizada."
+    });
+
+  } catch (err) {
+    res.json({
+      status: false,
+      error: "Error al modificar la dirección: " + err
+
+    });
+  }
 };
 
 direccionController.createDireccion = async (req, res, next) => {
@@ -51,7 +82,7 @@ direccionController.deleteDireccion = async (req, res, next) => {
 };
 
 direccionController.getDirecciones = async (req, res, next) => {
-  const direcciones = await Direccion.find({ usuario: req.params.correo});
+  const direcciones = await Direccion.find();
   res.json(direcciones);
 };
 
