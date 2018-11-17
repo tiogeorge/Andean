@@ -4,12 +4,12 @@ const direccionController = {};
 direccionController.putDireccion = async (req, res, next) => {
   try {
     const direccion = {
-      direccion: req.body.direccion,
-      manzana: req.body.manzana,
+      direccion: req.body.direccion.toUpperCase(),
+      manzana: req.body.manzana.toUpperCase(),
       nroLote: req.body.nroLote,
       depInterior: req.body.depInterior,
-      urbanizacion: req.body.urbanizacion,
-      referencia: req.body.referencia,
+      urbanizacion: req.body.urbanizacion.toUpperCase(),
+      referencia: req.body.referencia.toUpperCase(),
       departamento: req.body.departamento,
       provincia: req.body.provincia,
       distrito: req.body.distrito
@@ -40,12 +40,12 @@ direccionController.createDireccion = async (req, res, next) => {
     const direccion = new Direccion(
       {
         usuario : req.body.usuario,
-        direccion : req.body.direccion,
-        manzana : req.body.manzana,
+        direccion : req.body.direccion.toUpperCase(),
+        manzana : req.body.manzana.toUpperCase(),
         nroLote : req.body.nroLote,
         depInterior : req.body.depInterior,
-        urbanizacion :  req.body.urbanizacion,
-        referencia : req.body.referencia,
+        urbanizacion :  req.body.urbanizacion.toUpperCase(),
+        referencia : req.body.referencia.toUpperCase(),
         departamento : req.body.departamento,
         provincia : req.body.provincia,
         distrito : req.body.distrito,
@@ -82,7 +82,7 @@ direccionController.deleteDireccion = async (req, res, next) => {
 };
 
 direccionController.getDirecciones = async (req, res, next) => {
-  const direcciones = await Direccion.find();
+  const direcciones = await Direccion.find({usuario: req.params.id});
   res.json(direcciones);
 };
 

@@ -8,8 +8,8 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
     const user = {
       tipoDocumento: req.body.tipoDocumento,
       numeroDocumento: req.body.numeroDocumento,
-      nombres: req.body.nombres,
-      apellidos: req.body.apellidos,
+      nombres: req.body.nombres.toUpperCase(),
+      apellidos: req.body.apellidos.toUpperCase(),
       promociones: req.body.promociones,
       sexo: req.body.sexo,
       fechaNacimiento: req.body.fechaNacimiento
@@ -22,14 +22,14 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
       new: false
     });
     res.json({
-      estado: true,
-      msg: "Usuario actualizado"
+      status: true,
+      msg: "Los datos del usuario se han actualizado con éxito."
     });
 
   } catch (err) {
     res.json({
-      estado: false,
-      msg: "No se pudo actulizar los datos de la categoria : ERROR:" + err
+      status: false,
+      error: "Se produjo un error al actualizar los datos del usuario: " + err
 
     });
   }
@@ -41,8 +41,8 @@ usuarioController.crearUsuario = async (req, res, next) => {
   });
   if (user.length != 0) {
     res.json({
-      exito: false,
-      msg: 'Usuario ya existe'
+      status: false,
+      error: 'El correo electrónico del usuario ya existe.'
     });
   } else {
     var pass = bcrypt.hashSync(req.body.password, salt);
@@ -59,8 +59,8 @@ usuarioController.crearUsuario = async (req, res, next) => {
     });
     await usuario.save();
     res.json({
-      exito: true,
-      msg: 'Usuario creado'
+      status: true,
+      msg: 'El usuario se ha creado con éxito.'
     });
   }
 };
@@ -103,13 +103,13 @@ usuarioController.loginAdmin = async (req, res, next) => {
         req.session.usuario = req.session.usuario ? req.session.usuario : results[0][0].Nombres;
         req.session.idTipoUsuario = req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario;
         res.json({
-          status: 'Iniciando sesión',
-          estado: true
+          status: true,
+          msg: 'Iniciando sesión'
         });
       } else {
         res.json({
-          status: 'Usuario y/o contraseña incorrecta',
-          estado: false
+          status: false,
+          errror: 'El usuario y/o contraseña son incorrectas.'
         });
       }
     })
@@ -122,8 +122,8 @@ usuarioController.loginUsuario = async (req, res, next) => {
   });
   if (usuario.length == 0) {
     res.json({
-      status: 'El usuario no existe',
-      estado: false
+      status: false,
+      error: 'El usuario no existe'
     });
   } else {
     console.log(req.body.password);
@@ -131,14 +131,14 @@ usuarioController.loginUsuario = async (req, res, next) => {
     var login = bcrypt.compareSync(req.body.password, usuario[0].password);
     if (!login) {
       res.json({
-        status: 'Su usuario y/o contraseña son incorrectos.',
-        estado: false
+        status: false,
+        error: 'Su usuario y/o contraseña son incorrectos'
       });
     } else {
       req.session.cont = req.session.cont ? req.session.cont + 1 : 1;
       res.json({
-        status: 'Iniciando sesión.',
-        estado: true
+        status: true,
+        msg: 'Iniciando sesión'
       });
     }
   }
