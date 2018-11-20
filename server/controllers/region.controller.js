@@ -16,7 +16,7 @@ RegionController.putRegion = async (req, res, next) => {
     });
     res.json({
       status: true,
-      msg: "Dirección actualizada."
+      msg: "La información se actualizó con éxito."
     });
 
   } catch (err) {
@@ -39,7 +39,7 @@ RegionController.createRegion = async (req, res, next) => {
     await region.save();
     res.json({
       status : true,
-      msg: 'Región ingresada con éxito.'
+      msg: 'La información ha sido ingresada con éxito.'
     })
   }catch (e){
     res.json({
@@ -47,11 +47,22 @@ RegionController.createRegion = async (req, res, next) => {
       error : 'Error al insertar una región: ' + e
     })
   }
-
 };
 
 RegionController.deleteRegion = async (req, res, next) => {
-  
+  try{
+    await Region.remove({_id:req.params.id});
+    res.json({
+      status: true,
+      msg : 'La región ha sido eliminada con éxito'
+    })
+}catch(err){
+    res.json({
+        status: false,
+        error:"La región no se pudo eliminar: "+ err                  
+        
+    });
+}
 };
 
 RegionController.getRegiones = async (req, res, next) => {
