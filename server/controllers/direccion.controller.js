@@ -54,7 +54,7 @@ direccionController.createDireccion = async (req, res, next) => {
     await direccion.save();
     res.json({
       status : true,
-      msg: "Dirección añadida por éxito."
+      msg: "Dirección añadida con éxito."
     });
   }catch(e)
   {

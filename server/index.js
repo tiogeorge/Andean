@@ -50,6 +50,7 @@ app.use('/api/imagenes', require('./routes/imagen.routes'));
 app.use('/api/categorias', require('./routes/categoria.routes'));
 app.use('/api/dir', require('./routes/direccion.routes'));
 app.use('/api/articulos', require('./routes/articulo.routes'));
+app.use('/api/re', require('./routes/region.routes'));
 
 app.listen(app.get('port'),()=>{
     console.log('Servidor corriendo en el puerto ',app.get('port'));
