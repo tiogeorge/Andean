@@ -54,7 +54,7 @@ categoriaController.actualizarCategoria = async(req,res)=>{
         const categoria = await Categoria.findOneAndUpdate({_id:req.params.id},{$set: cat},{new: true});        
         res.json({
             estado:1,
-            mensaje:"Se actuAlizaron los datos correctamente"
+            mensaje:"Se actualizaron los datos correctamente"
         });       
         
     }catch(err){
