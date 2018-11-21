@@ -34,11 +34,11 @@ export class RegistroComponent implements OnInit {
       this.usuarioService.registrarUsuario(form.value).subscribe(res => {
         var sres = JSON.stringify(res);
         var jres = JSON.parse(sres);
-        if(jres.exito){
-          this.flashMessage.showFlashMessage({messages: ['Su cuenta se ha creado con éxito'], timeout: 5000, dismissible: true, type: 'success'});
+        if(jres.status){
+          this.flashMessage.showFlashMessage({messages: jres.msg, timeout: 5000, dismissible: true, type: 'success'});
           this.router.navigate(['/login']);
         } else {
-          this.flashMessage.showFlashMessage({messages: ['El correo electrónico usado ya existe'], timeout: 5000,dismissible: true, type: 'danger'});
+          this.flashMessage.showFlashMessage({messages: jres.error, timeout: 5000,dismissible: true, type: 'danger'});
           this.resetForm(form)
         }
       });
