@@ -4,17 +4,42 @@ const articuloController = {};
 
 
 articuloController.obtenerArticulosMysql = async( req, res)=>{
-    req.getConnection(function (error, conn){
-        var consulta = "SELECT idArticulo, Descripcion FROM taarticulo WHERE fnAS_StockArticulo(idArticulo) > 0 AND idTipoProducto='1'";
-        conn.query(consulta, function (err, results) {
-            if (err){
-                console.log(err);
-            }else{
-                res.json(results);
-            } 
-            
+    try{
+        req.getConnection(function (error, conn){
+            var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0";
+            conn.query(consulta, function (err, results) {
+                if (err){
+                    console.log(err);
+                    res.json({
+                        estado :"0",
+                        mensaje:"ERROR: "+err
+                    });
+                }else{
+                    var jsonArticulos = JSON.parse(JSON.stringify(results));
+                    
+                    for(var i = 0;i<jsonArticulos.length;i++){
+                        const articulomongo = Articulo.findOne({
+                            idarticulo:jsonArticulos[i].idArticulo
+                        });
+                        if(articulomongo.length>0){
+                            jsonArticulos[i].Categoria = articulomongo.categoria;
+                            jsonArticulos[i].Estado = "1";
+                        }else{
+                            jsonArticulos[i].Categoria = "SIN CATEGORIA";
+                            jsonArticulos[i].Estado = "0";
+                        }
+                        
+                    }
+                    res.json(jsonArticulos);
+                } 
+            });
+            if(error){
+                console.log(error);
+            }
         });
-    });
+    }catch(e){
+        console.log(e);
+    }
     
 }
 articuloController.obtenerArticulo = async(req,res)=>{
