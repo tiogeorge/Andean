@@ -3,7 +3,7 @@ const distribuidorcontroller = {};
 
 distribuidorcontroller.obtenerDistriMysql = async (req, res) => {
     req.getConnection(function (error, conn) {
-        var consulta = "";
+        var consulta = "SELECT idProveedorRUC, RazonSocial, NombreRepresentante,DNIRepresentante,TelefonoA,CorreoElectronico,Web,fnRep_NombreCiudad(IdCiudad) AS 'Ciudad',Direccion FROM `taproveedor` WHERE Activo='S'";
         conn.query(consulta, function (err, results) {
             if (err) {
                 console.log(err);
