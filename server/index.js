@@ -52,6 +52,7 @@ app.use('/api/dir', require('./routes/direccion.routes'));
 app.use('/api/articulos', require('./routes/articulo.routes'));
 app.use('/api/re', require('./routes/region.routes'));
 app.use('/api/marca',require('./routes/marca.routes'));
+app.use('/api/caracteristica', require('./routes/caracteristica.route'));
 
 app.listen(app.get('port'),()=>{
     console.log('Servidor corriendo en el puerto ',app.get('port'));

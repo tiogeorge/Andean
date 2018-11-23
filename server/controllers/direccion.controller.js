@@ -25,12 +25,10 @@ direccionController.putDireccion = async (req, res, next) => {
       status: true,
       msg: "Dirección actualizada."
     });
-
   } catch (err) {
     res.json({
       status: false,
       error: "Error al modificar la dirección: " + err
-
     });
   }
 };
@@ -75,7 +73,7 @@ direccionController.deleteDireccion = async (req, res, next) => {
   } catch (err) {
     res.json({
       status: false,
-      mensaje: "Se produjo el siguiente error al eliminar: " + err
+      error: "Se produjo el siguiente error al eliminar: " + err
 
     });
   }
