@@ -3,7 +3,7 @@ const distribuidorcontroller = {};
 
 distribuidorcontroller.obtenerDistriMysql = async (req, res) => {
     req.getConnection(function (error, conn) {
-        var consulta = "SELECT idProveedorRUC, RazonSocial, NombreRepresentante,DNIRepresentante,TelefonoA,CorreoElectronico,Web,fnRep_NombreCiudad(IdCiudad) AS 'Ciudad',Direccion FROM `taproveedor` WHERE Activo='S'";
+        var consulta = "SELECT idProveedorRUC, RazonSocial, NombreRepresentante,DNIRepresentante,TelefonoA,CorreoElectronico,Web,fnRep_NombreCiudad(IdCiudad) AS 'Ciudad',Direccion ,IF(Activo='S','no','si') AS Estado FROM `taproveedor` WHERE Activo='S'";
         conn.query(consulta, function (err, results) {
             if (err) {
                 console.log(err);
@@ -58,6 +58,7 @@ distribuidorcontroller.editarDistri = async (req, res) => {
             Web: req.body.Web,
             Ciudad: req.body.Ciudad,
             Direccion: req.body.Direccion,
+            Estado:req.body.Direccion,
         }
         const distri= await Distribuidor.findByIdAndUpdate({_id:req.params.id},{$set: art},{new: true});
         res.json({

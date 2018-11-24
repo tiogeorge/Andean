@@ -11,6 +11,7 @@ const distribuidorSchema = new Schema({
     Web:{type:String},
     Ciudad:{type:String,required:true},
     Direccion:{type:String,required:true},
+    Estado:{type:String,required:true},
 });
 
 module.exports=mongoose.model('Distribuidor',distribuidorSchema);
