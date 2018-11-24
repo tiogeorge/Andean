@@ -20,7 +20,7 @@ articuloController.obtenerArticulosMysql = async( req, res)=>{
                     for(var i = 0;i<jsonArticulos.length;i++){
                         const articulomongo = Articulo.findOne({
                             idarticulo:jsonArticulos[i].idArticulo
-                        });
+                        });     
                         if(articulomongo.length>0){
                             jsonArticulos[i].Categoria = articulomongo.categoria;
                             jsonArticulos[i].Estado = "1";

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;  
 const ArticuloSchema = new Schema({
     idarticulo:{ type: String, required: true, trim: true, lowercase: true},
-    nombre:{type:String, required: true},
+    titulo:{type:String, required: true},
     categoria:{type: String, required:true},
     marca:{type: String, required: true},
     cantidad:{type: String, required:true},
@@ -12,6 +12,7 @@ const ArticuloSchema = new Schema({
         nombre:{type: String, required:true},
         valor:{type: String, required: true}
     }],
+    imagenes:[String],
     descripcion:{type: String, require: true},
     garantias:[String]
     
