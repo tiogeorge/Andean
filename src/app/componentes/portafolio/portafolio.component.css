@@ -1,3 +1,30 @@
 .portfolio-item {
     margin-bottom: 30px;
   }
+  
+.img-portafolio{
+    height: 350px;
+}
+
+.card-text{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.texto-marca{
+  color: gray;
+}
+
+@media (min-width: 560px) {
+  width: 150px;
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  width: 200px;
+
+}
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+ width: 200px;
+}
