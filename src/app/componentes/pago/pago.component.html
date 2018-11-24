@@ -1,0 +1,64 @@
+<div id="contenido" class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      METODOS DE PAGO
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <label for="tipotarjeta">Tarjeta:</label>
+          <select class="form-control" name="tipotarjeta">
+            <option value="1">Visa</option>
+            <option value="2">Mastercard</option>
+            <option value="3">American Express</option>
+          </select>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label for="numerotarjeta">Numero de tarjeta:</label>
+          <input type="text" class="form-control" placeholder="Ingrese numero de tarjeta" name="numerotarjeta" />
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label for="nombretarjeta">Nombre de tarjeta:</label>
+          <input type="text" class="form-control" placeholder="Ingrese nombre de tarjeta" name="nombretarjeta" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <label for="anioexpiracion">Año Expiracion:</label>
+          <input type="text" class="form-control" placeholder="AA" name="anio" />
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label for="mesexpiracion">Mes Expiracion:</label>
+          <input type="text" class="form-control" placeholder="MM" name="mes" />
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <label for="diaexpiracion">Dia Expiracion:</label>
+          <input type="text" class="form-control" placeholder="DD" name="dia" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked class="text-muted"> He leido los <a href="#"> Terminos y Condiciones
+              </a> de Andean Technology
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked class="text-muted"> Almacenar informacion de tarjeta para siguiente compra
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row ">
+          <div class="col-md-6 col-sm-12">
+              <input type="submit" class="btn btn-warning btn-block" value="PAGAR" />
+            </div>
+        <div class="col-md-6 col-sm-12">
+          <input type="submit" class="btn btn-danger btn-block" value="CANCELAR" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
