@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage});
 
 
-router.get('/', imagen.obtenerImagen);
+router.get('/', imagen.getImagenes);
 router.post('/subir',upload.single('image'), imagen.subirImagen);
 
 module.exports = router;

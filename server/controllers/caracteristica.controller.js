@@ -20,6 +20,14 @@ caracteristicaController.createCaracteristica = async(req, res, next) => {
   }
 }
 
+caracteristicaController.getCaracteristica = async(req,res)=>{
+  const caracteristica = await Categoria.find({
+      id:req.params.id
+  });
+  res.json(caracteristica);
+
+}
+
 caracteristicaController.putCaracteristica = async(req, res, next) => {
   try{
     const caracteristica = {

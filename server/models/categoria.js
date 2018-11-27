@@ -5,6 +5,9 @@ const CategoriaSchema = new Schema({
     descripcion:{ type: String, required: true},
     imagen:{ type: String, required: true},
     padre:{ type: String, required: true},
-    caracteristicas: [{type: String}]
+    caracteristicas:[{
+        nombre : { type: String},
+        medida : { type: String}
+    }]
 });
 module.exports = mongoose.model('Categoria', CategoriaSchema);

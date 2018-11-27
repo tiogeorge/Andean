@@ -1,5 +1,6 @@
 const imagen = require('../models/imagen');
 const express = require('express');
+const fs = require('fs');
 
 //SDependencia para la compresion de la imagen
 const imagemin = require('imagemin');
@@ -7,6 +8,9 @@ const pngquant = require('imagemin-pngquant');
 const mozjpeg = require('imagemin-mozjpeg');
 const input= './imagenes/tmp';
 const output = './imagenes/compressed';
+
+
+
 
 
 
@@ -40,14 +44,14 @@ imagenController.subirImagen = function (req,res){
     });*/
 
 }
-imagenController.obtenerImagen = async (req,res)=>{
-    var form = "<!DOCTYPE HTML><html><body>" +
-"<form method='post' action='/api/imagenes/subir' enctype='multipart/form-data'>" +
-"<input type='file' name='image'/>" +
-"<input type='submit' /></form>" +
-"</body></html>";
-res.writeHead(200, {'Content-Type': 'text/html' });
-  res.end(form);
-
+imagenController.getImagenes = async (req,res)=>{
+    var listaimagenes = new Array();
+    fs.readdir('./imagenes/tmp', (err, files) => {
+        files.forEach(file => {
+            listaimagenes.push(file);
+        });
+        res.json(listaimagenes);
+      });
+      
 }
 module.exports = imagenController;

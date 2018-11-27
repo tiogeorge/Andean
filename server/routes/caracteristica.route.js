@@ -5,6 +5,7 @@ const caracteristica = require('../controllers/caracteristica.controller');
 
 router.post('/', caracteristica.createCaracteristica);
 router.get('/', caracteristica.getCaracteristicas);
+router.get('/:id', caracteristica.getCaracteristica);
 router.put('/:id', caracteristica.putCaracteristica);
 router.delete('/:id', caracteristica.deleteCaracteristica);
 
