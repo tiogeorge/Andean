@@ -23,7 +23,10 @@ marcacontroller.obtenerMarcas= async (req, res) =>{
 
 marcacontroller.crearMarca= async (req,res)=>{
     const marca=new Marca({
-        nombremarca:req.body.nombremarca
+         idMarca:req.body.idMarca,
+         nombremarca:req.body.nombremarca,
+         descripcion:req.body.descripcion,
+         imagen:req.body.imagen,
     });
     await marca.save();
     res.json({
