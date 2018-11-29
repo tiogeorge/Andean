@@ -23,6 +23,7 @@ import { CarritocomprasComponent } from './carritocompras/carritocompras.compone
 import { TerminosComponent } from './componentes/terminos/terminos.component';
 import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
 import { PagoComponent } from './componentes/pago/pago.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 const routes : Route[] = [
@@ -59,7 +60,8 @@ const routes : Route[] = [
     CarritocomprasComponent,
     TerminosComponent,
     PerfilUsuarioComponent,
-    PagoComponent
+    PagoComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,
