@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { Usuario } from '../../modelos/usuario';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  providers: [UsuarioService]
 })
 export class MenuComponent implements OnInit {
 
-  estalogeado : boolean;
-  nombre_tienda : string = 'Andean Store';
+  @Input() estaLogeado: boolean = false;
+  @Input() cliente: Usuario;
+  private nombre_tienda : string = 'Andean Store';
+  private usuarioService: UsuarioService;
 
-  constructor(
-    private usuarioService: UsuarioService
-  ) { 
-    this.estalogeado = usuarioService.estaLogeado;
+  constructor() { 
   }
 
   ngOnInit() {

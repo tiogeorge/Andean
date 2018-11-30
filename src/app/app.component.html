@@ -1,5 +1,3 @@
-<app-menu></app-menu>
-<router-outlet></router-outlet>
+<app-menu [estaLogeado]="estaLogeado" [cliente]="cliente"></app-menu>
+<router-outlet (deactivate)="logIn($event)"></router-outlet>
 <app-footer></app-footer>
-
-

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
@@ -11,7 +11,7 @@ import { Usuario } from '../../modelos/usuario';
   styleUrls: ['./login.component.css'],
   providers: [UsuarioService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private usuarioService: UsuarioService,
@@ -45,4 +45,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(){
+    var logvar = 'Luis se gue a su casa';
+  }
 }
