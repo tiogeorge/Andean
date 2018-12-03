@@ -1,62 +1,81 @@
-<div id="contenido" class="container-fluid">
-  <div class="card">
-    <div class="card-header">
-      METODOS DE PAGO
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table">
+        <tr>
+          <th><label style="font-weight: normal">Informacion de Envío<i class="material-icons">home</i></label></th>
+          <th><label style="font-weight: normal">Informacion de Pago<i class="material-icons">payment</i></label></th>
+          <th><label style="font-weight: normal">Resumen<i class="material-icons">library_books</i></label></th>
+        </tr>
+      </table>
+      <div>
+        <section class="example-section">
+          <mat-progress-bar [value]="68" style="height: 50px;">
+            <label>fsdfdsfsd</label>
+            <label>fsdfdsfsd</label>
+            <label>fsdfdsfsd</label>
+          </mat-progress-bar>
+        </section>
+      </div>
     </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4 col-sm-12">
-          <label for="tipotarjeta">Tarjeta:</label>
-          <select class="form-control" name="tipotarjeta">
-            <option value="1">Visa</option>
-            <option value="2">Mastercard</option>
-            <option value="3">American Express</option>
-          </select>
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <label for="numerotarjeta">Numero de tarjeta:</label>
-          <input type="text" class="form-control" placeholder="Ingrese numero de tarjeta" name="numerotarjeta" />
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <label for="nombretarjeta">Nombre de tarjeta:</label>
-          <input type="text" class="form-control" placeholder="Ingrese nombre de tarjeta" name="nombretarjeta" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 col-sm-12">
-          <label for="anioexpiracion">Año Expiracion:</label>
-          <input type="text" class="form-control" placeholder="AA" name="anio" />
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <label for="mesexpiracion">Mes Expiracion:</label>
-          <input type="text" class="form-control" placeholder="MM" name="mes" />
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <label for="diaexpiracion">Dia Expiracion:</label>
-          <input type="text" class="form-control" placeholder="DD" name="dia" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked class="text-muted"> He leido los <a href="#"> Terminos y Condiciones
-              </a> de Andean Technology
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked class="text-muted"> Almacenar informacion de tarjeta para siguiente compra
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="row ">
-          <div class="col-md-6 col-sm-12">
-              <input type="submit" class="btn btn-warning btn-block" value="PAGAR" />
+    <div class="col-lg-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="card">
+              <div class="card-header"><label>Direcciones</label></div>
+              <div class="card-body">
+                <div class="example-button-row">
+                  <button mat-fab color="primary">
+                    <mat-icon>home</mat-icon>
+                  </button>
+                  <button mat-fab style="margin-left: 125px;">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
             </div>
-        <div class="col-md-6 col-sm-12">
-          <input type="submit" class="btn btn-danger btn-block" value="CANCELAR" />
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="card">
+              <div class="card-header">
+                <label>Método de Pago</label>
+              </div>
+              <div class="card-body">
+                <mat-radio-group>
+                  <mat-radio-button value="1"><i class="material-icons">credit_card</i>Tarjeta de crédito o débito</mat-radio-button>
+                  <div id="datostarjeta">
+                    <hr>
+                    <mat-form-field class="example-form-field" style="font-size: 15px">
+                      <input style="font-size: 15px" matInput type="text" placeholder="Nombre del titular">
+                    </mat-form-field>
+                    <mat-form-field class="example-form-field">
+                      <input matInput type="text" placeholder="Número de la tarjeta">
+                    </mat-form-field>
+                  </div>
+                  <mat-radio-button value="2"><i class="material-icons">monetization_on</i>Pago en efectivo</mat-radio-button>
+                  <mat-radio-button value="3"><i class="material-icons">domain</i>Depósito bancario</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="card">
+              <div class="card-header"><label>Total</label></div>
+              <div class="card-body">
+                <p>SubTotal</p>
+                <p>Monto de envio</p>
+                <p>Total a pagar</p>
+              </div>
+              <div class="card-header">
+                <p>Fecha de entrega</p>
+              </div>
+              <div class="card-body">
+                <p>Producto</p>
+              </div>
+              <button class="btn btn-success">Finalizar Compra</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
