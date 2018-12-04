@@ -1,13 +1,16 @@
 const Articulo = require('../models/articulo');
+const Categoria = require('../models/categoria');
 const articuloController = {};
+var jsonArticulos;
 
 
 
 articuloController.obtenerArticulosMysql = async( req, res)=>{
-    try{
+    try{       
+
         req.getConnection(function (error, conn){
             var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0";
-            conn.query(consulta, function (err, results) {
+            conn.query(consulta, async function(err, results) {
                 if (err){
                     console.log(err);
                     res.json({
@@ -15,38 +18,54 @@ articuloController.obtenerArticulosMysql = async( req, res)=>{
                         mensaje:"ERROR: "+err
                     });
                 }else{
-                    var jsonArticulos = JSON.parse(JSON.stringify(results));
-                    
-                    for(var i = 0;i<jsonArticulos.length;i++){
-                        const articulomongo = Articulo.findOne({
-                            idarticulo:jsonArticulos[i].idArticulo
-                        });     
-                        if(articulomongo.length>0){
-                            jsonArticulos[i].Categoria = articulomongo.categoria;
-                            jsonArticulos[i].Estado = "1";
-                        }else{
-                            jsonArticulos[i].Categoria = "SIN CATEGORIA";
-                            jsonArticulos[i].Estado = "0";
-                        }
-                        
+                    jsonArticulos = JSON.parse(JSON.stringify(results));                    
+                    for(var i = 0;i<jsonArticulos.length;i++){                      
+                        await verificarArticulosMongo(jsonArticulos[i].idArticulo,i);
                     }
                     res.json(jsonArticulos);
+                   // console.log(jsonArticulos);
+                    
                 } 
             });
             if(error){
                 console.log(error);
+                res.json(error);
             }
         });
+
+        
     }catch(e){
         console.log(e);
     }
     
 }
+
+verificarArticulosMongo = async (id,i)=>{
+    try{
+        const articulomongo = await Articulo.find({
+            idarticulo:id
+        });   
+           
+        
+        if(articulomongo.length>0){
+            const categoriamongo = await Categoria.findById(articulomongo[0].categoria);
+            jsonArticulos[i].Categoria = categoriamongo.nombre;
+            jsonArticulos[i].Estado = "1";
+            console.log(jsonArticulos[i]);  
+        }else{
+            jsonArticulos[i].Categoria = "SIN CATEGORIA";
+            jsonArticulos[i].Estado = "0";
+        }
+    }catch(e){
+        console.log("currio un error");
+    }
+
+}
 articuloController.obtenerArticulo = async(req,res)=>{
     const articulo = await Articulo.find({
-        id:req.params.id
+        idarticulo:req.params.id
     });
-    res.json(categoria);
+    res.json(articulo);
 
 }
 
@@ -69,10 +88,12 @@ articuloController.crearArticulo= async (req, res) => {
         
         
     }catch(e){  
+        console.log(e);
         res.json({  
             estado:0,
             mensaje:"ERROR :"+e
         });
+
     }
 }
 articuloController.actualizarArticulo = async(req,res)=>{

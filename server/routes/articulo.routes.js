@@ -4,7 +4,7 @@ const router = express.Router();
 const articulo = require('../controllers/articulo.controller');
 
 router.get('/', articulo.obtenerArticulosMysql);
-//router.get('/:id', articulo.obtenerCategoria);
+router.get('/:id', articulo.obtenerArticulo);
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
 router.post('/', articulo.crearArticulo);
 router.put('/:id', articulo.actualizarArticulo);
