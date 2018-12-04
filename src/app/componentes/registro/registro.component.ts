@@ -13,11 +13,11 @@ import { UsuarioService } from '../../servicios/usuario/usuario.service';
 })
 
 export class RegistroComponent implements OnInit {
+  usuarioService: UsuarioService;
+  flashMessage: NgFlashMessageService;
+  router: Router;
 
   constructor(
-    private usuarioService: UsuarioService,
-    private flashMessage: NgFlashMessageService,
-    private router: Router
   ) 
   { }
 

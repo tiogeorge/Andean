@@ -12,8 +12,8 @@ export class MenuComponent implements OnInit {
 
   @Input() estaLogeado: boolean = false;
   @Input() cliente: Usuario;
-  private nombre_tienda : string = 'Andean Store';
-  private usuarioService: UsuarioService;
+  nombre_tienda : string = 'Andean Store';
+  usuarioService: UsuarioService;
 
   constructor() { 
   }

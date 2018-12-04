@@ -12,11 +12,11 @@ import { Usuario } from '../../modelos/usuario';
   providers: [UsuarioService]
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  usuarioService: UsuarioService;
+  flashMessage: NgFlashMessageService;
+  router: Router;
 
   constructor(
-    private usuarioService: UsuarioService,
-    private flashMessage: NgFlashMessageService,
-    private router: Router
   ) { }
 
   ngOnInit() {
