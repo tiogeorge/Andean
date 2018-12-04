@@ -96,6 +96,38 @@ articuloController.crearArticulo= async (req, res) => {
 
     }
 }
+
+
+articuloController.actualizarArticulo= async (req, res) => {
+    try{
+        const articulo = new Articulo(req.body);
+        if(articulo){
+            await articulo.save();
+            res.json({
+                estado:1,
+                mensaje:"Articulo se actualizo con exito."
+            });
+        }else{
+            res.json({
+                estado:0,
+                mensaje:"ERROR: Complete todos los datos."
+            });
+        }
+        
+        
+        
+    }catch(e){  
+        console.log(e);
+        res.json({  
+            estado:0,
+            mensaje:"ERROR :"+e
+        });
+
+    }
+}
+
+
+
 articuloController.actualizarArticulo = async(req,res)=>{
     try{
         const art = {
