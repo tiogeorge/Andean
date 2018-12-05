@@ -11,7 +11,8 @@ const usuarioSchema = new Schema({
   tipoDocumento: { type: String, default: "DNI" },
   numeroDocumento: { type: String, default: "" },
   sexo: { type: String },
-  fechaNacimiento: { type: Date }
+  fechaNacimiento: { type: Date },
+  token: { type: String }
 });
 usuarioSchema.indexes({
   correo: 1

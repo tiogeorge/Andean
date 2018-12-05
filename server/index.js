@@ -1,13 +1,14 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const app = express();
-const mysql = require('mysql');
+const express       = require('express');
+const cors          = require('cors');
+const morgan        = require('morgan');
+const app           = express();
+const mysql         = require('mysql');
 const myConnection  = require('express-myconnection');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const mongoose = require('./config/database');
-const MongoStore = require('connect-mongo')(session);
+const cookieParser  = require('cookie-parser');
+const session       = require('express-session');
+const mongoose      = require('./config/database');
+const MongoStore    = require('connect-mongo')(session);
+const jwt           = require('jsonwebtoken');
 
 // Setting
 app.set('port',process.env.PORT || 3000);
