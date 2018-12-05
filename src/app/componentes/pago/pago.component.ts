@@ -29,10 +29,15 @@ export interface Tipolocalenvio {
 })
 
 export class PagoComponent implements OnInit {
+  localselec:string='Tipo1';
   //stepper
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   //fin stepper
+  //nombreicondir
+  nombreicondir:string='add';
+  nombreiconselec:string='cancel';
+  //finnombre
   //chips
   visible = true;
   selectable = true;
@@ -137,9 +142,11 @@ export class PagoComponent implements OnInit {
   mostrarformdir() {
     if (document.getElementById('Agregardireccion').hidden == true) {
       document.getElementById('Agregardireccion').hidden = false;
+      this.nombreicondir='arrow_drop_down';
     }
     else{
       document.getElementById('Agregardireccion').hidden = true;
+      this.nombreicondir='add';
     }
   }
 
