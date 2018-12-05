@@ -1,65 +1,11 @@
 <!--stepps-->
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step class="mat-step2" [stepControl]="firstFormGroup" state="direc">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
-<!--fin stepps-->
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-12">
-      <table class="table">
-        <tr>
-          <th><label style="font-weight: normal">Informacion de Envío<i class="material-icons">home</i></label></th>
-          <th><label style="font-weight: normal">Informacion de Pago<i class="material-icons">payment</i></label></th>
-          <th><label style="font-weight: normal">Resumen<i class="material-icons">library_books</i></label></th>
-        </tr>
-      </table>
-      <div>
-        <section class="example-section">
-          <mat-progress-bar [value]="68" style="height: 50px;">
-            <label>fsdfdsfsd</label>
-            <label>fsdfdsfsd</label>
-            <label>fsdfdsfsd</label>
-          </mat-progress-bar>
-        </section>
-      </div>
-    </div>
-    <div class="col-lg-12">
+      <ng-template matStepLabel>Informacion de Envío</ng-template>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-6">
+          <div class="col-lg-8">
             <div class="card">
               <div class="card-header"><label>Direcciones</label></div>
               <div class="card-body">
@@ -67,48 +13,43 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-9">
-
-                       <!-- <div>
-                          <button mat-fab color="">
-                            <mat-icon>home</mat-icon>
-                          </button>
-                        </div>
-                        <div>
-                          <p style="font-size: 10px">Direccion 1:</p>
-                        </div>-->
                         <mat-form-field class="example-chip-list">
-                            <mat-chip-list #chipList>
-                              <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
-                                       [removable]="removable" (removed)="remove(fruit)" id="{{fruit.nombre}}" (click)=" direccionselec(fruit.nombre)" >
-                                {{fruit.nombre}}
-                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                              </mat-chip>
-                      
-                            </mat-chip-list>
-                          </mat-form-field>
+                          <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
+                              (removed)="remove(fruit)" id="{{fruit.nombre}}" (click)=" direccionselec(fruit.nombre)">
+                              {{fruit.nombre}}
+                              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+
+                          </mat-chip-list>
+                        </mat-form-field>
                       </div>
                       <div class="col-lg-3" style="width: 10px">
-                        <button mat-fab (click)="mostrarformdir()" >
+                        <button mat-fab (click)="mostrarformdir()">
                           <mat-icon>add</mat-icon>
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div id="Agregardireccion">
+                <div id="Agregardireccion" hidden>
                   <div class="card-header">Nueva dirección</div>
                   <div class="card-body">
-                    <div>
-                      <mat-form-field class="example-form-field" style="width: 250px">
-                        <input style="font-size: 15px" matInput type="text" placeholder="Teléfono/Celular">
+                    <p>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Teléfono/Celular</mat-label>
+                        <input matInput placeholder="Teléfono/Celular">
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                       </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-form-field class="example-form-field" style="width: 250px">
-                        <input style="font-size: 15px" matInput type="text" placeholder="Distrito/Ciudad">
+                    </p>
+                    <p>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Distrito/Ciudad</mat-label>
+                        <input matInput placeholder="Distrito/Ciudad">
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                       </mat-form-field>
-                    </div>
-                    <div>
+                    </p>
+                    <p>
                       <mat-form-field>
                         <mat-select placeholder="">
                           <mat-option *ngFor="let local of Local" [value]="local.value">
@@ -116,95 +57,117 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-form-field class="example-form-field" style="width: 250px">
-                        <input style="font-size: 15px" matInput type="text" placeholder="Direccion">
-                      </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-form-field class="example-form-field" style="width: 250px">
-                        <input style="font-size: 15px" matInput type="text" placeholder="Referencia">
-                      </mat-form-field>
-                    </div>
+                      <p>
+                        <p>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Direccion</mat-label>
+                            <input matInput placeholder="Direccion">
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                          </mat-form-field>
+                        </p>
+                        <p>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Referencia</mat-label>
+                            <input matInput placeholder="Referencia">
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                          </mat-form-field>
+                        </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="card">
-              <div class="card-header">
-                <label>Método de Pago</label>
-              </div>
-              <div class="card-body">
-                <mat-radio-group>
-                  <div>
-                    <mat-radio-button (click)="mostrarform(1)" value="1"><i class="material-icons">credit_card</i>Tarjeta
-                      de crédito o débito</mat-radio-button>
-                  </div>
-                  <div id="datostarjeta">
-                    <hr>
-                    <div>
-                      <mat-form-field class="example-form-field" style="width: 250px">
-                        <input style="font-size: 15px" matInput type="text" placeholder="Nombre del titular">
-                      </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-form-field class="example-form-field" style="width: 250px">
-                        <input matInput type="text" placeholder="Número de la tarjeta">
-                      </mat-form-field>
-                    </div>
-                    <mat-form-field style="width: 50px">
-                      <mat-select placeholder="Mes">
-                        <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
-                          {{Mes.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="width: 60px;margin-left: 30px;">
-                      <mat-select placeholder="Año">
-                        <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
-                          {{anho.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="width: 60px;margin-left: 30px;">
-                      <input matInput type="text" placeholder="CVV">
-                    </mat-form-field>
-                    <hr>
-                  </div>
-                  <div>
-                    <mat-radio-button (click)=" mostrarform(2)" value="2"><i class="material-icons">monetization_on</i>Pago
-                      en efectivo</mat-radio-button>
-                  </div>
-                  <div>
-                    <mat-radio-button (click)=" mostrarform(3)" value="3"><i class="material-icons">domain</i>Depósito
-                      bancario</mat-radio-button>
-                  </div>
-                </mat-radio-group>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="card">
-              <div class="card-header"><label>Total</label></div>
-              <div class="card-body">
-                <p>SubTotal</p>
-                <p>Monto de envio</p>
-                <p>Total a pagar</p>
-              </div>
-              <div class="card-header">
-                <p>Fecha de entrega</p>
-              </div>
-              <div class="card-body">
-                <p>Producto</p>
-              </div>
-              <button class="btn btn-success">Finalizar Compra</button>
-            </div>
-          </div>
         </div>
       </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" state="met">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Informacion de Pago</ng-template>
+      <div class="card">
+        <div class="card-header">
+          <label>Método de Pago</label>
+        </div>
+        <div class="card-body">
+          <mat-radio-group>
+            <div>
+              <mat-radio-button (click)="mostrarform(1)" value="1"><i class="material-icons">credit_card</i>Tarjeta
+                de crédito o débito</mat-radio-button>
+            </div>
+            <div id="datostarjeta" hidden>
+              <hr>
+              <p>
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre del titular</mat-label>
+                  <input matInput placeholder="Nombre del titular">
+                  <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field class="example-form-field" style="width: 250px">
+                  <input matInput type="text" placeholder="Número de la tarjeta">
+                </mat-form-field>
+              </p>
+              <mat-form-field style="width: 50px">
+                <mat-select placeholder="Mes">
+                  <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
+                    {{Mes.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field style="width: 60px;margin-left: 30px;">
+                <mat-select placeholder="Año">
+                  <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
+                    {{anho.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field style="width: 60px;margin-left: 30px;">
+                <input matInput type="text" placeholder="CVV">
+              </mat-form-field>
+              <hr>
+            </div>
+            <div>
+              <mat-radio-button (click)=" mostrarform(2)" value="2"><i class="material-icons">monetization_on</i>Pago
+                en efectivo</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button (click)=" mostrarform(3)" value="3"><i class="material-icons">domain</i>Depósito
+                bancario</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step state="res">
+    <ng-template matStepLabel>Resumen</ng-template>
+    <div class="card">
+      <div class="card-header"><label>Total</label></div>
+      <div class="card-body">
+        <p>SubTotal</p>
+        <p>Monto de envio</p>
+        <p>Total a pagar</p>
+      </div>
+      <div class="card-header">
+        <p>Fecha de entrega</p>
+      </div>
+      <div class="card-body">
+        <p>Producto</p>
+      </div>
+      <button class="btn btn-success">Finalizar Compra</button>
     </div>
-  </div>
-</div>
+  </mat-step>
+  <!--icons stepps-->
+  <ng-template matStepperIcon="direc" style="width: 50px">
+    <mat-icon>home</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="met">
+    <mat-icon>credit_card</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="res">
+    <mat-icon>my_library_books</mat-icon>
+  </ng-template>
+  <!--fin-->
+</mat-horizontal-stepper>
+<!--fin stepps-->

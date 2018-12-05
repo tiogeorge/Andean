@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 export interface NombreDirec {
   nombre: string;
@@ -21,12 +22,14 @@ export interface Tipolocalenvio {
 @Component({
   selector: 'app-pago',
   templateUrl: './pago.component.html',
-  styleUrls: ['./pago.component.css']
+  styleUrls: ['./pago.component.css'],
+  providers: [{
+    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
 
 export class PagoComponent implements OnInit {
   //stepper
-  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   //fin stepper
@@ -110,13 +113,18 @@ export class PagoComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
     //fin stepps
-    document.getElementById('datostarjeta').hidden = true;
-    document.getElementById('Agregardireccion').hidden = true;
+  //  document.getElementById('datostarjeta').hidden = true;
+    //document.getElementById('Agregardireccion').hidden = true;
   }
   mostrarform(value: string) {
     console.log(value);
     if (value == '1') {
-      document.getElementById('datostarjeta').hidden = false;
+      if (document.getElementById('datostarjeta').hidden == true) {
+        document.getElementById('datostarjeta').hidden = false;
+      }
+      else{
+        document.getElementById('datostarjeta').hidden = true;
+      }
     }
     if (value == '2') {
       document.getElementById('datostarjeta').hidden = true;
@@ -124,6 +132,7 @@ export class PagoComponent implements OnInit {
     if (value == '3') {
       document.getElementById('datostarjeta').hidden = true;
     }
+   
   }
   mostrarformdir() {
     if (document.getElementById('Agregardireccion').hidden == true) {

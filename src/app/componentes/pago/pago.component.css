@@ -22,3 +22,7 @@
     border-radius: 25px;
     margin-left: 115px;
   }  
+
+  mat-form-field.mat-form-field {
+    font-size: 15px;
+  }
