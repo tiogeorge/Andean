@@ -26,12 +26,70 @@
               <div class="card-header"><label>Direcciones</label></div>
               <div class="card-body">
                 <div class="example-button-row">
-                  <button mat-fab color="primary">
-                    <mat-icon>home</mat-icon>
-                  </button>
-                  <button mat-fab style="margin-left: 125px;">
-                    <mat-icon>add</mat-icon>
-                  </button>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-9">
+
+                       <!-- <div>
+                          <button mat-fab color="">
+                            <mat-icon>home</mat-icon>
+                          </button>
+                        </div>
+                        <div>
+                          <p style="font-size: 10px">Direccion 1:</p>
+                        </div>-->
+                        <mat-form-field class="example-chip-list">
+                            <mat-chip-list #chipList>
+                              <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                                       [removable]="removable" (removed)="remove(fruit)" id="{{fruit.nombre}}" (click)=" direccionselec(fruit.nombre)" >
+                                {{fruit.nombre}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                              </mat-chip>
+                      
+                            </mat-chip-list>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-lg-3" style="width: 10px">
+                        <button mat-fab (click)="mostrarformdir()" >
+                          <mat-icon>add</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="Agregardireccion">
+                  <div class="card-header">Nueva dirección</div>
+                  <div class="card-body">
+                    <div>
+                      <mat-form-field class="example-form-field" style="width: 250px">
+                        <input style="font-size: 15px" matInput type="text" placeholder="Teléfono/Celular">
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field class="example-form-field" style="width: 250px">
+                        <input style="font-size: 15px" matInput type="text" placeholder="Distrito/Ciudad">
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field>
+                        <mat-select placeholder="">
+                          <mat-option *ngFor="let local of Local" [value]="local.value">
+                            {{local.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field class="example-form-field" style="width: 250px">
+                        <input style="font-size: 15px" matInput type="text" placeholder="Direccion">
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field class="example-form-field" style="width: 250px">
+                        <input style="font-size: 15px" matInput type="text" placeholder="Referencia">
+                      </mat-form-field>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -43,18 +101,49 @@
               </div>
               <div class="card-body">
                 <mat-radio-group>
-                  <mat-radio-button value="1"><i class="material-icons">credit_card</i>Tarjeta de crédito o débito</mat-radio-button>
+                  <div>
+                    <mat-radio-button (click)="mostrarform(1)" value="1"><i class="material-icons">credit_card</i>Tarjeta
+                      de crédito o débito</mat-radio-button>
+                  </div>
                   <div id="datostarjeta">
                     <hr>
-                    <mat-form-field class="example-form-field" style="font-size: 15px">
-                      <input style="font-size: 15px" matInput type="text" placeholder="Nombre del titular">
+                    <div>
+                      <mat-form-field class="example-form-field" style="width: 250px">
+                        <input style="font-size: 15px" matInput type="text" placeholder="Nombre del titular">
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field class="example-form-field" style="width: 250px">
+                        <input matInput type="text" placeholder="Número de la tarjeta">
+                      </mat-form-field>
+                    </div>
+                    <mat-form-field style="width: 50px">
+                      <mat-select placeholder="Mes">
+                        <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
+                          {{Mes.viewValue}}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="example-form-field">
-                      <input matInput type="text" placeholder="Número de la tarjeta">
+                    <mat-form-field style="width: 60px;margin-left: 30px;">
+                      <mat-select placeholder="Año">
+                        <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
+                          {{anho.viewValue}}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
+                    <mat-form-field style="width: 60px;margin-left: 30px;">
+                      <input matInput type="text" placeholder="CVV">
+                    </mat-form-field>
+                    <hr>
                   </div>
-                  <mat-radio-button value="2"><i class="material-icons">monetization_on</i>Pago en efectivo</mat-radio-button>
-                  <mat-radio-button value="3"><i class="material-icons">domain</i>Depósito bancario</mat-radio-button>
+                  <div>
+                    <mat-radio-button (click)=" mostrarform(2)" value="2"><i class="material-icons">monetization_on</i>Pago
+                      en efectivo</mat-radio-button>
+                  </div>
+                  <div>
+                    <mat-radio-button (click)=" mostrarform(3)" value="3"><i class="material-icons">domain</i>Depósito
+                      bancario</mat-radio-button>
+                  </div>
                 </mat-radio-group>
               </div>
             </div>
