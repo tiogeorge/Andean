@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 const ArticuloSchema = new Schema({
     idarticulo:{ type: String, required: true, trim: true, lowercase: true},
     titulo:{type:String, required: true},
+    url:{type: String, required:true},
     categoria:{type: String, required:true},
     marca:{type: String, required: true},
     cantidad:{type: String, required:true},

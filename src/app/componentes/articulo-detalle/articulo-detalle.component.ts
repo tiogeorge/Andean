@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { ActivatedRoute } from "@angular/router";
+import { ArticuloDetalleService} from "./articulo-detalle.service";
+import { Articulo } from './articulo';
+import { Constantes} from '../constantes';
 
 @Component({
   selector: 'app-articulo-detalle',
@@ -8,10 +12,28 @@ import { DecimalPipe } from '@angular/common';
 })
 export class ArticuloDetalleComponent implements OnInit {
 
-  constructor() { }
+  articuloService: ArticuloDetalleService;
+  URL_IMAGENES = Constantes.URL_API_IMAGEN;
+  
+
+  constructor(private route: ActivatedRoute
+            , articuloService: ArticuloDetalleService) { 
+    this.articuloService = articuloService;
+
+  }
 
   ngOnInit() {
-
+    var url = this.route.snapshot.paramMap.get("id");
+    console.log("url imagenes "+this.URL_IMAGENES);
+    this.articuloService.getArticulo(url)
+    
+    .subscribe(res=>{
+      this.articuloService.articuloSeleccionado = res[0] as Articulo;
+      console.log(res);
+      this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
+      document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
+    });
+    
   }
   seleccionarPlan(idplan){
 
@@ -44,9 +66,7 @@ export class ArticuloDetalleComponent implements OnInit {
       console.log("se permite zoom");
     }else{
       console.log("no se permite el zoom de la iamgen");
-    }
-
-    
+    }  
 
   }
   mouse_out(){
@@ -93,7 +113,7 @@ export class ArticuloDetalleComponent implements OnInit {
   }
   cambiar_imagen(url){
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
-    imageseleccionada.src  = url;
+   imageseleccionada.src  = this.articuloService.url_imagenes+"/tmp/"+url;
   }
 
 }

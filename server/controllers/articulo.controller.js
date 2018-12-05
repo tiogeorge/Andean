@@ -68,6 +68,12 @@ articuloController.obtenerArticulo = async(req,res)=>{
     res.json(articulo);
 
 }
+articuloController.obtenerArticuloURL = async(req, res)=>{
+    const articulo = await Articulo.find({
+        url:req.params.id
+    });
+    res.json(articulo);
+}
 
 articuloController.crearArticulo= async (req, res) => {
     try{
