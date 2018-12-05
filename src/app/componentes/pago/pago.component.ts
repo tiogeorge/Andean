@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export interface NombreDirec {
   nombre: string;
@@ -24,6 +25,11 @@ export interface Tipolocalenvio {
 })
 
 export class PagoComponent implements OnInit {
+  //stepper
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  //fin stepper
   //chips
   visible = true;
   selectable = true;
@@ -93,9 +99,17 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor() { }
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    //stepps
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+    //fin stepps
     document.getElementById('datostarjeta').hidden = true;
     document.getElementById('Agregardireccion').hidden = true;
   }
