@@ -1,7 +1,9 @@
-const Usuario = require('../models/usuario');
-const bcrypt = require('bcrypt');
+const Usuario           = require('../models/usuario');
+const bcrypt            = require('bcrypt');
 const usuarioController = {};
-const salt = bcrypt.genSaltSync();
+const salt              = bcrypt.genSaltSync();
+const jwt               = require('jsonwebtoken');
+process.env.JWT_SECRET  = 'andeantechnology';
 
 usuarioController.actualizarUsuario = async (req, res, next) => {
   try {
@@ -36,7 +38,52 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
 };
 
 usuarioController.crearUsuario = async (req, res, next) => {
-  const user = await Usuario.find({
+  Usuario.findOne({correo: req.body.correo}, function(err, usuario){
+    if(err){
+      res.json({
+        status: false,
+        error: 'Se produjo el siguiente error: ' + err
+      });
+    } else {
+      if (usuario){
+        res.json({
+          status: false,
+          error: 'El correo electrónico ya esta siendo usado'
+        });
+      } else {
+        var pass = bcrypt.hashSync(req.body.password, salt);
+        var usuarioModel = new Usuario({
+          correo: req.body.correo,
+          nombres: req.body.nombres.toUpperCase(),
+          apellidos: req.body.apellidos.toUpperCase(),
+          password: pass,
+          promociones: req.body.promociones,
+          tipoDocumento: req.body.tipoDocumento,
+          numeroDocumento: req.body.numeroDocumento,
+          sexo: req.body.sexo,
+          fechaNacimiento: req.body.fechaNacimiento
+        });
+        usuarioModel.save(function(err, usuario){
+          usuario.token = jwt.sign(usuario.toJSON(), process.env.JWT_SECRET);
+          usuario.save(function(err, userToken){
+            if(err){
+              res.json({
+                status: false,
+                error: 'Se produjo el siguiente error: ' + err 
+              });
+            } else {
+              res.json({
+                status: true,
+                msg: 'El usuario ha sido creado con éxito',
+                token: userToken.token
+              });
+            }        
+          });
+        });
+      }
+    }
+  })
+  /*const user = await Usuario.find({
     correo: req.body.correo
   });
   if (user.length != 0) {
@@ -62,7 +109,7 @@ usuarioController.crearUsuario = async (req, res, next) => {
       status: true,
       msg: 'El usuario se ha creado con éxito.'
     });
-  }
+  }*/
 };
 
 usuarioController.eliminarUsuario = async (req, res, next) => {
@@ -117,31 +164,35 @@ usuarioController.loginAdmin = async (req, res, next) => {
 };
 
 usuarioController.loginUsuario = async (req, res, next) => {
-  const usuario = await Usuario.find({
-    correo: req.body.correo
-  });
-  if (usuario.length == 0) {
-    res.json({
-      status: false,
-      error: 'El usuario no existe'
-    });
-  } else {
-    console.log(req.body.password);
-    console.log(usuario[0].password);
-    var login = bcrypt.compareSync(req.body.password, usuario[0].password);
-    if (!login) {
+  Usuario.findOne({correo: req.body.correo}, function(err, usuario){
+    if(err){
       res.json({
         status: false,
-        error: 'Su usuario y/o contraseña son incorrectos'
+        error: 'Se produjo el siguiente error: ' + err
       });
     } else {
-      req.session.cont = req.session.cont ? req.session.cont + 1 : 1;
-      res.json({
-        status: true,
-        msg: 'Iniciando sesión'
-      });
+      if (usuario){
+        var login = bcrypt.compareSync(req.body.password, usuario.password);
+        if (login){
+          res.json({
+            status: true,
+            msg: 'Iniciando sesión',
+            token: usuario.token
+          });
+        } else {
+          res.json({
+            status: false,
+            error: 'Contraseña incorrecta'
+          })
+        }
+      } else {
+        res.json({
+          status: false,
+          error: 'El usuario no existe'
+        });
+      }
     }
-  }
+  })
 };
 
 usuarioController.obtenerUsuario = async (req, res, next) => {

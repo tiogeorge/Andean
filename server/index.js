@@ -56,6 +56,10 @@ app.use('/api/marca',require('./routes/marca.routes'));
 app.use('/api/caracteristica', require('./routes/caracteristica.route'));
 app.use('/api/distribuidor',require('./routes/distribuidor.routes'));
 
+process.on('uncaughtException', function(err) {
+    console.log(err);
+});
+
 app.listen(app.get('port'),()=>{
     console.log('Servidor corriendo en el puerto ',app.get('port'));
 });

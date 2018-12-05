@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario } from '../../modelos/usuario';
+import { Usuario } from '../perfil-usuario/usuario';
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
 
 @Component({
@@ -13,13 +13,15 @@ import { UsuarioService } from '../../servicios/usuario/usuario.service';
 })
 
 export class RegistroComponent implements OnInit {
-  usuarioService: UsuarioService;
-  flashMessage: NgFlashMessageService;
-  router: Router;
+  usuarioService  : UsuarioService;
+  flashMessage    : NgFlashMessageService;
+  router          : Router;
 
-  constructor(
-  ) 
-  { }
+  constructor(usuarioService: UsuarioService, flashMessage: NgFlashMessageService, router: Router){
+    this.usuarioService = usuarioService;
+    this.flashMessage   = flashMessage;
+    this.router         = router;
+   }
 
   ngOnInit() {
   }
@@ -35,10 +37,10 @@ export class RegistroComponent implements OnInit {
         var sres = JSON.stringify(res);
         var jres = JSON.parse(sres);
         if(jres.status){
-          this.flashMessage.showFlashMessage({messages: jres.msg, timeout: 5000, dismissible: true, type: 'success'});
+          this.flashMessage.showFlashMessage({messages: [jres.msg], timeout: 5000, dismissible: true, type: 'success'});
           this.router.navigate(['/login']);
         } else {
-          this.flashMessage.showFlashMessage({messages: jres.error, timeout: 5000,dismissible: true, type: 'danger'});
+          this.flashMessage.showFlashMessage({messages: [jres.error], timeout: 5000,dismissible: true, type: 'danger'});
           this.resetForm(form)
         }
       });
