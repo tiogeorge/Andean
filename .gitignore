@@ -2,6 +2,7 @@
 
 /server/config/database.js
 /server/config/mysql.js
+/server/dist
 # compiled output
 /dist
 /tmp
