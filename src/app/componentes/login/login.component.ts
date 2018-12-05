@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit {
       var jres = JSON.parse(JSON.stringify(res));
       if(jres.status){
         this.flashMessage.showFlashMessage({messages: [jres.msg], timeout: 5000, dismissible: true, type: 'success'});
-        this.usuarioService.estaLogeado = true;
-        this.usuarioService.setUsuarioLogeado(form.value);
         localStorage.setItem("_tk",jres.token);
         this.router.navigate(['/perfil-usuario']);       
       } else {

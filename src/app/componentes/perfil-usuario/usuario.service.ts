@@ -24,8 +24,7 @@ export class UsuarioService {
   }
 
   validarUsuario(usuario: Usuario){
-    if(usuario.apellidos == "" || usuario.nombres == ""
-      || usuario.password == "" || usuario.correo == ""){
+    if(usuario.apellidos == "" || usuario.nombres == "" || usuario.password == "" || usuario.correo == ""){
         return false;
       } else {
         return true;
@@ -36,14 +35,8 @@ export class UsuarioService {
     return this.http.post(this.URL_API + '/login',usuario);
   }
 
-  setUsuarioLogeado(usuario: Usuario){
-    this.estaLogeado = true;
-    this.usuarioLogeado = usuario;
-    localStorage.setItem('logIn', '1');
-  }
-
-  getUsuarioLogeado() {
-  	return localStorage.getItem('logIn');
+  getUsuarioLogeado(token: string) {
+  	return this.http.get(this.URL_API + '/' + token);
   }
 
 }

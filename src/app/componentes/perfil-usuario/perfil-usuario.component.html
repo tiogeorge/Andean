@@ -130,18 +130,18 @@
   <div class="card-header">
     DATOS PERSONALES
   </div>
-  <div class="card-body">
+  <div class="card-body" *ngIf="usuario">
     <label class="datoTitulo"> Nombres:</label>
-    <label class="dato">&nbsp;John</label>
+    <label class="dato">&nbsp;{{usuario.nombres}}</label>
     <br>
     <label class="datoTitulo">Apellidos:</label>
-    <label class="dato">&nbsp;Smith</label>
+    <label class="dato">&nbsp;{{usuario.apellidos}}</label>
     <br>
     <label class="datoTitulo">Correo:</label>
-    <label class="dato">&nbsp;john.smith@coolmail.com </label>
+    <label class="dato">&nbsp;{{usuario.correo}} </label>
     <br>
     <label class="datoTitulo">Fecha de Registro:</label>
-    <label class="dato">&nbsp;09/11/2018</label>
+    <label class="dato">&nbsp;{{usuario.fecha_afiliacion}}</label>
   </div>
 </div>
 </div>

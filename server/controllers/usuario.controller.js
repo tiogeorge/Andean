@@ -83,33 +83,6 @@ usuarioController.crearUsuario = async (req, res, next) => {
       }
     }
   })
-  /*const user = await Usuario.find({
-    correo: req.body.correo
-  });
-  if (user.length != 0) {
-    res.json({
-      status: false,
-      error: 'El correo electrónico del usuario ya existe.'
-    });
-  } else {
-    var pass = bcrypt.hashSync(req.body.password, salt);
-    const usuario = new Usuario({
-      correo: req.body.correo,
-      nombres: req.body.nombres.toUpperCase(),
-      apellidos: req.body.apellidos.toUpperCase(),
-      password: pass,
-      promociones: req.body.promociones,
-      tipoDocumento: req.body.tipoDocumento,
-      numeroDocumento: req.body.numeroDocumento,
-      sexo: req.body.sexo,
-      fechaNacimiento: req.body.fechaNacimiento
-    });
-    await usuario.save();
-    res.json({
-      status: true,
-      msg: 'El usuario se ha creado con éxito.'
-    });
-  }*/
 };
 
 usuarioController.eliminarUsuario = async (req, res, next) => {
@@ -196,10 +169,27 @@ usuarioController.loginUsuario = async (req, res, next) => {
 };
 
 usuarioController.obtenerUsuario = async (req, res, next) => {
-  const usuario = await Usuario.find({
-    id: req.params.id
-  });
-  res.json(usuario);
+  Usuario.findOne({ token: req.params.id}, function(err, usuario){
+    if(err){
+      res.json({
+        status: false,
+        error: 'Se produjo el siguiente error: ' + err
+      });
+    }else{
+      if(usuario){
+        res.json({
+          status: true,
+          data: usuario
+        });
+      }else {
+        res.json({
+          status: false,
+          error: 'No se encontró al usuario'
+        })
+      }
+      
+    }
+  })
 };
 
 module.exports = usuarioController;
