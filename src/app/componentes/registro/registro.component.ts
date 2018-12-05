@@ -3,7 +3,7 @@ import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from '../perfil-usuario/usuario';
-import { UsuarioService } from '../../servicios/usuario/usuario.service';
+import { UsuarioService } from '../perfil-usuario/usuario.service';
 
 @Component({
   selector: 'app-registro',

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UsuarioService } from '../../servicios/usuario/usuario.service';
+import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Usuario } from '../perfil-usuario/usuario';
 
 @Component({
