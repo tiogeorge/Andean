@@ -8,8 +8,8 @@
           <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-              <div class="card" style="border-color: orange">
-                <div class="card-header" style="border-color: orange">
+              <div class="card" style="border-color: orange;">
+                <div class="card-header" style="border-color: orange;">
                   <div class="container-fluid">
                     <div class="row">
                       <div class="col-lg-11">
@@ -44,20 +44,38 @@
                         <div class="row">
                           <div class="col-lg-4">
                             <mat-form-field appearance="outline">
-                              <mat-label>Teléfono/Celular</mat-label>
-                              <input matInput placeholder="Teléfono/Celular">
-                              <mat-icon matSuffix>local_phone</mat-icon>
+                              <mat-label>Departamento</mat-label>
+                              <input matInput placeholder="Departamento">
+                              <mat-icon matSuffix>local_library</mat-icon>
                             </mat-form-field>
                           </div>
                           <div class="col-lg-4">
                             <mat-form-field appearance="outline">
-                              <mat-label>Distrito/Ciudad</mat-label>
-                              <input matInput placeholder="Distrito/Ciudad">
+                              <mat-label>Provincia</mat-label>
+                              <input matInput placeholder="Provincia">
                               <mat-icon matSuffix>map</mat-icon>
                             </mat-form-field>
                           </div>
+                          <div class="col-lg-4">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Distrito</mat-label>
+                              <input matInput placeholder="Distrito">
+                              <mat-icon matSuffix>place</mat-icon>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-lg-8">
+                            <mat-form-field appearance="outline" style="width: 100%">
+                              <mat-label>Direccion</mat-label>
+                              <input matInput placeholder="Direccion">
+                              <mat-icon matSuffix>store_mall_directory</mat-icon>
+                            </mat-form-field>
+                          </div>
                           <div class="col lg 4">
-                            <mat-form-field>
+                            <mat-form-field style="width: 100%">
                               <mat-select [(value)]="localselec">
                                 <mat-option *ngFor="let local of Local" [value]="local.value">
                                   {{local.viewValue}}
@@ -69,19 +87,19 @@
                       </div>
                       <div class="container">
                         <div class="row">
-                          <div class="col-lg-6">
-                            <mat-form-field appearance="outline" style="width: 100%">
-                              <mat-label>Direccion</mat-label>
-                              <input matInput placeholder="Direccion">
-                              <mat-icon matSuffix>person_pin_circle</mat-icon>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-lg-6">
+                          <div class="col-lg-8">
                             <mat-form-field appearance="outline" style="width: 100%">
                               <mat-label>Referencia</mat-label>
                               <input matInput placeholder="Referencia">
-                              <mat-icon matSuffix>person_pin</mat-icon>
+                              <mat-icon matSuffix>rate_review</mat-icon>
                             </mat-form-field>
+                          </div>
+                          <div class="col-lg-4">
+                              <mat-form-field appearance="outline" style="width: 100%;">
+                                  <mat-label>Teléfono/Celular</mat-label>
+                                  <input matInput placeholder="Teléfono/Celular">
+                                  <mat-icon matSuffix>local_phone</mat-icon>
+                                </mat-form-field>
                           </div>
                         </div>
                       </div>
@@ -119,49 +137,52 @@
                   <mat-radio-group class="container-fluid">
                     <div class="row">
                       <div class="col-lg-4">
-                          <mat-radio-button style="font-size: 13px"  (click)="mostrarform(1)" value="1"><i class="material-icons">credit_card</i>Tarjeta de crédito o débito</mat-radio-button>
+                        <mat-radio-button style="font-size: 13px" (click)="mostrarform(1)" value="1"><i class="material-icons">credit_card</i>Tarjeta
+                          de crédito o débito</mat-radio-button>
                       </div>
                       <div class="col-lg-4">
-                          <mat-radio-button style="font-size: 13px" (click)=" mostrarform(2)" value="2"><i class="material-icons">monetization_on</i>Pago en efectivo</mat-radio-button>
+                        <mat-radio-button style="font-size: 13px" (click)=" mostrarform(2)" value="2"><i class="material-icons">monetization_on</i>Pago
+                          en efectivo</mat-radio-button>
                       </div>
                       <div class="col-lg-4">
-                          <mat-radio-button style="font-size: 13px" (click)=" mostrarform(3)" value="3"><i class="material-icons">domain</i>Depósito bancario</mat-radio-button>
+                        <mat-radio-button style="font-size: 13px" (click)=" mostrarform(3)" value="3"><i class="material-icons">domain</i>Depósito
+                          bancario</mat-radio-button>
                       </div>
                     </div>
                   </mat-radio-group>
                   <div id="datostarjeta" hidden>
-                      <hr>
-                      <p>
-                        <mat-form-field appearance="outline" style="width: 100%">
-                          <mat-label>Nombre del titular</mat-label>
-                          <input matInput placeholder="Nombre del titular">
-                          <mat-icon matSuffix>person</mat-icon>
-                        </mat-form-field>
-                      </p>
-                      <p>
-                        <mat-form-field class="example-form-field" style="width: 50%">
-                          <input matInput type="text" placeholder="Número de la tarjeta">
-                        </mat-form-field>
-                      </p>
-                      <mat-form-field style="width: 50px">
-                        <mat-select placeholder="Mes">
-                          <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
-                            {{Mes.viewValue}}
-                          </mat-option>
-                        </mat-select>
+                    <hr>
+                    <p>
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Nombre del titular</mat-label>
+                        <input matInput placeholder="Nombre del titular">
+                        <mat-icon matSuffix>person</mat-icon>
                       </mat-form-field>
-                      <mat-form-field style="width: 60px;margin-left: 30px;">
-                        <mat-select placeholder="Año">
-                          <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
-                            {{anho.viewValue}}
-                          </mat-option>
-                        </mat-select>
+                    </p>
+                    <p>
+                      <mat-form-field class="example-form-field" style="width: 50%">
+                        <input matInput type="text" placeholder="Número de la tarjeta">
                       </mat-form-field>
-                      <mat-form-field style="width: 60px;margin-left: 30px;">
-                        <input matInput type="text" placeholder="CVV">
-                      </mat-form-field>
-                      <hr>
-                    </div>
+                    </p>
+                    <mat-form-field style="width: 50px">
+                      <mat-select placeholder="Mes">
+                        <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
+                          {{Mes.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width: 60px;margin-left: 30px;">
+                      <mat-select placeholder="Año">
+                        <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
+                          {{anho.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width: 60px;margin-left: 30px;">
+                      <input matInput type="text" placeholder="CVV">
+                    </mat-form-field>
+                    <hr>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,21 +198,21 @@
           <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-header"><label>Total</label></div>
-                    <div class="card-body">
-                      <p>SubTotal</p>
-                      <p>Monto de envio</p>
-                      <p>Total a pagar</p>
-                    </div>
-                    <div class="card-header">
-                      <p>Fecha de entrega</p>
-                    </div>
-                    <div class="card-body">
-                      <p>Producto</p>
-                    </div>
-                    <button class="btn btn-success" style="background-color: orange">Finalizar Compra</button>
-                  </div>
+              <div class="card">
+                <div class="card-header"><label>Total</label></div>
+                <div class="card-body">
+                  <p>SubTotal</p>
+                  <p>Monto de envio</p>
+                  <p>Total a pagar</p>
+                </div>
+                <div class="card-header">
+                  <p>Fecha de entrega</p>
+                </div>
+                <div class="card-body">
+                  <p>Producto</p>
+                </div>
+                <button class="btn btn-success" style="background-color: orange">Finalizar Compra</button>
+              </div>
             </div>
             <div class="col-lg-2"></div>
           </div>
