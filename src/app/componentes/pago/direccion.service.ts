@@ -18,8 +18,8 @@ export class DireccionService {
      return this.http.post(this.URL_API,Direccion);
    }
    
-   ListarDireccion(){
-     return this.http.get(this.URL_API);
+   ListarDireccion(_id:string){
+     return this.http.get(this.URL_API +  `/${_id}`);
    }
    EliminarDireccion(_id:string){
      return this.http.delete(this.URL_API +  `/${_id}`);

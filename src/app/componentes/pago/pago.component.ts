@@ -1,9 +1,13 @@
+import { Router } from '@angular/router';
+import { Usuario } from './../perfil-usuario/usuario';
 import { Component, OnInit } from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
 import {FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
 import {MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { DireccionService } from './direccion.service';
 import { Direccion } from './direccion';
+import { UsuarioService } from '../perfil-usuario/usuario.service';
+
 
 export interface NombreDirec {
   nombre: string;
@@ -31,6 +35,11 @@ export interface Tipolocalenvio {
 })
 
 export class PagoComponent implements OnInit {
+  usuario:Usuario;
+  usuarioService: UsuarioService;
+  router: Router;
+  user:string='';
+  listdirecciones: string[];
   localselec:string='Tipo1';
   //stepper
   firstFormGroup: FormGroup;
@@ -109,7 +118,10 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, private direccionService:DireccionService ) { }
+  constructor(private _formBuilder: FormBuilder, private direccionService:DireccionService,usuarioService: UsuarioService, router: Router ) {
+    this.usuarioService = usuarioService;
+    this.router = router;
+   }
 
   ngOnInit() {
     //stepps
@@ -122,6 +134,19 @@ export class PagoComponent implements OnInit {
     //fin stepps
   //  document.getElementById('datostarjeta').hidden = true;
     //document.getElementById('Agregardireccion').hidden = true;
+    //recuperar usuario
+    this.usuarioService.getUsuarioLogeado(localStorage.getItem("_tk")).subscribe(res =>{
+      var jres = JSON.parse(JSON.stringify(res));
+      if(jres.status){
+        this.usuario = jres.data as Usuario;
+        console.log(this.usuario._id);
+        this.user=this.usuario._id;
+        this.ListarDireccion(this.usuario._id.toString());
+      }else{
+        this.router.navigate(['/']);
+      }
+    });
+    //fin recuperar
   }
   mostrarform(value: string) {
     console.log(value);
@@ -165,9 +190,16 @@ export class PagoComponent implements OnInit {
       console.log(res);
       this.resetForm(form);
       console.log('Direccion Agregada')
+      this.ListarDireccion(this.usuario._id);
     });
   }
-
+  ListarDireccion(id:string){
+    this.direccionService.ListarDireccion(id)
+    .subscribe(res=>{
+      this.direccionService.direccion=res as Direccion[];
+      console.log(res);
+    });
+  }
   //
 
 }
