@@ -1,27 +1,20 @@
 
-<div  class="cont-chat"  style="position: fixed; right: 0; bottom: 0;margin: 5px;width: 290px; height: 400px;" >
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+<div  id="ventana-chat" class="card shadow-lg bg-light" style="position: fixed; right: 0; bottom: 0;margin: 5px !important; z-index: 100;width: 290px; height: 450px;border:1px solid rgb(209, 209, 209);" hidden="true">
+  <div class="card-header" style="background-color: #212529; color: white; padding-top: 5px !important; padding-bottom: 5px !important;" >
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <div style="flex-grow:0; width: 95%;">
+        <label>Chat</label>
+      </div> 
+      <div style="flex-grow:0; width: 5%; margin-bottom: 5px; cursor: pointer;">
+        <i class="fa fa-close" (click)="cerrarChat()"></i>
+      </div>
+    </div>
+    
+    
+  </div>
 </div>
 
-<div style="position: fixed; right: 0; bottom: 0;margin: 5px; display: none;">
-  <button mat-fab color="primary">Primary</button>
+<div  id="btnchat" style="position: fixed; right: 0; bottom: 0;margin: 5px; z-index: 100;">
+  <button mat-fab color="primary"  (click)="mostrarChat()"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
 </div>
 

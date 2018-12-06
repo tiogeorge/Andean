@@ -22,4 +22,15 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  mostrarChat(){
+    console.log("mostando chat");
+    document.getElementById("btnchat").hidden=true;
+    document.getElementById("ventana-chat").hidden=false;
+  }
+  cerrarChat(){
+    document.getElementById("btnchat").hidden=false;
+    document.getElementById("ventana-chat").hidden=true;
+
+  }
+
 }
