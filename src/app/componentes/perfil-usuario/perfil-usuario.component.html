@@ -117,23 +117,18 @@
           <mat-form-field class="campo-form">
             <input matInput name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
               placeholder="Correo Electrónico" value="{{usuario.correo}}" disabled>
-          </mat-form-field> 
-          <mat-form-field class="campo-form">
-            <input matInput placeholder="Sexo" style="display: none">
-            <mat-radio-group name="sexo" #sexo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.sexo">
-              <mat-radio-button value="F">Femenino</mat-radio-button>
-              <mat-radio-button value="M">Masculino</mat-radio-button>
-            </mat-radio-group>
           </mat-form-field>
+          <mat-radio-group name="sexo" #sexo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.sexo">
+            <mat-radio-button value="F">Femenino</mat-radio-button>
+            <mat-radio-button value="M">Masculino</mat-radio-button>
+          </mat-radio-group>
           <mat-form-field class="campo-form">
             <input matInput placeholder="Fecha de Nacimiento">
           </mat-form-field>
           <mat-form-field class="campo-form">
             <input matInput placeholder="Fecha de Afiliación" value="{{usuario.fecha_afiliacion}}">
           </mat-form-field>
-         <!-- <mat-form-field class="campo-form">
-            <mat-checkbox>Promociones: </mat-checkbox>
-          </mat-form-field>-->
+          <mat-checkbox>Promociones: </mat-checkbox>
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="primary">Actualizar</button>
