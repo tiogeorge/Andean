@@ -9,6 +9,7 @@ const session       = require('express-session');
 const mongoose      = require('./config/database');
 const MongoStore    = require('connect-mongo')(session);
 const jwt           = require('jsonwebtoken');
+const socketIO      = require('socket.io');
 
 // Setting
 app.set('port',process.env.PORT || 3000);
@@ -60,6 +61,19 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
-app.listen(app.get('port'),()=>{
+const server = app.listen(app.get('port'),()=>{
     console.log('Servidor corriendo en el puerto ',app.get('port'));
 });
+
+// socket IO
+const io = socketIO(server);
+
+// web sockets
+io.on('connection',(socket)=>{
+    console.log("Nueva Conexion ID : "+socket.id);
+
+    socket.on('chat:mensaje',(data)=>{
+        console.log(data);
+        socket.emit('chat:mensaje',"Bienvenido desde Socket IO");
+    });
+})

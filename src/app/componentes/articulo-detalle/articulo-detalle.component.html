@@ -11,7 +11,7 @@
     </div>
 
     <div class="cont-images"  id="cont-images">
-        <div class="image-select"   id="imagen-grande-select"        >
+        <div class="image-select" id="imagen-grande-select"  (click)="abrirImagen()">
             <img class="imagen" src="" id="imagen-seleccionada" (mouseover)="mouse_over()" style="padding: 10px;">           
                         
         </div>
@@ -173,47 +173,8 @@
             <mat-tab label="Detalles del Producto" > 
                 <div class="ql-container ql-snow">
                 <div id="descripcion-articulo" class="ql-editor">
-
                 </div>
             </div>
-                    <!--<div class="card" style="width: 100%" style="">
-                        <div class="card-body">
-                            <h5 class="card-title" style=""> Caracteristicas del Articulo</h5>
-                            <hr style="background-color: rgba(255, 166, 0, 0.507); height: 1px;">
-                            <p class="card-text" style=""><br>
-                                    • 128 GB de memoria interna<br>
-                                    • 6 GB de RAM<br>
-                                    • Pantalla de 6.1 pulgadas<br>
-                                    • Bateria de 4000 mAh<br>
-                                    • Sistema Operativo Android<br><br>
-                            </p>
-
-                            <h5 class="card-title" style=""> Descripcion del Producto</h5>
-                            <hr style="background-color: rgba(255, 166, 0, 0.507); height: 1px;">
-                            <p class="card-text" style=""><br>
-                                Huawei P20 Pro 
-                                Lo mejor de Huawei en tus manos                        
-                                Traemos para ti, el nuevo Huawei P20 Pro equipado con tres cámaras de 40, 20 y 8 megapíxeles para que guardes tus mejores recuerdos.
-                              
-                                Este dispositivo cuenta con una pantalla de 6.1 pulgadas para que disfrutes los mejores videos y aplicaciones en tu equipo con Android.
-                             
-                                El móvil cuenta con una memoria interna de 128 GB y una memoria RAM de 6 GB para tus juegos y apps.
-                                
-                                Este celular cuenta con una bateria de 4000mAh para que lo disfrutes todo el día.
-                             
-                                Este equipo está optimizado para la eficiencia, fiabilidad y resistencia, este atractivo teléfono cabe cómodamente en una mano y se encuentra diseñado para adaptarse a sus necesidades, ofreciendo la versatilidad, funciones y eficacia que se necesitan para lograr realizar las diversas actividades que se puedan presentar en la vida diaria.
-                               
-                                El Huawei P20 Pro llega para sorprender a todos los usuarios y seguidores de la marca con la innovación y tecnología, que los caracteriza.
-                       
-                                Llegó el momento de cambiar, recuerda que lo mejor en Celulares y Smartphones lo encuentras aqui <br>
-                                
-                                <img  src="assets/images/imagen1.jpg" width="50%" height="50%" style="align-content: center; margin-left: 30%">
-                                
-                                
-                                
-                            </p>
-                        </div>
-                    </div>-->
             </mat-tab>
             <mat-tab label="Calificacion"> 
                     <br>
@@ -247,11 +208,20 @@
     
 </div>
 
-
+<!-- Modal Imagen -->
+<div class="modal fade" id="modalImagenZoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog"  role="document" style="max-width: 100% !important; max-height: 100% !important;margin-left: auto; margin-right: auto; padding-top: 5%;">
+        <div class="modal-content" style="height: 100%; margin-top: auto;margin-bottom:auto ">
+            <img src="" alt="" id="imagezoommobile" style="width: 100%; height: auto;  ">
+        </div>
+    </div>
+</div>
+<button data-toggle="modal" data-target="#modalImagenZoom" style="display:none;" id="btnzoommobile"></button>
+    
 
 <!-- Modal detalle de Plan -->
-<div class="modal fade" id="modalPlan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog"  role="document" style="max-width: 65% !important; margin-left: auto; margin-right: auto; padding-top: 5%;">
+<div class="modal fade" id="modalPlan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="vertical-align: middle_;">
+    <div class="modal-dialog"  role="document" style="max-width: 65% !important; margin-left: auto; margin-right: auto; padding-top: 5%;vertical-align: middle;">
       <div class="modal-content">
   
         <!-- Modal Header -->

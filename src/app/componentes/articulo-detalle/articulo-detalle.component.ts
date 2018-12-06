@@ -51,7 +51,7 @@ export class ArticuloDetalleComponent implements OnInit {
   }
   mouse_over(){
 
-    if(true){
+    if(screen.width>1024){
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
     let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
@@ -70,7 +70,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
   }
   mouse_out(){
-    if(true){
+    if(screen.width>1024){
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
     let imagen = document.getElementById("imagen-zoom") as HTMLImageElement;
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
@@ -83,6 +83,7 @@ export class ArticuloDetalleComponent implements OnInit {
     cont.style.display="none";
     console.log("salio de la la imagen");
       console.log("se permite zoom");
+      console.log("pantalla "+screen.height+"  ancho: "+screen.width);
     }else{
       console.log("no se permite el zoom de la iamgen");
     }
@@ -90,7 +91,7 @@ export class ArticuloDetalleComponent implements OnInit {
     
   }
   mouse_move(){
-    if(true){
+    if(screen.width>1024){
       console.log("se permite zoom");
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
       let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
@@ -114,6 +115,14 @@ export class ArticuloDetalleComponent implements OnInit {
   cambiar_imagen(url){
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
    imageseleccionada.src  = this.articuloService.url_imagenes+"/tmp/"+url;
+  }
+  abrirImagen(){
+    if(screen.width<=1024){
+      let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
+      var imagenzoom = document.getElementById("imagezoommobile") as HTMLImageElement;
+      imagenzoom.src = imageseleccionada.src;      
+      document.getElementById("btnzoommobile").click();
+    }
   }
 
 }
