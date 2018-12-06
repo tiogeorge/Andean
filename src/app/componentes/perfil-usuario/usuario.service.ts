@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from './usuario';
+import { catchError} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +41,16 @@ export class UsuarioService {
   	return this.http.get(this.URL_API + '/' + token);
   }
 
+  putUsuario(usuario: Usuario) {
+    return this.http.put(this.URL_API + `/${usuario._id}`, usuario).pipe(
+      catchError(this.handleError<any>('putUsuario'))
+    );
+  }
+
+  private handleError<T> (operation = 'operation', result?: T){
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
+  }
 }

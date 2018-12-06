@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsuarioService } from './usuario.service';
-import { Usuario } from './usuario';
+import { JitSummaryResolver } from '@angular/compiler';
 import { Router } from '@angular/router';
+import { UsuarioService } from './usuario.service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class PerfilUsuarioComponent implements OnInit {
   usuarioService: UsuarioService;
-  usuario: Usuario;
   router: Router;
   tiposDocumento: string[];
 
@@ -19,15 +18,26 @@ export class PerfilUsuarioComponent implements OnInit {
     this.usuarioService = usuarioService;
     this.router = router;
     this.tiposDocumento = ['DNI'];
-   }
+  }
 
   ngOnInit() {
     this.usuarioService.getUsuarioLogeado(localStorage.getItem("_tk")).subscribe(res =>{
       var jres = JSON.parse(JSON.stringify(res));
-      if(jres.status){
-        this.usuario = jres.data as Usuario;
+      if(jres.status){      
+        this.usuarioService.usuarioSeleccionado = jres.data;
       }else{
         this.router.navigate(['/']);
+      }
+    });
+  }
+
+  actualizar(){
+    this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res =>{
+      var jres = JSON.parse(JSON.stringify(res));
+      if(jres.status){
+
+      }else {
+
       }
     });
   }

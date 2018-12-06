@@ -1,5 +1,5 @@
 <mat-sidenav-container class="perfil">
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav mode="side" opened class="menuLateral">
     <mat-card>
       <mat-card-title>Mi cuenta</mat-card-title>
       <mat-card-content>
@@ -93,7 +93,7 @@
     </mat-card>
     <mat-card class="card-perfil">
       <mat-card-title>Datos Personales</mat-card-title>
-      <form #clienteForm="ngForm" class="datos-form" *ngIf="usuario" (ngSubmit)="actualizar(clienteForm)">
+      <form #clienteForm="ngForm" class="datos-form" *ngIf="usuarioService.usuarioSeleccionado">
         <mat-card-content>
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
           <mat-form-field class="campo-form">
@@ -107,32 +107,33 @@
               placeholder="Número de Documento">
           </mat-form-field>
           <mat-form-field class="campo-form">
-            <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres"
-              value="{{usuario.nombres}}">
+            <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres">
           </mat-form-field>
           <mat-form-field class="campo-form">
             <input matInput name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
-              placeholder="Apellidos" value="{{usuario.apellidos}}">
+              placeholder="Apellidos">
           </mat-form-field>
           <mat-form-field class="campo-form">
             <input matInput name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
-              placeholder="Correo Electrónico" value="{{usuario.correo}}" disabled>
+              placeholder="Correo Electrónico" disabled>
           </mat-form-field>
           <mat-radio-group name="sexo" #sexo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.sexo">
-            <mat-radio-button value="F">Femenino</mat-radio-button>
-            <mat-radio-button value="M">Masculino</mat-radio-button>
+            <mat-label>Sexo: &nbsp;</mat-label>
+            <mat-radio-button value="F">&nbsp;Femenino&nbsp;</mat-radio-button>
+            <mat-radio-button value="M">&nbsp;Masculino&nbsp;</mat-radio-button>
           </mat-radio-group>
           <mat-form-field class="campo-form">
-            <input matInput placeholder="Fecha de Nacimiento">
-          </mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" name="fechaNacimiento" #fechaNacimiento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fechaNacimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
           <mat-form-field class="campo-form">
-            <input matInput placeholder="Fecha de Afiliación" value="{{usuario.fecha_afiliacion}}">
+            <input matInput placeholder="Fecha de Afiliación" name="fecha_afiliacion" #fecha_afiliacion="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fecha_afiliacion"  disabled>
           </mat-form-field>
-          <mat-checkbox>Promociones: </mat-checkbox>
+          <mat-checkbox name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Promociones: </mat-checkbox>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary">Actualizar</button>
-          <button mat-raised-button color="accent">Limpiar Cambios</button>
+          <button mat-raised-button color="primary" (click)="actualizar()" >ACTUALIZAR MIS DATOS</button>
         </mat-card-actions>
       </form>
     </mat-card>
