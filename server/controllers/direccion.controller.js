@@ -5,14 +5,12 @@ direccionController.putDireccion = async (req, res, next) => {
   try {
     const direccion = {
       direccion: req.body.direccion.toUpperCase(),
-      manzana: req.body.manzana.toUpperCase(),
-      nroLote: req.body.nroLote,
-      depInterior: req.body.depInterior,
-      urbanizacion: req.body.urbanizacion.toUpperCase(),
       referencia: req.body.referencia.toUpperCase(),
       departamento: req.body.departamento,
       provincia: req.body.provincia,
-      distrito: req.body.distrito
+      distrito: req.body.distrito,
+      telefono:req.body.telefono,
+      tipolocal:req.body.tipolocal
     }
     await Direccion.findOneAndUpdate({
       _id: req.params.id
@@ -38,15 +36,13 @@ direccionController.createDireccion = async (req, res, next) => {
     const direccion = new Direccion(
       {
         usuario : req.body.usuario,
-        direccion : req.body.direccion.toUpperCase(),
-        manzana : req.body.manzana.toUpperCase(),
-        nroLote : req.body.nroLote,
-        depInterior : req.body.depInterior,
-        urbanizacion :  req.body.urbanizacion.toUpperCase(),
-        referencia : req.body.referencia.toUpperCase(),
         departamento : req.body.departamento,
         provincia : req.body.provincia,
         distrito : req.body.distrito,
+        direccion : req.body.direccion.toUpperCase(),
+        tipolocal:req.body.tipolocal,
+        referencia : req.body.referencia.toUpperCase(),
+        telefono:req.body.telefono
       }
     );
     await direccion.save();
