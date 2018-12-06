@@ -1,4 +1,15 @@
+.card-perfil {
+    margin: 10px 10px;
+}
 
+.campo-form {
+    width: 50%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+.datos-form {
+    width: 100%;
+}
 .card{
     margin: 1%;
 }

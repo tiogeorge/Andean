@@ -16,8 +16,8 @@
     <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda">
       <mat-icon id="icono-buscar" class="icono">search</mat-icon>
     </button>
-    <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu">
-      <mat-icon class="icono">account_circle</mat-icon>
+    <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu" >
+      <mat-icon class="icono" (click)='opciones()'>account_circle</mat-icon>
     </button>
     <mat-menu #usermenu="matMenu" class="menu-login">
       <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
-import { Usuario } from '../perfil-usuario/usuario';
 
 @Component({
   selector: 'app-menu',
@@ -10,8 +9,7 @@ import { Usuario } from '../perfil-usuario/usuario';
 })
 export class MenuComponent implements OnInit {
 
-  @Input() estaLogeado: boolean = false;
-  @Input() cliente: Usuario;
+  estaLogeado: boolean = false;
   nombre_tienda : string = 'Andean Store';
   usuarioService: UsuarioService;
 
@@ -19,6 +17,12 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  opciones(){
+    if (localStorage.getItem("_tk")){
+      this.estaLogeado = true;
+    }
   }
 
 }
