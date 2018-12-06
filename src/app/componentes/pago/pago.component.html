@@ -38,81 +38,85 @@
                     </div>
                   </div>
                   <div id="Agregardireccion" hidden>
-                    <div class="card-header">Nueva dirección</div>
-                    <div class="card-body">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-lg-4">
-                            <mat-form-field appearance="outline">
-                              <mat-label>Departamento</mat-label>
-                              <input matInput placeholder="Departamento">
-                              <mat-icon matSuffix>local_library</mat-icon>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-lg-4">
-                            <mat-form-field appearance="outline">
-                              <mat-label>Provincia</mat-label>
-                              <input matInput placeholder="Provincia">
-                              <mat-icon matSuffix>map</mat-icon>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-lg-4">
-                            <mat-form-field appearance="outline">
-                              <mat-label>Distrito</mat-label>
-                              <input matInput placeholder="Distrito">
-                              <mat-icon matSuffix>place</mat-icon>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-8">
-                            <mat-form-field appearance="outline" style="width: 100%">
-                              <mat-label>Direccion</mat-label>
-                              <input matInput placeholder="Direccion">
-                              <mat-icon matSuffix>store_mall_directory</mat-icon>
-                            </mat-form-field>
-                          </div>
-                          <div class="col lg 4">
-                            <mat-form-field style="width: 100%">
-                              <mat-select [(value)]="localselec">
-                                <mat-option *ngFor="let local of Local" [value]="local.value">
-                                  {{local.viewValue}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
+                    <form #fomrdireccionnueva="ngForm" (ngSubmit)="AgregarDireccion(fomrdireccionnueva)" >
+                        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
+                        <input name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
+                      <div class="card-header">Nueva dirección</div>
+                      <div class="card-body">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Departamento</mat-label>
+                                <input matInput placeholder="Departamento" name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento">
+                                <mat-icon matSuffix>local_library</mat-icon>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-lg-4">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Provincia</mat-label>
+                                <input matInput placeholder="Provincia" name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia">
+                                <mat-icon matSuffix>map</mat-icon>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-lg-4">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Distrito</mat-label>
+                                <input matInput placeholder="Distrito" name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito">
+                                <mat-icon matSuffix>place</mat-icon>
+                              </mat-form-field>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-lg-8">
-                            <mat-form-field appearance="outline" style="width: 100%">
-                              <mat-label>Referencia</mat-label>
-                              <input matInput placeholder="Referencia">
-                              <mat-icon matSuffix>rate_review</mat-icon>
-                            </mat-form-field>
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-lg-8">
+                              <mat-form-field appearance="outline" style="width: 100%">
+                                <mat-label>Direccion</mat-label>
+                                <input matInput placeholder="Direccion" name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion">
+                                <mat-icon matSuffix>store_mall_directory</mat-icon>
+                              </mat-form-field>
+                            </div>
+                            <div class="col lg 4">
+                              <mat-form-field style="width: 100%">
+                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal">
+                                  <mat-option *ngFor="let local of Local" [value]="local.value">
+                                    {{local.viewValue}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
                           </div>
-                          <div class="col-lg-4">
+                        </div>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-lg-8">
+                              <mat-form-field appearance="outline" style="width: 100%">
+                                <mat-label>Referencia</mat-label>
+                                <input matInput placeholder="Referencia" name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia">
+                                <mat-icon matSuffix>rate_review</mat-icon>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%;">
-                                  <mat-label>Teléfono/Celular</mat-label>
-                                  <input matInput placeholder="Teléfono/Celular">
-                                  <mat-icon matSuffix>local_phone</mat-icon>
-                                </mat-form-field>
+                                <mat-label>Teléfono/Celular</mat-label>
+                                <input matInput placeholder="Teléfono/Celular" name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono">
+                                <mat-icon matSuffix>local_phone</mat-icon>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-lg-5"></div>
+                            <div class="col-lg-4">
+                              <button mat-flat-button style="background-color: orange">Agregar Dirección</button>
+                            </div>
+                            <div class="col-lg-3"></div>
                           </div>
                         </div>
                       </div>
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-lg-5"></div>
-                          <div class="col-lg-4">
-                            <button mat-flat-button style="background-color: orange">Agregar Dirección</button>
-                          </div>
-                          <div class="col-lg-3"></div>
-                        </div>
-                      </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>

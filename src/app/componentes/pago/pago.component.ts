@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
 import {MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { DireccionService } from './direccion.service';
+import { Direccion } from './direccion';
 
 export interface NombreDirec {
   nombre: string;
@@ -25,7 +27,7 @@ export interface Tipolocalenvio {
   styleUrls: ['./pago.component.css'],
   providers: [{
     provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  }]
+  },DireccionService]
 })
 
 export class PagoComponent implements OnInit {
@@ -107,7 +109,7 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private direccionService:DireccionService ) { }
 
   ngOnInit() {
     //stepps
@@ -149,5 +151,23 @@ export class PagoComponent implements OnInit {
       this.nombreicondir='add';
     }
   }
+
+  //funciones
+  resetForm(form?: NgForm) {
+    if (form) {
+      form.reset();
+      this.direccionService.selecDireccion=new Direccion();
+    }
+  }
+  AgregarDireccion(form:NgForm){
+    this.direccionService.AgregarDireccion(form.value)
+    .subscribe(res =>{
+      console.log(res);
+      this.resetForm(form);
+      console.log('Direccion Agregada')
+    });
+  }
+
+  //
 
 }
