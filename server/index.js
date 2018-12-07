@@ -67,13 +67,30 @@ const server = app.listen(app.get('port'),()=>{
 
 // socket IO
 const io = socketIO(server);
+var user = "";
 
 // web sockets
 io.on('connection',(socket)=>{
     console.log("Nueva Conexion ID : "+socket.id);
 
+    
+    socket.on('init-chat',(data)=>{
+        this.user = data.email;
+        console.log( this.user);
+        socket.emit( this.user,{
+            estado: 1,
+            mensaje:"Bienvenido"
+        });
+    });
     socket.on('chat:mensaje',(data)=>{
         console.log(data);
         socket.emit('chat:mensaje',"Bienvenido desde Socket IO");
+    });
+    socket.on( this.user,(data)=>{ 
+        console.log(data);
+        socket.emit( this.user,{
+            estado: 1,
+            mensaje:"Me enviaste "+data
+        });
     });
 })

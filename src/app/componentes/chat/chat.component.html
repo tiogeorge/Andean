@@ -1,16 +1,55 @@
 
-<div  id="ventana-chat" class="card shadow-lg bg-light" style="position: fixed; right: 0; bottom: 0;margin: 5px !important; z-index: 100;width: 290px; height: 450px;border:1px solid rgb(209, 209, 209);" hidden="true">
-  <div class="card-header" style="background-color: #212529; color: white; padding-top: 5px !important; padding-bottom: 5px !important;" >
+<div  id="ventana-chat" class="card shadow-lg bg-light" style="position: fixed; right: 0; bottom: 0;margin: 5px !important; z-index: 100;width: 290px; height: 450px;border:1px solid #6e6f70;" hidden="true">
+  <div class="card-header" style="background-color: #212529; color: white; padding-top: 8px; padding-bottom: 8px;" >
     <div style="display: flex; flex-direction: row; align-items: center;">
       <div style="flex-grow:0; width: 95%;">
-        <label>Chat</label>
+        <label style="margin: 0px; padding: 0px;">Chat</label>
       </div> 
       <div style="flex-grow:0; width: 5%; margin-bottom: 5px; cursor: pointer;">
         <i class="fa fa-close" (click)="cerrarChat()"></i>
       </div>
     </div>
-    
-    
+  </div>
+  <div class="card-body" style="padding: 5px!important;">
+    <div id="formulario-chat" class="contenido-chat">
+      <label id="mensaje-formulario-chat"></label>
+      <form class="example-form">
+          <mat-form-field  style="width: 100%;" id="input-nombre">
+            <input matInput placeholder="Ingrese su nombre" #nombre="ngModel" [(ngModel)]="chatService.usuario.nombres"[ngModelOptions]="{standalone: true}" >
+          </mat-form-field>
+        
+          <mat-form-field  style="width: 100%;" id="input-email">
+            <input matInput placeholder="Ingrese su Email" #correo="ngModel" [(ngModel)]="chatService.usuario.correo" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+              <mat-select placeholder="Seleccione un tipo de consulta" disableRipple>
+                <mat-option value="1">Reembolsos</mat-option>
+                <mat-option value="2">cambio de articulo</mat-option>
+                <mat-option value="3">Informacion </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field style="width: 100%;" >
+              <textarea matInput placeholder="Ingrese su consulta" rows="4"></textarea>
+          </mat-form-field>
+      </form>
+    </div>
+    <div id="chat-principal" class="contenido-chat" hidden="true">
+
+    </div>
+    <div id="footer-iniciar-chat" class="footer-chat">
+      <div style="flex-grow: 0;width: 100%;">
+          <button mat-raised-button style="width: 100%;" color="primary" (click)="iniciarChat()">Conectarse al Chat</button>
+      </div>
+    </div>
+    <div  id="footer-enviar-mensaje" class="footer-chat" style="border: 1px solid rgb(155, 153, 153); "hidden="true"> 
+        <div style="flex-grow: 0;width: 85%;" >
+          <input type="text" style="width: 100%; border: 1px solid rgb(255, 252, 252); height:40px ;padding-left: 8px;" placeholder="Escriba su mensaje" (keypress)="enviarMensajeChat($event)" id="mensajechat">
+        </div>
+        <div style="flex-grow: 0;width: 15%;">
+            <button style="height: 40px; width: 100%;border: 0px solid white;background-color: white; cursor: pointer; "><i class="fa fa-send"></i></button>
+        </div>           
+    </div>
+
   </div>
 </div>
 

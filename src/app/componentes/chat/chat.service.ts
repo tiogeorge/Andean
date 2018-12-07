@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { Usuario } from '../perfil-usuario/usuario';
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
   private socket  = io('http://localhost:3000');
+  usuario: Usuario= new Usuario();
   constructor() { 
 
   }
-  enviarMensaje(data: string){
-    this.socket.emit('chat:mensaje',data);
+  enviarMensaje(idchat: string, data){
+    this.socket.emit(idchat,data);
   }
 
   nuevoMensaje(){
     let observable = new Observable(observer => {
-      this.socket.on('chat:mensaje', (data) => {
-        console.log("Recibido mensaje del server");
+      this.socket.on(this.usuario.correo, (data) => {
         observer.next(data);
       })
       return () => {
