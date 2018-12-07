@@ -32,9 +32,9 @@
                             {{fruit.nombre}}
                             <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
                           </mat-chip>-->
-                          <mat-chip *ngFor="let fruit of direccionService.direccion" [selectable]="selectable" [removable]="removable"
-                            (removed)="remove(fruit)" id="{{fruit.direccion}}" (click)=" direccionselec(fruit.direccion)">
-                            {{fruit.direccion}}
+                          <mat-chip  *ngFor="let fruit of direccionService.direccion" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(fruit)" id="{{fruit._id}}" (click)=" direccionselec(fruit._id)" matTooltip="{{fruit.direccion}}" matTooltipClass="estilo-tooltip" >
+                            <mat-icon>{{fruit.nombreicon}}</mat-icon>{{fruit.distrito}}
                             <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
                           </mat-chip>
 
@@ -45,7 +45,7 @@
                   <div id="Agregardireccion" hidden>
                     <form #fomrdireccionnueva="ngForm" (ngSubmit)="AgregarDireccion(fomrdireccionnueva)" >
                         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
-                        <input type="hidden" name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
+                        <input  name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
                       <div class="card-header">Nueva dirección</div>
                       <div class="card-body">
                         <div class="container">
@@ -86,7 +86,7 @@
                               <mat-form-field style="width: 100%">
                                 <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal">
                                   <mat-option *ngFor="let local of Local" [value]="local.value">
-                                    {{local.viewValue}}
+                                    {{local.value}}
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field>

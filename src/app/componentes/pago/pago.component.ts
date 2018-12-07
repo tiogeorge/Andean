@@ -1,6 +1,7 @@
+import { LoginComponent } from './../login/login.component';
 import { Router } from '@angular/router';
 import { Usuario } from './../perfil-usuario/usuario';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewEncapsulation} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material';
 import {FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
 import {MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
@@ -23,7 +24,6 @@ export interface Mes {
 }
 export interface Tipolocalenvio {
   value: string;
-  viewValue: string;
 }
 @Component({
   selector: 'app-pago',
@@ -31,7 +31,8 @@ export interface Tipolocalenvio {
   styleUrls: ['./pago.component.css'],
   providers: [{
     provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  },DireccionService]
+  },DireccionService],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class PagoComponent implements OnInit {
@@ -40,7 +41,8 @@ export class PagoComponent implements OnInit {
   router: Router;
   user:string='';
   listdirecciones: string[];
-  localselec:string='Tipo1';
+  localselec:string='Casa';
+  RespuestaDir:any;
   //stepper
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -48,6 +50,7 @@ export class PagoComponent implements OnInit {
   //nombreicondir
   nombreicondir:string='add';
   nombreiconselec:string='cancel';
+  nombreicontipo='home';
   //finnombre
   //chips
   visible = true;
@@ -86,12 +89,12 @@ export class PagoComponent implements OnInit {
   }
   //fin chips
   Local: Tipolocalenvio[] = [
-    { value: 'Tipo1', viewValue: 'Casa' },
-    { value: 'Tipo2', viewValue: 'Oficina' },
-    { value: 'Tipo3', viewValue: 'Departamento' },
-    { value: 'Tipo4', viewValue: 'Edificio' },
-    { value: 'Tipo5', viewValue: 'Condominio' },
-    { value: 'Tipo16', viewValue: 'Otro' }
+    { value: 'Casa' },
+    { value: 'Oficina' },
+    { value: 'Departamento' },
+    { value: 'Edificio' },
+    { value: 'Condominio' },
+    { value: 'Otro' }
     
   ];
   Anhos: Años[] = [
@@ -141,6 +144,8 @@ export class PagoComponent implements OnInit {
         this.usuario = jres.data as Usuario;
         console.log(this.usuario._id);
         this.user=this.usuario._id;
+        console.log(this.user);
+        this.direccionService.selecDireccion.usuario=this.usuario._id;
         this.ListarDireccion(this.usuario._id.toString());
       }else{
         this.router.navigate(['/']);
@@ -185,7 +190,7 @@ export class PagoComponent implements OnInit {
     }
   }
   AgregarDireccion(form:NgForm){
-    this.direccionService.AgregarDireccion(form.value)
+    this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
     .subscribe(res =>{
       console.log(res);
       this.resetForm(form);
@@ -196,10 +201,34 @@ export class PagoComponent implements OnInit {
   ListarDireccion(id:string){
     this.direccionService.ListarDireccion(id)
     .subscribe(res=>{
-      this.direccionService.direccion=res as Direccion[];
-      console.log(res);
+      //
+     var Respuesta=JSON.parse(JSON.stringify(res));
+      for(var i=0;i<Object.keys(res).length;i++){
+       /* this.Fnombreicondirec(Respuesta[i].tipolocal);
+        console.log(Respuesta[i].tipolocal);*/
+        if(Respuesta[i].tipolocal=='Casa'){
+         Respuesta[i].nombreicon='home';
+        }
+        if(Respuesta[i].tipolocal=='Oficina'){
+          Respuesta[i].nombreicon='business_center';
+        }
+        if(Respuesta[i].tipolocal=='Departamento'){
+          Respuesta[i].nombreicon='store_mall_directory';
+        }
+        if(Respuesta[i].tipolocal=='Edificio'){
+          Respuesta[i].nombreicon='domain';
+        }
+        if(Respuesta[i].tipolocal=='Condominio'){
+          Respuesta[i].nombreicon='location_city ';
+        }
+        if(Respuesta[i].tipolocal=='Otro'){
+          Respuesta[i].nombreicon='landscape';
+        }
+        
+      }
+      this.direccionService.direccion=Respuesta as Direccion[];
     });
+   
   }
-  //
 
 }

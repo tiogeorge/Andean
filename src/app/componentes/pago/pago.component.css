@@ -26,3 +26,11 @@
   mat-form-field.mat-form-field {
     font-size: 15px;
   }
+
+  .estilo-tooltip{
+    background: orange;
+    font-size: 60%;
+  }
+  .example-chip-list {
+    width: 100%;
+  }
