@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { JitSummaryResolver } from '@angular/compiler';
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { Direccion } from '../pago/direccion';
+import { DireccionService } from '../pago/direccion.service';
+import { NgForm } from '@angular/forms';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Provincia } from './provincia';
+import { Region } from './region';
+import { RegionService } from './region.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from './usuario.service';
 
@@ -18,14 +22,18 @@ import { UsuarioService } from './usuario.service';
 })
 
 export class PerfilUsuarioComponent implements OnInit {
-  usuarioService: UsuarioService;
-  router: Router;
-  tiposDocumento: string[];
+  direccionService  : DireccionService;
+  regionService     : RegionService;
+  usuarioService    : UsuarioService;
+  router            : Router;
+  tiposDocumento    : string[];
 
-  constructor(usuarioService: UsuarioService, router: Router, private adapter: DateAdapter<any>) {
-    this.usuarioService = usuarioService;
-    this.router = router;
-    this.tiposDocumento = ['DNI'];
+  constructor(usuarioService: UsuarioService, direccionService: DireccionService, regionService: RegionService,router: Router , private adapter: DateAdapter<any>) {
+    this.usuarioService   = usuarioService;
+    this.direccionService = direccionService;
+    this.regionService    = regionService;
+    this.router           = router;
+    this.tiposDocumento   = ['DNI'];
     this.adapter.setLocale('es');
   }
 
@@ -34,6 +42,7 @@ export class PerfilUsuarioComponent implements OnInit {
       var jres = JSON.parse(JSON.stringify(res));
       if(jres.status){      
         this.usuarioService.usuarioSeleccionado = jres.data;
+        this.getDirecciones(jres.data._id);
       }else{
         this.router.navigate(['/']);
       }
@@ -49,6 +58,24 @@ export class PerfilUsuarioComponent implements OnInit {
 
       }
     });
+  }
+
+  departamentoSelected(departamento: string){
+    console.log(departamento);
+  }
+
+  getDirecciones(_id: string){
+    this.direccionService.ListarDireccion(_id).subscribe( res =>{
+      this.direccionService.direccion = res as Direccion[];
+      this.getRegiones();
+      console.log(this.direccionService.direccion);
+    })
+  }
+
+  getRegiones(){
+    this.regionService.getRegiones().subscribe(res => {
+      this.regionService.regiones = res as Region[];
+    })
   }
 
 }

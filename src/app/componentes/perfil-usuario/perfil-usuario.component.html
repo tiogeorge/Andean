@@ -104,14 +104,23 @@
           </mat-form-field>
           <mat-form-field id="numeroDocumento" class="campo-form">
             <input matInput name="numeroDocumento" #numeroDocumento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.numeroDocumento"
-              placeholder="Número de Documento">
+              placeholder="Número de Documento" minlength="8" required>
+            <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">El
+              número de Documento es obligatorio</mat-error>
+            <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.minlength">El
+              documento debe tener mínimo 8 dígitos</mat-error>
           </mat-form-field>
           <mat-form-field id="nombres" class="campo-form">
-            <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres">
+            <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres"
+              required>
+            <mat-error *ngIf="nombres.invalid && (nombres.dirty || nombres.touched) && nombres.errors.required">El
+              campo nombres es requerido</mat-error>
           </mat-form-field>
           <mat-form-field id="apellidos" class="campo-form">
             <input matInput name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
-              placeholder="Apellidos">
+              placeholder="Apellidos" required>
+            <mat-error *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched) && apellidos.errors.required">El
+              campo apellidos es requerido</mat-error>
           </mat-form-field>
           <mat-form-field id="correo" class="campo-form">
             <input matInput name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
@@ -123,21 +132,115 @@
             <mat-radio-button value="M">&nbsp;Masculino&nbsp;</mat-radio-button>
           </mat-radio-group>
           <mat-form-field id="fechaNacimiento" class="campo-form">
-              <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" name="fechaNacimiento" #fechaNacimiento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fechaNacimiento">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" name="fechaNacimiento"
+              #fechaNacimiento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fechaNacimiento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
           <mat-form-field id="fechaAfiliacion" class="campo-form">
-            <input matInput [matDatepicker]="fechaAfiliacion" placeholder="Fecha de Afiliación" name="fecha_afiliacion" #fecha_afiliacion="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fecha_afiliacion" disabled>
+            <input matInput [matDatepicker]="fechaAfiliacion" placeholder="Fecha de Afiliación" name="fecha_afiliacion"
+              #fecha_afiliacion="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fecha_afiliacion" disabled>
             <mat-datepicker-toggle matSuffix [for]="fechaAfiliacion"></mat-datepicker-toggle>
             <mat-datepicker #fechaAfiliacion></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Promociones: </mat-checkbox>
+          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Promociones:
+          </mat-checkbox>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="actualizar()" >ACTUALIZAR MIS DATOS</button>
+          <button mat-raised-button color="primary" (click)="actualizar()">ACTUALIZAR MIS DATOS</button>
         </mat-card-actions>
       </form>
+    </mat-card>
+    <mat-card class="card-perfil">
+      <mat-card-title>Mis Direcciones de Envío</mat-card-title>
+      <mat-card-content>
+        <mat-accordion>
+          <!--  <mat-expansion-panel *ngFor="let direccion of direccionService.direccion">
+            <form #direccionForm>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{direccion.direccion}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    <mat-icon>room</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccion._id">
+              <mat-form-field id="departamento" class="campo-form">
+                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccion.departamento" placeholder="Departamento">
+                  <mat-option *ngFor="" [value]="dep">{{dep}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="provincia" class="campo-form">
+                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccion.provincia" placeholder="Provincia">
+                  <mat-option *ngFor="" [value]="prov">{{prov}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="distrito" class="campo-form">
+                <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccion.distrito" placeholder="Distrito">
+                  <mat-option *ngFor="" [value]="dis">{{dis}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="direccion">
+                <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccion.direccion" placeholder="Dirección">
+              </mat-form-field>
+              <mat-form-field id="tipoLocal" class="campo-form">
+                <mat-select name="tipoLocal" #tipoLocal="ngModel" [(ngModel)]="direccion.tipoLocal" placeholder="TipoLocal">
+                  <mat-option *ngFor="" [value]="dis">{{dis}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="referencia">
+                <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccion.referencia" placeholder="referencia">
+              </mat-form-field>
+              <mat-form-field id="telefono">
+                <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccion.telefono" placeholder="telefono">
+              </mat-form-field>
+            </form>
+          </mat-expansion-panel>-->
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Agregar Dirección
+              </mat-panel-title>
+              <mat-panel-description>
+                <mat-icon>add_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form #nuevaDireccion="ngForm">
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id" >
+              <mat-form-field id="departamento" class="campo-form">
+                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento" (change)="departamentoSelected($event.target.value)" placeholder="Departamento">
+                  <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="provincia" class="campo-form">
+                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"  placeholder="Provincia">
+                  <mat-option>Provincia</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="distrito" class="campo-form">
+                <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"  placeholder="Distrito">
+                  <mat-option>Distrito</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="direccion">
+                <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion"  placeholder="Dirección">
+              </mat-form-field>
+              <mat-form-field id="tipolocal" class="campo-form">
+                <mat-select name="tipolocal" #tipoLocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"  placeholder="TipoLocal">
+                  <mat-option >Casa</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field id="referencia">
+                <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia" placeholder="Referencia">
+              </mat-form-field>
+              <mat-form-field id="telefono">
+                <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono" placeholder="Teléfono/Celular">
+              </mat-form-field>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
     </mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>

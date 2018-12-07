@@ -23,7 +23,7 @@
       <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
         <mat-icon class="icono">person</mat-icon> Perfil 
       </button>
-      <button *ngIf="estaLogeado" mat-menu-item>
+      <button *ngIf="estaLogeado" mat-menu-item (click)="logout()">
         <mat-icon class="icono">arrow_forward</mat-icon> Cerrar Sesión
       </button>
       <button *ngIf="!estaLogeado" mat-menu-item routerLink="/login">
