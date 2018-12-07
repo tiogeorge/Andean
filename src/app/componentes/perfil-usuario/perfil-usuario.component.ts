@@ -27,6 +27,7 @@ export class PerfilUsuarioComponent implements OnInit {
   usuarioService    : UsuarioService;
   router            : Router;
   tiposDocumento    : string[];
+  tiposVivienda     : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
 
   constructor(usuarioService: UsuarioService, direccionService: DireccionService, regionService: RegionService,router: Router , private adapter: DateAdapter<any>) {
     this.usuarioService   = usuarioService;
@@ -60,8 +61,35 @@ export class PerfilUsuarioComponent implements OnInit {
     });
   }
 
+  agregarDireccion(direccion: Direccion){
+    if(direccion._id){
+      this.direccionService.actualizarDireccion(direccion).subscribe(res =>{
+        var jres = JSON.parse(JSON.stringify(res));
+        if (jres.status){
+          console.log(jres.msg);
+        }else {
+          console.log(jres.error);
+        }
+      })
+    } else {
+      this.direccionService.AgregarDireccion(direccion).subscribe(res => {
+        var jres = JSON.parse(JSON.stringify(res));
+        if( jres.status) {
+          console.log(jres.msg);
+        }else{
+          console.log(jres.error);
+        }
+      })
+    }
+  }
+
   departamentoSelected(departamento: string){
-    console.log(departamento);
+    var i : number = 0;
+    while(this.regionService.regiones[i].departamento != departamento){
+      i++;
+    }
+    this.regionService.departamentoSelected = this.regionService.regiones[i];
+    this.regionService.provinciaSelected = new Provincia("",[]);
   }
 
   getDirecciones(_id: string){
@@ -76,6 +104,20 @@ export class PerfilUsuarioComponent implements OnInit {
     this.regionService.getRegiones().subscribe(res => {
       this.regionService.regiones = res as Region[];
     })
+  }
+
+  nuevadireccion(form?: NgForm){
+    this.direccionService.selecDireccion.usuario = this.usuarioService.usuarioSeleccionado._id;
+    this.agregarDireccion(this.direccionService.selecDireccion);
+    form.reset();
+  }
+
+  provinciaSelected(provincia: string){
+    var i : number = 0;
+    while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){
+      i++;
+    }
+    this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
 
 }

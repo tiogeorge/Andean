@@ -209,34 +209,39 @@
             <form #nuevaDireccion="ngForm">
               <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id" >
               <mat-form-field id="departamento" class="campo-form">
-                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento" (change)="departamentoSelected($event.target.value)" placeholder="Departamento">
+                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento" (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
                   <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field id="provincia" class="campo-form">
-                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"  placeholder="Provincia">
-                  <mat-option>Provincia</mat-option>
+                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia" (selectionChange)="provinciaSelected($event.value)" placeholder="Provincia">
+                  <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">{{prov.provincia}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field id="distrito" class="campo-form">
                 <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"  placeholder="Distrito">
-                  <mat-option>Distrito</mat-option>
+                  <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field id="direccion">
-                <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion"  placeholder="Dirección">
+                <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion"  placeholder="Dirección" required>
+                <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched) && direccion.errors.required">La dirección es un campo requerido</mat-error>
               </mat-form-field>
               <mat-form-field id="tipolocal" class="campo-form">
-                <mat-select name="tipolocal" #tipoLocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"  placeholder="TipoLocal">
-                  <mat-option >Casa</mat-option>
+                <mat-select name="tipolocal" #tipoLocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"  placeholder="Local de Envío">
+                  <mat-option *ngFor="let vivienda of tiposVivienda" [value]="vivienda">{{vivienda}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field id="referencia">
-                <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia" placeholder="Referencia">
+                <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia" placeholder="Referencia" required>
               </mat-form-field>
+              <mat-error *ngIf="referencia.invalid && (referencia.dirty || referencia.touched) && referencia.errors.required">La referencia es un campo obligatorio</mat-error>
               <mat-form-field id="telefono">
-                <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono" placeholder="Teléfono/Celular">
+                <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono" placeholder="Teléfono/Celular" required minlength="6">
+                <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.required">El teléfono es un campo obligatorio</mat-error>
+                <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.minlength">El telefono debe tener una longitud mínima de 6 digitos</mat-error>
               </mat-form-field>
+              <button mat-raised-button color="primary" (click)="nuevadireccion(nuevaDireccion)">Agregar mi nueva dirección</button>
             </form>
           </mat-expansion-panel>
         </mat-accordion>

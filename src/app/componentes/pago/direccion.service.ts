@@ -29,4 +29,8 @@ export class DireccionService {
      return this.http.get(this.URL_API+  `/uni/${_id}`);
    }
 
+   actualizarDireccion(direccion: Direccion){
+    return this.http.put(this.URL_API + `/${direccion._id}`, direccion)
+  }
+
 }
