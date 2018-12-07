@@ -12,12 +12,8 @@
                 <div class="card-header" style="border-color: orange;">
                   <div class="container-fluid">
                     <div class="row">
-                      <div class="col-lg-11">
+                      <div class="col-lg-12">
                         <label>Direcciones</label>
-                      </div>
-                      <div class="col-lg-1"><button mat-mini-fab (click)="mostrarformdir()" style="background-color: orange">
-                          <mat-icon>{{nombreicondir}}</mat-icon>
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -25,47 +21,52 @@
                 <div class="card-body">
                   <div class="example-button-row">
                     <div class="container">
-                      <mat-form-field class="example-chip-list">
-                        <mat-chip-list #chipList>
-                         <!-- <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
-                            (removed)="remove(fruit)" id="{{fruit.nombre}}" (click)=" direccionselec(fruit.nombre)">
-                            {{fruit.nombre}}
-                            <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
-                          </mat-chip>-->
-                          <mat-chip  *ngFor="let fruit of direccionService.direccion" [selectable]="selectable" [removable]="removable"
-                            (removed)="remove(fruit)" id="{{fruit._id}}" (click)=" direccionselec(fruit._id)" matTooltip="{{fruit.direccion}}" matTooltipClass="estilo-tooltip" >
-                            <mat-icon>{{fruit.nombreicon}}</mat-icon>{{fruit.distrito}}
-                            <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
-                          </mat-chip>
-
-                        </mat-chip-list>
-                      </mat-form-field>
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <mat-form-field class="example-chip-list">
+                            <mat-chip-list #chipList>
+                              <mat-chip *ngFor="let direc of direccionService.direccion" [selectable]="selectable"
+                                [removable]="removable" (removed)="remove(direc)" id="{{direc._id}}" (click)=" direccionselec(direc._id,direc.nombreicon)"
+                                matTooltip="{{direc.direccion}}" matTooltipClass="estilo-tooltip">
+                                <mat-icon>{{direc.nombreicon}}</mat-icon>{{direc.distrito}}
+                                <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
+                              </mat-chip>
+                            </mat-chip-list>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-1"><button mat-mini-fab (click)="mostrarformdir()" style="background-color: orange">
+                            <mat-icon>{{nombreicondir}}</mat-icon>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div id="Agregardireccion" hidden>
-                    <form #fomrdireccionnueva="ngForm" (ngSubmit)="AgregarDireccion(fomrdireccionnueva)" >
-                        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
-                        <input type="hidden"  name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
+                    <form #fomrdireccionnueva="ngForm" (ngSubmit)="AgregarDireccion(fomrdireccionnueva)">
+                      <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
+                      <input type="hidden" name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
                       <div class="card-header">Nueva dirección</div>
                       <div class="card-body">
                         <div class="container">
                           <div class="row">
                             <div class="col-lg-4">
-                              <mat-form-field appearance="outline">
+                              <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Departamento</mat-label>
-                                <input matInput placeholder="Departamento" name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento">
+                                <input matInput placeholder="Departamento" name="departamento" #departamento="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.departamento">
                                 <mat-icon matSuffix>local_library</mat-icon>
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
-                              <mat-form-field appearance="outline">
+                              <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Provincia</mat-label>
-                                <input matInput placeholder="Provincia" name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia">
+                                <input matInput placeholder="Provincia" name="provincia" #provincia="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.provincia">
                                 <mat-icon matSuffix>map</mat-icon>
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
-                              <mat-form-field appearance="outline">
+                              <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Distrito</mat-label>
                                 <input matInput placeholder="Distrito" name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito">
                                 <mat-icon matSuffix>place</mat-icon>
@@ -78,7 +79,8 @@
                             <div class="col-lg-8">
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Direccion</mat-label>
-                                <input matInput placeholder="Direccion" name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion">
+                                <input matInput placeholder="Direccion" name="direccion" #direccion="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.direccion">
                                 <mat-icon matSuffix>store_mall_directory</mat-icon>
                               </mat-form-field>
                             </div>
@@ -98,14 +100,16 @@
                             <div class="col-lg-8">
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Referencia</mat-label>
-                                <input matInput placeholder="Referencia" name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia">
+                                <input matInput placeholder="Referencia" name="referencia" #referencia="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.referencia">
                                 <mat-icon matSuffix>rate_review</mat-icon>
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Teléfono/Celular</mat-label>
-                                <input matInput placeholder="Teléfono/Celular" name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono">
+                                <input matInput placeholder="Teléfono/Celular" name="telefono" #telefono="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.telefono">
                                 <mat-icon matSuffix>local_phone</mat-icon>
                               </mat-form-field>
                             </div>
@@ -122,6 +126,42 @@
                         </div>
                       </div>
                     </form>
+                  </div>
+                  <div id="Resumendir" hidden>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-7">
+                          <mat-card class="example-card">
+                            <mat-card-header>
+                              <div mat-card-avatar class="example-header-image">
+                                <mat-icon style="font-size: 300%;background-size: cover">{{logocard}}</mat-icon>
+                              </div>
+                              <mat-card-title><label id="lbtipolocal"></label></mat-card-title>
+                              <mat-card-subtitle><label id="lbdirec"></label></mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <p>
+                                <mat-icon matSuffix>local_library</mat-icon>&nbsp;Departamento:&nbsp;<label id="lbdepartamento"></label>
+                              </p>
+                              <p>
+                                <mat-icon matSuffix>map</mat-icon>&nbsp;Provincia:&nbsp;<label id="lbprovincia"></label>
+                              </p>
+                              <p>
+                                <mat-icon matSuffix>place</mat-icon>&nbsp;Distrito:&nbsp;<label id="lbdistrito"></label>
+                              </p>
+                              <p>
+                                <mat-icon matSuffix>rate_review</mat-icon>&nbsp;Referencia:&nbsp;<label id="lbreferencia"></label>
+                              </p>
+                              <p>
+                                <mat-icon matSuffix>local_phone</mat-icon>&nbsp;Telefono:&nbsp;<label id="lbtelefono"></label>
+                              </p>
+                            </mat-card-content>
+                          </mat-card>
+                        </div>
+                        <div class="col-lg-2"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

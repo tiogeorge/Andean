@@ -24,5 +24,9 @@ export class DireccionService {
    EliminarDireccion(_id:string){
      return this.http.delete(this.URL_API +  `/${_id}`);
    }
+   
+   Listardireccionuni(_id:string){
+     return this.http.get(this.URL_API+  `/uni/${_id}`);
+   }
 
 }

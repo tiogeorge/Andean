@@ -81,9 +81,7 @@ direccionController.getDirecciones = async (req, res, next) => {
 };
 
 direccionController.getDireccion = async (req, res, next) => {
-  const direccion = await Direccion.find({
-    id: req.params.id
-  });
+  const direccion = await Direccion.find({id: req.params._id});
   res.json(direccion);
 };
 

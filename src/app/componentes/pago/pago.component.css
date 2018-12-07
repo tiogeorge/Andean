@@ -34,3 +34,10 @@
   .example-chip-list {
     width: 100%;
   }
+  .example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }

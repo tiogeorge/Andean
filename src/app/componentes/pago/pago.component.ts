@@ -43,6 +43,7 @@ export class PagoComponent implements OnInit {
   listdirecciones: string[];
   localselec:string='Casa';
   RespuestaDir:any;
+  logocard:string='';
   //stepper
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -76,9 +77,33 @@ export class PagoComponent implements OnInit {
     }
   }
 
-  direccionselec(id:string){
+  direccionselec(id:string,nombreicon:string){
+    document.getElementById('Resumendir').hidden=false;
     document.getElementById(id).style.background='#FFBF00';
     document.getElementById(id).style.color='white';
+    this.logocard=nombreicon;
+    document.getElementById(id).style.background='#FFBF00';
+    document.getElementById(id).style.color='white';
+    /*asignardir */
+   /* this.direccionService.Listardireccionuni(id)
+    .subscribe(res=>{
+      this.direccionService.direccion=res as Direccion[];
+      console.log(res);listdirecciones
+    });*/
+    console.log(this.RespuestaDir);
+    console.log(Object.keys(this.RespuestaDir));
+    for(var i=0;i< Object.keys(this.RespuestaDir).length;i++){
+      if(this.RespuestaDir[i]._id==id){
+        document.getElementById('lbdirec').innerHTML=this.RespuestaDir[i].direccion;
+        document.getElementById('lbtipolocal').innerHTML=this.RespuestaDir[i].tipolocal;
+        document.getElementById('lbdepartamento').innerHTML=this.RespuestaDir[i].departamento;
+        document.getElementById('lbprovincia').innerHTML=this.RespuestaDir[i].provincia;
+        document.getElementById('lbdistrito').innerHTML=this.RespuestaDir[i].distrito;
+        document.getElementById('lbreferencia').innerHTML=this.RespuestaDir[i].referencia;
+        document.getElementById('lbtelefono').innerHTML=this.RespuestaDir[i].telefono;
+      }
+    }
+
   }
   remove(fruit: NombreDirec): void {
     const index = this.fruits.indexOf(fruit);
@@ -193,10 +218,42 @@ export class PagoComponent implements OnInit {
     this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
     .subscribe(res =>{
       console.log(res);
+      /* resumedir*/
+      document.getElementById('lbdirec').innerHTML=this.direccionService.selecDireccion.direccion;
+      document.getElementById('lbtipolocal').innerHTML=this.direccionService.selecDireccion.tipolocal;
+      document.getElementById('lbdepartamento').innerHTML=this.direccionService.selecDireccion.departamento;
+      document.getElementById('lbprovincia').innerHTML=this.direccionService.selecDireccion.provincia;
+      document.getElementById('lbdistrito').innerHTML=this.direccionService.selecDireccion.distrito;
+      document.getElementById('lbreferencia').innerHTML=this.direccionService.selecDireccion.referencia;
+      document.getElementById('lbtelefono').innerHTML=this.direccionService.selecDireccion.telefono;
+      this.nombreiconresdir(this.direccionService.selecDireccion.tipolocal);
+      /*fin */
       this.resetForm(form);
       console.log('Direccion Agregada')
       this.ListarDireccion(this.usuario._id);
     });
+    document.getElementById('Agregardireccion').hidden=true;
+    document.getElementById('Resumendir').hidden=false;
+  }
+  nombreiconresdir(nombreicon:string){
+    if(nombreicon=='Casa'){
+      this.logocard='home';
+     }
+     if(nombreicon=='Oficina'){
+      this.logocard='business_center';
+     }
+     if(nombreicon=='Departamento'){
+      this.logocard='store_mall_directory';
+     }
+     if(nombreicon=='Edificio'){
+      this.logocard='domain';
+     }
+     if(nombreicon=='Condominio'){
+      this.logocard='location_city ';
+     }
+     if(nombreicon=='Otro'){
+      this.logocard='landscape';
+     }
   }
   ListarDireccion(id:string){
     this.direccionService.ListarDireccion(id)
@@ -227,6 +284,7 @@ export class PagoComponent implements OnInit {
         
       }
       this.direccionService.direccion=Respuesta as Direccion[];
+      this.RespuestaDir=Respuesta;
     });
    
   }
