@@ -96,41 +96,43 @@
       <form #clienteForm="ngForm" class="datos-form" *ngIf="usuarioService.usuarioSeleccionado">
         <mat-card-content>
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
-          <mat-form-field class="campo-form">
+          <mat-form-field id="tipoDocumento" class="campo-form">
             <mat-select name="tipoDocumento" #tipoDocumento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.tipoDocumento"
               placeholder="Tipo Documento">
               <mat-option *ngFor="let tipodoc of tiposDocumento" [value]="tipodoc">{{tipodoc}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="campo-form">
+          <mat-form-field id="numeroDocumento" class="campo-form">
             <input matInput name="numeroDocumento" #numeroDocumento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.numeroDocumento"
               placeholder="Número de Documento">
           </mat-form-field>
-          <mat-form-field class="campo-form">
+          <mat-form-field id="nombres" class="campo-form">
             <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres">
           </mat-form-field>
-          <mat-form-field class="campo-form">
+          <mat-form-field id="apellidos" class="campo-form">
             <input matInput name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
               placeholder="Apellidos">
           </mat-form-field>
-          <mat-form-field class="campo-form">
+          <mat-form-field id="correo" class="campo-form">
             <input matInput name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
               placeholder="Correo Electrónico" disabled>
           </mat-form-field>
-          <mat-radio-group name="sexo" #sexo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.sexo">
+          <mat-radio-group id="sexo" name="sexo" #sexo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.sexo">
             <mat-label>Sexo: &nbsp;</mat-label>
             <mat-radio-button value="F">&nbsp;Femenino&nbsp;</mat-radio-button>
             <mat-radio-button value="M">&nbsp;Masculino&nbsp;</mat-radio-button>
           </mat-radio-group>
-          <mat-form-field class="campo-form">
+          <mat-form-field id="fechaNacimiento" class="campo-form">
               <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" name="fechaNacimiento" #fechaNacimiento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fechaNacimiento">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-          <mat-form-field class="campo-form">
-            <input matInput placeholder="Fecha de Afiliación" name="fecha_afiliacion" #fecha_afiliacion="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fecha_afiliacion"  disabled>
+          <mat-form-field id="fechaAfiliacion" class="campo-form">
+            <input matInput [matDatepicker]="fechaAfiliacion" placeholder="Fecha de Afiliación" name="fecha_afiliacion" #fecha_afiliacion="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.fecha_afiliacion" disabled>
+            <mat-datepicker-toggle matSuffix [for]="fechaAfiliacion"></mat-datepicker-toggle>
+            <mat-datepicker #fechaAfiliacion></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Promociones: </mat-checkbox>
+          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Promociones: </mat-checkbox>
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="primary" (click)="actualizar()" >ACTUALIZAR MIS DATOS</button>

@@ -25,6 +25,7 @@ import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usua
 import { PagoComponent } from './componentes/pago/pago.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { ChatComponent } from './componentes/chat/chat.component';
+import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
 
 
 const routes : Route[] = [
@@ -73,7 +74,9 @@ const routes : Route[] = [
     RouterModule.forRoot(routes),
     NgFlashMessagesModule.forRoot(),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentDateModule,
+    MatMomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

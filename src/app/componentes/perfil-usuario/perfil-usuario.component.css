@@ -1,11 +1,5 @@
 .card-perfil {
-    margin: 10px 10px;
-}
-
-.campo-form {
-    width: 50%;
-    padding-left: 1%;
-    padding-right: 1%;
+    margin: 5px 5px;
 }
 
 .datos-form {
@@ -15,8 +9,23 @@
     display: none;
 }
 
+#tipoDocumento {
+    width: 30%;
+}
+
+#numeroDocumento {
+    width: 70%;
+}
+
+#nombres, #apellidos, #correo, #fechaNacimiento, #fechaAfiliacion, #sexo, #promociones {
+    width: 100%;
+}
+
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {}
+@media (min-width: 576px) {
+
+    
+}
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
