@@ -45,7 +45,7 @@
                   <div id="Agregardireccion" hidden>
                     <form #fomrdireccionnueva="ngForm" (ngSubmit)="AgregarDireccion(fomrdireccionnueva)" >
                         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
-                        <input  name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
+                        <input type="hidden"  name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
                       <div class="card-header">Nueva dirección</div>
                       <div class="card-body">
                         <div class="container">
