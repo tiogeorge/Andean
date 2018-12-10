@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Direccion } from '../pago/direccion';
 import { DireccionService } from '../pago/direccion.service';
+import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Provincia } from './provincia';
@@ -22,20 +23,26 @@ import { UsuarioService } from './usuario.service';
 })
 
 export class PerfilUsuarioComponent implements OnInit {
-  direccionService  : DireccionService;
-  regionService     : RegionService;
-  usuarioService    : UsuarioService;
-  router            : Router;
-  tiposDocumento    : string[];
-  tiposVivienda     : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
+  botonActualizar             : string;
+  direccionService            : DireccionService;
+  flashMessageService         : NgFlashMessageService;
+  mostrarFormularioDireccion  : boolean = false;
+  mostrarMensajeCliente       : boolean = false;
+  mostrarMensajeDireccion     : boolean = false;
+  regionService               : RegionService;
+  router                      : Router;
+  tiposDocumento              : string[];
+  tiposVivienda               : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
+  usuarioService              : UsuarioService;
 
-  constructor(usuarioService: UsuarioService, direccionService: DireccionService, regionService: RegionService,router: Router , private adapter: DateAdapter<any>) {
-    this.usuarioService   = usuarioService;
-    this.direccionService = direccionService;
-    this.regionService    = regionService;
-    this.router           = router;
-    this.tiposDocumento   = ['DNI'];
+  constructor( private adapter: DateAdapter<any>, direccionService: DireccionService, flashMessageService: NgFlashMessageService, regionService: RegionService,router: Router, usuarioService: UsuarioService) {
     this.adapter.setLocale('es');
+    this.direccionService     = direccionService;
+    this.flashMessageService  = flashMessageService;   
+    this.regionService        = regionService;
+    this.router               = router;
+    this.tiposDocumento       = ['DNI'];
+    this.usuarioService       = usuarioService;
   }
 
   ngOnInit() {
@@ -50,34 +57,37 @@ export class PerfilUsuarioComponent implements OnInit {
     });
   }
 
-  actualizar(){
-    this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res =>{
+  actualizar(): void{
+    this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
-      if(jres.status){
-
-      }else {
-
-      }
+      this.mostrarMensajeCliente = true;
+      this.mostrarMensajeDireccion = false;
+      jres.status ? this.mostrarMensaje(jres.msg,'success') : this.mostrarMensaje(jres.error, 'danger');
     });
   }
 
   agregarDireccion(direccion: Direccion){
     if(direccion._id){
-      this.direccionService.actualizarDireccion(direccion).subscribe(res =>{
+      this.direccionService.actualizarDireccion(direccion).subscribe(res => {
         var jres = JSON.parse(JSON.stringify(res));
+        this.mostrarMensajeCliente = false;
+        this.mostrarMensajeDireccion = true;
         if (jres.status){
-          console.log(jres.msg);
+          this.mostrarFormularioDireccion = false;
+          this.mostrarMensaje(jres.msg, 'success');
         }else {
-          console.log(jres.error);
+          this.mostrarMensaje(jres.error, 'danger');
         }
       })
     } else {
       this.direccionService.AgregarDireccion(direccion).subscribe(res => {
         var jres = JSON.parse(JSON.stringify(res));
         if( jres.status) {
-          console.log(jres.msg);
+          this.mostrarFormularioDireccion = false;
+          this.mostrarMensaje(jres.msg, 'success');
+          this.direccionService.direccion.push(jres.data as Direccion);
         }else{
-          console.log(jres.error);
+          this.mostrarMensaje(jres.error, 'danger');
         }
       })
     }
@@ -85,18 +95,15 @@ export class PerfilUsuarioComponent implements OnInit {
 
   departamentoSelected(departamento: string){
     var i : number = 0;
-    while(this.regionService.regiones[i].departamento != departamento){
-      i++;
-    }
+    while(this.regionService.regiones[i].departamento != departamento){ i++; }
     this.regionService.departamentoSelected = this.regionService.regiones[i];
     this.regionService.provinciaSelected = new Provincia("",[]);
   }
 
   getDirecciones(_id: string){
-    this.direccionService.ListarDireccion(_id).subscribe( res =>{
+    this.direccionService.ListarDireccion(_id).subscribe( res => {
       this.direccionService.direccion = res as Direccion[];
       this.getRegiones();
-      console.log(this.direccionService.direccion);
     })
   }
 
@@ -106,17 +113,37 @@ export class PerfilUsuarioComponent implements OnInit {
     })
   }
 
+  mostrarDireccion(direccion: Direccion){
+    this.botonActualizar = "Actualizar mi dirección";
+    this.direccionService.selecDireccion = direccion;
+    var i = 0;
+    while(this.regionService.regiones[i].departamento != this.direccionService.selecDireccion.departamento){ i ++}
+    this.regionService.departamentoSelected = this.regionService.regiones[i];
+    i = 0;
+    while(this.regionService.departamentoSelected.provincias[i].provincia != this.direccionService.selecDireccion.provincia) { i++}
+    this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
+    this.mostrarFormularioDireccion = true;
+  }
+
+  mostrarFormulario(){
+    this.botonActualizar = "Agregar nueva dirección";
+    this.direccionService.selecDireccion = new Direccion();
+    this.mostrarFormularioDireccion = this.mostrarFormularioDireccion ? false : true;
+  }
+
+  mostrarMensaje(mensaje: string, tipo: string): void {
+    this.flashMessageService.showFlashMessage({messages: [mensaje], timeout: 5000, dismissible: true, type: tipo});
+  }
+
   nuevadireccion(form?: NgForm){
     this.direccionService.selecDireccion.usuario = this.usuarioService.usuarioSeleccionado._id;
     this.agregarDireccion(this.direccionService.selecDireccion);
-    form.reset();
+    this.direccionService.selecDireccion = new Direccion();
   }
 
   provinciaSelected(provincia: string){
     var i : number = 0;
-    while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){
-      i++;
-    }
+    while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){ i++; }
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
 

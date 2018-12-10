@@ -18,10 +18,18 @@ direccionController.putDireccion = async (req, res, next) => {
       $set: direccion
     }, {
       new: false
-    });
-    res.json({
-      status: true,
-      msg: "Dirección actualizada."
+    }, function(err, direccion){
+      if(err){
+        res.json({
+          status: false,
+          error: 'Error al actualizar la dirección: ' + err
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'Dirección actualizada con éxito'
+        })
+      }
     });
   } catch (err) {
     res.json({
@@ -45,10 +53,19 @@ direccionController.createDireccion = async (req, res, next) => {
         telefono:req.body.telefono
       }
     );
-    await direccion.save();
-    res.json({
-      status : true,
-      msg: "Dirección añadida con éxito."
+    await direccion.save( function(err, direccion) {
+      if(err){
+        res.json({
+          status: false,
+          error: 'Error al insertar la dirección' + err
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'La dirección ha sido añadida con éxito',
+          data: direccion
+        })
+      }
     });
   }catch(e)
   {

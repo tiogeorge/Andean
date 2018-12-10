@@ -1,46 +1,97 @@
+.card-perfil, .card-datos-personales, .card-direcciones {
+  margin: 5px 5px;
+}
+
 .card-perfil {
-    margin: 5px 5px;
+    width: 100%;
 }
 
 .datos-form {
-    width: 100%;
+  width: 100%;
 }
+
+.itemDireccion :hover {
+    cursor: pointer;
+}
+
 .menuLateral {
-    display: none;
+  display: none;
 }
 
 #tipoDocumento {
-    width: 30%;
+  width: 30%;
 }
 
 #numeroDocumento {
-    width: 70%;
+  width: 70%;
 }
 
-#nombres, #apellidos, #correo, #fechaNacimiento, #fechaAfiliacion, #sexo, #promociones {
-    width: 100%;
+#nombres,
+#apellidos,
+#correo,
+#fechaNacimiento,
+#fechaAfiliacion,
+#sexo,
+#promociones,
+#departamento,
+#provincia,
+#distrito,
+#direccion,
+#tipolocal,
+#referencia,
+#telefono {
+  width: 100%;
 }
 
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-
-    
-}
+@media (min-width: 576px) {}
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-    .menuLateral {
-        display: inline;
-    }
+  .menuLateral {
+    display: inline;
+  }
+
+  #botonActualizar {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+  }
+
+  #nombres,
+  #apellidos,
+  #tipoDocumento,
+  #numeroDocumento, #correo, #sexo, #fechaNacimiento, #fechaAfiliacion, #telefono {
+    width: 50%;
+  }
+
+  #departamento, #provincia, #distrito {
+      width: 33%;
+  }
+
+  #tipolocal {
+      width: 30%;
+  }
+  #referencia {
+    width: 70%;
+  }
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
+
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
+    #perfil-usuario {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .card-datos-personales, .card-direcciones {
+        width: 48%;
+    }
 }
 
 /*

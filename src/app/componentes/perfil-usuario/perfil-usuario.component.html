@@ -26,14 +26,14 @@
           <mat-divider></mat-divider>
           <mat-list-item>
             <mat-icon mat-list-icon>how_to_reg</mat-icon>
-            <h4 mat-line>Datos Personales</h4>
+            <a href="{{router.url}}#datosPersonales" mat-line>Datos Personales</a>
           </mat-list-item>
           <mat-divider></mat-divider>
         </mat-list>
       </mat-card-content>
     </mat-card>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content id="perfil-usuario">
     <mat-card class="card-perfil">
       <mat-card-title>Ordenes de Compra</mat-card-title>
       <mat-card-content>
@@ -91,8 +91,9 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card-perfil">
+    <mat-card id="datosPersonales" class="card-datos-personales">
       <mat-card-title>Datos Personales</mat-card-title>
+      <ng-flash-message [hidden]="!mostrarMensageCliente"></ng-flash-message>
       <form #clienteForm="ngForm" class="datos-form" *ngIf="usuarioService.usuarioSeleccionado">
         <mat-card-content>
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
@@ -151,100 +152,68 @@
         </mat-card-actions>
       </form>
     </mat-card>
-    <mat-card class="card-perfil">
+    <mat-card class="card-direcciones">
       <mat-card-title>Mis Direcciones de Envío</mat-card-title>
       <mat-card-content>
-        <mat-accordion>
-          <!--  <mat-expansion-panel *ngFor="let direccion of direccionService.direccion">
-            <form #direccionForm>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{direccion.direccion}}
-                </mat-panel-title>
-                <mat-panel-description>
-                    <mat-icon>room</mat-icon>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccion._id">
-              <mat-form-field id="departamento" class="campo-form">
-                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccion.departamento" placeholder="Departamento">
-                  <mat-option *ngFor="" [value]="dep">{{dep}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="provincia" class="campo-form">
-                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccion.provincia" placeholder="Provincia">
-                  <mat-option *ngFor="" [value]="prov">{{prov}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="distrito" class="campo-form">
-                <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccion.distrito" placeholder="Distrito">
-                  <mat-option *ngFor="" [value]="dis">{{dis}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="direccion">
-                <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccion.direccion" placeholder="Dirección">
-              </mat-form-field>
-              <mat-form-field id="tipoLocal" class="campo-form">
-                <mat-select name="tipoLocal" #tipoLocal="ngModel" [(ngModel)]="direccion.tipoLocal" placeholder="TipoLocal">
-                  <mat-option *ngFor="" [value]="dis">{{dis}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="referencia">
-                <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccion.referencia" placeholder="referencia">
-              </mat-form-field>
-              <mat-form-field id="telefono">
-                <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccion.telefono" placeholder="telefono">
-              </mat-form-field>
-            </form>
-          </mat-expansion-panel>-->
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Agregar Dirección
-              </mat-panel-title>
-              <mat-panel-description>
-                <mat-icon>add_circle</mat-icon>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <form #nuevaDireccion="ngForm">
-              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id" >
-              <mat-form-field id="departamento" class="campo-form">
-                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento" (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
-                  <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="provincia" class="campo-form">
-                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia" (selectionChange)="provinciaSelected($event.value)" placeholder="Provincia">
-                  <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">{{prov.provincia}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="distrito" class="campo-form">
-                <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"  placeholder="Distrito">
-                  <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="direccion">
-                <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion"  placeholder="Dirección" required>
-                <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched) && direccion.errors.required">La dirección es un campo requerido</mat-error>
-              </mat-form-field>
-              <mat-form-field id="tipolocal" class="campo-form">
-                <mat-select name="tipolocal" #tipoLocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"  placeholder="Local de Envío">
-                  <mat-option *ngFor="let vivienda of tiposVivienda" [value]="vivienda">{{vivienda}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field id="referencia">
-                <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia" placeholder="Referencia" required>
-              </mat-form-field>
-              <mat-error *ngIf="referencia.invalid && (referencia.dirty || referencia.touched) && referencia.errors.required">La referencia es un campo obligatorio</mat-error>
-              <mat-form-field id="telefono">
-                <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono" placeholder="Teléfono/Celular" required minlength="6">
-                <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.required">El teléfono es un campo obligatorio</mat-error>
-                <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.minlength">El telefono debe tener una longitud mínima de 6 digitos</mat-error>
-              </mat-form-field>
-              <button mat-raised-button color="primary" (click)="nuevadireccion(nuevaDireccion)">Agregar mi nueva dirección</button>
-            </form>
-          </mat-expansion-panel>
-        </mat-accordion>
+        <mat-list>
+          <ng-flash-message [hidden]="!mostrarMensajeDireccion"></ng-flash-message>
+          <mat-list-item class="itemDireccion" *ngFor="let direccion of direccionService.direccion" (click)="mostrarDireccion(direccion)">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <h4 mat-line>{{direccion.direccion}}</h4>
+          </mat-list-item>
+          <mat-list-item class="itemDireccion" (click)="mostrarFormulario()">
+            <mat-icon mat-list-icon>add_circle</mat-icon>
+            <h4 mat-line>Agregar nueva dirección</h4>
+          </mat-list-item>
+        </mat-list>
+        <form #nuevaDireccion="ngForm" [hidden]="!mostrarFormularioDireccion">
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
+          <mat-form-field id="departamento" class="campo-form">
+            <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento"
+              (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
+              <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field id="provincia" class="campo-form">
+            <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"
+              (selectionChange)="provinciaSelected($event.value)" placeholder="Provincia">
+              <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">{{prov.provincia}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field id="distrito" class="campo-form">
+            <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"
+              placeholder="Distrito">
+              <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field id="direccion">
+            <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion"
+              placeholder="Dirección" required>
+            <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched) && direccion.errors.required">La
+              dirección es un campo requerido</mat-error>
+          </mat-form-field>
+          <mat-form-field id="tipolocal" class="campo-form">
+            <mat-select name="tipolocal" #tipoLocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
+              placeholder="Local de Envío">
+              <mat-option *ngFor="let vivienda of tiposVivienda" [value]="vivienda">{{vivienda}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field id="referencia">
+            <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia"
+              placeholder="Referencia" required>
+          </mat-form-field>
+          <mat-error *ngIf="referencia.invalid && (referencia.dirty || referencia.touched) && referencia.errors.required">La
+            referencia es un campo obligatorio</mat-error>
+          <mat-form-field id="telefono">
+            <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono"
+              placeholder="Teléfono/Celular" required minlength="6">
+            <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.required">El
+              teléfono es un campo obligatorio</mat-error>
+            <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.minlength">El
+              telefono debe tener una longitud mínima de 6 digitos</mat-error>
+          </mat-form-field>
+          <button id="botonActualizar" mat-raised-button color="primary" (click)="nuevadireccion(nuevaDireccion)">{{botonActualizar}}</button>
+        </form>
       </mat-card-content>
     </mat-card>
   </mat-sidenav-content>
