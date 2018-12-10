@@ -27,7 +27,7 @@
                             <mat-chip-list #chipList>
                               <mat-chip *ngFor="let direc of direccionService.direccion" [selectable]="selectable"
                                 [removable]="removable" (removed)="remove(direc)" id="{{direc._id}}" (click)=" direccionselec(direc._id,direc.nombreicon)"
-                                matTooltip="{{direc.direccion}}" matTooltipClass="estilo-tooltip">
+                                matTooltip="{{direc.direccion}}" matTooltipClass="estilo-tooltip" class="matchips">
                                 <mat-icon>{{direc.nombreicon}}</mat-icon>{{direc.distrito}}
                                 <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
                               </mat-chip>
@@ -163,6 +163,18 @@
                       </div>
                     </div>
                   </div>
+                  <hr>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-5"></div>
+                      <div class="col-lg-2">
+                        <div class="example-button-row">
+                          <button id="btnsig1" mat-stroked-button style="display: none;">Siguiente</button>
+                        </div>
+                      </div>
+                      <div class="col-lg-5"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -171,8 +183,8 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" state="met">
-      <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo" >
+      <form [formGroup]="secondFormGroup" ng-disabled="all">
         <ng-template matStepLabel>Informacion de Pago</ng-template>
         <div class="container-fluid">
           <div class="row">
@@ -269,7 +281,7 @@
       </form>
     </mat-step>
     <!--icons stepps-->
-    <ng-template matStepperIcon="direc" style="width: 50px">
+    <ng-template matStepperIcon="direc">
       <mat-icon>home</mat-icon>
     </ng-template>
     <ng-template matStepperIcon="met">

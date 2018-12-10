@@ -78,22 +78,17 @@ export class PagoComponent implements OnInit {
   }
 
   direccionselec(id:string,nombreicon:string){
+    document.getElementsByClassName('matchips').item
     document.getElementById('Resumendir').hidden=false;
-    document.getElementById(id).style.background='#FFBF00';
-    document.getElementById(id).style.color='white';
     this.logocard=nombreicon;
-    document.getElementById(id).style.background='#FFBF00';
-    document.getElementById(id).style.color='white';
-    /*asignardir */
-   /* this.direccionService.Listardireccionuni(id)
-    .subscribe(res=>{
-      this.direccionService.direccion=res as Direccion[];
-      console.log(res);listdirecciones
-    });*/
-    console.log(this.RespuestaDir);
-    console.log(Object.keys(this.RespuestaDir));
+ //   document.getElementById(id).style.background='#FFBF00';
+ //   document.getElementById(id).style.color='white';
     for(var i=0;i< Object.keys(this.RespuestaDir).length;i++){
       if(this.RespuestaDir[i]._id==id){
+        //color
+        document.getElementById(this.RespuestaDir[i]._id).style.background='#FFBF00';
+        document.getElementById(this.RespuestaDir[i]._id).style.color='white';
+        //fin
         document.getElementById('lbdirec').innerHTML=this.RespuestaDir[i].direccion;
         document.getElementById('lbtipolocal').innerHTML=this.RespuestaDir[i].tipolocal;
         document.getElementById('lbdepartamento').innerHTML=this.RespuestaDir[i].departamento;
@@ -102,8 +97,12 @@ export class PagoComponent implements OnInit {
         document.getElementById('lbreferencia').innerHTML=this.RespuestaDir[i].referencia;
         document.getElementById('lbtelefono').innerHTML=this.RespuestaDir[i].telefono;
       }
+      else{
+        document.getElementById(this.RespuestaDir[i]._id).style.background='';
+        document.getElementById(this.RespuestaDir[i]._id).style.color='black';
+      }
     }
-
+    document.getElementById('btnsig1').style.display='block';
   }
   remove(fruit: NombreDirec): void {
     const index = this.fruits.indexOf(fruit);
@@ -152,6 +151,7 @@ export class PagoComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     //stepps
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
