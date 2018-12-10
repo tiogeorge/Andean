@@ -28,10 +28,11 @@ export class ChatComponent implements OnInit {
       this.usuarioService.getUsuarioLogeado(localStorage.getItem("_tk"))
       .subscribe(res=>{
         var respuesta = JSON.parse(JSON.stringify(res));
+        console.log(respuesta);
         this.chatService.usuario = respuesta.data as Usuario;      
         document.getElementById("input-nombre").hidden = true;
         document.getElementById("input-email").hidden = true;
-        document.getElementById("mensaje-formulario-chat").innerHTML = "Bienvenido "+this.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle."
+        document.getElementById("mensaje-formulario-chat").innerHTML = "Bienvenido "+this.chatService.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle."
         this.chatService.nuevoMensaje()
         .subscribe(res=>{
           var respuesta  = JSON.parse(JSON.stringify(res));          
@@ -84,7 +85,7 @@ export class ChatComponent implements OnInit {
     if(event.key== "Enter"){
       var input = document.getElementById("mensajechat") as HTMLInputElement;
       let valor = input.value;
-      this.chatService.enviarMensaje(this.chatService.usuario.correo,valor);
+      this.chatService.enviarMensaje("chat:admin",valor);
       input.value = "";
       
     }

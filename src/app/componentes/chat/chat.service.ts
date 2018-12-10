@@ -18,6 +18,7 @@ export class ChatService {
 
   nuevoMensaje(){
     let observable = new Observable(observer => {
+      console.log("desde observable"+this.usuario.correo);
       this.socket.on(this.usuario.correo, (data) => {
         observer.next(data);
       })

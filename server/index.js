@@ -86,7 +86,7 @@ io.on('connection',(socket)=>{
         console.log(data);
         socket.emit('chat:mensaje',"Bienvenido desde Socket IO");
     });
-    socket.on( this.user,(data)=>{ 
+    socket.on("chat:admin",(data)=>{ 
         console.log(data);
         socket.emit( this.user,{
             estado: 1,

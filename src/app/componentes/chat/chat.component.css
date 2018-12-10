@@ -7,11 +7,63 @@
     overflow: auto;
     margin-left: 0px !important;
     margin-right:0px !important;
-    padding-left: 15px;
-    padding-right: 15px; 
+    padding-left: 5px;
+    padding-right: 5px; 
     padding-top: 10px;
     color: black;
 }
+.item-mensaje-admin{
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-grow: 0;
+    color: rgb(0, 0, 0);
+    background-color: #dae0e7;
+    border: 2px solid rgb(224, 219, 219);
+    max-width: 85%;
+    font-size: small;
+}
+.item-mensaje-user{
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-grow: 0;
+    color: white;
+    background-color: #212529;
+    border: 2px solid rgb(39, 39, 39);
+    max-width: 85%;
+    font-size: small;
+}
+.mensaje-admin{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+}
+.mensaje-user{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+}
+.info-mensaje{
+    width: 100%;
+    justify-content: space-between;
+    font-size: 12px;
+    font-style: italic;
+    color: #4d4e50;
+    display: flex;
+    flex-direction: row;
+}
+
 .footer-chat{
     margin-top: 10px; 
     width: 100%; 
