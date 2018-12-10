@@ -29,7 +29,6 @@
                                 [removable]="removable" (removed)="remove(direc)" id="{{direc._id}}" (click)=" direccionselec(direc._id,direc.nombreicon)"
                                 matTooltip="{{direc.direccion}}" matTooltipClass="estilo-tooltip" class="matchips">
                                 <mat-icon>{{direc.nombreicon}}</mat-icon>{{direc.distrito}}
-                                <mat-icon matChipRemove *ngIf="removable">{{nombreiconselec}}</mat-icon>
                               </mat-chip>
                             </mat-chip-list>
                           </mat-form-field>
@@ -53,7 +52,7 @@
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Departamento</mat-label>
                                 <input matInput placeholder="Departamento" name="departamento" #departamento="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.departamento">
+                                  [(ngModel)]="direccionService.selecDireccion.departamento"  required>
                                 <mat-icon matSuffix>local_library</mat-icon>
                               </mat-form-field>
                             </div>
@@ -61,14 +60,14 @@
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Provincia</mat-label>
                                 <input matInput placeholder="Provincia" name="provincia" #provincia="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.provincia">
+                                  [(ngModel)]="direccionService.selecDireccion.provincia"  required>
                                 <mat-icon matSuffix>map</mat-icon>
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Distrito</mat-label>
-                                <input matInput placeholder="Distrito" name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito">
+                                <input matInput placeholder="Distrito" name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito" required>
                                 <mat-icon matSuffix>place</mat-icon>
                               </mat-form-field>
                             </div>
@@ -80,13 +79,13 @@
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Direccion</mat-label>
                                 <input matInput placeholder="Direccion" name="direccion" #direccion="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.direccion">
+                                  [(ngModel)]="direccionService.selecDireccion.direccion"  required>
                                 <mat-icon matSuffix>store_mall_directory</mat-icon>
                               </mat-form-field>
                             </div>
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
-                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal">
+                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal" required>
                                   <mat-option *ngFor="let local of Local" [value]="local.value">
                                     {{local.value}}
                                   </mat-option>
@@ -101,7 +100,7 @@
                               <mat-form-field appearance="outline" style="width: 100%">
                                 <mat-label>Referencia</mat-label>
                                 <input matInput placeholder="Referencia" name="referencia" #referencia="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.referencia">
+                                  [(ngModel)]="direccionService.selecDireccion.referencia"  required>
                                 <mat-icon matSuffix>rate_review</mat-icon>
                               </mat-form-field>
                             </div>
@@ -109,7 +108,7 @@
                               <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Teléfono/Celular</mat-label>
                                 <input matInput placeholder="Teléfono/Celular" name="telefono" #telefono="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.telefono">
+                                  [(ngModel)]="direccionService.selecDireccion.telefono"  required>
                                 <mat-icon matSuffix>local_phone</mat-icon>
                               </mat-form-field>
                             </div>
@@ -169,7 +168,7 @@
                       <div class="col-lg-5"></div>
                       <div class="col-lg-2">
                         <div class="example-button-row">
-                          <button id="btnsig1" mat-stroked-button style="display: none;">Siguiente</button>
+                          <button id="btnsig1"  mat-stroked-button color="warn" style="display: none;" matStepperNext>Siguiente</button>
                         </div>
                       </div>
                       <div class="col-lg-5"></div>
@@ -183,7 +182,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo" >
+    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo">
       <form [formGroup]="secondFormGroup" ng-disabled="all">
         <ng-template matStepLabel>Informacion de Pago</ng-template>
         <div class="container-fluid">
@@ -213,36 +212,55 @@
                   </mat-radio-group>
                   <div id="datostarjeta" hidden>
                     <hr>
-                    <p>
-                      <mat-form-field appearance="outline" style="width: 100%">
-                        <mat-label>Nombre del titular</mat-label>
-                        <input matInput placeholder="Nombre del titular">
-                        <mat-icon matSuffix>person</mat-icon>
-                      </mat-form-field>
-                    </p>
-                    <p>
-                      <mat-form-field class="example-form-field" style="width: 50%">
-                        <input matInput type="text" placeholder="Número de la tarjeta">
-                      </mat-form-field>
-                    </p>
-                    <mat-form-field style="width: 50px">
-                      <mat-select placeholder="Mes">
-                        <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
-                          {{Mes.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="width: 60px;margin-left: 30px;">
-                      <mat-select placeholder="Año">
-                        <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
-                          {{anho.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field style="width: 60px;margin-left: 30px;">
-                      <input matInput type="text" placeholder="CVV">
-                    </mat-form-field>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <mat-form-field appearance="outline" style="width: 100%">
+                            <mat-label>Nombre del titular</mat-label>
+                            <input matInput placeholder="Nombre del titular"  required>
+                            <mat-icon matSuffix>person</mat-icon>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-7">
+                          <mat-form-field class="example-form-field" style="width: 100%">
+                            <input matInput type="text" placeholder="Número de la tarjeta"  required>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-lg-5">
+                          <div  style="width: 100%">
+                              <mat-form-field style="width: 60px">
+                                  <mat-select placeholder="Mes" required>
+                                    <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
+                                      {{Mes.viewValue}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                                <mat-form-field style="width: 60px;margin-left: 30px;">
+                                  <mat-select placeholder="Año" required>
+                                    <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
+                                      {{anho.viewValue}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                                <mat-form-field style="width: 60px;margin-left: 30px;">
+                                  <input matInput type="text" placeholder="CVV"  required>
+                                </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <hr>
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-5"></div>
+                      <div class="col-lg-2">
+                        <div class="example-button-row">
+                          <button id="btnsig2" mat-stroked-button color="warn" style="display: none;" matStepperNext>Siguiente</button>
+                        </div>
+                      </div>
+                      <div class="col-lg-5"></div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -50,7 +50,7 @@ export class PagoComponent implements OnInit {
   //fin stepper
   //nombreicondir
   nombreicondir:string='add';
-  nombreiconselec:string='cancel';
+  nombreiconselec:string='adjust';
   nombreicontipo='home';
   //finnombre
   //chips
@@ -102,7 +102,9 @@ export class PagoComponent implements OnInit {
         document.getElementById(this.RespuestaDir[i]._id).style.color='black';
       }
     }
+    this.nombreiconselec='check';
     document.getElementById('btnsig1').style.display='block';
+    document.getElementById('btnsig1').focus();
   }
   remove(fruit: NombreDirec): void {
     const index = this.fruits.indexOf(fruit);
@@ -154,10 +156,20 @@ export class PagoComponent implements OnInit {
     
     //stepps
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      datD1: ['', Validators.required],
+      datD2: ['', Validators.required],
+      datD3: ['', Validators.required],
+      datD4: ['', Validators.required],
+      datD5: ['', Validators.required],
+      datD6: ['', Validators.required],
+      datD7: ['', Validators.required], 
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      datoN1: ['', Validators.required],
+      datoN2: ['', Validators.required],
+      datoN3: ['', Validators.required],
+      datoN4: ['', Validators.required],
+      datoN5: ['', Validators.required],
     });
     //fin stepps
   //  document.getElementById('datostarjeta').hidden = true;
@@ -183,6 +195,7 @@ export class PagoComponent implements OnInit {
     if (value == '1') {
       if (document.getElementById('datostarjeta').hidden == true) {
         document.getElementById('datostarjeta').hidden = false;
+        document.getElementById('btnsig2').style.display='block';
       }
       else{
         document.getElementById('datostarjeta').hidden = true;
