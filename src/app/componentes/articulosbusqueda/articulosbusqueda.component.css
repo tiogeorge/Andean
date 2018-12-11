@@ -256,3 +256,14 @@ a :hover {
 }
 
 /**/
+.imagar img{
+  width: 100%;
+  height: auto;
+}
+@supports(object-fit: cover){
+    .imagar img{
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+}

@@ -1,7 +1,8 @@
-import { ArticuloDetalleService} from './../articulo-detalle/articulo-detalle.service';
+import { ArticuloDetalleService } from './../articulo-detalle/articulo-detalle.service';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {Articulo} from './../articulo-detalle/articulo';
+import { Articulo } from './../articulo-detalle/articulo';
+import { Constantes } from '../constantes';
 
 
 
@@ -15,19 +16,22 @@ import {Articulo} from './../articulo-detalle/articulo';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
+  articuloslista: any;
+  URL_IMAGENES = Constantes.URL_API_IMAGEN;
+
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
-  listamarcas: string[] = ['Todos','Apple', 'Huawei', 'LG', 'Motorola', 'Nokia','Samsung', 'ZTE'];
+  listamarcas: string[] = ['Todos', 'Apple', 'Huawei', 'LG', 'Motorola', 'Nokia', 'Samsung', 'ZTE'];
   listaarticulos: string[] = ['Huawei Y5 2018', 'LG V35 ThinQ', 'LG K9', 'LG K11 Plus', 'Samsung Galaxy J2 Pro', 'Lg Q Stylus Plus', 'Motorola Moto E5 Play', 'Samsung Galaxy J6', 'Apple Iphone XS 256GB', 'Apple Iphone XS MAX 512GB', 'Apple XS MAX 64GB', 'Nokia 2.1'];
-  listaurls:  string[] = ['https://static.claro.com.pe/img/ceq/Huawei_Y5-2018_Frontal_Negro_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_V35_ThinQ_Frontal_Postpago.png','https://static.claro.com.pe/img/ceq/LG_K9_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K11_Plus_Frontal_Postpago.jpg', 'https://static.claro.com.pe/img/ceq/Samsung_Galaxy_J2_Pro_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_Q_Stylus_Plus_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Motorola_Moto_E5_Play_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Samsung_galaxy_J6_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/Frontal200x350_PostPago.png'];
+  listaurls: string[] = ['https://static.claro.com.pe/img/ceq/Huawei_Y5-2018_Frontal_Negro_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_V35_ThinQ_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K9_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K11_Plus_Frontal_Postpago.jpg', 'https://static.claro.com.pe/img/ceq/Samsung_Galaxy_J2_Pro_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_Q_Stylus_Plus_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Motorola_Moto_E5_Play_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Samsung_galaxy_J6_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/Frontal200x350_PostPago.png'];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
   //efecto
   centered = false;
   disabled = false;
   unbounded = true;
 
-  radius: number=50;
-  color: string='orange';
+  radius: number = 50;
+  color: string = 'orange';
   //fin efecto
   //slider
   value = 0;
@@ -60,7 +64,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(private articulodetalleService:ArticuloDetalleService ){
+  constructor(private articulodetalleService: ArticuloDetalleService) {
 
   }
 
@@ -110,22 +114,22 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   cambiarvista1() {
-    for (var i = 0; i < this.listaarticulos.length; i++) {
-      document.getElementById('contenedorarticulo' + this.listaarticulos[i]).className = ('col-lg-4');
-      document.getElementById('colart1' + this.listaarticulos[i]).className = ('col-lg-12');
-      document.getElementById('colart2' + this.listaarticulos[i]).className = ('col-lg-12');
+    for (var i = 0; Object.keys(this.articuloslista).length; i++) {
+      document.getElementById('contenedorarticulo' + this.articuloslista[i]._id).className = 'col-lg-3';
+      document.getElementById('colart1' + this.articuloslista[i]._id).className = 'col-lg-12 imagar';
+      document.getElementById('colart2' + this.articuloslista[i]._id).className = 'col-lg-12';
     }
   }
   cambiarvista2() {
-    for (var i = 0; i < this.listaarticulos.length; i++) {
-      document.getElementById('contenedorarticulo' + this.listaarticulos[i]).className = ('col-lg-12');
-      document.getElementById('colart1' + this.listaarticulos[i]).className = ('col-lg-4');
-      document.getElementById('colart2' + this.listaarticulos[i]).className = ('col-lg-8');
+    for (var i = 0; Object.keys(this.articuloslista).length; i++) {
+      document.getElementById('contenedorarticulo' + this.articuloslista[i]._id).className = ('col-lg-12');
+      document.getElementById('colart1' + this.articuloslista[i]._id).className = ('col-lg-4 imagar');
+      document.getElementById('colart2' + this.articuloslista[i]._id).className = ('col-lg-8');
     }
   }
   cambiaridfiltro() {
-    
-    if (screen.width<767) {
+
+    if (screen.width < 767) {
       document.getElementById('categoriafiltro2').id = ('categoriafiltro');
       document.getElementById('categoriafiltro').id = ('categoriafiltro2');
       document.getElementById('marcafiltro2').id = ('marcafiltro');
@@ -134,18 +138,19 @@ export class ArticulosbusquedaComponent implements OnInit {
       document.getElementById('divprecio').id = ('divprecio2');
       document.getElementById('colorfiltro2').id = ('colorfiltro');
       document.getElementById('colorfiltro').id = ('colorfiltro2');
-      document.getElementById('sliderpre').style.width=('95%');
+      document.getElementById('sliderpre').style.width = ('95%');
     }
   }
   //funciones
-  listaraarticulos(){
-    
+  listaraarticulos() {
+
     this.articulodetalleService.listarArticulos()
-    .subscribe(res=>{
-      console.log('entra');
-      this.articulodetalleService.Articulo=res as Articulo[];
-      console.log(res);
-    });
+      .subscribe(res => {
+        console.log('entra');
+        this.articulodetalleService.Articulo = res as Articulo[];
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        this.articuloslista = Respuesta;
+      });
   }
 }
 

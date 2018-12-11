@@ -126,19 +126,19 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3" *ngFor="let articulo of articulodetalleService.Articulo; index as i" id="contenedorarticulo{{articulo_id}}">
+                <div class="col-lg-3"  *ngFor="let articulo of articulodetalleService.Articulo; index as i" id="contenedorarticulo{{articulo._id}}">
                   <div class="container-fluid">
                     <div class="row">
-                      <div class="col-lg-12" id="colart1{{articulo_id}}">
+                      <div class="col-lg-12 imagar" id="colart1{{articulo._id}}" style="width: 100%">
                         <a routerLink="/articulo/{{articulo._id}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                          <img class="card-img-top" id="articulo" src="{{articulo.imagenes}}" alt="{{articulo.imagenes}}">
+                          <img class="img-fluid card-img-top"  id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes}}">
                         </a>
                       </div>
-                      <div class="col-lg-12" id="colart2{{articulo._id}}">
+                      <div class="col-lg-12" id="colart2{{articulo._id}}" style="width: 100%">
                         <h4 class="card-title">
                           <a class="titulo-articulo" routerLink="/articulo/{{articulo._id}}">{{articulo.titulo}}</a>
                         </h4>
-                        <p class="card-text">Plan 29.90</p>
+                        <p class="card-text">{{articulo.precio}}</p>
                       </div>
                     </div>
                   </div>
