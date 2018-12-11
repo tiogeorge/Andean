@@ -26,6 +26,7 @@ import { PagoComponent } from './componentes/pago/pago.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { ChatComponent } from './componentes/chat/chat.component';
 import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
+import { CompararEquiposComponent } from './componentes/comparar-equipos/comparar-equipos.component';
 
 
 const routes : Route[] = [
@@ -64,7 +65,8 @@ const routes : Route[] = [
     PerfilUsuarioComponent,
     PagoComponent,
     PedidosComponent,
-    ChatComponent
+    ChatComponent,
+    CompararEquiposComponent
   ],
   imports: [
     BrowserModule,
