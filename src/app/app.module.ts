@@ -42,7 +42,8 @@ const routes : Route[] = [
   {path: 'cart', component:CarritocomprasComponent},
   {path: 'terminos', component: TerminosComponent},
   {path: 'perfil-usuario', component: PerfilUsuarioComponent},
-  {path: 'pago', component: PagoComponent}
+  {path: 'pago', component: PagoComponent},
+  {path: 'compararEqui',component:CompararEquiposComponent}
 ];
 
 @NgModule({
