@@ -50,25 +50,38 @@
                           <div class="row">
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
-                                <mat-label>Departamento</mat-label>
+                                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento"
+                                  (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
+                                  <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
+                                </mat-select>
+                                <!-- <mat-label>Departamento</mat-label>
                                 <input matInput placeholder="Departamento" name="departamento" #departamento="ngModel"
                                   [(ngModel)]="direccionService.selecDireccion.departamento">
-                                <mat-icon matSuffix>local_library</mat-icon>
+                                <mat-icon matSuffix>local_library</mat-icon>-->
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
-                                <mat-label>Provincia</mat-label>
+                                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"
+                                  (selectionChange)="provinciaSelected($event.value)" placeholder="Provincia">
+                                  <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias"
+                                    [value]="prov.provincia">{{prov.provincia}}</mat-option>
+                                </mat-select>
+                                <!--<mat-label>Provincia</mat-label>
                                 <input matInput placeholder="Provincia" name="provincia" #provincia="ngModel"
                                   [(ngModel)]="direccionService.selecDireccion.provincia">
-                                <mat-icon matSuffix>map</mat-icon>
+                                <mat-icon matSuffix>map</mat-icon>-->
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
-                                <mat-label>Distrito</mat-label>
+                                <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"
+                                  placeholder="Distrito">
+                                  <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
+                                </mat-select>
+                                <!--<mat-label>Distrito</mat-label>
                                 <input matInput placeholder="Distrito" name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito">
-                                <mat-icon matSuffix>place</mat-icon>
+                                <mat-icon matSuffix>place</mat-icon> -->
                               </mat-form-field>
                             </div>
                           </div>
@@ -168,7 +181,7 @@
                       <div class="col-lg-5"></div>
                       <div class="col-lg-2">
                         <div class="example-button-row">
-                          <button id="btnsig1"  mat-stroked-button color="warn" style="display: none;" matStepperNext>Siguiente</button>
+                          <button id="btnsig1" mat-stroked-button color="warn" style="display: none;" matStepperNext>Siguiente</button>
                         </div>
                       </div>
                       <div class="col-lg-5"></div>
@@ -217,34 +230,34 @@
                         <div class="col-lg-12">
                           <mat-form-field appearance="outline" style="width: 100%">
                             <mat-label>Nombre del titular</mat-label>
-                            <input matInput placeholder="Nombre del titular" >
+                            <input matInput placeholder="Nombre del titular">
                             <mat-icon matSuffix>person</mat-icon>
                           </mat-form-field>
                         </div>
                         <div class="col-lg-7">
                           <mat-form-field class="example-form-field" style="width: 100%">
-                            <input matInput type="text" placeholder="Número de la tarjeta" >
+                            <input matInput type="text" placeholder="Número de la tarjeta">
                           </mat-form-field>
                         </div>
                         <div class="col-lg-5">
-                          <div  style="width: 100%">
-                              <mat-form-field style="width: 60px">
-                                  <mat-select placeholder="Mes">
-                                    <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
-                                      {{Mes.viewValue}}
-                                    </mat-option>
-                                  </mat-select>
-                                </mat-form-field>
-                                <mat-form-field style="width: 60px;margin-left: 30px;">
-                                  <mat-select placeholder="Año" >
-                                    <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
-                                      {{anho.viewValue}}
-                                    </mat-option>
-                                  </mat-select>
-                                </mat-form-field>
-                                <mat-form-field style="width: 60px;margin-left: 30px;">
-                                  <input matInput type="text" placeholder="CVV"  >
-                                </mat-form-field>
+                          <div style="width: 100%">
+                            <mat-form-field style="width: 60px">
+                              <mat-select placeholder="Mes">
+                                <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
+                                  {{Mes.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <mat-form-field style="width: 60px;margin-left: 30px;">
+                              <mat-select placeholder="Año">
+                                <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
+                                  {{anho.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <mat-form-field style="width: 60px;margin-left: 30px;">
+                              <input matInput type="text" placeholder="CVV">
+                            </mat-form-field>
                           </div>
                         </div>
                       </div>
@@ -277,7 +290,8 @@
           <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
-              <form><div class="card">
+              <form>
+                <div class="card">
                   <div class="card-header"><label>Total</label></div>
                   <div class="card-body">
                     <p>SubTotal</p>
@@ -291,7 +305,8 @@
                     <p>Producto</p>
                   </div>
                   <button class="btn btn-success" style="background-color: orange">Finalizar Compra</button>
-                </div></form>
+                </div>
+              </form>
             </div>
             <div class="col-lg-2"></div>
           </div>

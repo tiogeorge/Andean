@@ -2,12 +2,15 @@ import { LoginComponent } from './../login/login.component';
 import { Router } from '@angular/router';
 import { Usuario } from './../perfil-usuario/usuario';
 import { Component, OnInit , ViewEncapsulation} from '@angular/core';
-import {MatChipInputEvent} from '@angular/material';
-import {FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
-import {MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { MatChipInputEvent} from '@angular/material';
+import { FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
+import { MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { DireccionService } from './direccion.service';
 import { Direccion } from './direccion';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
+import { Provincia } from '../perfil-usuario/provincia';
+import { Region } from '../perfil-usuario/region';
+import { RegionService } from '../perfil-usuario/region.service';
 
 
 export interface NombreDirec {
@@ -38,6 +41,7 @@ export interface Tipolocalenvio {
 export class PagoComponent implements OnInit {
   usuario:Usuario;
   usuarioService: UsuarioService;
+  regionService: RegionService;
   router: Router;
   user:string='';
   listdirecciones: string[];
@@ -147,9 +151,10 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, private direccionService:DireccionService,usuarioService: UsuarioService, router: Router ) {
+  constructor(private _formBuilder: FormBuilder, private direccionService:DireccionService,usuarioService: UsuarioService, router: Router, regionService: RegionService ) {
     this.usuarioService = usuarioService;
     this.router = router;
+    this.regionService = regionService;
    }
 
   ngOnInit() {
@@ -184,6 +189,9 @@ export class PagoComponent implements OnInit {
         console.log(this.user);
         this.direccionService.selecDireccion.usuario=this.usuario._id;
         this.ListarDireccion(this.usuario._id.toString());
+        this.regionService.getRegiones().subscribe( res =>{
+          this.regionService.regiones = res as Region[];
+        })
       }else{
         this.router.navigate(['/']);
       }
@@ -300,6 +308,18 @@ export class PagoComponent implements OnInit {
       this.RespuestaDir=Respuesta;
     });
    
+  }
+
+  departamentoSelected(departamento: string){
+    var i = 0;
+    while(this.regionService.regiones[i].departamento != departamento){ i++; }
+    this.regionService.departamentoSelected = this.regionService.regiones[i];
+  }
+
+  provinciaSelected(provincia: string){
+    var i = 0;
+    while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){ i++;}
+    this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
 
 }
