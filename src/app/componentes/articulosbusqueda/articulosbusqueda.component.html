@@ -122,34 +122,21 @@
               </table>
             </ol>
           </div>
-          <!--        <div class="col-lg-4" *ngFor="let articulo of listaarticulos">
-            <div class="card h-100">
-              <a href="#" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
-                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
-              </a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">{{articulo}}</a>
-                </h4>
-                <p class="card-text">ABCD EFGH</p>
-              </div>
-            </div>
-          </div>-->
           <hr>
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3" *ngFor="let articulo of listaarticulos; index as i" id="contenedorarticulo{{articulo}}">
+                <div class="col-lg-3" *ngFor="let articulo of articulodetalleService.Articulo; index as i" id="contenedorarticulo{{articulo_id}}">
                   <div class="container-fluid">
                     <div class="row">
-                      <div class="col-lg-12" id="colart1{{articulo}}">
-                        <a routerLink="/articulo/{{articulo}}" matTooltip="{{articulo}}" matTooltipClass="colortooltip">
-                          <img class="card-img-top" id="articulo" src="{{listaurls[i]}}" alt="{{articulo}}">
+                      <div class="col-lg-12" id="colart1{{articulo_id}}">
+                        <a routerLink="/articulo/{{articulo._id}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
+                          <img class="card-img-top" id="articulo" src="{{articulo.imagenes}}" alt="{{articulo.imagenes}}">
                         </a>
                       </div>
-                      <div class="col-lg-12" id="colart2{{articulo}}">
+                      <div class="col-lg-12" id="colart2{{articulo._id}}">
                         <h4 class="card-title">
-                          <a class="titulo-articulo" routerLink="/articulo/{{articulo}}">{{articulo}}</a>
+                          <a class="titulo-articulo" routerLink="/articulo/{{articulo._id}}">{{articulo.titulo}}</a>
                         </h4>
                         <p class="card-text">Plan 29.90</p>
                       </div>

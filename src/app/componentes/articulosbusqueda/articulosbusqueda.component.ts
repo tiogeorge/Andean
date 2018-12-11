@@ -1,5 +1,7 @@
+import { ArticuloDetalleService} from './../articulo-detalle/articulo-detalle.service';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Articulo} from './../articulo-detalle/articulo';
 
 
 
@@ -58,12 +60,14 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor() {
+  constructor(private articulodetalleService:ArticuloDetalleService ){
+
   }
 
   ngOnInit() {
     console.log(screen.width);
     this.cambiaridfiltro();
+    this.listaraarticulos();
   }
   mostrarcategoria() {
     if (document.getElementById('categoriafiltro').style.display == 'block') {
@@ -132,6 +136,16 @@ export class ArticulosbusquedaComponent implements OnInit {
       document.getElementById('colorfiltro').id = ('colorfiltro2');
       document.getElementById('sliderpre').style.width=('95%');
     }
+  }
+  //funciones
+  listaraarticulos(){
+    
+    this.articulodetalleService.listarArticulos()
+    .subscribe(res=>{
+      console.log('entra');
+      this.articulodetalleService.Articulo=res as Articulo[];
+      console.log(res);
+    });
   }
 }
 

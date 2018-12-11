@@ -10,5 +10,6 @@ router.get('/url/:id', articulo.obtenerArticuloURL);
 router.post('/', articulo.crearArticulo);
 router.put('/:id', articulo.actualizarArticulo);
 //router.delete('/:id', articulo.eliminarCategoria);
+router.get('/mongo/',articulo.listararticulos);
 
 module.exports = router;

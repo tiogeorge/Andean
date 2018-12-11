@@ -174,5 +174,9 @@ articuloController.eliminarArticulo = async (req,res)=>{
     
 }
 
+articuloController.listararticulos = async(req,res )=>{
+    const articulos =await Articulo.find();
+    res.json(articulos);
+}
 
 module.exports = articuloController;

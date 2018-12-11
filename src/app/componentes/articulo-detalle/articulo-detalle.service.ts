@@ -8,6 +8,7 @@ import {Articulo} from './articulo';
 })
 export class ArticuloDetalleService {
   http: HttpClient;
+  Articulo:Articulo[];
   articuloSeleccionado: Articulo = new Articulo();
   url_imagenes = Constantes.URL_IMAGEN;
 
@@ -17,5 +18,8 @@ export class ArticuloDetalleService {
 
   getArticulo(idarticulo: string){
     return this.http.get(Constantes.URL_API_ARTICULO+'/url/'+idarticulo);
+  }
+  listarArticulos(){
+    return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
   }
 }
