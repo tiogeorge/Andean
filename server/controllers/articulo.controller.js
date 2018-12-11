@@ -42,7 +42,7 @@ articuloController.obtenerArticulosMysql = async( req, res)=>{
 
 verificarArticulosMongo = async (id,i)=>{
     try{
-        const articulomongo = await Articulo.find({
+       /* const articulomongo = await Articulo.find({
             idarticulo:id
         });   
            
@@ -55,7 +55,11 @@ verificarArticulosMongo = async (id,i)=>{
         }else{
             jsonArticulos[i].Categoria = "SIN CATEGORIA";
             jsonArticulos[i].Estado = "0";
-        }
+        }*/
+
+        //codigo temporal
+        jsonArticulos[i].Categoria = "SIN CATEGORIA";
+        jsonArticulos[i].Estado = "0";
     }catch(e){
         console.log("currio un error");
     }
