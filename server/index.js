@@ -72,25 +72,12 @@ var user = "";
 // web sockets
 io.on('connection',(socket)=>{
     console.log("Nueva Conexion ID : "+socket.id);
-
     
-    socket.on('init-chat',(data)=>{
-        this.user = data.email;
-        console.log( this.user);
-        socket.emit( this.user,{
-            estado: 1,
-            mensaje:"Bienvenido"
-        });
+    socket.on('init-chat',(data)=>{      
+        console.log(data);  
+        io.sockets.emit("init-admin",data);
     });
-    socket.on('chat:mensaje',(data)=>{
-        console.log(data);
-        socket.emit('chat:mensaje',"Bienvenido desde Socket IO");
-    });
-    socket.on("chat:admin",(data)=>{ 
-        console.log(data);
-        socket.emit( this.user,{
-            estado: 1,
-            mensaje:"Me enviaste "+data
-        });
+    socket.on('chat-admin',(data)=>{
+        io.sockets.emit(data.destino,data);
     });
 })
