@@ -178,5 +178,8 @@ articuloController.listararticulos = async(req,res )=>{
     const articulos =await Articulo.find();
     res.json(articulos);
 }
-
+articuloController.buscararti=async(req,res)=>{
+    const articbus=await Articulo.find({"titulo": /.*DATO.*/});
+    res.json(articbus);
+}
 module.exports = articuloController;
