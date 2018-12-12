@@ -256,9 +256,15 @@ a :hover {
 }
 
 /**/
+.imagar{
+  width: 160px;
+  height: 160px;
+ background:;
+  overflow: hidden;
+}
 .imagar img{
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
 }
 @supports(object-fit: cover){
     .imagar img{
@@ -267,3 +273,10 @@ a :hover {
       object-position: center center;
     }
 }
+.centrarimg {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+

@@ -114,7 +114,7 @@
                     </th>
                     <th id="rowvista">
                       <p>Vista: &nbsp; <i class="material-icons" (click)="cambiarvista1()">grid_on</i>&nbsp;<i class="material-icons"
-                        (click)="cambiarvista2()">list</i></p>
+                          (click)="cambiarvista2()">list</i></p>
                     </th>
                     <th></th>
                   </tr>
@@ -126,19 +126,22 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3"  *ngFor="let articulo of articulodetalleService.Articulo; index as i" id="contenedorarticulo{{articulo._id}}">
+                <div class="col-lg-3" *ngFor="let articulo of articulodetalleService.Articulo; index as i" id="contenedorarticulo{{articulo._id}}">
                   <div class="container-fluid">
                     <div class="row">
-                      <div class="col-lg-12 imagar" id="colart1{{articulo._id}}" style="width: 100%">
-                        <a routerLink="/articulo/{{articulo._id}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                          <img class="img-fluid card-img-top"  id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes}}">
+                      <div class="col-lg-12 imagar" id="colart1{{articulo._id}}">
+                        <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
+                          <img class="img-fluid card-img-top centrarimg" id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}"
+                            alt="{{articulo.imagenes}}">
                         </a>
                       </div>
-                      <div class="col-lg-12" id="colart2{{articulo._id}}" style="width: 100%">
-                        <h4 class="card-title">
-                          <a class="titulo-articulo" routerLink="/articulo/{{articulo._id}}">{{articulo.titulo}}</a>
-                        </h4>
-                        <p class="card-text">{{articulo.precio}}</p>
+                      <div class="col-lg-12" id="colart2{{articulo._id}}" >
+                        <p class="card-text">
+                          <a class="titulo-articulo" style="font-size: 13px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
+                        </p>
+                        <p class="card-text">
+                            <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">Desde: {{articulo.precio}}</a>
+                          </p>
                       </div>
                     </div>
                   </div>
@@ -154,114 +157,114 @@
 </div>
 <!--modal-->
 <!-- Button trigger modal -->
-<div class="container-fluid" >
-    <div class="row">
-      <div class="col-md-12">
-        <div class="btn-group" id="botonfiltromodal">
-          <a class="btn btn-fab" id="main" data-toggle="modal" data-target="#modalfiltro" style="background: orange">
-            <i class="material-icons">filter_list</i>
-          </a>
-        </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group" id="botonfiltromodal">
+        <a class="btn btn-fab" id="main" data-toggle="modal" data-target="#modalfiltro" style="background: orange">
+          <i class="material-icons">filter_list</i>
+        </a>
       </div>
     </div>
   </div>
+</div>
 
-  
-  <!-- Modal -->
-  <div class="modal fade" id="modalfiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Filtro</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="col-lg-3" style="background: white">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-lg-12" (click)="mostrarcategoria()">
-                      <p>Categorias<i id="icondown1" class="material-icons">keyboard_arrow_{{nombreicon1}}</i></p>
-                    </div>
-                    <div id="categoriafiltro2" class="col-lg-12" style="display: none">
-                      <hr>
-                      <div class="well" style="max-height: 300px;overflow: auto;">
-                        <div class="checkbox" *ngFor="let categoria of listacategorias">
-                          <label>
-                            <input type="checkbox" value="">
-                            <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
-                            {{categoria}}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12" (click)=" mostrarmarca()">
-                      <hr>
-                      <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
-                    </div>
-                    <div id="marcafiltro2" class="col-lg-12" style="display: none">
-                      <hr>
-                      <div class="well" style="max-height: 300px;overflow: auto;">
-                        <div class="checkbox" *ngFor="let marca of listamarcas">
-                          <label>
-                            <input type="checkbox" value="">
-                            <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
-                            {{marca}}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12" (click)="mostrarcolor()">
-                      <hr>
-                      <p>Color<i id="icondown3" class="material-icons">keyboard_arrow_{{nombreicon3}}</i></p>
-                    </div>
-                    <div id="colorfiltro2" class="col-lg-12" style="display: none">
-                      <hr>
-                      <div class="well" style="max-height: 300px;overflow: auto;">
-                        <div class="checkbox" *ngFor="let color of listacolor">
-                          <label>
-                            <input type="checkbox" value="">
-                            <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
-                            {{color}}<i id="iconcolor" class="material-icons">color_lens</i>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-12" (click)="mostrarprecio()">
-                      <hr>
-                      <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p>
-                    </div>
-                    <div class="col-lg-12" id="divprecio2" style="display: none">
-                      <!--inicio de slider de precio-->
-                      <section class="example-section">
-                        <div class="example-margin">
-                          <input matInput type="number" placeholder="Min value" [(ngModel)]="min">
-                        </div>
-                        <div class="example-margin">
-                          <input matInput type="number" placeholder="Max value" [(ngModel)]="max">
-                        </div>
-                        <div class="example-margin">
-                          <input matInput type="text" placeholder="Value" [(ngModel)]="value">
-                        </div>
-                      </section>
-                      <section class="result">
-                        <mat-slider id="sliderpre" thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval" [(ngModel)]="value"
-                          [min]="min" [max]="max" tickInterval="1">
-                        </mat-slider>
-                      </section>
-                      <!--fin de slider-->
-                    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalfiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Filtro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-3" style="background: white">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12" (click)="mostrarcategoria()">
+                <p>Categorias<i id="icondown1" class="material-icons">keyboard_arrow_{{nombreicon1}}</i></p>
+              </div>
+              <div id="categoriafiltro2" class="col-lg-12" style="display: none">
+                <hr>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                  <div class="checkbox" *ngFor="let categoria of listacategorias">
+                    <label>
+                      <input type="checkbox" value="">
+                      <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                      {{categoria}}
+                    </label>
                   </div>
                 </div>
               </div>
+              <div class="col-lg-12" (click)=" mostrarmarca()">
+                <hr>
+                <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
+              </div>
+              <div id="marcafiltro2" class="col-lg-12" style="display: none">
+                <hr>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                  <div class="checkbox" *ngFor="let marca of listamarcas">
+                    <label>
+                      <input type="checkbox" value="">
+                      <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                      {{marca}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12" (click)="mostrarcolor()">
+                <hr>
+                <p>Color<i id="icondown3" class="material-icons">keyboard_arrow_{{nombreicon3}}</i></p>
+              </div>
+              <div id="colorfiltro2" class="col-lg-12" style="display: none">
+                <hr>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                  <div class="checkbox" *ngFor="let color of listacolor">
+                    <label>
+                      <input type="checkbox" value="">
+                      <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                      {{color}}<i id="iconcolor" class="material-icons">color_lens</i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12" (click)="mostrarprecio()">
+                <hr>
+                <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p>
+              </div>
+              <div class="col-lg-12" id="divprecio2" style="display: none">
+                <!--inicio de slider de precio-->
+                <section class="example-section">
+                  <div class="example-margin">
+                    <input matInput type="number" placeholder="Min value" [(ngModel)]="min">
+                  </div>
+                  <div class="example-margin">
+                    <input matInput type="number" placeholder="Max value" [(ngModel)]="max">
+                  </div>
+                  <div class="example-margin">
+                    <input matInput type="text" placeholder="Value" [(ngModel)]="value">
+                  </div>
+                </section>
+                <section class="result">
+                  <mat-slider id="sliderpre" thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval"
+                    [(ngModel)]="value" [min]="min" [max]="max" tickInterval="1">
+                  </mat-slider>
+                </section>
+                <!--fin de slider-->
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
+</div>
 <!--fin modal-->
-
