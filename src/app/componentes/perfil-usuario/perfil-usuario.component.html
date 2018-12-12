@@ -6,27 +6,27 @@
         <mat-list>
           <mat-list-item>
             <mat-icon mat-list-icon>local_mall</mat-icon>
-            <h4 mat-line>Ordenes</h4>
+            <a href="{{url}}#ordenes-de-compra" mat-line>Ordenes de Compra</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>
             <mat-icon mat-list-icon>local_play</mat-icon>
-            <h4 mat-line>Lista de Deseos</h4>
+            <a href="{{url}}#lista-de-deseos" mat-line>Lista de Deseos</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>
             <mat-icon mat-list-icon>local_grocery_store</mat-icon>
-            <h4 mat-line>Compras</h4>
+            <a href="{{url}}#compras" mat-line>Compras</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>
             <mat-icon mat-list-icon>local_atm</mat-icon>
-            <h4 mat-line>Métodos de Pago</h4>
+            <a href="{{url}}#metodos-de-pago" mat-line>Métodos de Pago</a>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>
             <mat-icon mat-list-icon>how_to_reg</mat-icon>
-            <a href="{{router.url}}#datosPersonales" mat-line>Datos Personales</a>
+            <a href="{{url}}#datosPersonales" mat-line>Datos Personales</a>
           </mat-list-item>
           <mat-divider></mat-divider>
         </mat-list>
@@ -34,7 +34,7 @@
     </mat-card>
   </mat-sidenav>
   <mat-sidenav-content id="perfil-usuario">
-    <mat-card class="card-perfil">
+    <mat-card id="ordenes-de-compra" class="card-perfil">
       <mat-card-title>Ordenes de Compra</mat-card-title>
       <mat-card-content>
         <mat-list>
@@ -53,7 +53,7 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card-perfil">
+    <mat-card id="lista-de-deseos" class="card-perfil">
       <mat-card-title>Lista de Deseos</mat-card-title>
       <mat-card-content>
         <mat-list>
@@ -72,8 +72,27 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card-perfil">
+    <mat-card id="compras" class="card-perfil">
       <mat-card-title>Compras</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <h4 mat-line>Articulo</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line>Pedido</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line>Precio</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line>Estado</h4>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    <mat-card id="metodos-de-pago" class="card-perfil">
+      <mat-card-title>Métodos de Pago</mat-card-title>
       <mat-card-content>
         <mat-list>
           <mat-list-item>
@@ -218,156 +237,3 @@
     </mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<!--
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          MI CUENTA
-        </div>
-        <div class="card-body">
-          <label class="datoTitulo">Ordenes</label><br>
-          <label class="datoTitulo">Lista de Deseos</label><br>
-          <label class="datoTitulo">Compras</label><br>
-          <label class="datoTitulo">Metodos de Pago</label><br>
-          <label class="datoTitulo">Datos Personales</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-9 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          ORDENES
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 col-sm-12">
-              <div>
-                <img class="img-fluid mx-auto d-block img-thumbnail" src="https://cdn.shopify.com/s/files/1/0877/3052/products/Mesa_de_trabajo_1_bb777699-0f16-4172-9d59-e4faa38235a9.jpg?v=1531350381"
-                  width="150px">
-              </div>
-            </div>
-            <div class="col-md-9 col-sm-12">
-              <label class="datoTitulo"> Articulo:</label>
-              <label class="dato">&nbsp;LG K9</label>
-              <br>
-              <label class="datoTitulo"> Precio:</label>
-              <label class="dato">&nbsp;S/.1500.00</label>
-              <br>
-              <label class="datoTitulo"> Fecha de Pedido:</label>
-              <label class="dato">&nbsp;14/11/2018</label>
-              <br>
-              <label class="datoTitulo"> Estado:</label>
-              <label class="dato">&nbsp;Sin confirmacion</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          LISTA DE DESEOS
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 col-sm-12">
-              <div>
-                <img class="img-fluid mx-auto d-block img-thumbnail" src="https://cdn.shopify.com/s/files/1/0877/3052/products/Mesa_de_trabajo_1_bb777699-0f16-4172-9d59-e4faa38235a9.jpg?v=1531350381"
-                  width="150px">
-              </div>
-            </div>
-            <div class="col-md-9 col-sm-12">
-              <label class="datoTitulo">Articulo:</label>
-              <label class="dato">&nbsp;LG K9</label>
-              <br>
-              <label class="datoTitulo"> Precio:</label>
-              <label class="dato">&nbsp;S/.1500.00</label>
-              <br>
-              <label class="datoTitulo"> Fecha de Adicion:</label>
-              <label class="dato">&nbsp;10/11/2018</label>
-              <br>
-              <label class="datoTitulo"> Diferencia de Precio:</label>
-              <label class="dato">&nbsp;S/.150.00</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          COMPRAS
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 col-sm-12">
-              <div>
-                <img class="img-fluid mx-auto d-block img-thumbnail" src="https://cdn.shopify.com/s/files/1/0877/3052/products/Mesa_de_trabajo_1_bb777699-0f16-4172-9d59-e4faa38235a9.jpg?v=1531350381"
-                  width="150px">
-              </div>
-            </div>
-            <div class="col-md-9 col-sm-12">
-              <label class="datoTitulo"> Articulo:</label>
-              <label class="dato">&nbsp;LG K9</label>
-              <br>
-              <label class="datoTitulo"> Precio:</label>
-              <label class="dato">&nbsp;S/.1500.00</label>
-              <br>
-              <label class="datoTitulo"> Fecha de Compra:</label>
-              <label class="dato">&nbsp;14/11/2018</label>
-              <br>
-              <label class="datoTitulo"> Fecha de Recepcion:</label>
-              <label class="dato">&nbsp;15/11/2018</label>
-              <br>
-              <label class="datoTitulo"> Calificacion del producto:</label>
-              <label class="dato">&nbsp;
-                <img class="estrella" src="assets/images/star.png">
-                <img class="estrella" src="assets/images/star.png">
-                <img class="estrella" src="assets/images/star.png">
-                <img class="estrella" src="assets/images/star.png">
-                <img class="estrella" src="assets/images/star.png">
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          METODOS DE PAGO
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 col-sm-12">
-              <div>
-                <img class="img-fluid mx-auto d-block img-thumbnail" src="https://www.visa.com.pe/asociandose-con-nosotros/informacion-para-socios/pequenas-empresas/_jcr_content/par/cardstack_4/cardStackColumn1/image_efdc.img.jpg/1532721375345.jpg"
-                  width="150px">
-              </div>
-            </div>
-            <div class="col-md-9 col-sm-12">
-              <label class="datoTitulo"> Tarjera:</label>
-              <label class="dato">&nbsp;VISA</label>
-              <br>
-              <label class="datoTitulo">Estado:</label>
-              <label class="dato">&nbsp;Activo</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          DATOS PERSONALES
-        </div>
-        <div class="card-body" *ngIf="usuario">
-          <label class="datoTitulo"> Nombres:</label>
-          <label class="dato">&nbsp;{{usuario.nombres}}</label>
-          <br>
-          <label class="datoTitulo">Apellidos:</label>
-          <label class="dato">&nbsp;{{usuario.apellidos}}</label>
-          <br>
-          <label class="datoTitulo">Correo:</label>
-          <label class="dato">&nbsp;{{usuario.correo}} </label>
-          <br>
-          <label class="datoTitulo">Fecha de Registro:</label>
-          <label class="dato">&nbsp;{{usuario.fecha_afiliacion}}</label>
-        </div>
-      </div>
-    </div>
-  </div> -->

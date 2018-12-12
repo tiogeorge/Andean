@@ -34,6 +34,7 @@ export class PerfilUsuarioComponent implements OnInit {
   tiposDocumento              : string[];
   tiposVivienda               : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
   usuarioService              : UsuarioService;
+  url                         : string;
 
   constructor( private adapter: DateAdapter<any>, direccionService: DireccionService, flashMessageService: NgFlashMessageService, regionService: RegionService,router: Router, usuarioService: UsuarioService) {
     this.adapter.setLocale('es');
@@ -55,6 +56,7 @@ export class PerfilUsuarioComponent implements OnInit {
         this.router.navigate(['/']);
       }
     });
+    this.url = this.router.url;
   }
 
   actualizar(): void{

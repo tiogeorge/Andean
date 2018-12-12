@@ -25,9 +25,7 @@ export class ArticuloDetalleComponent implements OnInit {
   ngOnInit() {
     var url = this.route.snapshot.paramMap.get("id");
     console.log("url imagenes "+this.URL_IMAGENES);
-    this.articuloService.getArticulo(url)
-    
-    .subscribe(res=>{
+    this.articuloService.getArticulo(url).subscribe(res=>{
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       console.log(res);
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);

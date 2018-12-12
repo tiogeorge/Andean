@@ -214,6 +214,19 @@ a {
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
+  #nav-categorias {
+    min-height: 20rem;
+    min-width: 80rem;
+  }
+
+  #nav-categorias #categorias{
+    max-width: 10rem;
+  }
+  
+  #nav-categorias #descripcion-categorias{
+    width: 70rem;
+  }
+
 }
 
 

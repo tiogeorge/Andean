@@ -1,8 +1,8 @@
 const Usuario           = require('../models/usuario');
 const bcrypt            = require('bcrypt');
-const usuarioController = {};
 const salt              = bcrypt.genSaltSync();
 const jwt               = require('jsonwebtoken');
+const usuarioController = {};
 process.env.JWT_SECRET  = 'andeantechnology';
 
 usuarioController.actualizarUsuario = async (req, res, next) => {
@@ -16,23 +16,29 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
       sexo: req.body.sexo,
       fechaNacimiento: req.body.fechaNacimiento
     }
-    const usuario = await Usuario.findOneAndUpdate({
+    await Usuario.findOneAndUpdate({
       _id: req.params.id
     }, {
       $set: user
     }, {
       new: false
-    });
-    res.json({
-      status: true,
-      msg: "Los datos del usuario se han actualizado con éxito."
-    });
-
+    }, function(err, usuario){
+      if(err){
+        res.json({
+          status: false,
+          error: 'Se produjo el siguiente error' + err
+        });
+      }else{
+          res.json({
+            status: true,
+            msg: 'Los datos del usuario se han actualizado con éxito'
+          });
+        }
+      })
   } catch (err) {
     res.json({
       status: false,
       error: "Se produjo un error al actualizar los datos del usuario: " + err
-
     });
   }
 };
@@ -86,27 +92,34 @@ usuarioController.crearUsuario = async (req, res, next) => {
 };
 
 usuarioController.eliminarUsuario = async (req, res, next) => {
-  try {
-    const user = await Usuario.remove({
-      id: req.params.id
+  await Usuario.remove({
+    id: req.params.id
+  }, function(err){
+    if(err){
+      res.json({
+        status: false,
+        error: 'Se produjo un error al eliminar el usuario: ' + err
+      });
+    }else{
+        res.json({
+          status: true,
+          msg: 'El usuario ha sido eliminado con éxito'
+        });
+      }
     });
-    res.json({
-      status: 1,
-      mensaje: "Se eliminó el usuario"
-    });
-
-  } catch (err) {
-    res.json({
-      status: 0,
-      mensaje: " No se pudo eliminar al usuario : ERROR:" + err
-
-    });
-  }
 };
 
 usuarioController.listarUsuarios = async (req, res, next) => {
-  const usuarios = await Usuario.find();
-  res.json(usuarios);
+  const usuarios = await Usuario.find(function(err, usuarios){
+    if(err){
+      res.json({
+        status: false,
+        error: 'Se produjo el siguiente error: ' + err
+      });
+    }else{
+      res.json(usuarios);
+    }
+  })
 };
 
 usuarioController.loginAdmin = async (req, res, next) => {

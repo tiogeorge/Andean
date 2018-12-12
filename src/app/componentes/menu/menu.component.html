@@ -16,12 +16,18 @@
     <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda">
       <mat-icon id="icono-buscar" class="icono">search</mat-icon>
     </button>
-    <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu" >
+    <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu">
       <mat-icon class="icono" (click)='opciones()'>account_circle</mat-icon>
     </button>
     <mat-menu #usermenu="matMenu" class="menu-login">
       <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
-        <mat-icon class="icono">person</mat-icon> Perfil 
+        <mat-icon class="icono">person</mat-icon> Perfil
+      </button>
+      <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
+        <mat-icon class="icono">local_mall</mat-icon> Ordenes de Compra
+      </button>
+      <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
+        <mat-icon class="icono">local_play</mat-icon> Lista de Deseos
       </button>
       <button *ngIf="estaLogeado" mat-menu-item (click)="logout()">
         <mat-icon class="icono">arrow_forward</mat-icon> Cerrar Sesión
@@ -42,8 +48,16 @@
   <a class="navbar-brand" href="#"></a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Categorias <span class="sr-only">(current)</span></a>
+      <li class="nav-item dropdown dropdown-slide active">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-categorias" role="button" data-toggle="dropdown"
+          aria-haspopup="false" aria-expanded="false">Categorias</a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="menu-categorias" id="nav-categorias">
+          <div id="categorias" *ngFor="let categoria of categoriaService.categorias">
+              <a class="dropdown-item text-white" href="#" >{{categoria.nombre}}</a>
+          </div>
+          <div id="descripcion-categoria">
+          </div>       
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Planes</a>
