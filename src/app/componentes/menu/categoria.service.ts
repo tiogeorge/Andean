@@ -10,6 +10,7 @@ export class CategoriaService {
   categorias                  : Categoria[];
   readonly URL_API = 'http://localhost:3000/api/categorias';
 
+
   constructor(private http: HttpClient) {
     this.categoriaSeleccionada = new Categoria();
   }

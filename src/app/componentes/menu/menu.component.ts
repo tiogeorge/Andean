@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
+import { Constantes } from '../constantes';
 import { Router} from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 
@@ -15,6 +16,8 @@ export class MenuComponent implements OnInit {
   estaLogeado         : boolean = false;
   nombre_tienda       : string  = 'Andean Store';
   router              : Router;
+  urlImg              : string = Constantes.URL_IMAGEN;
+  urlImagen           : string = "https://via.placeholder.com/400x300";
 
   constructor(categoriaService: CategoriaService, router: Router) {
     this.categoriaService     = categoriaService;
@@ -24,7 +27,16 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.categoriaService.getCategorias().subscribe(res => {
       this.categoriaService.categorias = res as Categoria[];
+      this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
+      console.log(res);
     });
+  }
+
+  categoriaSelected(nombreCategoria: string){
+    var i= 0;
+    while(this.categoriaService.categorias[i].nombre != nombreCategoria) { i++; }
+    this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[i];
+    this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
   }
 
   opciones(){
