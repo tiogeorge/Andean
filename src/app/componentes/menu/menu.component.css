@@ -93,6 +93,11 @@ a {
   border: 0rem;
 }
 
+#descripcion-categoria img{
+  width: 200px;
+  height: 150px;
+}
+
 
 
 /* Small devices (landscape phones, 576px and up)*/

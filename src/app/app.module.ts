@@ -27,6 +27,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { ChatComponent } from './componentes/chat/chat.component';
 import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
 import { CompararEquiposComponent } from './componentes/comparar-equipos/comparar-equipos.component';
+import { MapaComponent } from './componentes/mapa/mapa.component';
 
 
 const routes : Route[] = [
@@ -67,7 +68,8 @@ const routes : Route[] = [
     PagoComponent,
     PedidosComponent,
     ChatComponent,
-    CompararEquiposComponent
+    CompararEquiposComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
