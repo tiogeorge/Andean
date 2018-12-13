@@ -8,8 +8,8 @@
     <ul class="navbar-nav mr-auto">
     </ul>
     <form id="buscar-form" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" id="buscar" type="search" placeholder="Buscar" aria-label="Search">
-      <button class="btn btn-link my-2 my-sm-0" routerLink="/busqueda">
+      <input class="form-control mr-sm-2" id="buscar" type="search" placeholder="Buscar" aria-label="Search" (keypress)="buscarpa($event)">
+      <button class="btn btn-link my-2 my-sm-0" id="btnbusqueda2" routerLink="/busqueda/{{pclave2}}" >
         <mat-icon id="icono-buscar">search</mat-icon>
       </button>
     </form>

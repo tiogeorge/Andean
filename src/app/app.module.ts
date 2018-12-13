@@ -38,7 +38,7 @@ const routes : Route[] = [
   {path: 'restablecer', component: RestablecerComponent},
   {path: 'multicarro', component:CarouselmultipleComponent},
   {path: 'articulo', component:ArticuloComponent},
-  {path: 'busqueda', component:ArticulosbusquedaComponent},
+  {path: 'busqueda/:pclave', component:ArticulosbusquedaComponent},
   {path: 'articulo/:id', component:ArticuloDetalleComponent},
   {path: 'cart', component:CarritocomprasComponent},
   {path: 'terminos', component: TerminosComponent},

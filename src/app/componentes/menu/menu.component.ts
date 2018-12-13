@@ -12,6 +12,7 @@ import { UsuarioService } from '../perfil-usuario/usuario.service';
   providers: [UsuarioService]
 })
 export class MenuComponent implements OnInit {
+  pclave2:string;
   categoriaService    : CategoriaService;
   estaLogeado         : boolean = false;
   nombre_tienda       : string  = 'Andean Store';
@@ -49,5 +50,13 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/']);
     this.estaLogeado = false;
   }
-
+  buscarpa(event){
+    console.log('entra'+this.pclave2);
+    this.pclave2=input.value;
+    console.log(this.pclave2);
+    if(event.key=="Enter"){
+      var input=document.getElementById('buscar2input') as HTMLInputElement;
+      document.getElementById('btnbusqueda2').click();
+    }
+  }
 }

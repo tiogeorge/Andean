@@ -3,6 +3,7 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
+import { ActivatedRoute } from "@angular/router";
 
 
 
@@ -64,14 +65,15 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(private articulodetalleService: ArticuloDetalleService) {
+  constructor(private route: ActivatedRoute,private articulodetalleService: ArticuloDetalleService) {
 
   }
 
   ngOnInit() {
     console.log(screen.width);
     this.cambiaridfiltro();
-    this.listaraarticulos();
+    var url = this.route.snapshot.paramMap.get("pclave");
+    this.listaraarticulos(url);
   }
   mostrarcategoria() {
     if (document.getElementById('categoriafiltro').style.display == 'block') {
@@ -142,9 +144,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   //funciones
-  listaraarticulos() {
-
-    this.articulodetalleService.listarArticulos()
+  listaraarticulos(pclave:string) {
+    this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
         console.log('entra');
         this.articulodetalleService.Articulo = res as Articulo[];
