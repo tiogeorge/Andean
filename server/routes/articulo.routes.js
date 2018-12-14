@@ -8,6 +8,7 @@ router.get('/mongo/', articulo.listararticulos);
 router.get('/mn/:titulo',articulo.buscararti);
 router.get('/:id', articulo.obtenerArticulo);
 router.get('/url/:id', articulo.obtenerArticuloURL);
+router.get('/mysql/precios/:id', articulo.obtenerPreciosMysql);
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
 router.post('/', articulo.crearArticulo);
 router.put('/:id', articulo.actualizarArticulo);
