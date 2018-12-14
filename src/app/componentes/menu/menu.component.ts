@@ -51,12 +51,21 @@ export class MenuComponent implements OnInit {
     this.estaLogeado = false;
   }
   buscarpa(event){
+    this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;
     console.log('entra'+this.pclave2);
-    this.pclave2=input.value;
     console.log(this.pclave2);
     if(event.key=="Enter"){
+      location.reload();
       var input=document.getElementById('buscar2input') as HTMLInputElement;
       document.getElementById('btnbusqueda2').click();
+    }
+  }
+  buscarArti(){
+    console.log('entra');
+    this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
+    if(this.pclave2!=""){
+      location.reload();
+      var input=document.getElementById('buscar2input') as HTMLInputElement;
     }
   }
 }

@@ -185,7 +185,13 @@ articuloController.listararticulos = async(req,res )=>{
 
 articuloController.buscararti = async (req, res) => {
     const articulosB=await Articulo.find({"titulo":{$regex:'.*'+req.params.titulo+'.*',$options: 'i'}}); //await Articulo.find({"titulo": consul});
-    res.json(articulosB);
+    if(articulosB){
+        res.json(articulosB);
+    }
+    else{
+        const categoriaB=await Categoria.find({"nombre":{$regex:'.*'+req.params.titulo+'.*',$options: 'i'}});
+        res.json(categoriaB);
+    }
 }
 
 module.exports = articuloController;
