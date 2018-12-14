@@ -56,6 +56,7 @@ app.use('/api/re', require('./routes/region.routes'));
 app.use('/api/marca',require('./routes/marca.routes'));
 app.use('/api/caracteristica', require('./routes/caracteristica.route'));
 app.use('/api/distribuidor',require('./routes/distribuidor.routes'));
+app.use('/api/tienda', require('./routes/tienda.routes'))
 
 process.on('uncaughtException', function(err) {
     console.log(err);
