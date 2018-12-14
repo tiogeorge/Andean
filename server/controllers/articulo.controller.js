@@ -195,79 +195,11 @@ articuloController.buscararti = async (req, res) => {
 }
 
 
-
 var JSONPrecios = {
     caracterisca:{},
     marca:{}
 };
-obtenerPreciosPrepago= async(id, req)=>{
-    try{     
 
-        
-        
-        req.getConnection(function (error, conn){
-            var consulta = "SELECT * FROM (SELECT * FROM tapreciosventa WHERE idArticuloGlobal = '"+id+"' AND idTipoPlan='1')tmp ORDER BY FechaVigencia DESC LIMIT 1";
-            conn.query(consulta, async function(err, results) {
-                if (err){
-                    console.log(err);
-                }else{
-                    JSONPrecios.prepago = JSON.parse(JSON.stringify(results));   
-                    console.log("respuesta del sever mysql ");    
-                    console.log(JSONPrecios);       
-                } 
-            });
-            if(error){
-                console.log(error);
-            }
-        });
-        
-    }catch(e){
-        console.log(e);
-    }
-
-}
-obtenerPreciosPostpago= (id, req)=>{
-    try{     
-
-        req.getConnection(function (error, conn){
-            var consulta = "SELECT * FROM (SELECT * FROM tapreciosventa WHERE idArticuloGlobal = fnAS_IDArticuloGlobal('"+id+"') AND YEAR(FechaVigencia)= YEAR(NOW()) ORDER BY FechaVigencia DESC) tmp GROUP BY idTipoPlan";
-            console.log("CONSULTA : "+consulta);
-            conn.query(consulta,  function(err, results) {
-                if (err){
-                    console.log(err);
-                }else{
-                    JSONPrecios.postpago = JSON.parse(JSON.stringify(results));   
-                    console.log(results);  
-                    
-                    
-                    req.getConnection(function (error, conn){
-                        var consulta = "SELECT * FROM (SELECT * FROM tapreciosventa WHERE idArticuloGlobal = '"+id+"' AND idTipoPlan='1')tmp ORDER BY FechaVigencia DESC LIMIT 1";
-                        conn.query(consulta,  function(err, results) {
-                            if (err){
-                                console.log(err);
-                            }else{
-                                JSONPrecios.prepago = JSON.parse(JSON.stringify(results));   
-                                console.log("respuesta del sever mysql ");    
-                                console.log(JSONPrecios);       
-                            } 
-                        });
-                        if(error){
-                            console.log(error);
-                        }
-                    });
-                    //console.log("respuesta del sever mysql ");    
-                    //console.log(JSONPrecios);
-                } 
-            });
-            if(error){
-                console.log(error);
-            }
-        });
-        
-    }catch(e){
-        console.log(e);
-    }
-}
 articuloController.obtenerPreciosMysql = async(req, res)=>{
     JSONPrecios ={};
     try{
@@ -312,6 +244,7 @@ articuloController.obtenerPreciosMysql = async(req, res)=>{
     }
     
 }
+
 
 
 module.exports = articuloController;
