@@ -1,6 +1,7 @@
 const Articulo = require('../models/articulo');
 const Categoria = require('../models/categoria');
 const articuloController = {};
+const MarcaArt=require('../models/marca');
 var jsonArticulos;
 
 
@@ -178,23 +179,11 @@ articuloController.listararticulos = async(req,res )=>{
     const articulos =await Articulo.find();
     res.json(articulos);
 }
-//articuloController.buscararti=async(req,res)=>{
-    //const articbus=await Articulo.find({"titulo": /.*DATO.*/});
-  //  res.json(articbus);
-//}
 
 articuloController.buscararti = async (req, res) => {
-    const articulosB=await Articulo.find({"titulo":{$regex:'.*'+req.params.titulo+'.*',$options: 'i'}}); //await Articulo.find({"titulo": consul});
-    if(articulosB){
+    const articulosB=await Articulo.find({"titulo":{$regex:'.*'+req.params.titulo+'.*',$options: 'i'}});
         res.json(articulosB);
-    }
-    else{
-        const categoriaB=await Categoria.find({"nombre":{$regex:'.*'+req.params.titulo+'.*',$options: 'i'}});
-        res.json(categoriaB);
-    }
 }
-
-
 var JSONPrecios = {
     caracterisca:{},
     marca:{}
@@ -212,8 +201,6 @@ articuloController.obtenerPreciosMysql = async(req, res)=>{
                 }else{
                     JSONPrecios.postpago = JSON.parse(JSON.stringify(results));   
                     console.log(results);  
-                    
-                    
                     req.getConnection(function (error, conn){
                         var consulta = "SELECT * FROM (SELECT * FROM tapreciosventa WHERE idArticuloGlobal = fnAS_IDArticuloGlobal('"+req.params.id+"') AND idTipoPlan='1')tmp ORDER BY FechaVigencia DESC LIMIT 1";
                         conn.query(consulta,  function(err, results) {

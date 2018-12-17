@@ -150,7 +150,13 @@ export class ArticulosbusquedaComponent implements OnInit {
         console.log('entra');
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
-        this.articuloslista = Respuesta;
+        if(Respuesta!=""){
+          this.articuloslista = Respuesta;
+        }
+        else{
+          console.log('no encontrado')
+        }
+        
       });
   }
 }
