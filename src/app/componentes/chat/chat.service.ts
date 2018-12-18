@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { Usuario } from '../perfil-usuario/usuario';
+import { Constantes } from '../constantes';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  private socket  = io('http://localhost:3000');
+  private socket  = io(Constantes.URL_API);
   usuario: Usuario= new Usuario();
   constructor() { 
 
