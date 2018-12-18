@@ -5,5 +5,6 @@ export class Constantes {
     public static URL_API_MARCA='http://localhost:3000/api/marca';
     public static URL_API_IMAGEN='http://localhost:3000/api/imagenes';
     public static URL_IMAGEN='http://localhost:3000/imagenes';
+    public static URL_API_TIENDA = 'http://localhost:3000/api/tienda';
     
 }

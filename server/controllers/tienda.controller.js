@@ -2,18 +2,18 @@ const Tienda = require('../models/tienda');
 const TiendaController = {};
 
 TiendaController.putTienda = async (req, res, next) => {
-  const tienda = new Tienda({
+  const tienda = {
     nombre    : req.body.nombre,
     latitud   : req.body.latitud,
     longitud  : req.body.longitud
-  });
-  await tienda.findOneAndUpdate({
+  };
+  await Tienda.findOneAndUpdate({
     _id: req.params.id
   }, {
     $set : tienda
   }, {
     new: false
-  }, function(err){
+  }, function(err, tienda){
     if(err){
       res.json({
         status: false,
@@ -22,7 +22,8 @@ TiendaController.putTienda = async (req, res, next) => {
     } else {
       res.json({
         status: true,
-        msg: 'La tienda ha sido actualizada con éxito'
+        msg: 'La tienda ha sido actualizada con éxito',
+        data: tienda
       });
     }
   });
