@@ -95,6 +95,9 @@ categoriaController.eliminarCategoria = async (req,res)=>{
         });
     }
 }
-
+categoriaController.listarcategoria=async(req,res)=>{
+    const categoriaart=await Categoria.find({"nombre":{$regex:'.*'+req.params.nombre+'.*',$options: 'i'}},'_id');
+    res.json(categoriaart);
+}
 
 module.exports = categoriaController;

@@ -184,6 +184,15 @@ articuloController.buscararti = async (req, res) => {
     const articulosB=await Articulo.find({"titulo":{$regex:'.*'+req.params.titulo+'.*',$options: 'i'}});
         res.json(articulosB);
 }
+articuloController.buscararti2 = async (req, res) => {
+    const articulosB=await Articulo.find({"marca":{$regex:'.*'+req.params.marca+'.*',$options: 'i'}});
+        res.json(articulosB);
+}
+articuloController.buscararti3 = async (req, res) => {
+    const articulosB=await Articulo.find({"categoria":{$regex:'.*'+req.params.categoria+'.*',$options: 'i'}});
+        res.json(articulosB);
+}
+
 var JSONPrecios = {
     caracterisca:{},
     marca:{}

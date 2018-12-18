@@ -52,5 +52,9 @@ marcacontroller.eliminar=async (req,res)=>{
     await Marca.findByIdAndRemove(req.params.id);
     res.json({'status':'Marca Eliminada'})
 }
+marcacontroller.listarmarca=async(req,res)=>{
+    const marcaarti= await Marca.find({"nombremarca":{$regex:'.*'+req.params.nombremarca+'.*',$options: 'i'}},'_id');
+    res.json(marcaarti);
+}
 
 module.exports=marcacontroller;

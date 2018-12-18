@@ -23,5 +23,12 @@ export class ArticuloDetalleService {
      //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
     return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave)
   }
+  listarArticulos2(palabraclave:string) {
+    //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
+   return this.http.get(Constantes.URL_API_ARTICULO + `/marcaart/` + palabraclave)
+ }
+ listarArticulo3(palabraclave:string){
+   return this.http.get(Constantes.URL_API_ARTICULO + `/categoriaart/` + palabraclave)
+ }
 
 }

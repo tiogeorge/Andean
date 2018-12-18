@@ -1,3 +1,7 @@
+import { Categoria } from './../menu/categoria';
+import { CategoriaService } from './../categoria/categoria.service';
+import { MarcaService } from './../marca/marca.service';
+import { Marca } from './../marca/marca';
 import { ArticuloDetalleService } from './../articulo-detalle/articulo-detalle.service';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -19,7 +23,7 @@ import { ActivatedRoute } from "@angular/router";
 export class ArticulosbusquedaComponent implements OnInit {
   articuloslista: any;
   URL_IMAGENES = Constantes.URL_API_IMAGEN;
-
+  tempomarcas: string[];
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
   listamarcas: string[] = ['Todos', 'Apple', 'Huawei', 'LG', 'Motorola', 'Nokia', 'Samsung', 'ZTE'];
@@ -65,7 +69,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(private route: ActivatedRoute,private articulodetalleService: ArticuloDetalleService) {
+  constructor(private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService) {
 
   }
 
@@ -144,20 +148,68 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   //funciones
-  listaraarticulos(pclave:string) {
+  listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
         console.log('entra');
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
-        if(Respuesta!=""){
+        if (Respuesta != "") {
           this.articuloslista = Respuesta;
         }
-        else{
-          console.log('no encontrado')
+        else {
+          this.temprecuperarmarcas(pclave);
+          this.temprecuperarcategorias(pclave);
         }
-        
+
       });
+  }
+  listaraarticulos2(pclave: string) {
+    if (pclave != null || pclave!="" || pclave != undefined) {
+      console.log('dato:' + pclave);
+      this.articulodetalleService.listarArticulos2(pclave)
+        .subscribe(res => {
+          this.articulodetalleService.Articulo = res as Articulo[];
+          var Respuesta = JSON.parse(JSON.stringify(res));
+          this.articuloslista = Respuesta;
+        });
+    }
+    else {
+      this.temprecuperarcategorias(pclave);
+    }
+  }
+  listararticulos3(pclave: string) {
+    this.articulodetalleService.listarArticulo3(pclave)
+      .subscribe(res => {
+        console.log('entra categoria');
+        this.articulodetalleService.Articulo = res as Articulo[];
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        this.articuloslista = Respuesta;
+      });
+  }
+  temprecuperarmarcas(pclave2: string) {
+    console.log('entra funcion marca');
+    this.marcaservice.listarMarcas(pclave2)
+      .subscribe(res => {
+        this.marcaservice.marca = res as Marca[];
+        var Respuesta2 = JSON.parse(JSON.stringify(res));
+        for (var i = 0; i < Object.keys(res).length; i++) {
+          this.listaraarticulos2(Respuesta2[i]._id);
+          console.log(Respuesta2[i]._id);
+        }
+      })
+  }
+  temprecuperarcategorias(pclave3: string) {
+    console.log('entraaaaaaaaaaaaaaaa');
+    this.categoriaservice.listarcategoria(pclave3)
+      .subscribe(res => {
+        this.categoriaservice.categoria = res as Categoria[];
+        var Respuesta3 = JSON.parse(JSON.stringify(res));
+        for (var i = 0; i < Object.keys(res).length; i++) {
+          this.listararticulos3(Respuesta3[i]._id);
+          console.log('id categoria:'+Respuesta3[i]._id);
+        }
+      })
   }
 }
 

@@ -6,6 +6,7 @@ const categoria = require('../controllers/categoria.controller');
 router.get('/', categoria.obtenerCategorias);
 router.get('/:id', categoria.obtenerCategoria);
 router.get('/subcategorias/:id', categoria.obtenerSubCategorias);
+router.get('/categoriaart/:nombre',categoria.listarcategoria);
 router.post('/', categoria.crearCategoria);
 router.put('/:id', categoria.actualizarCategoria);
 router.delete('/:id', categoria.eliminarCategoria);
