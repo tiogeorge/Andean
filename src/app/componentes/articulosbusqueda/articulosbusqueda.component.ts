@@ -74,6 +74,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.articuloslista="";
     console.log(screen.width);
     this.cambiaridfiltro();
     var url = this.route.snapshot.paramMap.get("pclave");
