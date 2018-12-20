@@ -1,9 +1,11 @@
+import { ArticulosbusquedaComponent } from './../articulosbusqueda/articulosbusqueda.component';
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
 import { Constantes } from '../constantes';
 import { Router} from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
+import {ServicioapoyoService} from '../articulosbusqueda/servicioapoyo.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,6 +14,7 @@ import { UsuarioService } from '../perfil-usuario/usuario.service';
   providers: [UsuarioService]
 })
 export class MenuComponent implements OnInit {
+  artbus:ArticulosbusquedaComponent;
   pclave2:string;
   categoriaService    : CategoriaService;
   estaLogeado         : boolean = false;
@@ -20,12 +23,13 @@ export class MenuComponent implements OnInit {
   urlImg              : string = Constantes.URL_IMAGEN;
   urlImagen           : string = "https://via.placeholder.com/400x300";
 
-  constructor(categoriaService: CategoriaService, router: Router) {
+  constructor(categoriaService: CategoriaService, router: Router, private servicioapoyo:ServicioapoyoService) {
     this.categoriaService     = categoriaService;
     this.router               = router; 
   }
 
   ngOnInit() {
+  //  this.actualizarcomponente();
     this.categoriaService.getCategorias().subscribe(res => {
       this.categoriaService.categorias = res as Categoria[];
       this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
@@ -51,21 +55,37 @@ export class MenuComponent implements OnInit {
     this.estaLogeado = false;
   }
   buscarpa(event){
-    this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;
+    //this.actualizarcomponente();
+    this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
     console.log('entra'+this.pclave2);
     console.log(this.pclave2);
     if(event.key=="Enter"){
-      location.reload();
-      var input=document.getElementById('buscar2input') as HTMLInputElement;
-      document.getElementById('btnbusqueda2').click();
+      //this.artbus.actualizarcomp();
+      //ArticulosbusquedaComponent.caller.
+     // location.reload();
+     this.router.navigate(['busqueda/'+this.pclave2]);
+     this.actualizarcomponente();
+     //html routerLink="/busqueda/{{pclave2}}"
+     /* var input=document.getElementById('buscar2input') as HTMLInputElement;
+      this.actualizarcomponente();
+      document.getElementById('btnbusqueda2').click();*/
     }
   }
   buscarArti(){
-    console.log('entra');
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
+   // alert(this.pclave2);
     if(this.pclave2!=""){
-      location.reload();
-      var input=document.getElementById('buscar2input') as HTMLInputElement;
+      //location.reload();
+     /* this.actualizarcomponente();
+      var input=document.getElementById('buscar2input') as HTMLInputElement;*/
+      this.actualizarcomponente();
+      this.router.navigate(['busqueda/'+this.pclave2]);
     }
+    else{
+      this.router.navigate(['busqueda/celulares']);
+    }
+  }
+  public actualizarcomponente(){
+    this.servicioapoyo.actualizarpag();
   }
 }

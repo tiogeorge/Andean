@@ -8,6 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
 import { ActivatedRoute } from "@angular/router";
+import {ServicioapoyoService} from '../articulosbusqueda/servicioapoyo.service';
 
 
 
@@ -22,7 +23,8 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ArticulosbusquedaComponent implements OnInit {
   articuloslista: any;
-  URL_IMAGENES = Constantes.URL_API_IMAGEN;
+  //URL_IMAGENES = Constantes.URL_API_IMAGEN;
+  URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: string[];
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
@@ -69,12 +71,13 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService) {
+  constructor(private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo:ServicioapoyoService) {
 
   }
 
   ngOnInit() {
-    this.articuloslista="";
+    //location.reload();
+    // this.articuloslista="";
     console.log(screen.width);
     this.cambiaridfiltro();
     var url = this.route.snapshot.paramMap.get("pclave");
@@ -212,5 +215,6 @@ export class ArticulosbusquedaComponent implements OnInit {
         }
       })
   }
+
 }
 
