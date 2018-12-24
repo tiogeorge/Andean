@@ -20,11 +20,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import 'hammerjs';
 
 
 @NgModule({
-  imports: [MatButtonModule, MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule],
-  exports: [MatButtonModule, MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule],
+  imports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule],
+  exports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule],
 })
 export class MaterialModule { }

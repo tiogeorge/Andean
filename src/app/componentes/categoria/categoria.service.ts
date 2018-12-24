@@ -7,7 +7,6 @@ import { Categoria } from './categoria';
   providedIn: 'root'
 })
 export class CategoriaService {
-
   categoriaSeleccionada: Categoria = new Categoria();
   //categorias: Categoria[];
   categoria:Categoria[];

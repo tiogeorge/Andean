@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit {
     console.log('entra'+this.pclave2);
     console.log(this.pclave2);
     if(event.key=="Enter"){
-      //this.artbus.actualizarcomp();
+      //this.artbus.actualizarcomp();'busqueda/'
       //ArticulosbusquedaComponent.caller.
      // location.reload();
      this.router.navigate(['busqueda/'+this.pclave2]);
@@ -74,11 +74,13 @@ export class MenuComponent implements OnInit {
   buscarArti(){
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
    // alert(this.pclave2);
+   this.actualizarcomponente();
     if(this.pclave2!=""){
       //location.reload();
      /* this.actualizarcomponente();
       var input=document.getElementById('buscar2input') as HTMLInputElement;*/
       this.actualizarcomponente();
+     // alert('entra');
       this.router.navigate(['busqueda/'+this.pclave2]);
     }
     else{

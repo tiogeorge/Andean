@@ -8,7 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
 import { ActivatedRoute } from "@angular/router";
-import {ServicioapoyoService} from '../articulosbusqueda/servicioapoyo.service';
+import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
 
 
 
@@ -71,7 +71,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo:ServicioapoyoService) {
+  constructor(private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
 
   }
 
@@ -169,7 +169,7 @@ export class ArticulosbusquedaComponent implements OnInit {
       });
   }
   listaraarticulos2(pclave: string) {
-    if (pclave != null || pclave!="" || pclave != undefined) {
+    if (pclave != null || pclave != "" || pclave != undefined) {
       console.log('dato:' + pclave);
       this.articulodetalleService.listarArticulos2(pclave)
         .subscribe(res => {
@@ -211,10 +211,20 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta3 = JSON.parse(JSON.stringify(res));
         for (var i = 0; i < Object.keys(res).length; i++) {
           this.listararticulos3(Respuesta3[i]._id);
-          console.log('id categoria:'+Respuesta3[i]._id);
+          console.log('id categoria:' + Respuesta3[i]._id);
         }
       })
   }
+ /* cambiarhtml(estado: string) {
+    if (estado == '0') {
+      alert('oculta');
+      document.getElementById('contenedorbusqueda').hidden = true;
+    }
+    if (estado == '1') {
+      alert('muestra');
+      document.getElementById('contenedorbusqueda').hidden = false;
+    }
+  }*/
 
 }
 

@@ -10,7 +10,5 @@ articulobus:ArticulosbusquedaComponent;
 
   public actualizarpag(){
     location.reload();
-    //this.articulobus.articuloslista=null;
-    //alert('entra aca');
   }
 }
