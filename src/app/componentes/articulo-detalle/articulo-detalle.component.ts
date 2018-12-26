@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ArticuloDetalleService} from "./articulo-detalle.service";
 import { Articulo } from './articulo';
 import { Constantes} from '../constantes';
+import { UsuarioService } from '../perfil-usuario/usuario.service';
 
 @Component({
   selector: 'app-articulo-detalle',
@@ -12,14 +13,15 @@ import { Constantes} from '../constantes';
 })
 export class ArticuloDetalleComponent implements OnInit {
 
-  articuloService: ArticuloDetalleService;
-  URL_IMAGENES = Constantes.URL_API_IMAGEN;
+  articuloService : ArticuloDetalleService;
+  usuarioService  : UsuarioService;
+  URL_IMAGENES    = Constantes.URL_API_IMAGEN;
   
 
   constructor(private route: ActivatedRoute
-            , articuloService: ArticuloDetalleService) { 
-    this.articuloService = articuloService;
-
+            , articuloService: ArticuloDetalleService, usuarioService: UsuarioService) { 
+    this.articuloService  = articuloService;
+    this.usuarioService   = usuarioService;
   }
 
   ngOnInit() {
@@ -32,6 +34,27 @@ export class ArticuloDetalleComponent implements OnInit {
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
     });
     
+  }
+
+  agregarCarrito(){
+    console.log(this.articuloService.articuloSeleccionado);
+    if(localStorage.getItem("_tk")){
+      var articuloCliente = {
+        _idCliente : localStorage.getItem("_tk"),
+        _idArticulo : this.articuloService.articuloSeleccionado._id
+      };
+      this.usuarioService.agregarArticuloCarrito(localStorage.getItem("_tk"), articuloCliente ).subscribe( res => {
+        console.log(res);
+      });
+      var articulos : string;
+      if(localStorage.getItem("_arts")){
+        articulos = localStorage.getItem("_arts");
+        articulos += ' ' + this.articuloService.articuloSeleccionado.titulo;
+      } else {
+        articulos = this.articuloService.articuloSeleccionado.titulo;
+        localStorage.setItem("_arts", articulos);
+      }
+    }
   }
   seleccionarPlan(idplan){
 

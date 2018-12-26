@@ -21,6 +21,12 @@ export class UsuarioService {
     this.estaLogeado = false;
     this.usuarioSeleccionado = new Usuario();
   }
+
+  agregarArticuloCarrito(token: string, articulo: any){
+    return this.http.put(this.URL_API + `/carrito/${token}`, articulo).pipe(
+      catchError(this.handleError<any>('putArticulo'))
+    );
+  }
   
   registrarUsuario(usuario: Usuario){
     return this.http.post(this.URL_API, usuario);
