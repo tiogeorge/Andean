@@ -23,11 +23,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import 'hammerjs';
 
 
 @NgModule({
-  imports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatDialogModule, MatGridListModule],
-  exports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatDialogModule, MatGridListModule],
+  imports: [MatButtonModule,MatSnackBarModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatDialogModule, MatGridListModule],
+  exports: [MatButtonModule,MatSnackBarModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatDialogModule, MatGridListModule],
 })
 export class MaterialModule { }
