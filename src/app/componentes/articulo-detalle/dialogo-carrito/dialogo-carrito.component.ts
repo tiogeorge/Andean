@@ -1,35 +1,39 @@
+import { Articulo } from '../articulo';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   status: string;
   mensaje: string;
+  urlImagen: string;
+  articulo: Articulo;
 }
 
 @Component({
   selector: 'app-dialogo-carrito',
-  template: `
-    <h2 mat-dialog-title>{{data.mensaje}}</h2>
-    <div mat-dialog-content>
-      <p>HOLA MUNDO CRUEL</p>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-raised-button color="primary" routerLink="/cart" cdkFocusInitial>IR AL CARRITO</button>
-      <button mat-raised-button color="accent" (onClick)="seguirComprando()">Seguir Comprando</button>
-    </div>
-  `,
-  styles: []
+  templateUrl: './dialogo-carrito.component.html',
+  styleUrls: ['./dialogo-carrito.component.css']
 })
 export class DialogoCarritoComponent implements OnInit {
+  urlImg : string;
+  router: Router;
 
   constructor(public dialogRef: MatDialogRef<DialogoCarritoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, router: Router) {
+      this.urlImg = data.urlImagen + '/tmp/' + data.articulo.imagenes[0];
+      this.router = router;
+     }
 
   ngOnInit() {
   }
 
+  irAlCarrito(): void{
+    this.dialogRef.close();
+    this.router.navigate(['/cart']);
+  }
+
   seguirComprando(): void {
-    console.log('si funciona');
     this.dialogRef.close();
   }
 

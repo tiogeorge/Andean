@@ -1,0 +1,15 @@
+<h5 mat-dialog-title [style.color]="data.status ? '#1E8449' : '#E74C3C'">{{data.mensaje}}</h5>
+<div mat-dialog-content>
+  <mat-grid-list cols="4" rowHeight="80px">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <img [src]="urlImg" [alt]="data.articulo.titulo" [style.height]="'160px'" [style.width]="'auto'">
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+    <h5>{{data.articulo.titulo}}</h5>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="irAlCarrito()" cdkFocusInitial [style.width]="'48%'">IR AL CARRITO</button>
+  <button mat-raised-button color="accent" (click)="seguirComprando()" [style.width]="'50%'">Seguir Comprando</button>
+</div>

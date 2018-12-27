@@ -140,8 +140,13 @@ export class ArticuloDetalleComponent implements OnInit {
 
   openDialog(res: any) : void {
     const dialogRef = this.dialog.open(DialogoCarritoComponent, {
-      width: '400px',
-      data: {status: res.status, mensaje: res.msg ? res.msg : res.error}
+      width: '600px',
+      data: {
+        status: res.status, 
+        mensaje: res.msg ? res.msg : res.error,
+        urlImagen: this.articuloService.url_imagenes,
+        articulo: this.articuloService.articuloSeleccionado 
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
