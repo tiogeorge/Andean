@@ -3,8 +3,10 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule, MatMenuModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -20,12 +22,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import 'hammerjs';
 
 
 @NgModule({
-  imports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule],
-  exports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule],
+  imports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatDialogModule, MatGridListModule],
+  exports: [MatButtonModule, MatProgressSpinnerModule,MatCheckboxModule,MatFormFieldModule, MatProgressBarModule,MatStepperModule, MatToolbarModule, MatRadioModule, MatIconModule, MatChipsModule, MatInputModule, MatSelectModule, MatListModule, MatSliderModule, MatTreeModule, MatTooltipModule, MatMenuModule, MatRippleModule, MatTabsModule, MatSidenavModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatExpansionModule, MatDialogModule, MatGridListModule],
 })
 export class MaterialModule { }
