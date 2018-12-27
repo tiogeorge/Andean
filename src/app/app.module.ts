@@ -29,6 +29,7 @@ import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-
 import { CompararEquiposComponent } from './componentes/comparar-equipos/comparar-equipos.component';
 import { MapaComponent } from './componentes/mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
+import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -69,7 +70,8 @@ const routes : Route[] = [
     PedidosComponent,
     ChatComponent,
     CompararEquiposComponent,
-    MapaComponent
+    MapaComponent,
+    DialogoCarritoComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +85,9 @@ const routes : Route[] = [
     MomentDateModule,
     MatMomentDateModule,
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyBdQR9bsblCqFPBmv7L8Yy2uAgsazSXtaM' })
+  ],
+  entryComponents: [
+    DialogoCarritoComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

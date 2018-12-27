@@ -43,6 +43,63 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
   }
 };
 
+usuarioController.agregarArticulo = async (req, res, next) => {
+  await Usuario.findOne({token: req.body.token}, function(err, usuario){
+    if(err){
+      res.json({
+        status: false,
+        error: 'Se produjo un error al obtener el usuario'
+      });
+    } else {
+      if(usuario){
+        var carritoArticulo = [];
+        var existeArticulo = false;
+        if (usuario.carrito){
+          carritoArticulo = usuario.carrito;     
+          for(var i = 0; i < carritoArticulo.length; i++){
+            if(carritoArticulo[i] = req.params.url){
+              existeArticulo = true;
+              break;
+            }
+          }
+        }
+        if (existeArticulo){
+          res.json({
+            status: true,
+            msg: 'El artículo ya está agregado en su carrito de compras'
+          });
+        } else {
+          carritoArticulo.push(req.params.url);
+          Usuario.findOneAndUpdate({
+            token: req.body.token
+          }, {
+            $set : {carrito : carritoArticulo}
+          }, {
+            new: false
+          }, function(err, usuarioArticulo){
+            if(err){
+              res.json({
+                status: false,
+                error: 'Se produjo error al agregar el artículo en tu carrito de compras'
+              });
+            } else {
+              res.json({
+                status: true,
+                msg: 'El artículo se agregó con éxito en tu carrito de compras'
+              });
+            }
+          });
+        }       
+      } else {
+        res.json({
+          status: false,
+          error: 'No se pudo obtener los datos del cliente.'
+        });
+      }     
+    }
+  });
+};
+
 usuarioController.crearUsuario = async (req, res, next) => {
   Usuario.findOne({correo: req.body.correo}, function(err, usuario){
     if(err){
