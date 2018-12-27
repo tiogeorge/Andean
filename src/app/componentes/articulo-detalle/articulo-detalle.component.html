@@ -134,7 +134,7 @@
                   PROCESAR COMPRA</button>
               </div>
               <div class="col-lg-4">
-                <button mat-raised-button color="accent" (click)="agregarCarrito()">AGREGAR AL CARRITO</button>
+                <button mat-raised-button color="accent" (click)="agregarCarrito()" [disabled]="!habilitarBotonCarrito">AGREGAR AL CARRITO</button>
               </div>
             </div>
           </div>
@@ -191,6 +191,27 @@
 <button data-toggle="modal" data-target="#modalImagenZoom" style="display:none;" id="btnzoommobile"></button>
 <!-- Modal detalle de Plan -->
 <div class="modal fade" id="modalPlan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  style="vertical-align: middle_;">
+  <div class="modal-dialog" role="document" style="max-width: 65% !important; margin-left: auto; margin-right: auto; padding-top: 5%;vertical-align: middle;">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: orange;color: white;">
+        <h4 class="modal-title">Max Internacional 99.90</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        Contenido del plan
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="color: white; background-color: orange;">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Confirmación de Carrito de Compras-->
+<div class="modal fade" id="modalCarrito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
   style="vertical-align: middle_;">
   <div class="modal-dialog" role="document" style="max-width: 65% !important; margin-left: auto; margin-right: auto; padding-top: 5%;vertical-align: middle;">
     <div class="modal-content">

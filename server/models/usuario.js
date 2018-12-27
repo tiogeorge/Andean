@@ -12,7 +12,8 @@ const usuarioSchema = new Schema({
   numeroDocumento: { type: String, default: "" },
   sexo: { type: String },
   fechaNacimiento: { type: Date },
-  token: { type: String }
+  token: { type: String },
+  carrito: {type: [String], default: []}
 });
 usuarioSchema.indexes({
   correo: 1

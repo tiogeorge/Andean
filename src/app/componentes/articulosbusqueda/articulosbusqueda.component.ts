@@ -9,6 +9,7 @@ import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
 import { ActivatedRoute } from "@angular/router";
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
+import {MatSnackBar} from '@angular/material';
 
 
 
@@ -71,17 +72,26 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
+  constructor(public snackBar: MatSnackBar,private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
 
   }
 
   ngOnInit() {
+    
     //location.reload();
-    // this.articuloslista="";
-    console.log(screen.width);
-    this.cambiaridfiltro();
+  // this.articuloslista="";
+   // console.log(screen.width);
+   // this.cambiaridfiltro();
+  // this.openSnackBar();
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
+  }
+  openSnackBar() {
+    var message='Cargando';
+    var action='c';
+    this.snackBar.open(message, action, {
+      duration: 10000,
+    });
   }
   mostrarcategoria() {
     if (document.getElementById('categoriafiltro').style.display == 'block') {
@@ -155,7 +165,6 @@ export class ArticulosbusquedaComponent implements OnInit {
   listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
-        console.log('entra');
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {

@@ -8,6 +8,7 @@ router.post('/login', usuario.loginUsuario);
 router.post('/adminLogin', usuario.loginAdmin);
 router.get('/', usuario.listarUsuarios);
 router.put('/:id',usuario.actualizarUsuario);
+router.put('/carrito/:url', usuario.agregarArticulo);
 router.get('/:id',usuario.obtenerUsuario);
 //router.delete('/:id',usuario.eliminarUsuario);
 

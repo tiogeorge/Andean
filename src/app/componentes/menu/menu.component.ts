@@ -54,40 +54,42 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/']);
     this.estaLogeado = false;
   }
-  buscarpa(event){
+  buscarpa(event:any){
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
-    console.log('entra'+this.pclave2);
     console.log(this.pclave2);
     if(event.key=="Enter"){
-      //this.artbus.actualizarcomp();'busqueda/'
-      //ArticulosbusquedaComponent.caller.
-     // location.reload();
-     this.router.navigate(['busqueda/'+this.pclave2]);
-     this.actualizarcomponente();
+    // this.router.navigate(['busqueda/'+this.pclave2]);
+    //this.bus(this.pclave2);
+     //this.router.navigateByUrl('busqueda/'+this.pclave2);
+     this.actualizarcomponente(this.pclave2);
      //html routerLink="/busqueda/{{pclave2}}"
      /* var input=document.getElementById('buscar2input') as HTMLInputElement;
       this.actualizarcomponente();
       document.getElementById('btnbusqueda2').click();*/
     }
   }
+  bus(p:string){
+    this.router.navigateByUrl('busqueda/'+p);
+  }
   buscarArti(){
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
    // alert(this.pclave2);
-   this.actualizarcomponente();
+  // this.actualizarcomponente();
     if(this.pclave2!=""){
       //location.reload();
      /* this.actualizarcomponente();
       var input=document.getElementById('buscar2input') as HTMLInputElement;*/
-      this.actualizarcomponente();
-     // alert('entra');
-      this.router.navigate(['busqueda/'+this.pclave2]);
+   //   this.actualizarcomponente();
+      //this.router.navigate(['busqueda/'+this.pclave2]);
+      alert('busqueda/'+this.pclave2);
+      this.router.navigateByUrl('busqueda/'+this.pclave2);
     }
     else{
       this.router.navigate(['busqueda/celulares']);
     }
   }
-  public actualizarcomponente(){
-    this.servicioapoyo.actualizarpag();
+  public actualizarcomponente(dat:string){
+    this.servicioapoyo.actualizarpag(dat);
   }
 }
