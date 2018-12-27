@@ -4,14 +4,14 @@ const articuloController = {};
 const MarcaArt=require('../models/marca');
 var jsonArticulos;
 
-
-
 articuloController.obtenerArticulosMysql = async( req, res)=>{
     try{       
 
         req.getConnection(function (error, conn){
             var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0";
-            conn.query(consulta, async function(err, results) {
+            var consulta2 = "SELECT * FROM taarticulosglobal";
+            var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0 GROUP BY idArticuloGlobal";
+            conn.query(consulta3, async function(err, results) {
                 if (err){
                     console.log(err);
                     res.json({
@@ -21,8 +21,9 @@ articuloController.obtenerArticulosMysql = async( req, res)=>{
                 }else{
                     jsonArticulos = JSON.parse(JSON.stringify(results));                    
                     for(var i = 0;i<jsonArticulos.length;i++){                      
-                        await verificarArticulosMongo(jsonArticulos[i].idArticulo,i);
+                         await verificarArticulosMongo(jsonArticulos[i].idArticulo,i);
                     }
+                    console.log("termino verificar articulos");
                     res.json(jsonArticulos);
                    // console.log(jsonArticulos);
                     
@@ -43,7 +44,7 @@ articuloController.obtenerArticulosMysql = async( req, res)=>{
 
 verificarArticulosMongo = async (id,i)=>{
     try{
-       /* const articulomongo = await Articulo.find({
+        const articulomongo = await Articulo.find({
             idarticulo:id
         });   
            
@@ -53,14 +54,12 @@ verificarArticulosMongo = async (id,i)=>{
             jsonArticulos[i].Categoria = categoriamongo.nombre;
             jsonArticulos[i].Estado = "1";
             console.log(jsonArticulos[i]);  
+            
         }else{
             jsonArticulos[i].Categoria = "SIN CATEGORIA";
             jsonArticulos[i].Estado = "0";
-        }*/
+        }
 
-        //codigo temporal
-        jsonArticulos[i].Categoria = "SIN CATEGORIA";
-        jsonArticulos[i].Estado = "0";
     }catch(e){
         console.log("currio un error");
     }

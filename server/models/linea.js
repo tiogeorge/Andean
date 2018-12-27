@@ -19,4 +19,4 @@ const lineaSchema= new Schema({
 
 });
 
-module.exports= mongoose.model('Linea',lineaSchema);
+module.exports= mongoose.model('Precio',lineaSchema);
