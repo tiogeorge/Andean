@@ -4,52 +4,38 @@
       <hr />
       <div class="container">
         <div class="row">
-          <div class="col-lg-10"><h5>CARRITO DE COMPRAS</h5></div>
-          <div class="col-lg-2"><button class="btn btn-danger btnandean" style="font-size: 11px" (click)="eliminartodo()">ELIMINAR TODO<i class="material-icons" style="font-size: 15px">delete_forever</i></button></div>
+          <div class="col-lg-10">
+            <h5>CARRITO DE COMPRAS</h5>
+          </div>
+          <div class="col-lg-2"><button class="btn btn-danger btnandean" style="font-size: 11px" (click)="eliminartodo()">ELIMINAR
+              TODO<i class="material-icons" style="font-size: 15px">delete_forever</i></button></div>
           <div></div>
         </div>
       </div>
       <hr />
       <h3 id="mencartvacio" style="display: none; text-align: center;">NO TIENES PRODUCTOS EN TU CARRITO<i class="material-icons">
           shopping_cart</i>
-        </h3>
+      </h3>
       <div class="container" id="listacartarticulos">
         <div class="row">
-          <div
-            class="col-lg-8"
-            *ngFor="let articulo of listaarticuloscart"
-            id="contenedorarticulo{{articulo}}"
-          >
+          <div class="col-lg-8" *ngFor="let articulo of listaArticulos" id="contenedorarticulo{{articulo.titulo}}">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-4" id="colart1{{articulo}}">
-                  <a
-                    href="#"
-                    matTooltip="{{articulo}}"
-                    matTooltipClass="colortooltip"
-                  >
-                    <img
-                      class="card-img-top"
-                      src="assets\images\carrito\{{articulo}}.jpg"
-                      alt=""
-                    />
+                <div class="col-lg-4" id="colart1{{articulo.titulo}}">
+                  <a href="#" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
+                    <img class="card-img-top" src="{{urlImagenes}}/tmp/{{articulo.imagenes[0]}}" alt="" />
                   </a>
                 </div>
-                <div class="col-lg-4" id="colart2{{articulo}}">
+                <div class="col-lg-4" id="colart2{{articulo.titulo}}">
                   <p class="card-title">
-                    <a>{{ articulo }}</a>
+                    <a>{{ articulo.titulo }}</a>
                   </p>
                   <p class="card-text" style="color: red;">s/. 3.000 PREPAGO</p>
                 </div>
                 <div class="col-lg-3">
                   <div class="form-group">
                     <label style="font-size: 15px" for="sel1">Cantidad</label>
-                    <select
-                      style="font-size: 12px"
-                      class="form-control"
-                      id="sel1"
-                      style="width: 70%"
-                    >
+                    <select style="font-size: 12px" class="form-control" id="sel1" style="width: 70%">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -59,13 +45,8 @@
                 </div>
                 <div class="col-lg-1">
                   <div class="example-button-row">
-                    <button
-                      type="button"
-                      class="close"
-                      aria-label="Close"
-                      matTooltip="Eliminar"
-                      matTooltipClass="colortooltip"
-                      (click)="eliminaritem(articulo)">
+                    <button type="button" class="close" aria-label="Close" matTooltip="Eliminar" matTooltipClass="colortooltip"
+                      (click)="eliminaritem(articulo.url)">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -86,42 +67,46 @@
       <hr />
       <p>Envio</p>
       <hr />
-      <b><p (click)="mostrardivenvio()">Calcular Envio</p></b>
+      <b>
+        <p (click)="mostrardivenvio()">Calcular Envio</p>
+      </b>
       <div id="listaenvio" style="display: none;">
-          <div class="form-group">
-              <label for="exampleSelect1">Departamento</label>
-              <select class="form-control" id="exampleSelect1">
-                <option>Amazonas</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
         <div class="form-group">
-            <label for="exampleSelect2">Provincia</label>
-            <select class="form-control" id="exampleSelect2">
-              <option>Seleccione una Provincia</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
+          <label for="exampleSelect1">Departamento</label>
+          <select class="form-control" id="exampleSelect1">
+            <option>Amazonas</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
         <div class="form-group">
-            <label for="exampleSelect3">Distrito</label>
-            <select class="form-control" id="exampleSelect3">
-              <option>Seleccione un Distrito</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
+          <label for="exampleSelect2">Provincia</label>
+          <select class="form-control" id="exampleSelect2">
+            <option>Seleccione una Provincia</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleSelect3">Distrito</label>
+          <select class="form-control" id="exampleSelect3">
+            <option>Seleccione un Distrito</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
         <button class="btn btn-warning btnandean">CALCULAR</button>
       </div>
       <hr />
-      <b><p (click)="mostrardivcupon()">Aplicar Cupón</p></b>
+      <b>
+        <p (click)="mostrardivcupon()">Aplicar Cupón</p>
+      </b>
       <div id="seltcupon" style="display: none;">
         <input class="form-control" type="text" placeholder="INGRESAR CODIGO">
         <br>
@@ -130,7 +115,8 @@
       <hr />
       <p>TOTAL</p>
       <hr />
-      <button class="btn btn-warning btnandean" style="background-color: orangered; color:white" routerLink="/pago">PROCESAR COMPRA</button>
+      <button class="btn btn-warning btnandean" style="background-color: orangered; color:white" routerLink="/pago">PROCESAR
+        COMPRA</button>
       <hr />
     </div>
   </div>

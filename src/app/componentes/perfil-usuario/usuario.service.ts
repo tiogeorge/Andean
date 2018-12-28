@@ -27,6 +27,18 @@ export class UsuarioService {
       catchError(this.handleError<any>('putArticulo'))
     );
   }
+
+  eliminarArticuloCarrito(urlArticulo: string, token: any) {
+    return this.http.delete(this.URL_API + `/carrito/${urlArticulo}/${token}`).pipe(
+      catchError(this.handleError<any>('eliminarArticulo'))
+    );
+  }
+
+  eliminarArticulosCarrito(token: any){
+    return this.http.delete(this.URL_API + `/carrito`, token).pipe(
+      catchError(this.handleError<any>('eliminarArticulos'))
+    );
+  }
   
   registrarUsuario(usuario: Usuario){
     return this.http.post(this.URL_API, usuario);

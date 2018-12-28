@@ -148,6 +148,68 @@ usuarioController.crearUsuario = async (req, res, next) => {
   })
 };
 
+usuarioController.eliminarArticulo = async (req, res, next) => {
+  console.log(req);
+  await Usuario.findOne({
+    token: req.params.token
+  }, function( err, usuario){
+    if (err){
+      res.json({
+        status: false,
+        error: 'No se pudo obtener los datos del cliente'
+      });
+    } else {
+      console.log(usuario);
+      var carritoArticulos = usuario.carrito;
+      var indice = 0;
+      for(var i = 0; i < usuario.carrito.length; i++){
+        if (usuario.carrito[i] == req.params.url){
+          indice = i;
+          break;
+        }
+      }
+      carritoArticulos.splice(indice, 1);
+      Usuario.findOneAndUpdate({
+        token: req.params.token
+      }, {
+        $set : { carrito : carritoArticulos }
+      }, function(err){
+        if(err){
+          res.json({
+            status: false,
+            error: 'Error al eliminar un articulo del carrito'
+          });
+        } else {
+          res.json({
+            status: true,
+            msg: 'El artículo se ha eliminado exitosamente'
+          });
+        }
+      })
+    }
+  });
+};
+
+usuarioController.eliminarTodoArticulos = async (req, res, next) => {
+  await Usuario.findOneAndUpdate({
+    token: req.body.token
+  },{
+    $set : {carrito : [] }
+  } ,function(err) {
+    if(err){
+      res.json({
+        status: false,
+        error: 'Error al intentar eliminar el artículo del carrito de compras'
+      });
+    } else {
+      res.json({
+        status: true,
+        msg: 'El carrito ha sido vaciado con éxito'
+      });
+    }
+  });
+};
+
 usuarioController.eliminarUsuario = async (req, res, next) => {
   await Usuario.remove({
     id: req.params.id

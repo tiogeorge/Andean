@@ -10,6 +10,7 @@ router.get('/', usuario.listarUsuarios);
 router.put('/:id',usuario.actualizarUsuario);
 router.put('/carrito/:url', usuario.agregarArticulo);
 router.get('/:id',usuario.obtenerUsuario);
-//router.delete('/:id',usuario.eliminarUsuario);
+router.delete('/carrito', usuario.eliminarTodoArticulos);
+router.delete('/carrito/:url/:token',usuario.eliminarArticulo);
 
 module.exports = router;

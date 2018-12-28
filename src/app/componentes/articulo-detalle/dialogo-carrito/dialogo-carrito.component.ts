@@ -13,7 +13,7 @@ export interface DialogData {
 @Component({
   selector: 'app-dialogo-carrito',
   templateUrl: './dialogo-carrito.component.html',
-  styleUrls: ['./dialogo-carrito.component.css']
+  styles: []
 })
 export class DialogoCarritoComponent implements OnInit {
   urlImg : string;
