@@ -14,9 +14,9 @@ router:Router;
   constructor() { }
 
   public actualizarpag(dat:string){
-    //location.reload();
+    location.reload();
     //this.menuart.bus(dat);
    // this.router.navigateByUrl('busqueda/'+dat)
-   this.router.navigate(['busqueda/'+dat]);
+   //this.router.navigate(['busqueda/'+dat]);
   }
 }

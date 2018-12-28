@@ -26,10 +26,10 @@ export class ArticulosbusquedaComponent implements OnInit {
   articuloslista: any;
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
-  tempomarcas: string[];
+  tempomarcas: any;
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
-  listamarcas: string[] = ['Todos', 'Apple', 'Huawei', 'LG', 'Motorola', 'Nokia', 'Samsung', 'ZTE'];
+  listamarcas: any;
   listaarticulos: string[] = ['Huawei Y5 2018', 'LG V35 ThinQ', 'LG K9', 'LG K11 Plus', 'Samsung Galaxy J2 Pro', 'Lg Q Stylus Plus', 'Motorola Moto E5 Play', 'Samsung Galaxy J6', 'Apple Iphone XS 256GB', 'Apple Iphone XS MAX 512GB', 'Apple XS MAX 64GB', 'Nokia 2.1'];
   listaurls: string[] = ['https://static.claro.com.pe/img/ceq/Huawei_Y5-2018_Frontal_Negro_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_V35_ThinQ_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K9_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K11_Plus_Frontal_Postpago.jpg', 'https://static.claro.com.pe/img/ceq/Samsung_Galaxy_J2_Pro_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_Q_Stylus_Plus_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Motorola_Moto_E5_Play_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Samsung_galaxy_J6_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/Frontal200x350_PostPago.png'];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
@@ -83,6 +83,7 @@ export class ArticulosbusquedaComponent implements OnInit {
    // console.log(screen.width);
    // this.cambiaridfiltro();
   // this.openSnackBar();
+    this.listarmarcasfiltro();
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
   }
@@ -162,6 +163,16 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   //funciones
+  listarmarcasfiltro(){
+    this.marcaservice.listarmarcasT()
+    .subscribe(res=>{
+      this.marcaservice.marca=res as Marca[];
+      var resp=JSON.parse(JSON.stringify(res));
+    //  console.log(res[1].nombremarca);
+      this.tempomarcas=resp;
+      
+    });
+  }
   listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
@@ -234,6 +245,8 @@ export class ArticulosbusquedaComponent implements OnInit {
       document.getElementById('contenedorbusqueda').hidden = false;
     }
   }*/
+  filtro(filt:string){
+  }
 
 }
 

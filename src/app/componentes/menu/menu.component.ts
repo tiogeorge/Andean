@@ -61,7 +61,7 @@ export class MenuComponent implements OnInit {
     if(event.key=="Enter"){
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
-     //this.router.navigateByUrl('busqueda/'+this.pclave2);
+     this.router.navigateByUrl('busqueda/'+this.pclave2);
      this.actualizarcomponente(this.pclave2);
      //html routerLink="/busqueda/{{pclave2}}"
      /* var input=document.getElementById('buscar2input') as HTMLInputElement;
@@ -82,7 +82,7 @@ export class MenuComponent implements OnInit {
       var input=document.getElementById('buscar2input') as HTMLInputElement;*/
    //   this.actualizarcomponente();
       //this.router.navigate(['busqueda/'+this.pclave2]);
-      alert('busqueda/'+this.pclave2);
+      //alert('busqueda/'+this.pclave2);
       this.router.navigateByUrl('busqueda/'+this.pclave2);
     }
     else{

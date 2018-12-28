@@ -19,4 +19,7 @@ export class MarcaService {
    listarMarcas(id:string){
     return this.http.get(Constantes.URL_API_MARCA+`/marc/` + id);
    }
+   listarmarcasT(){
+     return this.http.get(Constantes.URL_API_MARCA+`/mdb`);
+   }
 }
