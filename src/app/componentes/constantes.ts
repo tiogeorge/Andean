@@ -1,5 +1,5 @@
-//const URL_API = 'http://localhost:3000/api/';
-const URL_API = 'https://latiendadeltiogeorge.herokuapp.com/api/';
+const URL_API = 'http://localhost:3000/api/';
+//const URL_API = 'https://latiendadeltiogeorge.herokuapp.com/api/';
 export class Constantes {
 
     public static URL_API           = URL_API;
@@ -12,6 +12,7 @@ export class Constantes {
     public static URL_API_CATEGORIA = URL_API + 'categorias';
     public static URL_API_DIRECCION = URL_API + 'dir';
     public static URL_API_REGION    = URL_API + 're';
+    public static URL_API_SESION    = URL_API + 'sesion';
     public static URL_API_USUARIO   = URL_API + 'usuarios';
 
 }

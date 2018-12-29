@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SesionService } from '../perfil-usuario/sesion.service';
 
 @Component({
   selector: 'app-footer',
@@ -11,9 +12,12 @@ export class FooterComponent implements OnInit {
   link_desarrollador : string = "https://www.google.com";
   link_facebook : string = "https://www.facebook.com/andeantecnology/";
 
-  constructor() { }
+  constructor(public sesionService : SesionService) { }
 
   ngOnInit() {
+    this.sesionService.nuevaSesion().subscribe(res => {
+      console.log(res);
+    })
   }
 
 }

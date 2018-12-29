@@ -44,6 +44,7 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
 };
 
 usuarioController.agregarArticulo = async (req, res, next) => {
+  req.session.articulos = req.params.url;
   await Usuario.findOne({token: req.body.token}, function(err, usuario){
     if(err){
       res.json({
@@ -98,6 +99,7 @@ usuarioController.agregarArticulo = async (req, res, next) => {
       }     
     }
   });
+  console.log(req.sessionID);
 };
 
 usuarioController.crearUsuario = async (req, res, next) => {
@@ -149,7 +151,6 @@ usuarioController.crearUsuario = async (req, res, next) => {
 };
 
 usuarioController.eliminarArticulo = async (req, res, next) => {
-  console.log(req);
   await Usuario.findOne({
     token: req.params.token
   }, function( err, usuario){
@@ -269,6 +270,7 @@ usuarioController.loginAdmin = async (req, res, next) => {
 };
 
 usuarioController.loginUsuario = async (req, res, next) => {
+  req.session.usuario = 'Hola Mundo';
   Usuario.findOne({correo: req.body.correo}, function(err, usuario){
     if(err){
       res.json({
@@ -298,6 +300,7 @@ usuarioController.loginUsuario = async (req, res, next) => {
       }
     }
   })
+  console.log(req.sessionID);
 };
 
 usuarioController.obtenerUsuario = async (req, res, next) => {
@@ -319,9 +322,9 @@ usuarioController.obtenerUsuario = async (req, res, next) => {
           error: 'No se encontró al usuario'
         })
       }
-      
     }
   })
+  console.log(req.sessionID);
 };
 
 module.exports = usuarioController;

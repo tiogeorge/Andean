@@ -32,7 +32,7 @@ app.use(myConnection(mysql, dbOptions, 'pool'))
 
 // Middlewares
 app.use('/imagenes', express.static('imagenes'));
-app.use(cors({origin: '*'}));
+app.use(cors({origin: 'http://localhost:4200', credentials : true}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
@@ -58,6 +58,7 @@ app.use('/api/caracteristica', require('./routes/caracteristica.route'));
 app.use('/api/distribuidor',require('./routes/distribuidor.routes'));
 app.use('/api/tienda', require('./routes/tienda.routes'));
 app.use('/api/precio', require('./routes/precio.routes'));
+app.use('/api/sesion', require('./routes/sesion.routes'));
 
 process.on('uncaughtException', function(err) {
     console.log(err);
