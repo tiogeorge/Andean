@@ -9,7 +9,8 @@ import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
 import { ActivatedRoute } from "@angular/router";
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
 
 
 
@@ -23,6 +24,7 @@ import {MatSnackBar} from '@angular/material';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
+  formcheck: FormGroup;
   articuloslista: any;
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
@@ -30,6 +32,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
   listamarcas: any;
+  listamarcas2: string[];//any = [{ id: any, nombre: string }];
   listaarticulos: string[] = ['Huawei Y5 2018', 'LG V35 ThinQ', 'LG K9', 'LG K11 Plus', 'Samsung Galaxy J2 Pro', 'Lg Q Stylus Plus', 'Motorola Moto E5 Play', 'Samsung Galaxy J6', 'Apple Iphone XS 256GB', 'Apple Iphone XS MAX 512GB', 'Apple XS MAX 64GB', 'Nokia 2.1'];
   listaurls: string[] = ['https://static.claro.com.pe/img/ceq/Huawei_Y5-2018_Frontal_Negro_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_V35_ThinQ_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K9_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K11_Plus_Frontal_Postpago.jpg', 'https://static.claro.com.pe/img/ceq/Samsung_Galaxy_J2_Pro_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_Q_Stylus_Plus_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Motorola_Moto_E5_Play_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Samsung_galaxy_J6_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/Frontal200x350_PostPago.png'];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
@@ -72,24 +75,23 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
-  constructor(public snackBar: MatSnackBar,private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
-
+  constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
   }
 
   ngOnInit() {
-    
+
     //location.reload();
-  // this.articuloslista="";
-   // console.log(screen.width);
-   // this.cambiaridfiltro();
-  // this.openSnackBar();
+    // this.articuloslista="";
+    // console.log(screen.width);
+    // this.cambiaridfiltro();
+    // this.openSnackBar();
     this.listarmarcasfiltro();
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
   }
   openSnackBar() {
-    var message='Cargando';
-    var action='c';
+    var message = 'Cargando';
+    var action = 'c';
     this.snackBar.open(message, action, {
       duration: 10000,
     });
@@ -163,15 +165,14 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   //funciones
-  listarmarcasfiltro(){
+  listarmarcasfiltro() {
     this.marcaservice.listarmarcasT()
-    .subscribe(res=>{
-      this.marcaservice.marca=res as Marca[];
-      var resp=JSON.parse(JSON.stringify(res));
-    //  console.log(res[1].nombremarca);
-      this.tempomarcas=resp;
-      
-    });
+      .subscribe(res => {
+        this.marcaservice.marca = res as Marca[];
+        var resp = JSON.parse(JSON.stringify(res));
+        this.tempomarcas = resp;
+        console.log(this.tempomarcas);
+      });
   }
   listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
@@ -190,7 +191,6 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   listaraarticulos2(pclave: string) {
     if (pclave != null || pclave != "" || pclave != undefined) {
-      console.log('dato:' + pclave);
       this.articulodetalleService.listarArticulos2(pclave)
         .subscribe(res => {
           this.articulodetalleService.Articulo = res as Articulo[];
@@ -212,7 +212,6 @@ export class ArticulosbusquedaComponent implements OnInit {
       });
   }
   temprecuperarmarcas(pclave2: string) {
-    console.log('entra funcion marca');
     this.marcaservice.listarMarcas(pclave2)
       .subscribe(res => {
         this.marcaservice.marca = res as Marca[];
@@ -224,29 +223,36 @@ export class ArticulosbusquedaComponent implements OnInit {
       })
   }
   temprecuperarcategorias(pclave3: string) {
-    console.log('entraaaaaaaaaaaaaaaa');
     this.categoriaservice.listarcategoria(pclave3)
       .subscribe(res => {
         this.categoriaservice.categoria = res as Categoria[];
         var Respuesta3 = JSON.parse(JSON.stringify(res));
         for (var i = 0; i < Object.keys(res).length; i++) {
           this.listararticulos3(Respuesta3[i]._id);
-          console.log('id categoria:' + Respuesta3[i]._id);
         }
       })
   }
- /* cambiarhtml(estado: string) {
-    if (estado == '0') {
-      alert('oculta');
-      document.getElementById('contenedorbusqueda').hidden = true;
-    }
-    if (estado == '1') {
-      alert('muestra');
-      document.getElementById('contenedorbusqueda').hidden = false;
-    }
-  }*/
-  filtro(filt:string){
+  /* cambiarhtml(estado: string) {
+     if (estado == '0') {
+       alert('oculta');
+       document.getElementById('contenedorbusqueda').hidden = true;
+     }
+     if (estado == '1') {
+       alert('muestra');
+       document.getElementById('contenedorbusqueda').hidden = false;
+     }
+   }*/
+  filtro() {
+    /* var divCont = document.getElementById('divcheck');
+     var checks = divCont.getElementsByTagName('input');
+     console.log(checks.length);
+     var id: string[];
+     for (var i = 0; i < checks.length; i++) {
+       if (checks[i].checked == true) {
+         id[i] = checks[i].id;
+       }
+     }*/
   }
-
 }
+
 

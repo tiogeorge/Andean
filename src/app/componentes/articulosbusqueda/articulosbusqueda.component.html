@@ -32,9 +32,9 @@
           <div id="marcafiltro" class="col-lg-12" style="display: none">
             <hr>
             <div class="well" style="max-height: 300px;overflow: auto;">
-              <div class="checkbox" *ngFor="let marca of marcaservice.marca; index as i">
-                <label style="cursor: pointer;">
-                  <input type="checkbox" value="" id="{{marca.nombremarca}}">
+              <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i"  (click)="filtro()">
+                <label style="cursor: pointer;" >
+                  <input type="checkbox" value="" id="{{marca.nombremarca}}" >
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>
