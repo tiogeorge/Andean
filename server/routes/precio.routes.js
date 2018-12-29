@@ -17,6 +17,8 @@ var upload = multer({storage: storage});
 
 router.get('/', precio.getPrecio);
 router.post('/subir',upload.single('excel'), precio.subirExcel);
+router.put('/plan/:id',precio.actualizarPlan);
+router.put('/plan/del/:id', precio.eliminarPlan);
 
 
 module.exports = router;

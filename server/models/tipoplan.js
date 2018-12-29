@@ -6,7 +6,7 @@ const tipoplanSchema= new Schema({
     planes:[{
         _id:false,
         nombreplan:{type:String, require: true},
-        descripcion:[String]
+        descripcion:String
     }]
 });
 

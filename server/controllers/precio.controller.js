@@ -4,9 +4,8 @@ const precioController = {};
 const XLSX= require('xlsx');
 
 precioController.getPrecio= async(req,res)=>{
-  
-  res.send("<form action='/api/precio/subir' method='post' enctype='multipart/form-data'> <input type='file' name='excel' /> <button type='submit'></button></form>");
-
+  const tipoplanes = await Tipoplan.find();
+  res.json(tipoplanes);
 }
 precioController.subirExcel=async(req,res)=>{
   
@@ -51,30 +50,40 @@ precioController.subirExcel=async(req,res)=>{
                 planespostpagocuotas12.push(jsonHoja[0][plan]);
                 arrayTipoPlanes12.push({
                   nombreplan:jsonHoja[0][plan].split("\r\n")[0],
-                  descripcion: new Array()
+                  descripcion: ""
                 });
               }
               if(meses == "18"){
                 planespostpagocuotas18.push(jsonHoja[0][plan]);
                 arrayTipoPlanes18.push({
                   nombreplan:jsonHoja[0][plan].split("\r\n")[0],
-                  descripcion: new Array()
+                  descripcion: ""
                 });
               }
             }
             //console.log(arrayTipoPlanes12);
 
             //Guardar datos del tipoplan
-            const tipoplanes12 = new Tipoplan({
-              tipo: hoja +" 12 MESES",
-              planes : arrayTipoPlanes12
-            });
-            tipoplanes12.save();
-            const tipoplanes18 = new Tipoplan({
-              tipo: hoja +" 18 MESES",
-              planes : arrayTipoPlanes18
-            });
-            tipoplanes18.save();
+            const existetipoplan12 = await Tipoplan.countDocuments({tipo:hoja+" 12 MESES"});
+            if(existetipoplan12>0){
+
+            }else{
+              const tipoplanes12 = new Tipoplan({
+                tipo: hoja +" 12 MESES",
+                planes : arrayTipoPlanes12
+              });
+              tipoplanes12.save();
+            }
+            const existetipoplan18 = await Tipoplan.countDocuments({tipo:hoja+" 18 MESES"});
+            if(existetipoplan18>0){
+
+            }else{
+              const tipoplanes18 = new Tipoplan({
+                tipo: hoja +" 18 MESES",
+                planes : arrayTipoPlanes18
+              });
+              tipoplanes18.save();
+            }
             //VERIFICAR SI EXISTE LA COLECCION
             const existe12 = await Linea.countDocuments({nombre: hoja+" 12 MESES"});
             const existe18 = await Linea.countDocuments({nombre: hoja +" 18 MESES"});
@@ -262,7 +271,7 @@ precioController.subirExcel=async(req,res)=>{
             var updatedtipoplan = new Array();
             updatedtipoplan.push({
               nombreplan: columna2,
-              descripcion: new Array()
+              descripcion: ""
             });
             if(existetipoplan>0){
               await Tipoplan.findOneAndUpdate({tipo:hoja},{$set: {"planes":updatedtipoplan}},{ new: true });
@@ -353,7 +362,7 @@ precioController.subirExcel=async(req,res)=>{
                       
                     arraytipoPlanesPostpago.push({
                       nombreplan: plan.split('/')[0].substr(0,plan.length-1),
-                      descripcion: new Array()
+                      descripcion: ""
                     });           
                 }else{
                     columna1 = plan;
@@ -459,6 +468,28 @@ precioController.subirExcel=async(req,res)=>{
     });
      
     //res.json("SE GUARDO CON EXITO");
+}
+
+precioController.actualizarPlan=async(req,res)=>{  
+  await Tipoplan.findOneAndUpdate({tipo:req.params.id, "planes.nombreplan":req.body.nombreplan},{$set: {"planes.$":req.body}},{ new: true });
+  res.json({
+    estado:1,
+    mensaje:"Se actualizaron los datos correctamente"
+  });
+}
+
+precioController.eliminarPlan=async(req,res)=>{
+  console.log(req.body);
+  console.log(req.params.id)
+  const updateplan = {
+    descripcion: req.body.descripcion,
+    nombreplan: req.body.nombreplan
+  }
+  await Tipoplan.findOneAndUpdate({tipo:req.params.id},{$pull:{planes:{nombreplan: req.body.nombreplan}}});
+  res.json({
+    estado:1,
+    mensaje:"Se elimino los datos correctamente"
+  });
 }
 
 /*subirPreciosPrepago = ()=>{
