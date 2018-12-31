@@ -4,18 +4,25 @@ import { MarcaService } from './../marca/marca.service';
 import { Marca } from './../marca/marca';
 import { ArticuloDetalleService } from './../articulo-detalle/articulo-detalle.service';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation,AfterViewInit,OnDestroy, ViewChild  } from '@angular/core';
 import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
 import { ActivatedRoute } from "@angular/router";
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
+import { ReplaySubject } from 'rxjs';
+import { MatSelect, VERSION } from '@angular/material';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 
 
 //filtro marca
-
+interface MarcaFiltro {
+  id: string;
+  nombre: string;
+}
 //fin filtro
 @Component({
   selector: 'app-articulosbusqueda',
@@ -29,6 +36,8 @@ export class ArticulosbusquedaComponent implements OnInit {
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
+  marcalistafiltro=new Array;//:MarcaFiltro[];
+ 
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
   listamarcas: any;
@@ -171,7 +180,10 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.marcaservice.marca = res as Marca[];
         var resp = JSON.parse(JSON.stringify(res));
         this.tempomarcas = resp;
-        console.log(this.tempomarcas);
+        for(var i=0;i<Object.keys(res).length;i++){
+          this.marcalistafiltro.push({id:resp[i]._id,nombre:resp[i].nombremarca});
+        }
+        console.log(this.marcalistafiltro);
       });
   }
   listaraarticulos(pclave: string) {
