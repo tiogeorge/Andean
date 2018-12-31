@@ -10,38 +10,34 @@ import { Observable, of } from 'rxjs';
 })
 
 export class UsuarioService {
-
-  public estaLogeado : boolean;
-  public usuarioLogeado: Usuario;
   public usuarioSeleccionado: Usuario;
   public usuarios: Usuario[];
   readonly URL_API = Constantes.URL_API_USUARIO;
 
   constructor(private http: HttpClient) { 
-    this.estaLogeado = false;
     this.usuarioSeleccionado = new Usuario();
   }
 
   agregarArticuloCarrito(urlArticulo: string, token: any){
-    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`, token, {withCredentials: true}).pipe(
+    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`, token, { withCredentials: true }).pipe(
       catchError(this.handleError<any>('putArticulo'))
     );
   }
 
   eliminarArticuloCarrito(urlArticulo: string, token: any) {
-    return this.http.delete(this.URL_API + `/carrito/${urlArticulo}/${token}`).pipe(
+    return this.http.delete(this.URL_API + `/carrito/${urlArticulo}/${token}`, { withCredentials: true }).pipe(
       catchError(this.handleError<any>('eliminarArticulo'))
     );
   }
 
   eliminarArticulosCarrito(token: any){
-    return this.http.delete(this.URL_API + `/carrito`, token).pipe(
+    return this.http.delete(this.URL_API + `/carrito`, { withCredentials: true }).pipe(
       catchError(this.handleError<any>('eliminarArticulos'))
     );
   }
   
   registrarUsuario(usuario: Usuario){
-    return this.http.post(this.URL_API, usuario);
+    return this.http.post(this.URL_API, usuario, { withCredentials : true });
   }
 
   validarUsuario(usuario: Usuario){
@@ -53,15 +49,15 @@ export class UsuarioService {
   }
 
   login(usuario: Usuario){
-    return this.http.post(this.URL_API + '/login',usuario,{withCredentials: true});
+    return this.http.post(this.URL_API + '/login',usuario,{ withCredentials: true });
   }
 
-  getUsuarioLogeado(token: string) {
-  	return this.http.get(this.URL_API + '/' + token);
+  getUsuarioLogeado() {
+  	return this.http.get(this.URL_API + '/cliente' , { withCredentials: true });
   }
 
   putUsuario(usuario: Usuario) {
-    return this.http.put(this.URL_API + `/${usuario._id}`, usuario).pipe(
+    return this.http.put(this.URL_API + `/${usuario._id}`, usuario, { withCredentials: true }).pipe(
       catchError(this.handleError<any>('putUsuario'))
     );
   }

@@ -9,7 +9,7 @@ router.post('/adminLogin', usuario.loginAdmin);
 router.get('/', usuario.listarUsuarios);
 router.put('/:id',usuario.actualizarUsuario);
 router.put('/carrito/:url', usuario.agregarArticulo);
-router.get('/:id',usuario.obtenerUsuario);
+router.get('/cliente',usuario.obtenerUsuario);
 router.delete('/carrito', usuario.eliminarTodoArticulos);
 router.delete('/carrito/:url/:token',usuario.eliminarArticulo);
 

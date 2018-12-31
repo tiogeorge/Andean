@@ -180,7 +180,7 @@ export class PagoComponent implements OnInit {
   //  document.getElementById('datostarjeta').hidden = true;
     //document.getElementById('Agregardireccion').hidden = true;
     //recuperar usuario
-    this.usuarioService.getUsuarioLogeado(localStorage.getItem("_tk")).subscribe(res =>{
+    this.usuarioService.getUsuarioLogeado().subscribe(res =>{
       var jres = JSON.parse(JSON.stringify(res));
       if(jres.status){
         this.usuario = jres.data as Usuario;

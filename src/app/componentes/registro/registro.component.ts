@@ -34,8 +34,7 @@ export class RegistroComponent implements OnInit {
     }else{
       // Registro de Usuario
       this.usuarioService.registrarUsuario(form.value).subscribe(res => {
-        var sres = JSON.stringify(res);
-        var jres = JSON.parse(sres);
+        var jres = JSON.parse(JSON.stringify(res));
         if(jres.status){
           this.flashMessage.showFlashMessage({messages: [jres.msg], timeout: 5000, dismissible: true, type: 'success'});
           this.router.navigate(['/login']);

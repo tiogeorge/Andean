@@ -140,7 +140,6 @@ usuarioController.crearUsuario = async (req, res, next) => {
               res.json({
                 status: true,
                 msg: 'El usuario ha sido creado con éxito',
-                token: userToken.token
               });
             }        
           });
@@ -270,7 +269,6 @@ usuarioController.loginAdmin = async (req, res, next) => {
 };
 
 usuarioController.loginUsuario = async (req, res, next) => {
-  req.session.usuario = 'Hola Mundo';
   Usuario.findOne({correo: req.body.correo}, function(err, usuario){
     if(err){
       res.json({
@@ -281,10 +279,10 @@ usuarioController.loginUsuario = async (req, res, next) => {
       if (usuario){
         var login = bcrypt.compareSync(req.body.password, usuario.password);
         if (login){
+          req.session.token = usuario.token;
           res.json({
             status: true,
             msg: 'Iniciando sesión',
-            token: usuario.token
           });
         } else {
           res.json({
@@ -300,31 +298,36 @@ usuarioController.loginUsuario = async (req, res, next) => {
       }
     }
   })
-  console.log(req.sessionID);
 };
 
 usuarioController.obtenerUsuario = async (req, res, next) => {
-  Usuario.findOne({ token: req.params.id}, function(err, usuario){
-    if(err){
-      res.json({
-        status: false,
-        error: 'Se produjo el siguiente error: ' + err
-      });
-    }else{
-      if(usuario){
-        res.json({
-          status: true,
-          data: usuario
-        });
-      }else {
+  if(req.session.token){
+    Usuario.findOne({ token: req.session.token }, function(err, usuario) {
+      if(err){
         res.json({
           status: false,
-          error: 'No se encontró al usuario'
-        })
+          error: 'Se produjo el siguiente error: ' + err
+        });
+      }else{
+        if(usuario){
+          res.json({
+            status: true,
+            data: usuario
+          });
+        }else {
+          res.json({
+            status: false,
+            error: 'No se encontró al usuario'
+          })
+        }
       }
-    }
-  })
-  console.log(req.sessionID);
+    })
+  } else {
+    res.json({
+      status: false,
+      error: 'La sesión no está activada'
+    });
+  }
 };
 
 module.exports = usuarioController;

@@ -1,15 +1,33 @@
 const sesionController = {};
 
-sesionController.crearSesion = async(req, res, next) => {
-  //console.log(req.body);
-  //console.log(req.sessionStore);
-  console.log(req.sessionID);
-  req.session.id = req.sessionID;
-  //console.log(req.session);
-  //console.log(req.route);
-  res.json({
-    mensaje: 'Hola Mundo'
-  });
-}
+
+sesionController.obtenerSesion = async(req, res, next) => {
+  if (req.session.token){
+    res.json({
+      status : true,
+      msg: 'La sesión ya está inicializada'
+    });
+  } else {
+    res.json({
+      status: false,
+      error: 'No se encontró ninguna sesión activa'
+    })
+  }
+};
+
+sesionController.limpiarSesion = async(req, res, next) => {
+  if(req.session.token){
+    req.session = null;
+    res.json({
+      status: true,
+      msg: 'Sesión terminada'
+    });
+  } else {
+    res.json({
+      status: false,
+      error: 'No se pudo terminar la sesión'
+    });
+  }
+};
 
 module.exports = sesionController;

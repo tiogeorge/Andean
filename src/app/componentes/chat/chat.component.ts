@@ -29,32 +29,27 @@ export class ChatComponent implements OnInit {
   }
  
   verificarUsuario(){
-    if(localStorage.getItem("_tk")){
-      this.usuarioService.getUsuarioLogeado(localStorage.getItem("_tk"))
-      .subscribe(res=>{
-        var respuesta = JSON.parse(JSON.stringify(res));
-        console.log(respuesta);
+    this.usuarioService.getUsuarioLogeado().subscribe( res => {
+      var respuesta = JSON.parse(JSON.stringify(res));
+      if(respuesta.status){
         this.chatService.usuario = respuesta.data as Usuario;      
         document.getElementById("input-nombre").hidden = true;
         document.getElementById("input-email").hidden = true;
         document.getElementById("mensaje-formulario-chat").innerHTML = "Bienvenido "+this.chatService.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle.";
         //this.iniciarChat();
-        this.chatService.nuevoMensaje()
-        .subscribe(res=>{
+        this.chatService.nuevoMensaje().subscribe( res => {
           var mensaje = res as MensajeChat;
           this.agregarMensaje(mensaje);
         });
-      });
-     }else{
-      document.getElementById("mensaje-formulario-chat").innerHTML = " Porfavor ingrese la siguiente informacion para poder ayudarle: "
-      document.getElementById("input-nombre").hidden = false;
-      document.getElementById("input-email").hidden = false;
-    }
-
+      }else {
+        document.getElementById("mensaje-formulario-chat").innerHTML = " Porfavor ingrese la siguiente informacion para poder ayudarle: "
+        document.getElementById("input-nombre").hidden = false;
+        document.getElementById("input-email").hidden = false;
+      }   
+    });
   }
 
   mostrarChat(){
-    
     console.log("mostando chat");
     document.getElementById("btnchat").hidden=true;
     document.getElementById("ventana-chat").hidden=false;

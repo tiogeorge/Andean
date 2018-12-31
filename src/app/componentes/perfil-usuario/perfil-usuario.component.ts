@@ -47,7 +47,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usuarioService.getUsuarioLogeado(localStorage.getItem("_tk")).subscribe(res =>{
+    this.usuarioService.getUsuarioLogeado().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if(jres.status){      
         this.usuarioService.usuarioSeleccionado = jres.data;

@@ -17,6 +17,18 @@ export class SesionService {
     );
   }
 
+  obtenerSesion(){
+    return this.http.get<any>(Constantes.URL_API_SESION, { withCredentials: true }).pipe(
+      catchError(this.handleError<any>('getSesion'))
+    );
+  }
+
+  cerrarSesion(){
+    return this.http.delete<any>(Constantes.URL_API_SESION, {withCredentials : true}).pipe(
+      catchError(this.handleError<any>('deleteSesion'))
+    );
+  }
+
   private handleError<T> (operation = 'operation', result?: T){
     return (error: any): Observable<T> => {
       console.error(error);

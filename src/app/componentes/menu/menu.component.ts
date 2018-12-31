@@ -5,7 +5,8 @@ import { CategoriaService } from './categoria.service';
 import { Constantes } from '../constantes';
 import { Router} from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
-import {ServicioapoyoService} from '../articulosbusqueda/servicioapoyo.service';
+import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
+import { SesionService } from '../perfil-usuario/sesion.service';
 
 @Component({
   selector: 'app-menu',
@@ -23,16 +24,24 @@ export class MenuComponent implements OnInit {
   urlImg              : string = Constantes.URL_IMAGEN;
   urlImagen           : string = "https://via.placeholder.com/400x300";
 
-  constructor(categoriaService: CategoriaService, router: Router, private servicioapoyo:ServicioapoyoService) {
+  constructor(categoriaService: CategoriaService, router: Router, private servicioapoyo:ServicioapoyoService, public sesionService : SesionService) {
     this.categoriaService     = categoriaService;
     this.router               = router; 
   }
 
   ngOnInit() {
   //  this.actualizarcomponente();
-    this.categoriaService.getCategorias().subscribe(res => {
+    this.categoriaService.getCategorias().subscribe( res => {
       this.categoriaService.categorias = res as Categoria[];
       this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
+    });
+    this.sesionService.obtenerSesion().subscribe( res => {
+      var jres = JSON.parse(JSON.stringify(res));
+      if (jres.status){
+        this.estaLogeado = true;
+      } else {
+        this.estaLogeado = false;
+      }
     });
   }
 
@@ -43,17 +52,16 @@ export class MenuComponent implements OnInit {
     this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
   }
 
-  opciones(){
-    if (localStorage.getItem("_tk")){
-      this.estaLogeado = true;
-    }
-  }
-
   logout(){
-    localStorage.removeItem("_tk");
-    this.router.navigate(['/']);
-    this.estaLogeado = false;
+    this.sesionService.cerrarSesion().subscribe( res => {
+      var jres = JSON.parse(JSON.stringify(res));
+      if (jres.status){
+        this.estaLogeado = false;
+        this.router.navigate(['/']);
+      }
+    })
   }
+  
   buscarpa(event:any){
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
