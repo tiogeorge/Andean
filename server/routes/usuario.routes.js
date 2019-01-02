@@ -8,9 +8,10 @@ router.post('/login', usuario.loginUsuario);
 router.post('/adminLogin', usuario.loginAdmin);
 router.get('/', usuario.listarUsuarios);
 router.put('/:id',usuario.actualizarUsuario);
+router.get('/carrito', usuario.obtenerCarrito);
 router.put('/carrito/:url', usuario.agregarArticulo);
 router.get('/cliente',usuario.obtenerUsuario);
 router.delete('/carrito', usuario.eliminarTodoArticulos);
-router.delete('/carrito/:url/:token',usuario.eliminarArticulo);
+router.delete('/carrito/:url',usuario.eliminarArticulo);
 
 module.exports = router;

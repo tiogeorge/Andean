@@ -18,19 +18,19 @@ export class UsuarioService {
     this.usuarioSeleccionado = new Usuario();
   }
 
-  agregarArticuloCarrito(urlArticulo: string, token: any){
-    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`, token, { withCredentials: true }).pipe(
+  agregarArticuloCarrito(urlArticulo: string){
+    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`,{ url: urlArticulo },{withCredentials: true}).pipe(
       catchError(this.handleError<any>('putArticulo'))
     );
   }
 
-  eliminarArticuloCarrito(urlArticulo: string, token: any) {
-    return this.http.delete(this.URL_API + `/carrito/${urlArticulo}/${token}`, { withCredentials: true }).pipe(
+  eliminarArticuloCarrito(urlArticulo: string) {
+    return this.http.delete(this.URL_API + `/carrito/${urlArticulo}`, { withCredentials: true }).pipe(
       catchError(this.handleError<any>('eliminarArticulo'))
     );
   }
 
-  eliminarArticulosCarrito(token: any){
+  eliminarArticulosCarrito(){
     return this.http.delete(this.URL_API + `/carrito`, { withCredentials: true }).pipe(
       catchError(this.handleError<any>('eliminarArticulos'))
     );

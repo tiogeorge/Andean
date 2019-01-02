@@ -36,20 +36,10 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   agregarCarrito(){
-    if(localStorage.getItem("_tk")){
-      this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.url, { token:  localStorage.getItem("_tk") }).subscribe( res => {
-        var jres = JSON.parse(JSON.stringify(res));
-        this.openDialog(jres);
-      });
-      var articulos : string;
-      if(localStorage.getItem("_arts")){
-        articulos = localStorage.getItem("_arts");
-        articulos += ' ' + this.articuloService.articuloSeleccionado.url;
-      } else {
-        articulos = this.articuloService.articuloSeleccionado.url;
-      }
-      localStorage.setItem("_arts", articulos);
-    }
+    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.url).subscribe( res => {
+      var jres = JSON.parse(JSON.stringify(res));
+      this.openDialog(jres);
+    }); 
   }
 
   seleccionarPlan(idplan){

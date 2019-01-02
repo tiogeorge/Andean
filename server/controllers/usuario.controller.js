@@ -1,3 +1,4 @@
+const Articulo          = require('../models/articulo');
 const Usuario           = require('../models/usuario');
 const bcrypt            = require('bcrypt');
 const salt              = bcrypt.genSaltSync();
@@ -44,62 +45,82 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
 };
 
 usuarioController.agregarArticulo = async (req, res, next) => {
-  req.session.articulos = req.params.url;
-  await Usuario.findOne({token: req.body.token}, function(err, usuario){
-    if(err){
-      res.json({
-        status: false,
-        error: 'Se produjo un error al obtener el usuario'
-      });
-    } else {
-      if(usuario){
-        var carritoArticulo = [];
-        var existeArticulo = false;
-        if (usuario.carrito){
-          carritoArticulo = usuario.carrito;     
-          for(var i = 0; i < carritoArticulo.length; i++){
-            if(carritoArticulo[i] = req.params.url){
-              existeArticulo = true;
-              break;
-            }
-          }
-        }
-        if (existeArticulo){
-          res.json({
-            status: true,
-            msg: 'El artículo ya está agregado en su carrito de compras'
-          });
-        } else {
-          carritoArticulo.push(req.params.url);
-          Usuario.findOneAndUpdate({
-            token: req.body.token
-          }, {
-            $set : {carrito : carritoArticulo}
-          }, {
-            new: false
-          }, function(err, usuarioArticulo){
-            if(err){
-              res.json({
-                status: false,
-                error: 'Se produjo error al agregar el artículo en tu carrito de compras'
-              });
-            } else {
-              res.json({
-                status: true,
-                msg: 'El artículo se agregó con éxito en tu carrito de compras'
-              });
-            }
-          });
-        }       
-      } else {
+  if(req.session.token){
+    await Usuario.findOne({ token: req.session.token }, function(err, usuario){
+      if(err){
         res.json({
           status: false,
-          error: 'No se pudo obtener los datos del cliente.'
+          error: 'Se produjo un error al obtener el usuario'
         });
-      }     
+      } else {
+        if(usuario){
+          var carritoArticulo = [];
+          var existeArticulo = false;
+          if (usuario.carrito){
+            carritoArticulo = usuario.carrito;     
+            for(var i = 0; i < carritoArticulo.length; i++){
+              if(carritoArticulo[i] == req.params.url){
+                existeArticulo = true;
+                break;
+              }
+            }
+          }
+          if (existeArticulo){
+            res.json({
+              status: true,
+              msg: 'El artículo ya está agregado en su carrito de compras'
+            });
+          } else {
+            carritoArticulo.push(req.params.url);
+            Usuario.findOneAndUpdate({
+              token: req.session.token
+            }, {
+              $set : {carrito : carritoArticulo}
+            }, {
+              new: false
+            }, function(err, usuarioArticulo){
+              if(err){
+                res.json({
+                  status: false,
+                  error: 'Se produjo error al agregar el artículo en tu carrito de compras'
+                });
+              } else {
+                req.session.articulos = carritoArticulo;
+                res.json({
+                  status: true,
+                  msg: 'El artículo se agregó con éxito en tu carrito de compras'
+                });
+              }
+            });
+          }       
+        }     
+      }
+    });
+  } else {
+    var carritoArticulo = [];
+    var existeArticulo = false;
+    if (req.session.articulos){
+      carritoArticulo = req.session.articulos;     
+      for(var i = 0; i < carritoArticulo.length; i++){
+        if(carritoArticulo[i] == req.params.url){
+          existeArticulo = true;
+          break;
+        }
+      }
+      if(!existeArticulo){
+        req.session.articulos.push(req.params.url);
+      }
+      res.json({
+        status: true,
+        msg: 'El artículo se ha agregado a tu carrito de compras exitosamente'
+      })
+    }  else {
+      res.json({
+        status: false,
+        error: 'No se agregó el artículo al carrito de compras'
+      })
     }
-  });
-  console.log(req.sessionID);
+  } 
 };
 
 usuarioController.crearUsuario = async (req, res, next) => {
@@ -150,64 +171,94 @@ usuarioController.crearUsuario = async (req, res, next) => {
 };
 
 usuarioController.eliminarArticulo = async (req, res, next) => {
-  await Usuario.findOne({
-    token: req.params.token
-  }, function( err, usuario){
-    if (err){
-      res.json({
-        status: false,
-        error: 'No se pudo obtener los datos del cliente'
-      });
-    } else {
-      console.log(usuario);
-      var carritoArticulos = usuario.carrito;
+  if(req.session.token){
+    await Usuario.findOne({
+      token: req.session.token
+    }, function( err, usuario){
+      if (err){
+        res.json({
+          status: false,
+          error: 'No se pudo obtener los datos del cliente'
+        });
+      } else {
+        var carritoArticulos = usuario.carrito;
+        var indice = 0;
+        for(var i = 0; i < usuario.carrito.length; i++){
+          if (usuario.carrito[i] == req.params.url){
+            indice = i;
+            break;
+          }
+        }
+        carritoArticulos.splice(indice, 1);
+        Usuario.findOneAndUpdate({
+          token: req.session.token
+        }, {
+          $set : { carrito : carritoArticulos }
+        }, function(err){
+          if(err){
+            res.json({
+              status: false,
+              error: 'Error al eliminar un articulo del carrito'
+            });
+          } else {
+            req.session.articulos = carritoArticulos;
+            res.json({
+              status: true,
+              msg: 'El artículo se ha eliminado exitosamente'
+            });
+          }
+        })
+      }
+    });
+  } else {
+    var carritoArticulo = [];
+    if(req.session.articulos){
+      carritoArticulo = req.session.articulos;
       var indice = 0;
-      for(var i = 0; i < usuario.carrito.length; i++){
-        if (usuario.carrito[i] == req.params.url){
+      for(var i = 0; i < req.session.articulos.length; i++){
+        if (req.session.articulos[i] == req.params.url){
           indice = i;
           break;
         }
       }
-      carritoArticulos.splice(indice, 1);
-      Usuario.findOneAndUpdate({
-        token: req.params.token
-      }, {
-        $set : { carrito : carritoArticulos }
-      }, function(err){
-        if(err){
-          res.json({
-            status: false,
-            error: 'Error al eliminar un articulo del carrito'
-          });
-        } else {
-          res.json({
-            status: true,
-            msg: 'El artículo se ha eliminado exitosamente'
-          });
-        }
-      })
-    }
-  });
-};
-
-usuarioController.eliminarTodoArticulos = async (req, res, next) => {
-  await Usuario.findOneAndUpdate({
-    token: req.body.token
-  },{
-    $set : {carrito : [] }
-  } ,function(err) {
-    if(err){
+      carritoArticulo.splice(indice, 1);
+      req.session.articulos = carritoArticulo;
       res.json({
-        status: false,
-        error: 'Error al intentar eliminar el artículo del carrito de compras'
+        status: true,
+        msg: 'El artículo se ha eliminado exitosamente'
       });
     } else {
       res.json({
-        status: true,
-        msg: 'El carrito ha sido vaciado con éxito'
+        status: false,
+        error: 'No se pudo eliminar este artículo'
       });
     }
-  });
+  }
+};
+
+usuarioController.eliminarTodoArticulos = async (req, res, next) => {
+  console.log(req.session.articulos);
+  if (req.session.token){
+    await Usuario.findOneAndUpdate({
+      token: req.session.token
+    },{
+      $set : {carrito : [] }
+    } ,function(err) {
+      if(err){
+        res.json({
+          status: false,
+          error: 'Error al intentar eliminar el artículo del carrito de compras'
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'El carrito ha sido vaciado con éxito'
+        });
+      }
+    });
+  } else {
+    req.session.articulos = [];
+  }
 };
 
 usuarioController.eliminarUsuario = async (req, res, next) => {
@@ -298,6 +349,46 @@ usuarioController.loginUsuario = async (req, res, next) => {
       }
     }
   })
+};
+
+usuarioController.obtenerCarrito = async (req, res, next) => {
+  if(req.session.token) {
+    Usuario.findOne({ token: req.session.token }, function(err, usuario) {
+      if (err) {
+        res.json({
+          status: false,
+          error: 'Ocurrió un error al obtener el carrito de compras del usuario'
+        });
+      } else {
+        if (usuario) {
+          res.json({
+            status: true,
+            msg: 'Se obtuvo los artículos del carrito de compras',
+            data: usuario.carrito
+          });
+        } else {
+          res.json({
+            status: false,
+            error: 'No se puedo obtener los datos del cliente'
+          });
+        }
+      }
+    })
+  } else {
+    if (req.session.articulos){
+      res.json({
+        status: true,
+        msg: 'Se obtuvo el carrito de compras del invitado',
+        data: req.session.articulos
+      });
+    } else {
+      res.json({
+        status: true,
+        msg: 'El invitado no tiene elementos en su carrito de compras',
+        data: []
+      });
+    }
+  }
 };
 
 usuarioController.obtenerUsuario = async (req, res, next) => {

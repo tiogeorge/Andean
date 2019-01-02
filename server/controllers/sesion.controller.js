@@ -17,10 +17,18 @@ sesionController.obtenerSesion = async(req, res, next) => {
 
 sesionController.limpiarSesion = async(req, res, next) => {
   if(req.session.token){
-    req.session = null;
-    res.json({
-      status: true,
-      msg: 'Sesión terminada'
+    req.session.destroy( function(error){
+      if(error){
+        res.json({
+          status: false,
+          error: 'Ocurrió un error'
+        })
+      } else {
+        res.json({
+          status: true,
+          msg: 'Sesión terminada'
+        });
+      }
     });
   } else {
     res.json({

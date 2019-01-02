@@ -22,15 +22,15 @@ export class CarritocomprasComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem("_arts")){
-      this.listaCarrito = localStorage.getItem("_arts").split(' ');
+    this.articuloDetalleService.getCarrito().subscribe( res => {
+      var jres = JSON.parse(JSON.stringify(res));
+      this.listaCarrito = jres.data;
       for(var i = 0; i < this.listaCarrito.length; i++){
-        this.articuloDetalleService.getArticulo(this.listaCarrito[i]).subscribe( res =>{
-          var articulos = res as Articulo[];
-          this.listaArticulos.push(articulos[0]);
+        this.articuloDetalleService.getArticulo(this.listaCarrito[i]).subscribe( res => {
+          this.listaArticulos.push(res[0]);
         });
       }
-    }
+    });    
   }
 
   mostrardivenvio() {
@@ -50,24 +50,23 @@ export class CarritocomprasComponent implements OnInit {
   }
 
   eliminaritem(url: string) {
-    this.usuarioService.eliminarArticuloCarrito(url,localStorage.getItem("_tk")).subscribe( res => {
+    this.usuarioService.eliminarArticuloCarrito(url).subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if(jres.status){
         var posicion = this.listaCarrito.indexOf(url);
         this.listaCarrito.splice(posicion, 1);
         this.listaArticulos.splice(posicion, 1);
       }else{
-        console.log(jres.error);
+        console.error(jres.error);
       }
     });
     this.mencart();
   }
 
   eliminartodo(){
-    this.usuarioService.eliminarArticulosCarrito(localStorage.getItem("_tk")).subscribe( res => {
+    this.usuarioService.eliminarArticulosCarrito().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if( jres.status){
-        localStorage.removeItem("_arts");
         this.listaArticulos = [];
       } else {
         console.log(jres.error);

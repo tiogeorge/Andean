@@ -19,6 +19,11 @@ export class ArticuloDetalleService {
   getArticulo(idarticulo: string) {
     return this.http.get(Constantes.URL_API_ARTICULO + '/url/' + idarticulo);
   }
+
+  getCarrito(){
+    return this.http.get(Constantes.URL_API_USUARIO + '/carrito', {withCredentials: true});
+  }
+
   listarArticulos(palabraclave:string) {
      //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
     return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave)

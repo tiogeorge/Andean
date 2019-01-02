@@ -35,6 +35,17 @@ export class MenuComponent implements OnInit {
       this.categoriaService.categorias = res as Categoria[];
       this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
     });
+    this.getSesion();   
+  }
+
+  categoriaSelected(nombreCategoria: string){
+    var i= 0;
+    while(this.categoriaService.categorias[i].nombre != nombreCategoria) { i++; }
+    this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[i];
+    this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
+  }
+
+  getSesion(){
     this.sesionService.obtenerSesion().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status){
@@ -43,13 +54,6 @@ export class MenuComponent implements OnInit {
         this.estaLogeado = false;
       }
     });
-  }
-
-  categoriaSelected(nombreCategoria: string){
-    var i= 0;
-    while(this.categoriaService.categorias[i].nombre != nombreCategoria) { i++; }
-    this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[i];
-    this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
   }
 
   logout(){
