@@ -1,4 +1,3 @@
-import { LoginComponent } from './../login/login.component';
 import { Router } from '@angular/router';
 import { Usuario } from './../perfil-usuario/usuario';
 import { Component, OnInit , ViewEncapsulation} from '@angular/core';
@@ -8,10 +7,8 @@ import { MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { DireccionService } from './direccion.service';
 import { Direccion } from './direccion';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
-import { Provincia } from '../perfil-usuario/provincia';
 import { Region } from '../perfil-usuario/region';
 import { RegionService } from '../perfil-usuario/region.service';
-
 
 export interface NombreDirec {
   nombre: string;
@@ -28,6 +25,7 @@ export interface Mes {
 export interface Tipolocalenvio {
   value: string;
 }
+
 @Component({
   selector: 'app-pago',
   templateUrl: './pago.component.html',
@@ -39,23 +37,23 @@ export interface Tipolocalenvio {
 })
 
 export class PagoComponent implements OnInit {
-  usuario:Usuario;
-  usuarioService: UsuarioService;
-  regionService: RegionService;
-  router: Router;
-  user:string='';
-  listdirecciones: string[];
-  localselec:string='Casa';
-  RespuestaDir:any;
-  logocard:string='';
+  usuario         : Usuario;
+  usuarioService  : UsuarioService;
+  regionService   : RegionService;
+  router          : Router;
+  user            : string ='';
+  listdirecciones : string[];
+  localselec      : string ='Casa';
+  RespuestaDir    : any;
+  logocard        : string ='';
   //stepper
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  firstFormGroup  : FormGroup;
+  secondFormGroup : FormGroup;
   //fin stepper
   //nombreicondir
-  nombreicondir:string='add';
-  nombreiconselec:string='adjust';
-  nombreicontipo='home';
+  nombreicondir   : string ='add';
+  nombreiconselec : string ='adjust';
+  nombreicontipo  : string ='home';
   //finnombre
   //chips
   visible = true;
@@ -69,12 +67,10 @@ export class PagoComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
     // Add our fruit
     if ((value || '').trim()) {
       this.fruits.push({nombre: value.trim()});
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
@@ -158,7 +154,6 @@ export class PagoComponent implements OnInit {
    }
 
   ngOnInit() {
-    
     //stepps
     this.firstFormGroup = this._formBuilder.group({
       datD1: ['', Validators.required],
@@ -193,7 +188,7 @@ export class PagoComponent implements OnInit {
           this.regionService.regiones = res as Region[];
         })
       }else{
-        this.router.navigate(['/']);
+        this.router.navigate(['/registro']);
       }
     });
     //fin recuperar
@@ -301,8 +296,7 @@ export class PagoComponent implements OnInit {
         }
         if(Respuesta[i].tipolocal=='Otro'){
           Respuesta[i].nombreicon='landscape';
-        }
-        
+        }  
       }
       this.direccionService.direccion=Respuesta as Direccion[];
       this.RespuestaDir=Respuesta;

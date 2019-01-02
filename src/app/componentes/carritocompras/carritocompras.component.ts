@@ -15,6 +15,10 @@ export class CarritocomprasComponent implements OnInit {
   usuarioService          : UsuarioService;
   articuloDetalleService  : ArticuloDetalleService;
   urlImagenes             : string = Constantes.URL_IMAGEN;
+  mostrarArticulos        : boolean = true;
+  sinProductos            : boolean = false;
+  mostrarEnvio            : boolean = false;
+  mostrarCupon            : boolean = false;
 
   constructor(usuarioService: UsuarioService, articuloDetalleService: ArticuloDetalleService) {
     this.articuloDetalleService = articuloDetalleService;
@@ -28,25 +32,20 @@ export class CarritocomprasComponent implements OnInit {
       for(var i = 0; i < this.listaCarrito.length; i++){
         this.articuloDetalleService.getArticulo(this.listaCarrito[i]).subscribe( res => {
           this.listaArticulos.push(res[0]);
+          this.mostrarArticulos = true;
+          this.sinProductos = false;
         });
       }
     });    
+    this.mencart();
   }
 
   mostrardivenvio() {
-    if (document.getElementById("listaenvio").style.display == "block") {
-      document.getElementById("listaenvio").style.display = "none";
-    } else {
-      document.getElementById("listaenvio").style.display = "block";
-    }
+    this.mostrarEnvio = this.mostrarEnvio ? false : true;
   }
 
   mostrardivcupon() {
-    if (document.getElementById("seltcupon").style.display == "block") {
-      document.getElementById("seltcupon").style.display = "none";
-    } else {
-      document.getElementById("seltcupon").style.display = "block";
-    }
+    this.mostrarCupon = this.mostrarCupon ? false : true;
   }
 
   eliminaritem(url: string) {
@@ -69,16 +68,16 @@ export class CarritocomprasComponent implements OnInit {
       if( jres.status){
         this.listaArticulos = [];
       } else {
-        console.log(jres.error);
+        console.error(jres.error);
       }
     });
     this.mencart();
   }
 
   mencart(){
-    if(this.listaArticulos==null){
-      document.getElementById('mencartvacio').style.display=('block');
-      document.getElementById('listacartarticulos').style.display=('none');
+    if(this.listaArticulos.length == 0) {
+      this.sinProductos = true;
+      this.mostrarArticulos = false;
     }
   }
 }
