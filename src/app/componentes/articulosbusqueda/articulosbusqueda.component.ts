@@ -11,10 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
-import { ReplaySubject } from 'rxjs';
-import { MatSelect, VERSION } from '@angular/material';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import * as $ from 'jquery';
 
 
 
@@ -36,7 +33,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
-  marcalistafiltro=new Array;//:MarcaFiltro[];
+  marcalistafiltro= new Array;//:MarcaFiltro[];
  
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
@@ -181,11 +178,15 @@ export class ArticulosbusquedaComponent implements OnInit {
         var resp = JSON.parse(JSON.stringify(res));
         this.tempomarcas = resp;
         for(var i=0;i<Object.keys(res).length;i++){
-          this.marcalistafiltro.push({id:resp[i]._id,nombre:resp[i].nombremarca});
+          //this.marcalistafiltro.push({id:resp[i]._id,nombre:resp[i].nombremarca});
+          let litmar:MarcaFiltro[];
         }
         console.log(this.marcalistafiltro);
       });
   }
+  //
+ // public filteredBanksMulti: ReplaySubject<MarcaFiltro> = new ReplaySubject<MarcaFiltro>
+  //
   listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
@@ -255,16 +256,13 @@ export class ArticulosbusquedaComponent implements OnInit {
      }
    }*/
   filtro() {
-    /* var divCont = document.getElementById('divcheck');
-     var checks = divCont.getElementsByTagName('input');
-     console.log(checks.length);
-     var id: string[];
-     for (var i = 0; i < checks.length; i++) {
-       if (checks[i].checked == true) {
-         id[i] = checks[i].id;
-       }
-     }*/
+    $("input:checkbox:checked").each(   
+      function() {
+          alert("El checkbox con valor " + $(this).val() + " está seleccionado");
+      }
+  );
   }
+  
 }
 
 

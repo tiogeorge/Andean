@@ -31,6 +31,7 @@ import { MapaComponent } from './componentes/mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
 import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
 
+
 const routes : Route[] = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
