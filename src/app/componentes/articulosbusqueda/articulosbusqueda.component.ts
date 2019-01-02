@@ -4,7 +4,7 @@ import { MarcaService } from './../marca/marca.service';
 import { Marca } from './../marca/marca';
 import { ArticuloDetalleService } from './../articulo-detalle/articulo-detalle.service';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Component, OnInit, ViewEncapsulation,AfterViewInit,OnDestroy, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { Articulo } from './../articulo-detalle/articulo';
 import { Constantes } from '../constantes';
 import { ActivatedRoute } from "@angular/router";
@@ -14,13 +14,6 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 import * as $ from 'jquery';
 
 
-
-//filtro marca
-interface MarcaFiltro {
-  id: string;
-  nombre: string;
-}
-//fin filtro
 @Component({
   selector: 'app-articulosbusqueda',
   templateUrl: './articulosbusqueda.component.html',
@@ -28,13 +21,12 @@ interface MarcaFiltro {
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
-  formcheck: FormGroup;
   articuloslista: any;
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
-  marcalistafiltro= new Array;//:MarcaFiltro[];
- 
+  arreglomarcas = new Array();
+
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
   listamarcas: any;
@@ -177,15 +169,10 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.marcaservice.marca = res as Marca[];
         var resp = JSON.parse(JSON.stringify(res));
         this.tempomarcas = resp;
-        for(var i=0;i<Object.keys(res).length;i++){
-          //this.marcalistafiltro.push({id:resp[i]._id,nombre:resp[i].nombremarca});
-          let litmar:MarcaFiltro[];
-        }
-        console.log(this.marcalistafiltro);
       });
   }
   //
- // public filteredBanksMulti: ReplaySubject<MarcaFiltro> = new ReplaySubject<MarcaFiltro>
+  // public filteredBanksMulti: ReplaySubject<MarcaFiltro> = new ReplaySubject<MarcaFiltro>
   //
   listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
@@ -256,13 +243,18 @@ export class ArticulosbusquedaComponent implements OnInit {
      }
    }*/
   filtro() {
-    $("input:checkbox:checked").each(   
-      function() {
-          alert("El checkbox con valor " + $(this).val() + " está seleccionado");
-      }
-  );
+    var arr = [];
+    $("input:checkbox[name=check]:checked").each(function () {
+      arr.push($(this).val());
+    });
+    this.agregararreglo(arr);
   }
-  
+  agregararreglo(dat:string[]){
+    this.arreglomarcas=dat;
+  }
+  verarr(){
+    console.log(this.arreglomarcas);
+  }
 }
 
 

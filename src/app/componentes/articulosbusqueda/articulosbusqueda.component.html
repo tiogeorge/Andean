@@ -25,6 +25,7 @@
               </div>
             </div>
           </div>
+          <div><button (click)=" verarr()">prueba</button></div>
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
             <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
@@ -32,9 +33,9 @@
           <div id="marcafiltro" class="col-lg-12" style="display: none">
             <hr>
             <div class="well" style="max-height: 300px;overflow: auto;">
-              <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i"  (click)="filtro()">
-                <label style="cursor: pointer;" >
-                  <input type="checkbox" value="{{marca.nombremarca}}" id="{{marca.nombremarca}}" >
+              <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i"  >
+                <label style="cursor: pointer;" (click)="filtro()">
+                  <input type="checkbox" name="check" value="{{marca.nombremarca}}" id="{{marca.nombremarca}}" >
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>
