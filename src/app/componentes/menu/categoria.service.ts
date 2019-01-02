@@ -17,22 +17,22 @@ export class CategoriaService {
   }
 
   getCategorias(){
-    return this.http.get(this.URL_API)
+    return this.http.get(this.URL_API, {withCredentials: true})
   }
 
   getSubCategorias(id: string){
-    return this.http.get(this.URL_API+'/subcategorias/'+id)
+    return this.http.get(this.URL_API+'/subcategorias/'+id, {withCredentials: true})
   }
 
   postCategoria(Categoria: Categoria){
-    return this.http.post(this.URL_API,Categoria);
+    return this.http.post(this.URL_API,Categoria, {withCredentials: true});
   }
   
   putCategoria(categoria: Categoria){
-    return this.http.put(this.URL_API+'/'+categoria._id,categoria);
+    return this.http.put(this.URL_API+'/'+categoria._id,categoria, {withCredentials: true});
   }
   
   deleteCategoria(id: string){
-    return this.http.delete(this.URL_API+'/'+id);
+    return this.http.delete(this.URL_API+'/'+id, {withCredentials: true});
   }
 }

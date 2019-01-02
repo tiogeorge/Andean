@@ -15,7 +15,7 @@ export class CategoriaService {
   }
 
   listarcategoria(id:string){
-    return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriaart/'+id);
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriaart/'+id, {withCredentials: true});
   }
   
 }

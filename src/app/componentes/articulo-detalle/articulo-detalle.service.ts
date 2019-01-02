@@ -17,7 +17,7 @@ export class ArticuloDetalleService {
   }
 
   getArticulo(idarticulo: string) {
-    return this.http.get(Constantes.URL_API_ARTICULO + '/url/' + idarticulo);
+    return this.http.get(Constantes.URL_API_ARTICULO + '/url/' + idarticulo, {withCredentials: true});
   }
 
   getCarrito(){
@@ -26,14 +26,14 @@ export class ArticuloDetalleService {
 
   listarArticulos(palabraclave:string) {
      //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
-    return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave)
+    return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave, {withCredentials: true})
   }
   listarArticulos2(palabraclave:string) {
     //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
-   return this.http.get(Constantes.URL_API_ARTICULO + `/marcaart/` + palabraclave)
+   return this.http.get(Constantes.URL_API_ARTICULO + `/marcaart/` + palabraclave, {withCredentials: true})
  }
  listarArticulo3(palabraclave:string){
-   return this.http.get(Constantes.URL_API_ARTICULO + `/categoriaart/` + palabraclave)
+   return this.http.get(Constantes.URL_API_ARTICULO + `/categoriaart/` + palabraclave, {withCredentials: true})
  }
 
 }
