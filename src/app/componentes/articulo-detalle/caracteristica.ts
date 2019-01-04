@@ -1,11 +1,10 @@
 export class Caracteristica{
-    constructor(/*id='', */nombre='', valor=''){
-        //this.id = id;
+    constructor(_id='', nombre='', valor=''){
+        this._id = _id;
         this.nombre = nombre;
         this.valor = valor;
     }
-    //id: string;
+    _id: string;
     nombre: string;
     valor: string;
-
 }

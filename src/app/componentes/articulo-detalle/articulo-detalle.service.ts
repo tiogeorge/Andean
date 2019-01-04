@@ -2,6 +2,7 @@ import { Constantes } from './../constantes';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Articulo } from './articulo';
+import { Categoria } from '../categoria/categoria';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ArticuloDetalleService {
   Articulo: Articulo[];
   articuloSeleccionado: Articulo = new Articulo();
   url_imagenes = Constantes.URL_IMAGEN;
+  categoria : Categoria;
 
   constructor(http: HttpClient) {
     this.http = http;

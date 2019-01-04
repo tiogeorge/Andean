@@ -16,8 +16,12 @@ export class CategoriaService {
     this.categoriaSeleccionada = new Categoria();
   }
 
+  getCategoria(id: string) {
+    return this.http.get(this.URL_API + '/' + id, {withCredentials: true});
+  }
+
   getCategorias(){
-    return this.http.get(this.URL_API, {withCredentials: true})
+    return this.http.get(this.URL_API, {withCredentials: true});
   }
 
   getSubCategorias(id: string){

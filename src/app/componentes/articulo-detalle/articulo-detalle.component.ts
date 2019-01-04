@@ -1,10 +1,11 @@
 import { ActivatedRoute } from "@angular/router";
 import { Articulo } from './articulo';
 import { ArticuloDetalleService } from "./articulo-detalle.service";
-import { Component, Inject ,OnInit } from '@angular/core';
+import { CategoriaService } from '../menu/categoria.service';
+import { Categoria } from '../menu/categoria';
+import { Component, OnInit } from '@angular/core';
 import { Constantes } from '../constantes';
-import { DecimalPipe } from '@angular/common';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { DialogoCarritoComponent } from "./dialogo-carrito/dialogo-carrito.component";
 
@@ -16,23 +17,27 @@ import { DialogoCarritoComponent } from "./dialogo-carrito/dialogo-carrito.compo
 export class ArticuloDetalleComponent implements OnInit {
   articuloService       : ArticuloDetalleService;
   usuarioService        : UsuarioService;
+  categoriaService      : CategoriaService;
   URL_IMAGENES          : string  = Constantes.URL_API_IMAGEN;
   habilitarBotonCarrito : boolean = true;
+  categoria             : Categoria;
   
-  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog) { 
+  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService) { 
     this.articuloService  = articuloService;
+    this.categoriaService = categoriaService;
     this.usuarioService   = usuarioService;
   }
 
   ngOnInit() {
     var url = this.route.snapshot.paramMap.get("id");
-    //console.log("url imagenes "+this.URL_IMAGENES);
     this.articuloService.getArticulo(url).subscribe( res => {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
-      //console.log(res);
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
     });   
+    this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe( res => {
+      this.articuloService.categoria = res[0] as Categoria;
+    });
   }
 
   agregarCarrito(){
@@ -45,7 +50,7 @@ export class ArticuloDetalleComponent implements OnInit {
   seleccionarPlan(idplan){
     var planes = document.getElementsByClassName("item-planes");
     for(var i=0;i<planes.length;i++){
-      var plan =planes[i] as HTMLDivElement;
+      var plan = planes[i] as HTMLDivElement;
       plan.style.border = "1px solid  orange "
       plan.style.backgroundColor = "white";
       plan.style.color="black"; 
@@ -68,10 +73,8 @@ export class ArticuloDetalleComponent implements OnInit {
       imagen.style.zIndex="-100";
       imagen.style.transform="scale(2.5)";
       cont.style.display="block";
-      //console.log("entro a la imagen");
-      //  console.log("se permite zoom");
     }else{
-      console.log("no se permite el zoom de la iamgen");
+      console.log("no se permite el zoom de la imagen");
     }  
   }
 
@@ -91,13 +94,12 @@ export class ArticuloDetalleComponent implements OnInit {
       //  console.log("se permite zoom");
       //  console.log("pantalla "+screen.height+"  ancho: "+screen.width);
     }else{
-      console.log("no se permite el zoom de la iamgen");
+      console.log("no se permite el zoom de la imagen");
     }
   }
 
   mouse_move(){
     if(screen.width>1024){
-      //console.log("se permite zoom");
       let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
       let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
       let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
@@ -108,9 +110,8 @@ export class ArticuloDetalleComponent implements OnInit {
       var ancho = imageseleccionada.clientWidth;
       var altopor = ((y - imageseleccionada.offsetTop) / imageseleccionada.clientHeight) * 100 +'%';
       imagen.style.transformOrigin= (((x - imageseleccionada.offsetLeft) / imageseleccionada.clientWidth* 100) )+ "% " +((((y - (contenedor_img.offsetTop+120)) / imageseleccionada.clientHeight) * 100) ) +'%';
-     // console.log(contenedor_img.offsetTop +"   -  "+y);
     }else{
-      console.log("no se permite el zoom de la iamgen");
+      console.log("no se permite el zoom de la imagen");
     }
   }
 

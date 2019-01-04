@@ -7,10 +7,9 @@ categoriaController.obtenerCategorias = async( req, res)=>{
 }
 categoriaController.obtenerCategoria = async(req,res)=>{
     const categoria = await Categoria.find({
-        id:req.params.id
+        _id: req.params.id
     });
     res.json(categoria);
-
 }
 categoriaController.obtenerSubCategorias= async(req,res)=>{
     const categorias = await Categoria.find({
