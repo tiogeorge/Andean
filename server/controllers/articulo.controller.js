@@ -115,7 +115,7 @@ articuloController.actualizarArticulo = async(req,res)=>{
             categoria: req.body.categoria,
             marca: req.body.marca,
             cantidad: req.body.cantidad,
-            idprecio:req.body.precio,
+            idprecio:req.body.idprecio,
             caracteristicas: req.body.caracteristicas,
             imagenes: req.body.imagenes,
             descripcion: req.body.descripcion,

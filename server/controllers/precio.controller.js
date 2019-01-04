@@ -7,6 +7,24 @@ precioController.getPrecio= async(req,res)=>{
   const tipoplanes = await Tipoplan.find();
   res.json(tipoplanes);
 }
+
+precioController.getPlanesEquipos = async(req, res)=>{
+  const precios = await Linea.find();
+  res.json(precios);
+}
+precioController.getPlanesEquipo = async(req,res)=>{
+  var id = req.params.id;
+  const precios = await Linea.find({"equipos.nombreequipo": id},"nombre").select({equipos:{$elemMatch:{nombreequipo:req.params.id}}});
+  var preciosequipo = new Array();
+  for(var i=0;i<precios.length;i++){
+    preciosequipo.push({
+      tipoplan: precios[i].nombre,
+      planes: precios[i].equipos[0].planes
+    });
+  }
+  
+  res.json(preciosequipo);
+}
 precioController.subirExcel=async(req,res)=>{
   
     console.log(req.file.originalname);
