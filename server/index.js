@@ -32,7 +32,7 @@ app.use(myConnection(mysql, dbOptions, 'pool'))
 
 // Middlewares
 app.use('/imagenes', express.static('imagenes'));
-app.use(cors({origin: 'http://localhost:4200', credentials : true}));
+app.use(cors({origin: ['http://localhost:4200','http://localhost:4201'], credentials : true}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());

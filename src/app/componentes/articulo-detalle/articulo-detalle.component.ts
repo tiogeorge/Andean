@@ -21,6 +21,24 @@ export class ArticuloDetalleComponent implements OnInit {
   URL_IMAGENES          : string  = Constantes.URL_API_IMAGEN;
   habilitarBotonCarrito : boolean = true;
   categoria             : Categoria;
+
+  //Precios
+  tipoLineaSeleccionada : string = "PREPAGO";
+  tipoPlanSeleccionado : string = "PORTABILIDAD";
+  tipoCuotaSeleccionada: string = "0";
+  listaprecios = new Array();
+  precioPrepago = {
+    tipoplan:"",
+    planes: new Array()
+  };
+  preciosPostago = new Array();
+  preciosPostpagoSeleccionado =  {
+    tipoplan:"",
+    planes: new Array()
+  };
+  tipoplanSeleccionado   : string = "ALTA";
+  cuotasSeleccionado    : string = "0";
+
   
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService) { 
     this.articuloService  = articuloService;
@@ -34,6 +52,7 @@ export class ArticuloDetalleComponent implements OnInit {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
+      this.obtenerPreciosArticulo();
     });   
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe( res => {
       this.articuloService.categoria = res[0] as Categoria;
@@ -47,6 +66,49 @@ export class ArticuloDetalleComponent implements OnInit {
     }); 
   }
 
+  obtenerPreciosArticulo(){
+    this.articuloService.getPreciosArticulo(this.articuloService.articuloSeleccionado.idprecio)
+    .subscribe(res=>{
+      this.listaprecios = res as any[];
+      for(var i = 0;i<this.listaprecios.length;i++){
+        if(this.listaprecios[i].tipoplan.includes("PREPAGO")&& this.listaprecios[i].tipoplan.includes("ALTA")){
+          this.precioPrepago = this.listaprecios[i];
+        }
+        if(this.listaprecios[i].tipoplan.includes("POSTPAGO") || this.listaprecios[i].tipoplan.includes("CUOTAS")){
+          this.preciosPostago.push(this.listaprecios[i]);
+        }
+      }
+      console.log(this.preciosPostago);
+    });
+  }
+
+  filtrarPreciosPostpago(){
+    this.preciosPostpagoSeleccionado = {
+      tipoplan:"",
+      planes: new Array()
+    };;
+    if(this.tipoplanSeleccionado.includes("ALTA")){
+      this.cuotasSeleccionado = "0";
+    }
+    for(var i = 0;i< this.preciosPostago.length;i++){
+      var tipoplan = this.preciosPostago[i].tipoplan;
+      if(tipoplan.includes(this.tipoplanSeleccionado) && tipoplan.includes(this.cuotasSeleccionado)){
+        this.preciosPostpagoSeleccionado = this.preciosPostago[i];
+        break;
+      }
+      if(this.cuotasSeleccionado == "0"){
+        if(tipoplan.includes(this.tipoplanSeleccionado) && !tipoplan.includes("CUOTA")){
+          this.preciosPostpagoSeleccionado = this.preciosPostago[i];
+          break;
+        }
+      }
+    }
+    console.log(this.preciosPostpagoSeleccionado);
+  }
+
+  selecionarTipo(tipo){
+    console.log(tipo);
+  }
   seleccionarPlan(idplan){
     var planes = document.getElementsByClassName("item-planes");
     for(var i=0;i<planes.length;i++){

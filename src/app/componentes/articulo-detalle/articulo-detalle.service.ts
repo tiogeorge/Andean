@@ -26,6 +26,10 @@ export class ArticuloDetalleService {
     return this.http.get(Constantes.URL_API_USUARIO + '/carrito', {withCredentials: true});
   }
 
+  getPreciosArticulo(nombreequipo: string){
+    return this.http.get(Constantes.URL_API_PLANES +'/planesequipo/'+nombreequipo, {withCredentials: true});
+  }
+
   listarArticulos(palabraclave:string) {
      //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
     return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave, {withCredentials: true})
