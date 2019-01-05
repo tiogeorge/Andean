@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-          <div><button (click)=" verarr()">prueba</button></div>
+       <!--   <div><button (click)="verarr()">prueba</button></div>-->
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
             <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
@@ -35,7 +35,7 @@
             <div class="well" style="max-height: 300px;overflow: auto;">
               <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i"  >
                 <label style="cursor: pointer;" (click)="filtro()">
-                  <input type="checkbox" name="check" value="{{marca.nombremarca}}" id="{{marca.nombremarca}}" >
+                  <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}" >
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>
@@ -127,13 +127,13 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articulodetalleService.Articulo; index as i" id="contenedorarticulo{{articulo._id}}">
+                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i" id="contenedorarticulo{{articulo._id}}">
                   <div class="container-fluid">
                     <div class="row">
                       <div class="col-lg-12 imagar" id="colart1{{articulo._id}}">
                         <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                          <img class="img-fluid card-img-top centrarimg" id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes}}"
-                            alt="{{articulo.imagenes}}">
+                          <img class="img-fluid card-img-top centrarimg" id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}"
+                            alt="{{articulo.imagenes[0]}}">
                         </a>
                       </div>
                       <div class="col-lg-12" id="colart2{{articulo._id}}" >

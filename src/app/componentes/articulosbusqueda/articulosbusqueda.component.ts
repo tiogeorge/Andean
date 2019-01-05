@@ -12,6 +12,7 @@ import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
 import * as $ from 'jquery';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -22,10 +23,12 @@ import * as $ from 'jquery';
 })
 export class ArticulosbusquedaComponent implements OnInit {
   articuloslista: any;
+  temporallistaarti: any;
+  temparticuloslista: any;
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
-  arreglomarcas = new Array();
+  arreglomarcas: string[]; //= new Array();
 
   selected = 'option1';
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
@@ -181,6 +184,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {
           this.articuloslista = Respuesta;
+          this.temporallistaarti = Respuesta;
         }
         else {
           this.temprecuperarmarcas(pclave);
@@ -196,6 +200,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.articulodetalleService.Articulo = res as Articulo[];
           var Respuesta = JSON.parse(JSON.stringify(res));
           this.articuloslista = Respuesta;
+          this.temporallistaarti = Respuesta;
         });
     }
     else {
@@ -209,6 +214,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         this.articuloslista = Respuesta;
+        this.temporallistaarti = Respuesta;
       });
   }
   temprecuperarmarcas(pclave2: string) {
@@ -248,12 +254,24 @@ export class ArticulosbusquedaComponent implements OnInit {
       arr.push($(this).val());
     });
     this.agregararreglo(arr);
+    this.verarr();
   }
-  agregararreglo(dat:string[]){
-    this.arreglomarcas=dat;
+  agregararreglo(dat: string[]) {
+    this.arreglomarcas = dat;
   }
-  verarr(){
+  verarr() {
     console.log(this.arreglomarcas);
+    var articuloslista2=new Array();
+    var tempArr=this.temporallistaarti as any[];
+    for(var j=0;j<this.arreglomarcas.length;j++){
+      for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+        console.log(i);
+        if (tempArr[i].marca == this.arreglomarcas[j]) {
+          articuloslista2.push(tempArr[i]);
+        }
+      }
+    }
+    this.articuloslista= articuloslista2;
   }
 }
 
