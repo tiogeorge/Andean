@@ -238,6 +238,9 @@ export class ArticulosbusquedaComponent implements OnInit {
         }
       })
   }
+  recuperarprecio(palbus:String){
+    
+  }
   /* cambiarhtml(estado: string) {
      if (estado == '0') {
        alert('oculta');
@@ -248,7 +251,8 @@ export class ArticulosbusquedaComponent implements OnInit {
        document.getElementById('contenedorbusqueda').hidden = false;
      }
    }*/
-  filtro() {
+   //filtro marca
+  filtroMarca() {
     var arr = [];
     $("input:checkbox[name=check]:checked").each(function () {
       arr.push($(this).val());
@@ -260,7 +264,6 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.arreglomarcas = dat;
   }
   verarr() {
-    console.log(this.arreglomarcas);
     var articuloslista2=new Array();
     var tempArr=this.temporallistaarti as any[];
     for(var j=0;j<this.arreglomarcas.length;j++){
@@ -273,6 +276,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
     this.articuloslista= articuloslista2;
   }
+  //fin filtro marca
 }
 
 

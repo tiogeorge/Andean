@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg " id="menu-principal">
   <a class="navbar-brand" routerLink="/home">{{nombre_tienda}}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navegacion" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navegacion"
+    aria-expanded="false" aria-label="Toggle navigation">
     <mat-icon id="menu-icon">menu</mat-icon>
   </button>
   <div class="navbar navbar-expand-lg" id="menu-iconos">
@@ -8,16 +9,21 @@
     </ul>
     <form id="buscar-form" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" id="buscarartpal" name="buscarartpal" type="search" placeholder="Buscar"
-        aria-label="Search" (keypress)="buscarpa($event)">
+        aria-label="Search" (keypress)="buscarpa($event)" [formControl]="myControl" [matAutocomplete]="auto">
       <button class="btn btn-link my-2 my-sm-0" id="btnbusqueda2" (click)="buscarArti()">
         <mat-icon id="icono-buscar2">search</mat-icon>
       </button>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="buscarArti()">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </form>
     <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda/smartphone">
       <mat-icon id="icono-buscar" class="icono">search</mat-icon>
     </button>
     <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu">
-      <mat-icon class="icono" (click)="getSesion()" >account_circle</mat-icon>
+      <mat-icon class="icono" (click)="getSesion()">account_circle</mat-icon>
     </button>
     <mat-menu #usermenu="matMenu" class="menu-login">
       <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">

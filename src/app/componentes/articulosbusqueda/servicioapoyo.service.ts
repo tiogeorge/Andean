@@ -11,12 +11,15 @@ export class ServicioapoyoService {
 articulobus:ArticulosbusquedaComponent;
 menuart:MenuComponent;
 router:Router;
-  constructor() { }
+  constructor(router: Router) {
+    this.router=router;
+   }
 
   public actualizarpag(dat:string){
     location.reload();
     //this.menuart.bus(dat);
    // this.router.navigateByUrl('busqueda/'+dat)
-   //this.router.navigate(['busqueda/'+dat]);
+//    console.log( this.router.navigateByUrl('busqueda/'+dat));
+//   this.router.navigate(['busqueda/'+dat]), { preserveQueryParams: true });
   }
 }
