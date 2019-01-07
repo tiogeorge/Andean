@@ -106,6 +106,14 @@ export class ArticuloDetalleComponent implements OnInit {
     console.log(this.preciosPostpagoSeleccionado);
   }
 
+  moverScroll(){
+    var contenedor = document.getElementById("contenido-planes-equipo");
+    contenedor.scrollLeft -= 200;
+  }
+  moverScrollRigth(){
+    var contenedor = document.getElementById("contenido-planes-equipo");
+    contenedor.scrollLeft += 200;
+  }
   selecionarTipo(tipo){
     console.log(tipo);
   }
