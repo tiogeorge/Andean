@@ -16,10 +16,11 @@ router:Router;
    }
 
   public actualizarpag(dat:string){
-    location.reload();
+    //location.reload();
     //this.menuart.bus(dat);
-   // this.router.navigateByUrl('busqueda/'+dat)
+    this.router.navigateByUrl('busqueda/'+dat);
 //    console.log( this.router.navigateByUrl('busqueda/'+dat));
 //   this.router.navigate(['busqueda/'+dat]), { preserveQueryParams: true });
+//    this.router.navigate(['busqueda', dat]);
   }
 }

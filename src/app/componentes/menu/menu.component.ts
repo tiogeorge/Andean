@@ -115,10 +115,10 @@ export class MenuComponent implements OnInit {
       //location.reload();
      /* this.actualizarcomponente();
       var input=document.getElementById('buscar2input') as HTMLInputElement;*/
-//      this.actualizarcomponente(this.pclave2);
+      this.actualizarcomponente(this.pclave2);
       //this.router.navigate(['busqueda/'+this.pclave2]);
       //alert('busqueda/'+this.pclave2);
-      this.router.navigateByUrl('busqueda/'+this.pclave2);
+//      this.router.navigateByUrl('busqueda/'+this.pclave2);
     }
     else{
       this.router.navigate(['busqueda/celulares']);

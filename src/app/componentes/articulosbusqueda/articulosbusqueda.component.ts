@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
 import * as $ from 'jquery';
 import { filter } from 'rxjs/operators';
+import { DataRowOutlet } from '@angular/cdk/table';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { filter } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
+  numeroencontrados:number=0;
   articuloslista: any;
   temporallistaarti: any;
   temparticuloslista: any;
@@ -34,8 +36,6 @@ export class ArticulosbusquedaComponent implements OnInit {
   listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
   listamarcas: any;
   listamarcas2: string[];//any = [{ id: any, nombre: string }];
-  listaarticulos: string[] = ['Huawei Y5 2018', 'LG V35 ThinQ', 'LG K9', 'LG K11 Plus', 'Samsung Galaxy J2 Pro', 'Lg Q Stylus Plus', 'Motorola Moto E5 Play', 'Samsung Galaxy J6', 'Apple Iphone XS 256GB', 'Apple Iphone XS MAX 512GB', 'Apple XS MAX 64GB', 'Nokia 2.1'];
-  listaurls: string[] = ['https://static.claro.com.pe/img/ceq/Huawei_Y5-2018_Frontal_Negro_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_V35_ThinQ_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K9_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_K11_Plus_Frontal_Postpago.jpg', 'https://static.claro.com.pe/img/ceq/Samsung_Galaxy_J2_Pro_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/LG_Q_Stylus_Plus_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Motorola_Moto_E5_Play_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/Samsung_galaxy_J6_Frontal_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/iPhone_Xs_Max_Frontal_200x350_Postpago.png', 'https://static.claro.com.pe/img/ceq/Frontal200x350_PostPago.png'];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
   //efecto
   centered = false;
@@ -80,7 +80,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    document.getElementById('noencontrado').hidden=true;
     //location.reload();
     // this.articuloslista="";
     // console.log(screen.width);
@@ -89,6 +89,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.listarmarcasfiltro();
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
+    //this. vistanoencontrado();
+
   }
   openSnackBar() {
     var message = 'Cargando';
@@ -166,6 +168,12 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   //funciones
+  vistanoencontrado(){
+    if(this.temporallistaarti== null || this.temporallistaarti == ""){
+      document.getElementById('contenedorbusqueda').hidden=true;
+      document.getElementById('noencontrado').hidden=false;
+    }
+  }
   listarmarcasfiltro() {
     this.marcaservice.listarmarcasT()
       .subscribe(res => {
@@ -174,9 +182,10 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.tempomarcas = resp;
       });
   }
-  //
-  // public filteredBanksMulti: ReplaySubject<MarcaFiltro> = new ReplaySubject<MarcaFiltro>
-  //
+  buscararticulos(datobusq:string){
+    var Resul;
+    //Resul=this.listaarticulos(datobusq);
+  }
   listaraarticulos(pclave: string) {
     this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
@@ -184,11 +193,13 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {
           this.articuloslista = Respuesta;
+          this.numeroencontrados=Object.keys(res).length;
           this.temporallistaarti = Respuesta;
+      //    return Respuesta;
         }
         else {
           this.temprecuperarmarcas(pclave);
-          this.temprecuperarcategorias(pclave);
+          this.temprecuperarcategorias(pclave);    
         }
 
       });
@@ -200,7 +211,9 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.articulodetalleService.Articulo = res as Articulo[];
           var Respuesta = JSON.parse(JSON.stringify(res));
           this.articuloslista = Respuesta;
+          this.numeroencontrados=Object.keys(res).length;
           this.temporallistaarti = Respuesta;
+          console.log('Marca'+this.temporallistaarti);
         });
     }
     else {
@@ -214,6 +227,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         this.articuloslista = Respuesta;
+        this.numeroencontrados=Object.keys(res).length;
         this.temporallistaarti = Respuesta;
       });
   }

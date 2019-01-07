@@ -111,7 +111,7 @@
                       </mat-form-field>
                     </th>
                     <th id="tbencontrados" width="30%">
-                      <p>Encontrados</p>
+                      <p>Encontrados: {{numeroencontrados}}</p>
                     </th>
                     <th id="rowvista">
                       <p>Vista: &nbsp; <i class="material-icons" (click)="cambiarvista1()" style="cursor: pointer;">grid_on</i>&nbsp;<i class="material-icons"
@@ -157,6 +157,12 @@
   </div>
 </div>
 <!--vista no se encontro-->
+<div id='noencontrado'>
+  <h1>Lo sentimos, no encomtramos el producta que buscas</h1>
+  <i class="material-icons">
+      search
+      </i>
+</div>
 <!--fin vista-->
 <!--modal-->
 <!-- Button trigger modal -->
