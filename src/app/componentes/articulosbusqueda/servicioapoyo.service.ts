@@ -16,7 +16,7 @@ router:Router;
    }
 
   public actualizarpag(dat:string){
-    //location.reload();
+    location.reload();
     //this.menuart.bus(dat);
     this.router.navigateByUrl('busqueda/'+dat);
 //    console.log( this.router.navigateByUrl('busqueda/'+dat));

@@ -23,10 +23,10 @@ import { DataRowOutlet } from '@angular/cdk/table';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
-  numeroencontrados:number=0;
+  palabrabusq:string;
+  numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
-  temparticuloslista: any;
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
@@ -80,7 +80,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.getElementById('noencontrado').hidden=true;
+    document.getElementById('noencontrado').hidden = true;
     //location.reload();
     // this.articuloslista="";
     // console.log(screen.width);
@@ -89,6 +89,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.listarmarcasfiltro();
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
+    this.palabrabusq=url;
     //this. vistanoencontrado();
 
   }
@@ -168,11 +169,11 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
   }
   //funciones
-  vistanoencontrado(){
-    if(this.temporallistaarti== null || this.temporallistaarti == ""){
-      document.getElementById('contenedorbusqueda').hidden=true;
-      document.getElementById('noencontrado').hidden=false;
-    }
+  vistanoencontrado() {
+    //if (this.estadobusqueda=='no') {
+    document.getElementById('contenedorbusqueda').hidden = true;
+    document.getElementById('noencontrado').hidden = false;
+    // }
   }
   listarmarcasfiltro() {
     this.marcaservice.listarmarcasT()
@@ -182,7 +183,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.tempomarcas = resp;
       });
   }
-  buscararticulos(datobusq:string){
+  buscararticulos(datobusq: string) {
     var Resul;
     //Resul=this.listaarticulos(datobusq);
   }
@@ -193,32 +194,31 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {
           this.articuloslista = Respuesta;
-          this.numeroencontrados=Object.keys(res).length;
+          this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta;
-      //    return Respuesta;
         }
         else {
           this.temprecuperarmarcas(pclave);
-          this.temprecuperarcategorias(pclave);    
+          // this.temprecuperarcategorias(pclave);
         }
-
       });
   }
   listaraarticulos2(pclave: string) {
-    if (pclave != null || pclave != "" || pclave != undefined) {
-      this.articulodetalleService.listarArticulos2(pclave)
-        .subscribe(res => {
-          this.articulodetalleService.Articulo = res as Articulo[];
-          var Respuesta = JSON.parse(JSON.stringify(res));
-          this.articuloslista = Respuesta;
-          this.numeroencontrados=Object.keys(res).length;
-          this.temporallistaarti = Respuesta;
-          console.log('Marca'+this.temporallistaarti);
-        });
-    }
-    else {
-      this.temprecuperarcategorias(pclave);
-    }
+    //  if (pclave != null || pclave != "" || pclave != undefined) {
+    this.articulodetalleService.listarArticulos2(pclave)
+      .subscribe(res => {
+        this.articulodetalleService.Articulo = res as Articulo[];
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        console.log(Respuesta);
+        this.articuloslista = Respuesta;
+        this.numeroencontrados = Object.keys(res).length;
+        this.temporallistaarti = Respuesta;
+        console.log('Marca' + this.temporallistaarti);
+      });
+    // }
+    // else {
+    //  this.temprecuperarcategorias(pclave);
+    // }
   }
   listararticulos3(pclave: string) {
     this.articulodetalleService.listarArticulo3(pclave)
@@ -226,9 +226,9 @@ export class ArticulosbusquedaComponent implements OnInit {
         console.log('entra categoria');
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
-        this.articuloslista = Respuesta;
-        this.numeroencontrados=Object.keys(res).length;
-        this.temporallistaarti = Respuesta;
+          this.articuloslista = Respuesta;
+          this.numeroencontrados = Object.keys(res).length;
+          this.temporallistaarti = Respuesta;
       });
   }
   temprecuperarmarcas(pclave2: string) {
@@ -236,24 +236,36 @@ export class ArticulosbusquedaComponent implements OnInit {
       .subscribe(res => {
         this.marcaservice.marca = res as Marca[];
         var Respuesta2 = JSON.parse(JSON.stringify(res));
-        for (var i = 0; i < Object.keys(res).length; i++) {
-          this.listaraarticulos2(Respuesta2[i]._id);
-          console.log(Respuesta2[i]._id);
+        if (Respuesta2 != '') {
+          for (var i = 0; i < Object.keys(res).length; i++) {
+            this.listaraarticulos2(Respuesta2[i]._id);
+            console.log(Respuesta2[i]._id);
+          }
+        }
+        else {
+          console.log('entra 1');
+          this.temprecuperarcategorias(pclave2);
         }
       })
   }
   temprecuperarcategorias(pclave3: string) {
+    console.log('entra 2');
     this.categoriaservice.listarcategoria(pclave3)
       .subscribe(res => {
         this.categoriaservice.categoria = res as Categoria[];
         var Respuesta3 = JSON.parse(JSON.stringify(res));
-        for (var i = 0; i < Object.keys(res).length; i++) {
-          this.listararticulos3(Respuesta3[i]._id);
+        if (Respuesta3 != '') {
+          for (var i = 0; i < Object.keys(res).length; i++) {
+            this.listararticulos3(Respuesta3[i]._id);
+          }
+        }
+        else {
+          this.vistanoencontrado();
         }
       })
   }
-  recuperarprecio(palbus:String){
-    
+  recuperarprecio(palbus: String) {
+
   }
   /* cambiarhtml(estado: string) {
      if (estado == '0') {
@@ -265,7 +277,7 @@ export class ArticulosbusquedaComponent implements OnInit {
        document.getElementById('contenedorbusqueda').hidden = false;
      }
    }*/
-   //filtro marca
+  //filtro marca
   filtroMarca() {
     var arr = [];
     $("input:checkbox[name=check]:checked").each(function () {
@@ -278,9 +290,9 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.arreglomarcas = dat;
   }
   verarr() {
-    var articuloslista2=new Array();
-    var tempArr=this.temporallistaarti as any[];
-    for(var j=0;j<this.arreglomarcas.length;j++){
+    var articuloslista2 = new Array();
+    var tempArr = this.temporallistaarti as any[];
+    for (var j = 0; j < this.arreglomarcas.length; j++) {
       for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
         console.log(i);
         if (tempArr[i].marca == this.arreglomarcas[j]) {
@@ -288,7 +300,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         }
       }
     }
-    this.articuloslista= articuloslista2;
+    this.articuloslista = articuloslista2;
   }
   //fin filtro marca
 }

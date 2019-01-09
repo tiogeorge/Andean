@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-       <!--   <div><button (click)="verarr()">prueba</button></div>-->
+          <!--   <div><button (click)="verarr()">prueba</button></div>-->
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
             <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
@@ -33,9 +33,9 @@
           <div id="marcafiltro" class="col-lg-12" style="display: none">
             <hr>
             <div class="well" style="max-height: 300px;overflow: auto;">
-              <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i"  >
+              <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
                 <label style="cursor: pointer;" (click)="filtro()">
-                  <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}" >
+                  <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}">
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>
@@ -114,8 +114,8 @@
                       <p>Encontrados: {{numeroencontrados}}</p>
                     </th>
                     <th id="rowvista">
-                      <p>Vista: &nbsp; <i class="material-icons" (click)="cambiarvista1()" style="cursor: pointer;">grid_on</i>&nbsp;<i class="material-icons"
-                          (click)="cambiarvista2()" style="cursor: pointer;">list</i></p>
+                      <p>Vista: &nbsp; <i class="material-icons" (click)="cambiarvista1()" style="cursor: pointer;">grid_on</i>&nbsp;<i
+                          class="material-icons" (click)="cambiarvista2()" style="cursor: pointer;">list</i></p>
                     </th>
                     <th></th>
                   </tr>
@@ -136,13 +136,14 @@
                             alt="{{articulo.imagenes[0]}}">
                         </a>
                       </div>
-                      <div class="col-lg-12" id="colart2{{articulo._id}}" >
+                      <div class="col-lg-12" id="colart2{{articulo._id}}">
                         <p class="card-text">
                           <a class="titulo-articulo" style="font-size: 13px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                         </p>
                         <p class="card-text">
-                            <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">Desde: {{articulo.precio}}</a>
-                          </p>
+                          <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">Desde:
+                            {{articulo.precio}}</a>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -158,10 +159,19 @@
 </div>
 <!--vista no se encontro-->
 <div id='noencontrado'>
-  <h1>Lo sentimos, no encomtramos el producta que buscas</h1>
-  <i class="material-icons">
-      search
-      </i>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <br><br><br>
+        <p style="font-size: 25px;"><i class="material-icons" style="font-size: 140px">
+            search
+          </i>Lo sentimos! No se encontraron articulos que coincidan con su busqueda "{{palabrabusq}}"</p>
+        <br><br><br>
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+  </div>
 </div>
 <!--fin vista-->
 <!--modal-->
