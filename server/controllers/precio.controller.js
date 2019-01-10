@@ -223,7 +223,12 @@ precioController.eliminarPlan=async(req,res)=>{
     mensaje:"Se elimino los datos correctamente"
   });
 }
-
+precioController.listarplanesequipo=async(req,res)=>{
+  const precioeq=await Equipo.find({
+    nombreequipo:req.params.nombre,
+  });
+  res.json(precioeq);
+}
 /*subirPreciosPrepago = ()=>{
 
 }*/

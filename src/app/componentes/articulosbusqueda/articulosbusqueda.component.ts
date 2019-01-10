@@ -23,6 +23,7 @@ import { DataRowOutlet } from '@angular/cdk/table';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
+  selected2 = 'option2';
   palabrabusq:string;
   numeroencontrados: number = 0;
   articuloslista: any;
