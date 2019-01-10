@@ -108,6 +108,10 @@ export class MenuComponent implements OnInit {
     this.router.navigateByUrl('busqueda/'+p);
   }
   buscarArti(){
+    var linea='PREPAGO';
+    var tipoplan='ALTA';
+    var cuotas='0'; 
+
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
    // alert(this.pclave2);
   // this.actualizarcomponente();

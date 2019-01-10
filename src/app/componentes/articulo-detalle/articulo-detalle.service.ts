@@ -26,20 +26,20 @@ export class ArticuloDetalleService {
     return this.http.get(Constantes.URL_API_USUARIO + '/carrito', {withCredentials: true});
   }
 
-  getPreciosArticulo(nombreequipo: string){
-    return this.http.get(Constantes.URL_API_PLANES +'/planesequipo/'+nombreequipo, {withCredentials: true});
+  getPreciosArticulo(nombreequipo: string,linea:string,tipoplan:string,cuotas:string){
+    return this.http.get(Constantes.URL_API_PLANES +'/planesequipo/'+nombreequipo +'/'+linea+'/'+tipoplan+'/'+cuotas, {withCredentials: true});
   }
 
-  listarArticulos(palabraclave:string) {
+  listarArticulos(palabraclave:string,linea:string,tipo:string,cuota:string) {
      //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
-    return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave, {withCredentials: true})
+    return this.http.get(Constantes.URL_API_ARTICULO + `/mn/` + palabraclave+'/'+linea+'/'+tipo+'/'+cuota, {withCredentials: true})
   }
-  listarArticulos2(palabraclave:string) {
+  listarArticulos2(palabraclave:string,linea:string,tipo:string,cuota:string) {
     //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
-   return this.http.get(Constantes.URL_API_ARTICULO + `/marcaart/` + palabraclave, {withCredentials: true})
+   return this.http.get(Constantes.URL_API_ARTICULO + `/marcaart/` + palabraclave+'/'+linea+'/'+tipo+'/'+cuota, {withCredentials: true})
  }
- listarArticulo3(palabraclave:string){
-   return this.http.get(Constantes.URL_API_ARTICULO + `/categoriaart/` + palabraclave, {withCredentials: true})
+ listarArticulo3(palabraclave:string,linea:string,tipo:string,cuota:string){
+   return this.http.get(Constantes.URL_API_ARTICULO + `/categoriaart/`+ palabraclave+'/'+linea+'/'+tipo+'/'+cuota, {withCredentials: true})
  }
 
 }

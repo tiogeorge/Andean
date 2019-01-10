@@ -52,7 +52,7 @@ export class ArticuloDetalleComponent implements OnInit {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
-      this.obtenerPreciosArticulo();
+    //  this.obtenerPreciosArticulo();
     });   
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe( res => {
       this.articuloService.categoria = res[0] as Categoria;
@@ -66,7 +66,7 @@ export class ArticuloDetalleComponent implements OnInit {
     }); 
   }
 
-  obtenerPreciosArticulo(){
+  /*obtenerPreciosArticulo(){
     this.articuloService.getPreciosArticulo(this.articuloService.articuloSeleccionado.idprecio)
     .subscribe(res=>{
       this.listaprecios = res as any[];
@@ -80,7 +80,7 @@ export class ArticuloDetalleComponent implements OnInit {
       }
       console.log(this.preciosPostago);
     });
-  }
+  }*/
 
   filtrarPreciosPostpago(){
     this.preciosPostpagoSeleccionado = {

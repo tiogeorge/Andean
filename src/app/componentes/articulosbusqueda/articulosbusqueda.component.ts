@@ -23,7 +23,11 @@ import { DataRowOutlet } from '@angular/cdk/table';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
-  selected2 = 'option2';
+  linea:string='PREPAGO';
+  tipo:string='ALTA';
+  cuota:string='0';
+  selected2 = 'prepago';
+  selected3 = '0';
   palabrabusq:string;
   numeroencontrados: number = 0;
   articuloslista: any;
@@ -189,7 +193,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     //Resul=this.listaarticulos(datobusq);
   }
   listaraarticulos(pclave: string) {
-    this.articulodetalleService.listarArticulos(pclave)
+    
+    this.articulodetalleService.listarArticulos(pclave,this.linea,this.tipo,this.cuota)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -206,7 +211,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   listaraarticulos2(pclave: string) {
     //  if (pclave != null || pclave != "" || pclave != undefined) {
-    this.articulodetalleService.listarArticulos2(pclave)
+    this.articulodetalleService.listarArticulos2(pclave,this.linea,this.tipo,this.cuota)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -222,7 +227,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     // }
   }
   listararticulos3(pclave: string) {
-    this.articulodetalleService.listarArticulo3(pclave)
+    this.articulodetalleService.listarArticulo3(pclave,this.linea,this.tipo,this.cuota)
       .subscribe(res => {
         console.log('entra categoria');
         this.articulodetalleService.Articulo = res as Articulo[];
@@ -280,6 +285,7 @@ export class ArticulosbusquedaComponent implements OnInit {
    }*/
   //filtro marca
   filtroMarca() {
+    console.log('entra filtro marca');
     var arr = [];
     $("input:checkbox[name=check]:checked").each(function () {
       arr.push($(this).val());
@@ -297,6 +303,7 @@ export class ArticulosbusquedaComponent implements OnInit {
       for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
         console.log(i);
         if (tempArr[i].marca == this.arreglomarcas[j]) {
+          console.log(tempArr[i].marca == this.arreglomarcas[j]);
           articuloslista2.push(tempArr[i]);
         }
       }
