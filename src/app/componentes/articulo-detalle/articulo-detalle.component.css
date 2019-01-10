@@ -180,6 +180,11 @@
     align-items: center;
     display:flex; 
     flex-direction:row;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 .btn-planes:hover{
     cursor: pointer;

@@ -30,6 +30,7 @@ precioController.getPlanesEquipo = async(req,res)=>{
   }
   res.json(planesfiltrados);
 }
+
 precioController.subirExcel=async(req,res)=>{
   console.log(req.file.originalname);
   const workbook = XLSX.readFile("./excel/"+req.file.originalname) ;
@@ -98,7 +99,7 @@ precioController.subirExcel=async(req,res)=>{
             // VERIFICAR SI EXISTE EL PLAN
             const existePlan = await Equipo.countDocuments({nombreequipo:nombreEquipo,"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
             if(existePlan > 0){//SI  EXISTE TIPO PLAN
-              await Equipo.update({nombreequipo:nombreEquipo},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan}}});          
+              await Equipo.update({nombreequipo:nombreEquipo},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan, cuotas:plan.cuotas }}});          
             }
             await Equipo.findOneAndUpdate({nombreequipo:nombreEquipo},{$push: {planes:plan}},{ new: true });
           }          
@@ -144,9 +145,9 @@ precioController.subirExcel=async(req,res)=>{
             cuotainicial:0            
           };
           // VERIFICAR SI EXISTE EL PLAN
-           const existePlan = await Equipo.countDocuments({nombreequipo:jsonHoja[fila][colequipo],"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan});
+           const existePlan = await Equipo.countDocuments({nombreequipo:jsonHoja[fila][colequipo],"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
            if(existePlan > 0){//SI  EXISTE TIPO PLAN
-              await Equipo.update({nombreequipo:jsonHoja[fila][colequipo]},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan}}});          
+              await Equipo.update({nombreequipo:jsonHoja[fila][colequipo]},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan, cuotas: plan.cuotas}}});          
            }
           await Equipo.findOneAndUpdate({nombreequipo:jsonHoja[fila][colequipo]},{$push: {planes:plan}},{ new: true });
         }
@@ -183,9 +184,9 @@ precioController.subirExcel=async(req,res)=>{
               };
               
               // VERIFICAR SI EXISTE EL PLAN
-              const existePlan = await Equipo.countDocuments({nombreequipo:jsonHoja[fila][colequipo],"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan});
+              const existePlan = await Equipo.countDocuments({nombreequipo:jsonHoja[fila][colequipo],"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
               if(existePlan > 0){//SI EXISTE TIPO PLAN
-                  await Equipo.update({nombreequipo:jsonHoja[fila][colequipo]},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan}}});          
+                  await Equipo.update({nombreequipo:jsonHoja[fila][colequipo]},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan, cuotas:plan.cuotas}}});          
               }
               await Equipo.findOneAndUpdate({nombreequipo:jsonHoja[fila][colequipo]},{$push: {planes:plan}});
               
