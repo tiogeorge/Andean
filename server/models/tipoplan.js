@@ -2,12 +2,15 @@ const mongoose= require('mongoose');
 const {Schema}=mongoose;
 
 const tipoplanSchema= new Schema({
-    tipo:{type:String, require:true},
+    tipolinea:{type:String, required:true},
+    tipoplan:{type:String, requireed:true},
+    cuotas:{type: Number, required:true},
     planes:[{
-        _id:false,
-        nombreplan:{type:String, require: true},
-        descripcion:String
-    }]
+            nombreplan:{type:String, require: true},  
+            descripcion:{type: String, required: true}
+        }
+    ]   
+
 });
 
 module.exports= mongoose.model('Tipoplanes',tipoplanSchema);
