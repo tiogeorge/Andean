@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 import * as $ from 'jquery';
 import { filter } from 'rxjs/operators';
 import { DataRowOutlet } from '@angular/cdk/table';
+import { IfStmt } from '@angular/compiler';
 
 
 @Component({
@@ -23,12 +24,12 @@ import { DataRowOutlet } from '@angular/cdk/table';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
-  linea:string='PREPAGO';
-  tipo:string='ALTA';
-  cuota:string='0';
-  selected2 = 'prepago';
+  linea: string = 'PREPAGO';
+  tipo: string = 'ALTA';
+  cuota: string = '0';
+  selected2 = 'alta';
   selected3 = '0';
-  palabrabusq:string;
+  palabrabusq: string;
   numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
@@ -85,6 +86,8 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.getElementById('selectplan').hidden=true;
+    document.getElementById('selectcuotas').hidden=true;
     document.getElementById('noencontrado').hidden = true;
     //location.reload();
     // this.articuloslista="";
@@ -92,9 +95,12 @@ export class ArticulosbusquedaComponent implements OnInit {
     // this.cambiaridfiltro();
     // this.openSnackBar();
     this.listarmarcasfiltro();
+    this.linea = 'PREPAGO';
+    this.tipo = 'ALTA';
+    this.cuota = '0';
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
-    this.palabrabusq=url;
+    this.palabrabusq = url;
     //this. vistanoencontrado();
 
   }
@@ -193,8 +199,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     //Resul=this.listaarticulos(datobusq);
   }
   listaraarticulos(pclave: string) {
-    
-    this.articulodetalleService.listarArticulos(pclave,this.linea,this.tipo,this.cuota)
+
+    this.articulodetalleService.listarArticulos(pclave, this.linea, this.tipo, this.cuota)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -211,7 +217,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   listaraarticulos2(pclave: string) {
     //  if (pclave != null || pclave != "" || pclave != undefined) {
-    this.articulodetalleService.listarArticulos2(pclave,this.linea,this.tipo,this.cuota)
+    this.articulodetalleService.listarArticulos2(pclave, this.linea, this.tipo, this.cuota)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -227,14 +233,14 @@ export class ArticulosbusquedaComponent implements OnInit {
     // }
   }
   listararticulos3(pclave: string) {
-    this.articulodetalleService.listarArticulo3(pclave,this.linea,this.tipo,this.cuota)
+    this.articulodetalleService.listarArticulo3(pclave, this.linea, this.tipo, this.cuota)
       .subscribe(res => {
         console.log('entra categoria');
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
-          this.articuloslista = Respuesta;
-          this.numeroencontrados = Object.keys(res).length;
-          this.temporallistaarti = Respuesta;
+        this.articuloslista = Respuesta;
+        this.numeroencontrados = Object.keys(res).length;
+        this.temporallistaarti = Respuesta;
       });
   }
   temprecuperarmarcas(pclave2: string) {
@@ -311,6 +317,26 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.articuloslista = articuloslista2;
   }
   //fin filtro marca
+  //cambiar precio
+  mostrartipoplan(){
+    if(this.linea=='POSTPAGO'){
+      document.getElementById('selectplan').hidden=false;
+      document.getElementById('selectcuotas').hidden=false;
+      this.tipo='ALTA';
+      this.cambiarprecio();
+    }
+    else{
+      document.getElementById('selectplan').hidden=true;
+      document.getElementById('selectcuotas').hidden=true;
+      this.linea='PREPAGO';
+      this.tipo='ALTA';
+      this.cambiarprecio();
+    }
+  }
+  cambiarprecio() {
+    this.listaraarticulos(this.palabrabusq);
+  }
+  //fin cambiar precio
 }
 
 
