@@ -50,6 +50,7 @@ app.use(session({
 app.use('/api/usuarios', require('./routes/usuario.routes'));
 app.use('/api/imagenes', require('./routes/imagen.routes'));
 app.use('/api/categorias', require('./routes/categoria.routes'));
+app.use('/api/chat', require('./routes/chat.routes'));
 app.use('/api/dir', require('./routes/direccion.routes'));
 app.use('/api/articulos', require('./routes/articulo.routes'));
 app.use('/api/re', require('./routes/region.routes'));
@@ -81,6 +82,7 @@ io.on('connection',(socket)=>{
         io.sockets.emit("init-admin",data);
     });
     socket.on('chat-admin',(data)=>{
+        console.log(data);
         io.sockets.emit(data.destino,data);
     });
 })
