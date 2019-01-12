@@ -24,11 +24,12 @@ import { IfStmt } from '@angular/compiler';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
-  linea: string = 'PREPAGO';
-  tipo: string = 'ALTA';
-  cuota: string = '0';
-  selected2 = 'alta';
-  selected3 = '0';
+  linea: string;
+  tipo: string;
+  cuota: string;
+  tipordenado:string;
+ // selected2 = 'alta';
+ // selected3 = '0';
   palabrabusq: string;
   numeroencontrados: number = 0;
   articuloslista: any;
@@ -98,6 +99,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.linea = 'PREPAGO';
     this.tipo = 'ALTA';
     this.cuota = '0';
+    this.tipordenado='orden1';
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
     this.palabrabusq = url;
@@ -337,6 +339,22 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.listaraarticulos(this.palabrabusq);
   }
   //fin cambiar precio
+  //ordenar
+  ordenarlista(){
+    if(this.tipordenado=='orden1'){
+      console.log('entra1');
+      this.articuloslista.sort();
+    }
+    if(this.tipordenado=='orden2'){
+      this.articuloslista.sort(function(a,b){return b.precioplan.precio - a.precioplan.precio});
+    }
+    if(this.tipordenado=='orden3'){
+      this.articuloslista.sort(function(a,b){return a.precioplan.precio - b.precioplan.precio});
+    }
+    //console.log(this.articuloslista.sort(function(a,b){return b.titulo - a.titulo}));
+   
+  }
+  //fin ordenar|
 }
 
 

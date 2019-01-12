@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          <!--   <div><button (click)="verarr()">prueba</button></div>-->
+             <!--<div><button (click)="prueba()">prueba</button></div>-->
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
             <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
@@ -135,10 +135,10 @@
                     </th>
                     <th id="tbselecC" width="33%">
                       <mat-form-field id="tbselect">
-                        <mat-select [(value)]="selected">
-                          <mat-option value="option1">Populares</mat-option>
-                          <mat-option value="option2">Mayor precio</mat-option>
-                          <mat-option value="option3">Menor Precio</mat-option>
+                        <mat-select [(ngModel)]="tipordenado" (selectionChange)="ordenarlista()" >
+                          <mat-option value="orden1">Populares</mat-option>
+                          <mat-option value="orden2">Mayor precio</mat-option>
+                          <mat-option value="orden3">Menor Precio</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </th>
