@@ -76,11 +76,14 @@ var user = "";
 // web sockets
 io.on('connection',(socket)=>{
     console.log("Nueva Conexion ID : "+socket.id);
-    
+
     socket.on('init-chat',(data)=>{      
         console.log(data);  
         io.sockets.emit("init-admin",data);
     });
+    socket.on('join-chat', (data) => {
+        io.sockets.emit(data.destino, data);
+    })
     socket.on('chat-admin',(data)=>{
         console.log(data);
         io.sockets.emit(data.destino,data);

@@ -37,11 +37,6 @@ export class ChatComponent implements OnInit {
         this.chatService.usuario = respuesta.data as Usuario;      
         this.mostrarCampos = false;
         this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle.";
-        //this.iniciarChat();
-        this.chatService.nuevoMensaje().subscribe( res => {
-          var mensaje = res as MensajeChat;
-          this.agregarMensaje(mensaje);
-        });
       }else {
         this.chatService.usuario = new Usuario();
         this.mensajeFormulario = " Porfavor ingrese la siguiente informacion para poder ayudarle: ";
@@ -61,6 +56,10 @@ export class ChatComponent implements OnInit {
   }
 
   iniciarChat(tipoConsulta: string, consulta: string){
+    this.chatService.nuevoMensaje().subscribe( res => {
+      var mensaje = res as MensajeChat;
+      this.agregarMensaje(mensaje);
+    });
     this.chatService.iniciarConversacion('init-chat', this.chatService.usuario, tipoConsulta, consulta);
     this.mostrarFooter = false;
     this.mostrarFormulario = false;
