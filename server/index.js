@@ -82,10 +82,14 @@ io.on('connection',(socket)=>{
         io.sockets.emit("init-admin",data);
     });
     socket.on('join-chat', (data) => {
+        console.log(data);
         io.sockets.emit(data.destino, data);
-    })
-    socket.on('chat-admin',(data)=>{
+    });
+    socket.on('chat-admin',(data)=> {
         console.log(data);
         io.sockets.emit(data.destino,data);
+    });
+    socket.on('desconectar', () => {
+        console.log('Cliente desconectado');
     });
 })

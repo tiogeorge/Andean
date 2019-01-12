@@ -65,6 +65,7 @@ export class ChatService {
   }
 
   cerrarConversacion(){
-    this.socket.disconnect();
+    this.socket.emit('desconectar','desconectar');
   }
+
 }

@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   mostrarFooter     : boolean       = true;
   mostrarFormulario : boolean       = true;
   conversacionId    : string;
+  habilitarEnvio    : boolean       = false;
 
   constructor(public chatService: ChatService,
               public usuarioService: UsuarioService ) { }
@@ -56,7 +57,13 @@ export class ChatComponent implements OnInit {
   }
 
   iniciarChat(tipoConsulta: string, consulta: string){
+    const esperaChat = new MensajeChat('', 'Esperando a nuestro colaborador', '$unirChat','');
+    this.agregarMensaje(esperaChat);
     this.chatService.nuevoMensaje().subscribe( res => {
+      var jres = JSON.parse(JSON.stringify(res));
+      if (jres.autor == '$unirChat'){
+        this.habilitarEnvio = true;
+      } 
       var mensaje = res as MensajeChat;
       this.agregarMensaje(mensaje);
     });
@@ -65,6 +72,10 @@ export class ChatComponent implements OnInit {
     this.mostrarFormulario = false;
   }
   
+  iniciarConversacion(){
+    this.habilitarEnvio = true;
+  };
+
   mostrarChatPrincipal(res){
     if(res.estado == 1){
       this.mostrarFooter = false;
@@ -91,5 +102,9 @@ export class ChatComponent implements OnInit {
 
   MoverScroll(chatPrincipal : HTMLDivElement) {
     chatPrincipal.scrollTop = chatPrincipal.scrollHeight;
+  }
+
+  minimizar(){
+    this.mostrarBotonChat = true;
   }
 }
