@@ -45,128 +45,71 @@
             <label style="color: rgb(75, 74, 74); font-size: 20px; font-weight: bold;">Opciones de compra</label>
             <mat-divider></mat-divider> 
             <br>
-            <div class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;">
-              <div style="display: flex; flex-direction: column; width: 30%;">
+            <div class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
+              <div style="display: flex; flex-direction: column; width: 200px;">
                   <h6 style="margin-bottom: 0px;">Tipo Linea:</h6>
                   <mat-form-field style="padding-left: 4px; padding-right: 4px;">
-                      <mat-select  name="tipolinea"[(ngModel)]="tipoLineaSeleccionada">
-                          <mat-option value="PREPAGO">Prepago</mat-option>
-                          <mat-option value = "POSTPAGO"> Postpago</mat-option>
+                      <mat-select  name="tipolinea"[(ngModel)]="tipoLineaSeleccionada" (selectionChange)="buscarPreciosFiltro()">
+                          <mat-option *ngFor="let linea of listalineas" value="{{linea.valor}}">{{linea.nombre}}</mat-option>
                         </mat-select>
                   </mat-form-field>    
               </div>
-              <div style="display: flex; flex-direction: column; width: 30%;">
+              <div style="display: flex; flex-direction: column;width: 200px;" [hidden]="controlTipoPlan">
                   <h6 style="margin-bottom: 0px;">Lo quiero en: </h6>
                   <mat-form-field style="padding-left: 4px; padding-right: 4px;">
-                      <mat-select  name="tipoplan"[(ngModel)]="tipoPlanSeleccionado">
-                          <mat-option value="PORTABILIDAD">Portabilidad</mat-option>
-                          <mat-option value = "RENOVACION"> Renovacion</mat-option>
-                          <mat-option value = "LINEA NUEVA"> Linea Nueva</mat-option>
+                      <mat-select  name="tipoplan"[(ngModel)]="tipoPlanSeleccionado"  (selectionChange)="buscarPreciosFiltro()">
+                          <mat-option *ngFor="let tipo of listatipoplanes" value="{{tipo.valor}}">{{tipo.nombre}}</mat-option>
                         </mat-select>
                   </mat-form-field> 
               </div>
-              <div style="display: flex; flex-direction: column; width: 30%;">
-                  <h6 style="margin-bottom: 0px;">Pagar el equipo en: </h6>
-                  <mat-form-field style="padding-left: 4px; padding-right: 4px;">
-                      <mat-select  name="tipocuota"[(ngModel)]="tipoCuotaSeleccionada">
-                          <mat-option value="0">Sin Cuotas</mat-option>
-                          <mat-option value = "12"> 12 Cuotas</mat-option>
-                          <mat-option value = "18"> 18 Cuotas</mat-option>
+              <div style="display: flex; flex-direction: column; width: 200px;"  [hidden]="controlCuotas" >
+                  <h6 style="margin-bottom: 0px;">Pagar el equipo en:</h6>
+                  <mat-form-field style="padding-left: 4px; padding-right: 4px;" >
+                      <mat-select  name="tipocuota"[(ngModel)]="tipoCuotaSeleccionada" (selectionChange)="buscarPreciosFiltro()">
+                          <mat-option *ngFor="let cuota of listacuotas" value="{{cuota.valor}}">{{cuota.nombre}}</mat-option>
                         </mat-select>
                   </mat-form-field> 
               </div>
-                            
             </div>
-            <div class="cont-precios-equipo-prepago" hidden="true"  style="width: 100%; padding-left: 10px;min-height: 200px;">
-              <h6>Precio del equipo:</h6>
-              <div style=" display: inline; padding-left: 50px;">
-                <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 20px; display: inline-block;width: 3%;">S/
-                </div>
-                <div style="font-weight: bold; color: orange; font-size: 30px; display: inline-block; width: 20%;">1550.00</div>
-              </div>
-
-            </div>
-            <div class="cont-precios" style="display: flex; flex-direction: row; ">
+            <div class="cont-precios">
               <div class="btn-planes" (click)="moverScroll()">                
-                    <i class="material-icons" style="font-size: 50px;">chevron_left</i>
+                    <i class="material-icons" style="font-size: 35px;">chevron_left</i>
                   
               </div>
-              <div  id="contenido-planes-equipo"class="cont-precios-equipo-postpago" style="width: 90%; padding-left: 10px;min-height: 200px; display: flex; flex-direction: row; overflow: hidden;scroll-behavior: smooth;">
-                  <mat-card class="card-planes">
+              <div  style="width: 88%; display: flex; flex-direction: row; height: 210px; justify-content: center; align-items: center;" [hidden]="!nomostrarPrecios">
+                <div [hidden]="hayPrecios">
+                    <mat-spinner style="width: 10px; height: 10px;"></mat-spinner>
+                </div>
+                <div [hidden]="!hayPrecios">
+                  <label for=""> No se encontraron precios.</label>
+                </div>
+                
+              </div>
+              <div  class="contenido-planes-equipo" id="contenido-planes-equipo" [hidden]="nomostrarPrecios">
+                  <mat-card class="card-planes" *ngFor="let plan of listPreciosFiltro">
                     <mat-card-content style="text-align: center;">
-                      <h6><strong>Claro Max Internacional</strong> </h6>
+                      <h6><strong>{{plan.nombreplan}}</strong> </h6>
                       
-                        <div style=" display: flex; flex-direction: row; width: 100%;justify-content: center;">
-                          <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 20px;">S/
-                          </div>
-                          <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 30px;">1550.00</div>
+                        <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
+                          <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
+                          <div style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%;">S/ {{plan.precio}}{{almes}}</div>
                         </div>
                         <div style="width: 100%;">
                           <button class="btn btn-link">Ver Detalle Plan</button>
                         </div>
                     
                     </mat-card-content>
-                  </mat-card>
-                  <mat-card class="card-planes">
-                      <mat-card-content style="text-align: center;">
-                        <h6><strong>Claro Max Internacional</strong> </h6>
-                        
-                          <div style=" display: flex; flex-direction: row; width: 100%;justify-content: center;">
-                            <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 20px;">S/
-                            </div>
-                            <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 30px;">1550.00</div>
-                          </div>
-                          <div style="width: 100%;">
-                            <button class="btn btn-link">Ver Detalle Plan</button>
-                          </div>
-                      
-                      </mat-card-content>
-                    </mat-card>
-                    <mat-card class="card-planes">
-                        <mat-card-content style="text-align: center;">
-                          <h6><strong>Claro Max Internacional</strong> </h6>
-                          
-                            <div style=" display: flex; flex-direction: row; width: 100%;justify-content: center;">
-                              <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 20px;">S/
-                              </div>
-                              <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 30px;">1550.00</div>
-                            </div>
-                            <div style="width: 100%;">
-                              <button class="btn btn-link">Ver Detalle Plan</button>
-                            </div>
-                        
-                        </mat-card-content>
-                      </mat-card>
-                      <mat-card class="card-planes">
-                          <mat-card-content style="text-align: center;">
-                            <h6><strong>Claro Max Internacional</strong> </h6>
-                            
-                              <div style=" display: flex; flex-direction: row; width: 100%;justify-content: center;">
-                                <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 20px;">S/
-                                </div>
-                                <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 30px;">1550.00</div>
-                              </div>
-                              <div style="width: 100%;">
-                                <button class="btn btn-link">Ver Detalle Plan</button>
-                              </div>
-                          
-                          </mat-card-content>
-                        </mat-card>
-                              
+                  </mat-card>                             
                   
               </div>
               <div class="btn-planes" (click)="moverScrollRigth()">
-                  <i class="material-icons" style="font-size: 50px;">chevron_right</i>
+                  <i class="material-icons" style="font-size: 35px;">chevron_right</i>
               </div>
-
-            </div>
-
-            
-            
+            </div>            
           </div>
+          
           <div class="col-lg-12">
-          </div>
-          <div class="col-lg-12">
+              <br>
             <div class="row">
               <div class="col-lg-4">
                 <button type="button" class="btn btn-dark" onclick="buscar()" routerLink="/pago"><i class="fas fa-money-bill-alt"></i>

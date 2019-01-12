@@ -24,22 +24,25 @@ export class ArticuloDetalleComponent implements OnInit {
 
   //Precios
   tipoLineaSeleccionada : string = "PREPAGO";
-  tipoPlanSeleccionado : string = "PORTABILIDAD";
+  tipoPlanSeleccionado : string = "ALTA";
   tipoCuotaSeleccionada: string = "0";
   listaprecios = new Array();
-  precioPrepago = {
-    tipoplan:"",
-    planes: new Array()
-  };
-  preciosPostago = new Array();
-  preciosPostpagoSeleccionado =  {
-    tipoplan:"",
-    planes: new Array()
-  };
-  tipoplanSeleccionado   : string = "ALTA";
-  cuotasSeleccionado    : string = "0";
 
-  
+  //controlar select de opciones de compra
+  //controlCuotas: boolean = false;
+  controlTipoPlan: boolean = true;
+  controlLineas: boolean = false;
+  controlCuotas = true;
+  nomostrarPrecios = true;
+  hayPrecios=false;
+  almes=" al mes";
+
+  listalineas: any[];
+  listatipoplanes: any[];
+  listacuotas: any[];
+
+  //Lista de precios segun el filtro seleccionado
+  listPreciosFiltro: any[] = new Array();
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService) { 
     this.articuloService  = articuloService;
     this.categoriaService = categoriaService;
@@ -47,11 +50,33 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.listalineas = [{valor:"PREPAGO", nombre: "Prepago"}, {valor:"POSTPAGO", nombre: "Postpago"}];
+    this.listatipoplanes=[
+      {valor: "ALTA",nombre:"Linea Nueva"},
+      {valor: "PORTABILIDAD",nombre:"Portabilidad"},
+      {valor: "RENOVACION",nombre:"Renovación"},
+      {valor: "PORTABILIDAD EXCLUSIVA",nombre:"Portabilidad Especial"},
+      {valor: "RENOVACION EXCLUSIVA",nombre:"Renovación Especial"}      
+    ];
+    this.listacuotas=[
+      {valor:"0", nombre:"Sin Cuotas"},
+      {valor:"12", nombre:"12 Cuotas"},
+      {valor:"18", nombre:"18 Cuotas"}
+    ]
+    this.controlCuotas = true;
+    this.controlTipoPlan = true;
+    this.controlLineas = false;
+    
+  }
+  
+  ngAfterViewInit() {
     var url = this.route.snapshot.paramMap.get("id");
     this.articuloService.getArticulo(url).subscribe( res => {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
+      this.buscarPreciosFiltro();
     //  this.obtenerPreciosArticulo();
     });   
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe( res => {
@@ -66,69 +91,45 @@ export class ArticuloDetalleComponent implements OnInit {
     }); 
   }
 
-  /*obtenerPreciosArticulo(){
-    this.articuloService.getPreciosArticulo(this.articuloService.articuloSeleccionado.idprecio)
+  buscarPreciosFiltro(){
+    this.nomostrarPrecios = true;
+    this.hayPrecios = false;
+    if(this.tipoLineaSeleccionada == "PREPAGO"){
+      this.tipoPlanSeleccionado = "ALTA";
+      this.tipoCuotaSeleccionada = "0";
+      this.controlTipoPlan = true;
+      this.controlCuotas = true;
+      this.almes="";
+    }else{
+      this.controlTipoPlan = false;
+      this.controlCuotas = false;
+      this.almes=" al mes";
+    }
+    this.articuloService.getPreciosArticulo(this.articuloService.articuloSeleccionado.idprecio,this.tipoLineaSeleccionada, this.tipoPlanSeleccionado, this.tipoCuotaSeleccionada)
     .subscribe(res=>{
-      this.listaprecios = res as any[];
-      for(var i = 0;i<this.listaprecios.length;i++){
-        if(this.listaprecios[i].tipoplan.includes("PREPAGO")&& this.listaprecios[i].tipoplan.includes("ALTA")){
-          this.precioPrepago = this.listaprecios[i];
-        }
-        if(this.listaprecios[i].tipoplan.includes("POSTPAGO") || this.listaprecios[i].tipoplan.includes("CUOTAS")){
-          this.preciosPostago.push(this.listaprecios[i]);
-        }
-      }
-      console.log(this.preciosPostago);
-    });
-  }*/
-
-  filtrarPreciosPostpago(){
-    this.preciosPostpagoSeleccionado = {
-      tipoplan:"",
-      planes: new Array()
-    };;
-    if(this.tipoplanSeleccionado.includes("ALTA")){
-      this.cuotasSeleccionado = "0";
-    }
-    for(var i = 0;i< this.preciosPostago.length;i++){
-      var tipoplan = this.preciosPostago[i].tipoplan;
-      if(tipoplan.includes(this.tipoplanSeleccionado) && tipoplan.includes(this.cuotasSeleccionado)){
-        this.preciosPostpagoSeleccionado = this.preciosPostago[i];
-        break;
-      }
-      if(this.cuotasSeleccionado == "0"){
-        if(tipoplan.includes(this.tipoplanSeleccionado) && !tipoplan.includes("CUOTA")){
-          this.preciosPostpagoSeleccionado = this.preciosPostago[i];
-          break;
+      
+      this.listPreciosFiltro = res as any[];
+      if(this.listPreciosFiltro.length==0){
+        this.hayPrecios = true;
+      }else{
+        this.hayPrecios = false;
+        this.nomostrarPrecios = false;
+        if(this.tipoLineaSeleccionada=="PREPAGO"){
+          this.listPreciosFiltro[0].nombreplan="Prepago";
         }
       }
-    }
-    console.log(this.preciosPostpagoSeleccionado);
+      
+      //console.log(res);
+    });    
   }
 
   moverScroll(){
     var contenedor = document.getElementById("contenido-planes-equipo");
-    contenedor.scrollLeft -= 200;
+    contenedor.scrollLeft -= 180;
   }
   moverScrollRigth(){
     var contenedor = document.getElementById("contenido-planes-equipo");
-    contenedor.scrollLeft += 200;
-  }
-  selecionarTipo(tipo){
-    console.log(tipo);
-  }
-  seleccionarPlan(idplan){
-    var planes = document.getElementsByClassName("item-planes");
-    for(var i=0;i<planes.length;i++){
-      var plan = planes[i] as HTMLDivElement;
-      plan.style.border = "1px solid  orange "
-      plan.style.backgroundColor = "white";
-      plan.style.color="black"; 
-    }
-    var plan = document.getElementById(idplan) as HTMLDivElement;
-    plan.style.border = "1px solid  white "
-    plan.style.backgroundColor = "orange";
-    plan.style.color="white"; 
+    contenedor.scrollLeft += 180;
   }
 
   mouse_over(){
