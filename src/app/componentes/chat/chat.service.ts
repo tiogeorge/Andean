@@ -7,14 +7,19 @@ import { HttpClient } from '@angular/common/http';
 import { MensajeChat } from './mensaje-chat';
 
 export class Conversacion {
-  nombres       : string;
-  correo        : string;
-  tipoConsulta  : string;
-  consulta      : string;
+  _id             : string;
+  nombreCliente   : string;
+  email           : string;
+  tipoConsulta    : string;
+  consulta        : string;
+  createdAt       : Date;
+  concluido       : boolean;
+  unir            : boolean = false;
   
-  constructor(nombres = '', correo = '', tipoConsulta = '', consulta = ''){
-    this.nombres = nombres;
-    this.correo = correo;
+  constructor(_id= '', nombreCliente = '', email = '', tipoConsulta = '', consulta = ''){
+    this._id = _id;
+    this.nombreCliente = nombreCliente;
+    this.email = email;
     this.tipoConsulta = tipoConsulta;
     this.consulta = consulta;
   }
@@ -34,12 +39,13 @@ export class ChatService {
   }
 
   iniciarConversacion(idchat: string, data: Usuario, tipoConsulta: string, consulta: string){
-    const conversacion = new Conversacion(data.nombres, data.correo, tipoConsulta, consulta);
+    const conversacion = new Conversacion('',data.nombres, data.correo, tipoConsulta, consulta);
     this.http.post(Constantes.URL_API_CHAT, conversacion, {withCredentials: true}).subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status)
-        this.socket.emit(idchat, conversacion);
-        this.conversacionId = jres.data;
+        this.socket.emit(idchat, jres.data as Conversacion);
+        //console.log(jres);
+        this.conversacionId = jres.data._id;
     });
   }
 
@@ -64,8 +70,8 @@ export class ChatService {
    return observable;
   }
 
-  cerrarConversacion(){
-    this.socket.emit('desconectar','desconectar');
+  cerrarConversacion(data: MensajeChat){
+    this.socket.emit('desconectar', data);
   }
 
 }

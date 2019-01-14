@@ -87,9 +87,10 @@ io.on('connection',(socket)=>{
     });
     socket.on('chat-admin',(data)=> {
         console.log(data);
-        io.sockets.emit(data.destino,data);
+        io.sockets.emit(data.destino, data);
     });
-    socket.on('desconectar', () => {
+    socket.on('desconectar', (data) => {
         console.log('Cliente desconectado');
+        io.sockets.emit(data.destino, data);
     });
 })

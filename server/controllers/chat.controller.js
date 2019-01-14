@@ -29,7 +29,10 @@ exports.getConversaciones = async (req, res, next) => {
       res.json({
         status: true,
         msg: 'Conversaciones obtenidas',
-        data: conversaciones
+        data: conversaciones,
+        idUsuario : req.session.idEmpleado,
+        usuario : req.session.usuario,
+        tipoUsuario: req.session.tipoUsuario
       });
     }
   }).sort('-createdAt');
@@ -37,8 +40,8 @@ exports.getConversaciones = async (req, res, next) => {
 
 exports.nuevaConversacion = async (req, res, next) => {
   const conversacion = new Conversacion({
-    nombreCliente : req.body.nombres,
-    email         : req.body.correo,
+    nombreCliente : req.body.nombreCliente,
+    email         : req.body.email,
     tipoConsulta  : req.body.tipoConsulta,
     consulta      : req.body.consulta
   });
@@ -52,15 +55,13 @@ exports.nuevaConversacion = async (req, res, next) => {
       res.json({
         status: true,
         msg: 'La conversación se ha creado con éxito',
-        data: conv._id
+        data: conv
       });
     }
   });
 };
 
 exports.enviarRespuesta = async (req, res, next) => {
-  console.log(req.params);
-  console.log(req.body);
   const respuesta = new Mensaje({
     conversacionId : req.params.conversacionId,
     cuerpo: req.body.cuerpo,
@@ -80,4 +81,23 @@ exports.enviarRespuesta = async (req, res, next) => {
       });
     }
   });
+};
+
+exports.unirChat = async(req, res, next) => {
+  await Conversacion.findOneAndUpdate(
+    {_id : req.params.id}, 
+    {$push: {participantes: req.session.idEmpleado}},
+    {new: false}, function(err){
+      if(err){
+        res.json({
+          status: false,
+          error: err
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'Se unió al chat con éxito'
+        });
+      }
+    })
 };

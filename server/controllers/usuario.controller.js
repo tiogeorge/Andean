@@ -306,7 +306,6 @@ usuarioController.loginAdmin = async (req, res, next) => {
         // if user not found
         // Se obtiene mensaje, idEmpleado, Nombres, idTipoUusario
         if (results[0][0].Mensaje == 'HECHO') {
-          req.session.cont = req.session.cont ? req.session.cont + 1 : 1;
           req.session.idEmpleado = req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado;
           req.session.usuario = req.session.usuario ? req.session.usuario : results[0][0].Nombres;
           req.session.idTipoUsuario = req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario;

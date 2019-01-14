@@ -24,6 +24,8 @@ export class ChatComponent implements OnInit {
   mostrarFormulario : boolean       = true;
   conversacionId    : string;
   habilitarEnvio    : boolean       = false;
+  nombreAsesor      : string;
+  idUsuario         : string;
 
   constructor(public chatService: ChatService,
               public usuarioService: UsuarioService ) { }
@@ -52,16 +54,21 @@ export class ChatComponent implements OnInit {
   }
 
   cerrarChat(){
+    this.listaMensajesChat = [];
     this.mostrarBotonChat = true;
-    this.chatService.cerrarConversacion();
+    this.mostrarFooter = true;
+    this.mostrarFormulario = true;
+    var mensaje = new MensajeChat(this.chatService.conversacionId, '$desconectar$', this.chatService.usuario.correo, 'admin')
+    this.chatService.cerrarConversacion(mensaje);
   }
 
   iniciarChat(tipoConsulta: string, consulta: string){
-    const esperaChat = new MensajeChat('', 'Esperando a nuestro colaborador', '$unirChat','');
+    const esperaChat = new MensajeChat('', 'Esperando a nuestr@ asesor@ de ventas', '$unirChat','');
     this.agregarMensaje(esperaChat);
     this.chatService.nuevoMensaje().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.autor == '$unirChat'){
+        this.nombreAsesor = jres.cuerpo.split(' ')[0];
         this.habilitarEnvio = true;
       } 
       var mensaje = res as MensajeChat;

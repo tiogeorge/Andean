@@ -7,5 +7,6 @@ router.get('/', chat.getConversaciones);
 router.get('/:id', chat.getMensajes);
 router.post('/', chat.nuevaConversacion);
 router.post('/:conversacionId', chat.enviarRespuesta);
+router.put('/:id', chat.unirChat);
 
 module.exports = router;
