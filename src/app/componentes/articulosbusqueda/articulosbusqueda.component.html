@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-             <!--<div><button (click)="prueba()">prueba</button></div>-->
+          <!--<div><button (click)="prueba()">prueba</button></div>-->
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
             <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
@@ -96,7 +96,7 @@
           </div>
           <div class="col-lg-12" id="divprecio" style="display: none">
             <!--inicio de slider de precio-->
-            <section class="example-section">
+   <!--         <section class="example-section">
               <div class="example-margin">
                 <input matInput type="number" placeholder="Min value" [(ngModel)]="min">
               </div>
@@ -111,7 +111,8 @@
               <mat-slider thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval" [(ngModel)]="value"
                 [min]="min" [max]="max" tickInterval="1">
               </mat-slider>
-            </section>
+            </section>-->
+            <ng5-slider [(value)]="valueejem" [options]="options"></ng5-slider>
             <!--fin de slider-->
           </div>
         </div>
@@ -123,7 +124,7 @@
         <div class="row">
           <div class="col-lg-12">
             <h3 id="titulo1">RESULTADOS DE LA BÚSQUEDA
-              <small>Articulo de referencia</small>
+              <!-- <small>Articulo de referencia</small>-->
             </h3>
             <hr>
             <ol class="breadcrumb">
@@ -135,7 +136,7 @@
                     </th>
                     <th id="tbselecC" width="33%">
                       <mat-form-field id="tbselect">
-                        <mat-select [(ngModel)]="tipordenado" (selectionChange)="ordenarlista()" >
+                        <mat-select [(ngModel)]="tipordenado" (selectionChange)="ordenarlista()">
                           <mat-option value="orden1">Populares</mat-option>
                           <mat-option value="orden2">Mayor precio</mat-option>
                           <mat-option value="orden3">Menor Precio</mat-option>
@@ -189,36 +190,28 @@
             </div>
           </div>-->
           <!--vista nueva-->
+          <!---->
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i" id="contenedorarticulo{{articulo._id}}">
-                  <mat-card class="example-card">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-lg-12  imagar" id="colart1{{articulo._id}}">
-                          <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                            <img class="img-fluid card-img-top centrarimg" id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}"
-                              alt="{{articulo.imagenes[0]}}">
-                          </a>
-                        </div>
-                        <mat-card-content>
-                          <div class="col-lg-12 box-part text-center" id="colart2{{articulo._id}}">
-                            <p class="card-text">
-                              <a class="titulo-articulo title" style="font-size: 14px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
-                            </p>
-                            <p class="card-text">
-                              <strong><a class="titulo-articulo" style="font-size: 20px;color: red" routerLink="/articulo/{{articulo.url}}">S/.
-                                  {{articulo.precioplan.precio}}</a></strong>
-                            </p>
-                            <p class="card-text">
-                              <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
-                                {{articulo.precioplan.nombreplan}}</a>
-                            </p>
-                          </div>
-                        </mat-card-content>
-                      </div>
-                    </div>
+                  <mat-card class="example-card " style="size: 100px">
+                    <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;" id="{{articulo._id}}"
+                      src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}">
+                     <br>
+                      <mat-card-content>
+                      <p class="card-text text-center">
+                        <a class="titulo-articulo .centrarletras" style="font-size: 14px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
+                      </p>
+                      <p class="card-text text-center">
+                          <strong><a class="titulo-articulo" style="font-size: 20px;color: red" routerLink="/articulo/{{articulo.url}}">S/.
+                          {{articulo.precioplan.precio}}</a></strong>
+                      </p>
+                      <p class="card-text text-center">
+                          <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
+                            {{articulo.precioplan.nombreplan}}</a>
+                        </p>
+                    </mat-card-content>
                   </mat-card>
                   <hr>
                 </div>

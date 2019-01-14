@@ -12,6 +12,7 @@ import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
 import * as $ from 'jquery';
+import { Options } from 'ng5-slider';
 import { filter } from 'rxjs/operators';
 import { DataRowOutlet } from '@angular/cdk/table';
 import { IfStmt } from '@angular/compiler';
@@ -24,6 +25,14 @@ import { IfStmt } from '@angular/compiler';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticulosbusquedaComponent implements OnInit {
+  //range slider
+  value: number = 100;
+  options: Options = {
+    floor: 0,
+    ceil: 200
+  };
+  //fin slider
+
   linea: string;
   tipo: string;
   cuota: string;
@@ -53,7 +62,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   color: string = 'orange';
   //fin efecto
   //slider
-  value = 0;
+  valueejem = 0;
   min = 0;
   max = 10000;
   autoTicks = false;

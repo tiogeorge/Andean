@@ -30,6 +30,7 @@ import { CompararEquiposComponent } from './componentes/comparar-equipos/compara
 import { MapaComponent } from './componentes/mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
 import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 const routes : Route[] = [
@@ -85,7 +86,8 @@ const routes : Route[] = [
     HttpClientModule,
     MomentDateModule,
     MatMomentDateModule,
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyBdQR9bsblCqFPBmv7L8Yy2uAgsazSXtaM' })
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyBdQR9bsblCqFPBmv7L8Yy2uAgsazSXtaM' }),
+    Ng5SliderModule
   ],
   entryComponents: [
     DialogoCarritoComponent
