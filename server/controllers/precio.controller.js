@@ -85,6 +85,8 @@ precioController.subirExcel=async(req,res)=>{
             await nuevoEquipo.save();
           }
 
+          var montoMesArray= planesCuotas[contcuotas].split(" ");
+          var montoMes = montoMesArray[montoMesArray.length-1];
           //VERIRFICAR SI EL PLAN EXISTE PARA EL EQUIPO
           if(cuotasIniciales[contcuotas]!="ND"){
             // ACTUALIZAR PRECIOS DE EQUIPO
@@ -94,7 +96,8 @@ precioController.subirExcel=async(req,res)=>{
               nombreplan: planesCuotas[contcuotas],
               precio: preciosPlanes[contcuotas],
               cuotas: numeroCuotas,
-              cuotainicial:cuotasIniciales[contcuotas]            
+              cuotainicial:cuotasIniciales[contcuotas],
+              montomes: montoMes           
             };
             // VERIFICAR SI EXISTE EL PLAN
             const existePlan = await Equipo.countDocuments({nombreequipo:nombreEquipo,"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
@@ -142,7 +145,8 @@ precioController.subirExcel=async(req,res)=>{
             nombreplan: tipoLinea+" "+nombreTipoPlan,
             precio: jsonHoja[fila][colprecio],
             cuotas:0,
-            cuotainicial:0            
+            cuotainicial:0,
+            montomes:0            
           };
           // VERIFICAR SI EXISTE EL PLAN
            const existePlan = await Equipo.countDocuments({nombreequipo:jsonHoja[fila][colequipo],"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
@@ -174,13 +178,17 @@ precioController.subirExcel=async(req,res)=>{
             if( jsonHoja[fila][planesPostpago[contplan]] !="ND"){
               var nombrePlan = planesPostpago[contplan].split("/")[0]; 
               nombrePlan = nombrePlan.substr(0,nombrePlan.length-1);
+
+              var montoMesArray= nombrePlan.split(" ");
+              var montoMes = montoMesArray[montoMesArray.length-1];
               const plan = {
                 tipolinea: tipoLinea,
                 tipoplan:nombreTipoPlan,
                 nombreplan: nombrePlan,
                 precio: jsonHoja[fila][planesPostpago[contplan]],
                 cuotas:0,
-                cuotainicial:0            
+                cuotainicial:0,
+                montomes: montoMes            
               };
               
               // VERIFICAR SI EXISTE EL PLAN

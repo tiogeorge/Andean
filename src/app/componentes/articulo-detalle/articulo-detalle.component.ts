@@ -41,6 +41,8 @@ export class ArticuloDetalleComponent implements OnInit {
   listatipoplanes: any[];
   listacuotas: any[];
 
+  planSeleccionado = null;
+
   //Lista de precios segun el filtro seleccionado
   listPreciosFiltro: any[] = new Array();
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService) { 
@@ -89,6 +91,11 @@ export class ArticuloDetalleComponent implements OnInit {
       var jres = JSON.parse(JSON.stringify(res));
       this.openDialog(jres);
     }); 
+  }
+
+  seleccionarPlan(plan){
+    this.planSeleccionado = plan;
+    console.log(this.planSeleccionado)
   }
 
   buscarPreciosFiltro(){

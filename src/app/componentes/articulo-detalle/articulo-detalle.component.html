@@ -86,13 +86,15 @@
                 
               </div>
               <div  class="contenido-planes-equipo" id="contenido-planes-equipo" [hidden]="nomostrarPrecios">
-                  <mat-card class="card-planes" *ngFor="let plan of listPreciosFiltro">
+                  <mat-card class="card-planes" *ngFor="let plan of listPreciosFiltro" (click)="seleccionarPlan(plan)">
                     <mat-card-content style="text-align: center;">
                       <h6><strong>{{plan.nombreplan}}</strong> </h6>
                       
                         <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
                           <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
-                          <div style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%;">S/ {{plan.precio}}{{almes}}</div>
+                          <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
+                          <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
+
                         </div>
                         <div style="width: 100%;">
                           <button class="btn btn-link">Ver Detalle Plan</button>
