@@ -12,7 +12,7 @@ import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';//
 import * as $ from 'jquery';
-import { Options } from 'ng5-slider';
+import { Options, ChangeContext, PointerType } from 'ng5-slider';
 import { filter } from 'rxjs/operators';
 import { DataRowOutlet } from '@angular/cdk/table';
 import { IfStmt } from '@angular/compiler';
@@ -26,23 +26,26 @@ import { IfStmt } from '@angular/compiler';
 })
 export class ArticulosbusquedaComponent implements OnInit {
   //range slider
-  value: number = 100;
+  minValue: number = 0;
+  maxValue: number = 3000;
   options: Options = {
     floor: 0,
-    ceil: 200
+    ceil: 3000
   };
+  logText: string = '';
   //fin slider
 
   linea: string;
   tipo: string;
   cuota: string;
-  tipordenado:string;
- // selected2 = 'alta';
- // selected3 = '0';
+  tipordenado: string;
+  // selected2 = 'alta';
+  // selected3 = '0';
   palabrabusq: string;
   numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
+  arreglotempo=Array();
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
@@ -83,6 +86,56 @@ export class ArticulosbusquedaComponent implements OnInit {
     return value;
   }
   //
+  //range slider
+  onUserChangeStart(changeContext: ChangeContext): void {
+    this.logText += `onUserChangeStart(${this.getChangeContextString(changeContext)})\n`;
+    console.log('start');
+  }
+
+  onUserChange(changeContext: ChangeContext): void {
+    this.logText += `onUserChange(${this.getChangeContextString(changeContext)})\n`;
+    console.log('medio');
+    
+  }
+
+  onUserChangeEnd(changeContext: ChangeContext): void {
+    this.logText += `onUserChangeEnd(${this.getChangeContextString(changeContext)})\n`;
+    console.log('fin');
+    this.filtrarprecios();
+    
+  }
+  //extraer datos que estan en el rango de precios
+  filtrarprecios() {
+    this.arreglotempo=[];
+ //   this.articuloslista=this.temporallistaarti;
+  //  this.arreglotempo;
+    //console.log(this.articuloslista);
+    for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+      if ((Number(this.temporallistaarti[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti[i].precioplan.precio) < this.maxValue)) {
+        //  console.log(i);
+        //  arreglotempo.push(this.articuloslista[i]);
+     //     console.log(this.articuloslista[i].titulo);
+       this.arreglotempo.push(this.temporallistaarti[i]);
+        //this.articuloslista = this.articuloslista.filter(dat => dat.marca === '5bfd74f99650f92edcf10dbb');
+        //   this.articuloslista=this.articuloslista.find(myObj => myObj._id === this.articuloslista[i]._id);
+      }
+    }
+    this.funcionArreglo();
+   console.log(this.arreglotempo);
+    //this.articuloslista=this.articuloslista.find(myObj => myObj._id === this.arreglotempo[0]);
+  }
+  funcionArreglo(){
+    var arreglotem2: any=this.arreglotempo;
+    this.articuloslista=arreglotem2;
+  }
+  //
+
+  getChangeContextString(changeContext: ChangeContext): string {
+    return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
+      `value: ${changeContext.value}, ` +
+      `highValue: ${changeContext.highValue}}`;
+  }
+  //fin slider
   get tickInterval(): number | 'auto' {
     return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
   }
@@ -96,8 +149,8 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.getElementById('selectplan').hidden=true;
-    document.getElementById('selectcuotas').hidden=true;
+    document.getElementById('selectplan').hidden = true;
+    document.getElementById('selectcuotas').hidden = true;
     document.getElementById('noencontrado').hidden = true;
     //location.reload();
     // this.articuloslista="";
@@ -108,7 +161,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.linea = 'PREPAGO';
     this.tipo = 'ALTA';
     this.cuota = '0';
-    this.tipordenado='orden1';
+    this.tipordenado = 'orden1';
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
     this.palabrabusq = url;
@@ -329,18 +382,18 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   //fin filtro marca
   //cambiar precio
-  mostrartipoplan(){
-    if(this.linea=='POSTPAGO'){
-      document.getElementById('selectplan').hidden=false;
-      document.getElementById('selectcuotas').hidden=false;
-      this.tipo='ALTA';
+  mostrartipoplan() {
+    if (this.linea == 'POSTPAGO') {
+      document.getElementById('selectplan').hidden = false;
+      document.getElementById('selectcuotas').hidden = false;
+      this.tipo = 'ALTA';
       this.cambiarprecio();
     }
-    else{
-      document.getElementById('selectplan').hidden=true;
-      document.getElementById('selectcuotas').hidden=true;
-      this.linea='PREPAGO';
-      this.tipo='ALTA';
+    else {
+      document.getElementById('selectplan').hidden = true;
+      document.getElementById('selectcuotas').hidden = true;
+      this.linea = 'PREPAGO';
+      this.tipo = 'ALTA';
       this.cambiarprecio();
     }
   }
@@ -349,19 +402,19 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   //fin cambiar precio
   //ordenar
-  ordenarlista(){
-    if(this.tipordenado=='orden1'){
+  ordenarlista() {
+    if (this.tipordenado == 'orden1') {
       console.log('entra1');
       this.articuloslista.sort();
     }
-    if(this.tipordenado=='orden2'){
-      this.articuloslista.sort(function(a,b){return b.precioplan.precio - a.precioplan.precio});
+    if (this.tipordenado == 'orden2') {
+      this.articuloslista.sort(function (a, b) { return b.precioplan.precio - a.precioplan.precio });
     }
-    if(this.tipordenado=='orden3'){
-      this.articuloslista.sort(function(a,b){return a.precioplan.precio - b.precioplan.precio});
+    if (this.tipordenado == 'orden3') {
+      this.articuloslista.sort(function (a, b) { return a.precioplan.precio - b.precioplan.precio });
     }
     //console.log(this.articuloslista.sort(function(a,b){return b.titulo - a.titulo}));
-   
+
   }
   //fin ordenar|
 }

@@ -113,13 +113,15 @@ mat-slider {
 
 .example-margin {
   margin: 10px;
+  width: 30%;
 }
 
 .example-section {
   display: flex;
   align-content: center;
   align-items: center;
-  height: 100px;
+  height: 60px;
+
 }
 
 /*fin slider*/

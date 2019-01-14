@@ -94,25 +94,19 @@
             <hr>
             <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p>
           </div>
-          <div class="col-lg-12" id="divprecio" style="display: none">
+          <div class="col-lg-12" id="divprecio">
             <!--inicio de slider de precio-->
-   <!--         <section class="example-section">
-              <div class="example-margin">
-                <input matInput type="number" placeholder="Min value" [(ngModel)]="min">
-              </div>
-              <div class="example-margin">
-                <input matInput type="number" placeholder="Max value" [(ngModel)]="max">
-              </div>
-              <div class="example-margin">
-                <input matInput type="text" placeholder="Value" [(ngModel)]="value">
-              </div>
+            <section class="example-section">
+              <mat-form-field class="example-margin">
+                <input matInput type="number" placeholder="Minimo" [(ngModel)]="minValue">
+              </mat-form-field>
+              <mat-form-field class="example-margin">
+                <input matInput type="number" placeholder="Maximo" [(ngModel)]="maxValue">
+              </mat-form-field>
             </section>
-            <section class="result">
-              <mat-slider thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval" [(ngModel)]="value"
-                [min]="min" [max]="max" tickInterval="1">
-              </mat-slider>
-            </section>-->
-            <ng5-slider [(value)]="valueejem" [options]="options"></ng5-slider>
+            <ng5-slider  [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeStart)="onUserChangeStart($event)"
+              (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
+            </ng5-slider>
             <!--fin de slider-->
           </div>
         </div>
@@ -198,19 +192,19 @@
                   <mat-card class="example-card " style="size: 100px">
                     <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;" id="{{articulo._id}}"
                       src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}">
-                     <br>
-                      <mat-card-content>
+                    <br>
+                    <mat-card-content>
                       <p class="card-text text-center">
                         <a class="titulo-articulo .centrarletras" style="font-size: 14px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                       </p>
                       <p class="card-text text-center">
-                          <strong><a class="titulo-articulo" style="font-size: 20px;color: red" routerLink="/articulo/{{articulo.url}}">S/.
-                          {{articulo.precioplan.precio}}</a></strong>
+                        <strong><a class="titulo-articulo" style="font-size: 20px;color: red" routerLink="/articulo/{{articulo.url}}">S/.
+                            {{articulo.precioplan.precio}}</a></strong>
                       </p>
                       <p class="card-text text-center">
-                          <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
-                            {{articulo.precioplan.nombreplan}}</a>
-                        </p>
+                        <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
+                          {{articulo.precioplan.nombreplan}}</a>
+                      </p>
                     </mat-card-content>
                   </mat-card>
                   <hr>
@@ -324,22 +318,6 @@
               </div>
               <div class="col-lg-12" id="divprecio2" style="display: none">
                 <!--inicio de slider de precio-->
-                <section class="example-section">
-                  <div class="example-margin">
-                    <input matInput type="number" placeholder="Min value" [(ngModel)]="min">
-                  </div>
-                  <div class="example-margin">
-                    <input matInput type="number" placeholder="Max value" [(ngModel)]="max">
-                  </div>
-                  <div class="example-margin">
-                    <input matInput type="text" placeholder="Value" [(ngModel)]="value">
-                  </div>
-                </section>
-                <section class="result">
-                  <mat-slider id="sliderpre" thumbLabel [displayWith]="formatLabel" [tickInterval]="tickInterval"
-                    [(ngModel)]="value" [min]="min" [max]="max" tickInterval="1">
-                  </mat-slider>
-                </section>
                 <!--fin de slider-->
               </div>
             </div>
