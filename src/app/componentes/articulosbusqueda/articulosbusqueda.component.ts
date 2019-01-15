@@ -155,7 +155,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     //location.reload();
     // this.articuloslista="";
     // console.log(screen.width);
-    // this.cambiaridfiltro();
+     //this.cambiaridfiltro();
     // this.openSnackBar();
     this.listarmarcasfiltro();
     this.linea = 'PREPAGO';
@@ -231,17 +231,17 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   cambiaridfiltro() {
 
-    if (screen.width < 767) {
+  //  if (screen.width < 767) {
       document.getElementById('categoriafiltro2').id = ('categoriafiltro');
       document.getElementById('categoriafiltro').id = ('categoriafiltro2');
       document.getElementById('marcafiltro2').id = ('marcafiltro');
       document.getElementById('marcafiltro').id = ('marcafiltro2');
       document.getElementById('divprecio2').id = ('divprecio');
       document.getElementById('divprecio').id = ('divprecio2');
-      document.getElementById('colorfiltro2').id = ('colorfiltro');
-      document.getElementById('colorfiltro').id = ('colorfiltro2');
-      document.getElementById('sliderpre').style.width = ('95%');
-    }
+   //   document.getElementById('colorfiltro2').id = ('colorfiltro');
+   //   document.getElementById('colorfiltro').id = ('colorfiltro2');
+     // document.getElementById('sliderpre').style.width = ('95%');
+   // }
   }
   //funciones
   vistanoencontrado() {
@@ -302,6 +302,8 @@ export class ArticulosbusquedaComponent implements OnInit {
         console.log('entra categoria');
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
+        console.log('DATOSSSS');
+        console.log(Respuesta);
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;

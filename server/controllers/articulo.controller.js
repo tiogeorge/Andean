@@ -217,7 +217,12 @@ articuloController.buscararti3 = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-        jsonarticulos[i].precioplan=planesfiltrados[0];
+        if(planesfiltrados.length>0){
+            jsonarticulos[i].precioplan=planesfiltrados[0];
+        }
+        else{
+            jsonarticulos[i].precioplan="no tiene";
+        }
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion="";
         jsonarticulos[i].garantias=[];
