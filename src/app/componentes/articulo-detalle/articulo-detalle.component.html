@@ -136,13 +136,55 @@
         </div>
       </mat-tab>
       <mat-tab label="Calificacion">
-        <br>
-        <div class="card" style="width: 100%" style="">
-          <div class="card-body">
-            <h5 class="card-title" style=""> Calificacion del producto</h5>
-          </div>
-        </div>
-      </mat-tab>
+        <mat-card class="card-calificaciones">
+          <mat-card-title>Calificacion del producto</mat-card-title> 
+            <mat-card-content>
+                <mat-card>
+                  <mat-card-header>
+                      <mat-icon>person</mat-icon>
+                      <label>Nombre Usuario </label>
+                  </mat-card-header>
+                    <mat-card-content>                            
+                        <mat-form-field>
+                            <textarea matInput placeholder="Textarea"></textarea>
+                        </mat-form-field> 
+                        <div class="valoracion">
+                          <img class="estrella" src="assets/images/star.png">
+                          <img class="estrella" src="assets/images/star.png">
+                          <img class="estrella" src="assets/images/star.png">
+                          <img class="estrella" src="assets/images/star.png">
+                          <img class="estrella" src="assets/images/star.png">
+                        </div>                                
+                        <label>02/08/2018</label>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary">Comentar</button>      
+                      </mat-card-actions> 
+                  </mat-card>
+  
+                  <mat-card *ngFor="let calificacion of articuloService.articuloSeleccionado.calificaciones">
+                    <mat-card-header>
+                      <mat-icon>person</mat-icon>
+                      <label> {{calificacion.usuario}} </label>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <p>
+                        {{calificacion.comentario}}                        
+                      </p>
+                      <div class="valoracion">
+                          {{calificacion.valoracion}}
+                        <img class="estrella" src="assets/images/star.png">
+                        <img class="estrella" src="assets/images/star.png">
+                        <img class="estrella" src="assets/images/star.png">
+                        <img class="estrella" src="assets/images/star.png">
+                        <img class="estrella" src="assets/images/star.png">
+                      </div>
+                      <label>02/08/2018</label>
+                    </mat-card-content>
+                  </mat-card>
+            </mat-card-content>                
+        </mat-card>
+  </mat-tab>
       <mat-tab label="Sobre la Marca">
         <br>
         <div class="card" style="width: 100%" style="">

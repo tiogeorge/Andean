@@ -25,6 +25,11 @@ export class Articulo {
     idprecio: string;
     especificaciones: string[];
     caracteristicas:Caracteristica[];
+    calificaciones:[{
+        usuario : { type: String},
+        comentario : { type: String},
+        valoracion : { type: Number}
+    }]
     imagenes: string[];
     descripcion: string;
     garantias: string[];
