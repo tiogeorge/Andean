@@ -53,7 +53,7 @@ export class ChatService {
     this.http.post(Constantes.URL_API_CHAT + '/' + data.conversacionId, data, {withCredentials: true}).subscribe( res =>{
       var jres = JSON.parse(JSON.stringify(res));
       if(jres.status){
-        this.socket.emit(idchat, data);
+        this.socket.emit(idchat, jres.data as MensajeChat);
       }
     });
   }

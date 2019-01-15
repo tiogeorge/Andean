@@ -77,7 +77,8 @@ exports.enviarRespuesta = async (req, res, next) => {
     }else {
       res.json({
         status: true,
-        msg: 'Respuesta enviada'
+        msg: 'Respuesta enviada',
+        data: sentReply
       });
     }
   });

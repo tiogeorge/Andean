@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   habilitarEnvio    : boolean       = false;
   nombreAsesor      : string;
   idUsuario         : string;
+  tiempo            : number;
 
   constructor(public chatService: ChatService,
               public usuarioService: UsuarioService ) { }
@@ -104,6 +105,8 @@ export class ChatComponent implements OnInit {
   }
 
   agregarMensaje(m: MensajeChat) { 
+    this.tiempo = Date.now();
+    m.tiempo = this.tiempo;
     this.listaMensajesChat.push(m);
   }
 

@@ -45,7 +45,7 @@
                 <div style="width: 20%; flex-grow: 0;">
                 </div>
                 <div style="width: 50%;  flex-grow: 0; text-align: right;" >
-                    <label  style="margin:0px;" > {{mensaje.fecha}} {{mensaje.hora}}</label>
+                    <label  style="margin:0px;" > {{mensaje.tiempo | date: 'h:mma' }}</label>
                 </div>        
               </div>
               <img src="./assets/images/andeano.png" alt="Andeano" style="border-radius: 50%; width: 40px; height: 40px;">
@@ -54,7 +54,7 @@
           <div *ngIf="mensaje.autor != 'admin' && mensaje.autor != '$unirChat'" class="mensaje-user">
             <div class="info-mensaje">
               <div style="width: 50%;  flex-grow: 0;">
-                  <label  style="margin:0px;"> {{mensaje.fecha}} {{mensaje.hora}}</label>
+                  <label  style="margin:0px;"> {{mensaje.tiempo | date: 'h:mma' }}</label>
               </div>         
               <div style="width: 20%; flex-grow: 0;">
               </div>
