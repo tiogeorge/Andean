@@ -8,6 +8,7 @@ export interface DialogData {
   mensaje: string;
   urlImagen: string;
   articulo: Articulo;
+  plan: any
 }
 
 @Component({

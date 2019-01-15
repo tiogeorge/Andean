@@ -1,11 +1,18 @@
 <h5 mat-dialog-title [style.color]="data.status ? '#1E8449' : '#E74C3C'">{{data.mensaje}}</h5>
 <div mat-dialog-content>
-  <mat-grid-list cols="4" rowHeight="80px">
-    <mat-grid-tile [colspan]="1" [rowspan]="2">
+  <mat-grid-list cols="5" rowHeight="40px">
+    <mat-grid-tile [colspan]="2" [rowspan]="4">
       <img [src]="urlImg" [alt]="data.articulo.titulo" [style.height]="'160px'" [style.width]="'auto'">
     </mat-grid-tile>
     <mat-grid-tile [colspan]="3" [rowspan]="2">
     <h5>{{data.articulo.titulo}}</h5>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="1">
+      <p>Plan: {{data.plan.nombreplan}}</p>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="1">
+      <p>Precio: {{data.plan.precio}}</p>
+      <p>Cuotas: {{data.plan.cuotas}}&nbsp;Cuota Inicial: {{data.plan.cuotainicial}}&nbsp;Monto Mes: {{data.plan.montomes}}</p>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
