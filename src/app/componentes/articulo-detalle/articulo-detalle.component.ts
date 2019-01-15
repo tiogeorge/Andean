@@ -214,7 +214,8 @@ export class ArticuloDetalleComponent implements OnInit {
         status: res.status, 
         mensaje: res.msg ? res.msg : res.error,
         urlImagen: this.articuloService.url_imagenes,
-        articulo: this.articuloService.articuloSeleccionado 
+        articulo: this.articuloService.articuloSeleccionado,
+        plan: this.planSeleccionado
       }
     });
 
