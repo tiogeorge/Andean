@@ -18,5 +18,6 @@ export class Constantes {
     public static URL_API_SESION    = URL_API + 'sesion';
     public static URL_API_USUARIO   = URL_API + 'usuarios';
     public static URL_API_PLANES    = URL_API + 'precio';
+    public static URL_API_PAGO      = URL_API + 'pago';
 
 }
