@@ -35,7 +35,7 @@ export interface Tipolocalenvio {
   styleUrls: ['./pago.component.css'],
   providers: [{
     provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }, DireccionService,PagoService],
+  }, DireccionService, PagoService],
   encapsulation: ViewEncapsulation.None,
 })
 
@@ -81,6 +81,7 @@ export class PagoComponent implements OnInit {
   }
 
   direccionselec(id: string, nombreicon: string) {
+    this.pagoservice.selectPago.idDireccion = id;
     document.getElementsByClassName('matchips').item
     document.getElementById('Resumendir').hidden = false;
     this.logocard = nombreicon;
@@ -150,7 +151,7 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, private direccionService: DireccionService,private pagoservice:PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService) {
+  constructor(private _formBuilder: FormBuilder, private direccionService: DireccionService, private pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService) {
     this.usuarioService = usuarioService;
     this.router = router;
     this.regionService = regionService;
@@ -202,6 +203,7 @@ export class PagoComponent implements OnInit {
       if (document.getElementById('datostarjeta').hidden == true) {
         document.getElementById('datostarjeta').hidden = false;
         document.getElementById('btnsig2').style.display = 'block';
+        this.pagoservice.selectPago.idTipoPago ='tarjeta';
       }
       else {
         document.getElementById('datostarjeta').hidden = true;
@@ -209,9 +211,11 @@ export class PagoComponent implements OnInit {
     }
     if (value == '2') {
       document.getElementById('datostarjeta').hidden = true;
+      this.pagoservice.selectPago.idTipoPago ='efectivo';
     }
     if (value == '3') {
       document.getElementById('datostarjeta').hidden = true;
+      this.pagoservice.selectPago.idTipoPago ='deposito';
     }
 
   }
@@ -319,27 +323,25 @@ export class PagoComponent implements OnInit {
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
   finalizarcompra() {
-    this. guardardireccion();
+    this.guardardireccion();
+    console.log(this.user);
+    console.log(this.pagoservice.selectPago.idTipoPago);
   }
-  guardardireccion(){
-    this.pagoservice.selectPago._id='asdsadsadsadsa';
-    this.pagoservice.selectPago.idCarrito='sd3s23d2s3d2';
-    this.pagoservice.selectPago.idUsuario='212ds1d2s1ds12ds';
-    this.pagoservice.selectPago.Articulo=null;
-    this.pagoservice.selectPago.EstadoPago='pagado';
-    this.pagoservice.selectPago.idDireccion='ds21ds21d';
-    this.pagoservice.selectPago.idTipoPago='tarjeta';
-    this.pagoservice.selectPago.Mensaje='f k akjdkasjd ';
-    this.pagoservice.selectPago.EstadoEnvio='enviado';
-    this.pagoservice.selectPago.PrecioTotal='152.25';
-    this.pagoservice.selectPago.NroTransaccion='2323232';
-    this.pagoservice.selectPago.Documento=null;
-    this.pagoservice.selectPago.idVendedor='112sd15d1s';
+  guardardireccion() {
+    this.pagoservice.selectPago._id = 'asdsadsadsadsa';
+    this.pagoservice.selectPago.idCarrito = 'sd3s23d2s3d2';
+    this.pagoservice.selectPago.idUsuario = this.user;
+    this.pagoservice.selectPago.EstadoPago = 'Proceso';
+    this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
+    this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
+    this.pagoservice.selectPago.PrecioTotal = '152.25';
+    this.pagoservice.selectPago.NroTransaccion = '2323232';
+    this.pagoservice.selectPago.idVendedor = 'ROOT';
 
-    this.pagoservice.GuardarPago(this.pagoservice.selectPago)  
-    .subscribe(res => {
-      console.log(res);
-    });
+    this.pagoservice.GuardarPago(this.pagoservice.selectPago)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
 }
