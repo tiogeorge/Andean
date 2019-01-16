@@ -10,7 +10,7 @@ import { Articulo } from '../articulo-detalle/articulo';
   styleUrls: ["./carritocompras.component.css"]
 })
 export class CarritocomprasComponent implements OnInit {
-  listaCarrito            : string[];
+  listaCarrito            : any[];
   listaArticulos          : Articulo[] = [];
   usuarioService          : UsuarioService;
   articuloDetalleService  : ArticuloDetalleService;
@@ -27,10 +27,11 @@ export class CarritocomprasComponent implements OnInit {
 
   ngOnInit() {
     this.articuloDetalleService.getCarrito().subscribe( res => {
+      console.log(res);
       var jres = JSON.parse(JSON.stringify(res));
       this.listaCarrito = jres.data;
       for(var i = 0; i < this.listaCarrito.length; i++){
-        this.articuloDetalleService.getArticulo(this.listaCarrito[i]).subscribe( res => {
+        this.articuloDetalleService.getArticulo(this.listaCarrito[i].url).subscribe( res => {
           this.listaArticulos.push(res[0]);
           this.mostrarArticulos = true;
           this.sinProductos = false;

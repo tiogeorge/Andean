@@ -18,8 +18,15 @@ export class UsuarioService {
     this.usuarioSeleccionado = new Usuario();
   }
 
-  agregarArticuloCarrito(urlArticulo: string){
-    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`,{ url: urlArticulo },{withCredentials: true}).pipe(
+  agregarArticuloCarrito(urlArticulo: string, plan: any){
+    const articulo = {
+      url: urlArticulo,
+      tipoLinea: plan.tipolinea,
+      tipoPlan: plan.tipoplan,
+      nombrePlan: plan.nombreplan,
+      cuotas : plan.cuotas
+    };
+    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`, articulo,{withCredentials: true}).pipe(
       catchError(this.handleError<any>('putArticulo'))
     );
   }
