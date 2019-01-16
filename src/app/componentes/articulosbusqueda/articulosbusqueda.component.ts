@@ -45,7 +45,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
-  arreglotempo=Array();
+  arreglotempo = Array();
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
@@ -95,38 +95,38 @@ export class ArticulosbusquedaComponent implements OnInit {
   onUserChange(changeContext: ChangeContext): void {
     this.logText += `onUserChange(${this.getChangeContextString(changeContext)})\n`;
     console.log('medio');
-    
+
   }
 
   onUserChangeEnd(changeContext: ChangeContext): void {
     this.logText += `onUserChangeEnd(${this.getChangeContextString(changeContext)})\n`;
     console.log('fin');
     this.filtrarprecios();
-    
+
   }
   //extraer datos que estan en el rango de precios
   filtrarprecios() {
-    this.arreglotempo=[];
- //   this.articuloslista=this.temporallistaarti;
-  //  this.arreglotempo;
+    this.arreglotempo = [];
+    //   this.articuloslista=this.temporallistaarti;
+    //  this.arreglotempo;
     //console.log(this.articuloslista);
     for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
       if ((Number(this.temporallistaarti[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti[i].precioplan.precio) < this.maxValue)) {
         //  console.log(i);
         //  arreglotempo.push(this.articuloslista[i]);
-     //     console.log(this.articuloslista[i].titulo);
-       this.arreglotempo.push(this.temporallistaarti[i]);
+        //     console.log(this.articuloslista[i].titulo);
+        this.arreglotempo.push(this.temporallistaarti[i]);
         //this.articuloslista = this.articuloslista.filter(dat => dat.marca === '5bfd74f99650f92edcf10dbb');
         //   this.articuloslista=this.articuloslista.find(myObj => myObj._id === this.articuloslista[i]._id);
       }
     }
     this.funcionArreglo();
-   console.log(this.arreglotempo);
+    console.log(this.arreglotempo);
     //this.articuloslista=this.articuloslista.find(myObj => myObj._id === this.arreglotempo[0]);
   }
-  funcionArreglo(){
-    var arreglotem2: any=this.arreglotempo;
-    this.articuloslista=arreglotem2;
+  funcionArreglo() {
+    var arreglotem2: any = this.arreglotempo;
+    this.articuloslista = arreglotem2;
   }
   //
 
@@ -152,10 +152,11 @@ export class ArticulosbusquedaComponent implements OnInit {
     document.getElementById('selectplan').hidden = true;
     document.getElementById('selectcuotas').hidden = true;
     document.getElementById('noencontrado').hidden = true;
+   // document.getElementById('precio2').style.display='none';
     //location.reload();
     // this.articuloslista="";
     // console.log(screen.width);
-     //this.cambiaridfiltro();
+    //this.cambiaridfiltro();
     // this.openSnackBar();
     this.listarmarcasfiltro();
     this.linea = 'PREPAGO';
@@ -231,17 +232,17 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   cambiaridfiltro() {
 
-  //  if (screen.width < 767) {
-      document.getElementById('categoriafiltro2').id = ('categoriafiltro');
-      document.getElementById('categoriafiltro').id = ('categoriafiltro2');
-      document.getElementById('marcafiltro2').id = ('marcafiltro');
-      document.getElementById('marcafiltro').id = ('marcafiltro2');
-      document.getElementById('divprecio2').id = ('divprecio');
-      document.getElementById('divprecio').id = ('divprecio2');
-   //   document.getElementById('colorfiltro2').id = ('colorfiltro');
-   //   document.getElementById('colorfiltro').id = ('colorfiltro2');
-     // document.getElementById('sliderpre').style.width = ('95%');
-   // }
+    //  if (screen.width < 767) {
+    document.getElementById('categoriafiltro2').id = ('categoriafiltro');
+    document.getElementById('categoriafiltro').id = ('categoriafiltro2');
+    document.getElementById('marcafiltro2').id = ('marcafiltro');
+    document.getElementById('marcafiltro').id = ('marcafiltro2');
+    document.getElementById('divprecio2').id = ('divprecio');
+    document.getElementById('divprecio').id = ('divprecio2');
+    //   document.getElementById('colorfiltro2').id = ('colorfiltro');
+    //   document.getElementById('colorfiltro').id = ('colorfiltro2');
+    // document.getElementById('sliderpre').style.width = ('95%');
+    // }
   }
   //funciones
   vistanoencontrado() {
@@ -385,11 +386,21 @@ export class ArticulosbusquedaComponent implements OnInit {
   //fin filtro marca
   //cambiar precio
   mostrartipoplan() {
+    document.getElementById('precio1').hidden = true;
     if (this.linea == 'POSTPAGO') {
       document.getElementById('selectplan').hidden = false;
       document.getElementById('selectcuotas').hidden = false;
-      this.tipo = 'ALTA';
+      this.tipo = 'ALTA';//malena fernandes 76729209
       this.cambiarprecio();
+      this.cambiarvistaprecio();
+   /*   if ((this.cuota == '12') || (this.cuota == '18')) {
+        document.getElementById('precio1').hidden = true;
+        document.getElementById('precio2').hidden = false;
+      }
+      else {
+        document.getElementById('precio1').hidden = false;
+        document.getElementById('precio2').hidden = true;
+      }*/
     }
     else {
       document.getElementById('selectplan').hidden = true;
@@ -397,6 +408,21 @@ export class ArticulosbusquedaComponent implements OnInit {
       this.linea = 'PREPAGO';
       this.tipo = 'ALTA';
       this.cambiarprecio();
+      this. cambiarvistaprecio();
+  /*    document.getElementById('precio1').hidden = false;
+      document.getElementById('precio2').hidden = true;*/
+    }
+  }
+  cambiarvistaprecio(){
+    if ((this.cuota == '12') || (this.cuota == '18')) {
+      console.log('cambiar vista');
+      document.getElementById('precio1').style.display='none';
+      document.getElementById('precio2').style.display='block';
+    }
+    else {
+      console.log('no cambiar vista');
+      document.getElementById('precio2').style.display='none';
+      document.getElementById('precio1').style.display='block';
     }
   }
   cambiarprecio() {

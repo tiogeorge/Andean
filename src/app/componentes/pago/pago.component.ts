@@ -315,5 +315,8 @@ export class PagoComponent implements OnInit {
     while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){ i++;}
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
+  finalizarcompra(){
+    alert('venta realizada');
+  }
 
 }
