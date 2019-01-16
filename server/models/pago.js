@@ -7,7 +7,7 @@ const pagoSchema= new Schema({
     Articulo:[{
         idArticulo:{type: String, required:true},
         PrecioUni:{type: String, required: true},
-        idPlan:{type:string, required:true},
+        idPlan:{type:String, required:true},
     }],
     FechaCompra:{type:String, required:true},
     EstadoPago:{type:String, required:true},

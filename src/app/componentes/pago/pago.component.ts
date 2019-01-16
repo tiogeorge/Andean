@@ -1,14 +1,17 @@
 import { Router } from '@angular/router';
 import { Usuario } from './../perfil-usuario/usuario';
-import { Component, OnInit , ViewEncapsulation} from '@angular/core';
-import { MatChipInputEvent} from '@angular/material';
-import { FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
-import { MAT_STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DireccionService } from './direccion.service';
 import { Direccion } from './direccion';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Region } from '../perfil-usuario/region';
 import { RegionService } from '../perfil-usuario/region.service';
+import { PagoService } from './pago.service';
+import { Pago } from './pago';
+import { from } from 'rxjs';
 
 export interface NombreDirec {
   nombre: string;
@@ -31,29 +34,29 @@ export interface Tipolocalenvio {
   templateUrl: './pago.component.html',
   styleUrls: ['./pago.component.css'],
   providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  },DireccionService],
+    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
+  }, DireccionService,PagoService],
   encapsulation: ViewEncapsulation.None,
 })
 
 export class PagoComponent implements OnInit {
-  usuario         : Usuario;
-  usuarioService  : UsuarioService;
-  regionService   : RegionService;
-  router          : Router;
-  user            : string ='';
-  listdirecciones : string[];
-  localselec      : string ='Casa';
-  RespuestaDir    : any;
-  logocard        : string ='';
+  usuario: Usuario;
+  usuarioService: UsuarioService;
+  regionService: RegionService;
+  router: Router;
+  user: string = '';
+  listdirecciones: string[];
+  localselec: string = 'Casa';
+  RespuestaDir: any;
+  logocard: string = '';
   //stepper
-  firstFormGroup  : FormGroup;
-  secondFormGroup : FormGroup;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
   //fin stepper
   //nombreicondir
-  nombreicondir   : string ='add';
-  nombreiconselec : string ='adjust';
-  nombreicontipo  : string ='home';
+  nombreicondir: string = 'add';
+  nombreiconselec: string = 'adjust';
+  nombreicontipo: string = 'home';
   //finnombre
   //chips
   visible = true;
@@ -61,7 +64,7 @@ export class PagoComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   fruits: NombreDirec[] = [
-    {nombre: 'Direccion1'},
+    { nombre: 'Direccion1' },
   ];
   //
   add(event: MatChipInputEvent): void {
@@ -69,7 +72,7 @@ export class PagoComponent implements OnInit {
     const value = event.value;
     // Add our fruit
     if ((value || '').trim()) {
-      this.fruits.push({nombre: value.trim()});
+      this.fruits.push({ nombre: value.trim() });
     }
     // Reset the input value
     if (input) {
@@ -77,33 +80,33 @@ export class PagoComponent implements OnInit {
     }
   }
 
-  direccionselec(id:string,nombreicon:string){
+  direccionselec(id: string, nombreicon: string) {
     document.getElementsByClassName('matchips').item
-    document.getElementById('Resumendir').hidden=false;
-    this.logocard=nombreicon;
- //   document.getElementById(id).style.background='#FFBF00';
- //   document.getElementById(id).style.color='white';
-    for(var i=0;i< Object.keys(this.RespuestaDir).length;i++){
-      if(this.RespuestaDir[i]._id==id){
+    document.getElementById('Resumendir').hidden = false;
+    this.logocard = nombreicon;
+    //   document.getElementById(id).style.background='#FFBF00';
+    //   document.getElementById(id).style.color='white';
+    for (var i = 0; i < Object.keys(this.RespuestaDir).length; i++) {
+      if (this.RespuestaDir[i]._id == id) {
         //color
-        document.getElementById(this.RespuestaDir[i]._id).style.background='#FFBF00';
-        document.getElementById(this.RespuestaDir[i]._id).style.color='white';
+        document.getElementById(this.RespuestaDir[i]._id).style.background = '#FFBF00';
+        document.getElementById(this.RespuestaDir[i]._id).style.color = 'white';
         //fin
-        document.getElementById('lbdirec').innerHTML=this.RespuestaDir[i].direccion;
-        document.getElementById('lbtipolocal').innerHTML=this.RespuestaDir[i].tipolocal;
-        document.getElementById('lbdepartamento').innerHTML=this.RespuestaDir[i].departamento;
-        document.getElementById('lbprovincia').innerHTML=this.RespuestaDir[i].provincia;
-        document.getElementById('lbdistrito').innerHTML=this.RespuestaDir[i].distrito;
-        document.getElementById('lbreferencia').innerHTML=this.RespuestaDir[i].referencia;
-        document.getElementById('lbtelefono').innerHTML=this.RespuestaDir[i].telefono;
+        document.getElementById('lbdirec').innerHTML = this.RespuestaDir[i].direccion;
+        document.getElementById('lbtipolocal').innerHTML = this.RespuestaDir[i].tipolocal;
+        document.getElementById('lbdepartamento').innerHTML = this.RespuestaDir[i].departamento;
+        document.getElementById('lbprovincia').innerHTML = this.RespuestaDir[i].provincia;
+        document.getElementById('lbdistrito').innerHTML = this.RespuestaDir[i].distrito;
+        document.getElementById('lbreferencia').innerHTML = this.RespuestaDir[i].referencia;
+        document.getElementById('lbtelefono').innerHTML = this.RespuestaDir[i].telefono;
       }
-      else{
-        document.getElementById(this.RespuestaDir[i]._id).style.background='';
-        document.getElementById(this.RespuestaDir[i]._id).style.color='black';
+      else {
+        document.getElementById(this.RespuestaDir[i]._id).style.background = '';
+        document.getElementById(this.RespuestaDir[i]._id).style.color = 'black';
       }
     }
-    this.nombreiconselec='check';
-    document.getElementById('btnsig1').style.display='block';
+    this.nombreiconselec = 'check';
+    document.getElementById('btnsig1').style.display = 'block';
     document.getElementById('btnsig1').focus();
   }
   remove(fruit: NombreDirec): void {
@@ -121,7 +124,7 @@ export class PagoComponent implements OnInit {
     { value: 'Edificio' },
     { value: 'Condominio' },
     { value: 'Otro' }
-    
+
   ];
   Anhos: Años[] = [
     { value: '2018', viewValue: '2018' },
@@ -147,11 +150,11 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, private direccionService:DireccionService,usuarioService: UsuarioService, router: Router, regionService: RegionService ) {
+  constructor(private _formBuilder: FormBuilder, private direccionService: DireccionService,private pagoservice:PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService) {
     this.usuarioService = usuarioService;
     this.router = router;
     this.regionService = regionService;
-   }
+  }
 
   ngOnInit() {
     //stepps
@@ -162,7 +165,7 @@ export class PagoComponent implements OnInit {
       datD4: ['', Validators.required],
       datD5: ['', Validators.required],
       datD6: ['', Validators.required],
-      datD7: ['', Validators.required], 
+      datD7: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
       datoN1: ['', Validators.required],
@@ -172,22 +175,22 @@ export class PagoComponent implements OnInit {
       datoN5: ['', Validators.required],
     });
     //fin stepps
-  //  document.getElementById('datostarjeta').hidden = true;
+    //  document.getElementById('datostarjeta').hidden = true;
     //document.getElementById('Agregardireccion').hidden = true;
     //recuperar usuario
-    this.usuarioService.getUsuarioLogeado().subscribe(res =>{
+    this.usuarioService.getUsuarioLogeado().subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
-      if(jres.status){
+      if (jres.status) {
         this.usuario = jres.data as Usuario;
         console.log(this.usuario._id);
-        this.user=this.usuario._id;
+        this.user = this.usuario._id;
         console.log(this.user);
-        this.direccionService.selecDireccion.usuario=this.usuario._id;
+        this.direccionService.selecDireccion.usuario = this.usuario._id;
         this.ListarDireccion(this.usuario._id.toString());
-        this.regionService.getRegiones().subscribe( res =>{
+        this.regionService.getRegiones().subscribe(res => {
           this.regionService.regiones = res as Region[];
         })
-      }else{
+      } else {
         this.router.navigate(['/registro']);
       }
     });
@@ -198,9 +201,9 @@ export class PagoComponent implements OnInit {
     if (value == '1') {
       if (document.getElementById('datostarjeta').hidden == true) {
         document.getElementById('datostarjeta').hidden = false;
-        document.getElementById('btnsig2').style.display='block';
+        document.getElementById('btnsig2').style.display = 'block';
       }
-      else{
+      else {
         document.getElementById('datostarjeta').hidden = true;
       }
     }
@@ -210,16 +213,16 @@ export class PagoComponent implements OnInit {
     if (value == '3') {
       document.getElementById('datostarjeta').hidden = true;
     }
-   
+
   }
   mostrarformdir() {
     if (document.getElementById('Agregardireccion').hidden == true) {
       document.getElementById('Agregardireccion').hidden = false;
-      this.nombreicondir='arrow_drop_down';
+      this.nombreicondir = 'arrow_drop_down';
     }
-    else{
+    else {
       document.getElementById('Agregardireccion').hidden = true;
-      this.nombreicondir='add';
+      this.nombreicondir = 'add';
     }
   }
 
@@ -227,96 +230,116 @@ export class PagoComponent implements OnInit {
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
-      this.direccionService.selecDireccion=new Direccion();
+      this.direccionService.selecDireccion = new Direccion();
     }
   }
-  AgregarDireccion(form:NgForm){
+  AgregarDireccion(form: NgForm) {
     this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
-    .subscribe(res =>{
-      console.log(res);
-      /* resumedir*/
-      document.getElementById('lbdirec').innerHTML=this.direccionService.selecDireccion.direccion;
-      document.getElementById('lbtipolocal').innerHTML=this.direccionService.selecDireccion.tipolocal;
-      document.getElementById('lbdepartamento').innerHTML=this.direccionService.selecDireccion.departamento;
-      document.getElementById('lbprovincia').innerHTML=this.direccionService.selecDireccion.provincia;
-      document.getElementById('lbdistrito').innerHTML=this.direccionService.selecDireccion.distrito;
-      document.getElementById('lbreferencia').innerHTML=this.direccionService.selecDireccion.referencia;
-      document.getElementById('lbtelefono').innerHTML=this.direccionService.selecDireccion.telefono;
-      this.nombreiconresdir(this.direccionService.selecDireccion.tipolocal);
-      /*fin */
-      this.resetForm(form);
-      console.log('Direccion Agregada')
-      this.ListarDireccion(this.usuario._id);
-    });
-    document.getElementById('Agregardireccion').hidden=true;
-    document.getElementById('Resumendir').hidden=false;
+      .subscribe(res => {
+        console.log(res);
+        /* resumedir*/
+        document.getElementById('lbdirec').innerHTML = this.direccionService.selecDireccion.direccion;
+        document.getElementById('lbtipolocal').innerHTML = this.direccionService.selecDireccion.tipolocal;
+        document.getElementById('lbdepartamento').innerHTML = this.direccionService.selecDireccion.departamento;
+        document.getElementById('lbprovincia').innerHTML = this.direccionService.selecDireccion.provincia;
+        document.getElementById('lbdistrito').innerHTML = this.direccionService.selecDireccion.distrito;
+        document.getElementById('lbreferencia').innerHTML = this.direccionService.selecDireccion.referencia;
+        document.getElementById('lbtelefono').innerHTML = this.direccionService.selecDireccion.telefono;
+        this.nombreiconresdir(this.direccionService.selecDireccion.tipolocal);
+        /*fin */
+        this.resetForm(form);
+        console.log('Direccion Agregada')
+        this.ListarDireccion(this.usuario._id);
+      });
+    document.getElementById('Agregardireccion').hidden = true;
+    document.getElementById('Resumendir').hidden = false;
   }
-  nombreiconresdir(nombreicon:string){
-    if(nombreicon=='Casa'){
-      this.logocard='home';
-     }
-     if(nombreicon=='Oficina'){
-      this.logocard='business_center';
-     }
-     if(nombreicon=='Departamento'){
-      this.logocard='store_mall_directory';
-     }
-     if(nombreicon=='Edificio'){
-      this.logocard='domain';
-     }
-     if(nombreicon=='Condominio'){
-      this.logocard='location_city ';
-     }
-     if(nombreicon=='Otro'){
-      this.logocard='landscape';
-     }
+  nombreiconresdir(nombreicon: string) {
+    if (nombreicon == 'Casa') {
+      this.logocard = 'home';
+    }
+    if (nombreicon == 'Oficina') {
+      this.logocard = 'business_center';
+    }
+    if (nombreicon == 'Departamento') {
+      this.logocard = 'store_mall_directory';
+    }
+    if (nombreicon == 'Edificio') {
+      this.logocard = 'domain';
+    }
+    if (nombreicon == 'Condominio') {
+      this.logocard = 'location_city ';
+    }
+    if (nombreicon == 'Otro') {
+      this.logocard = 'landscape';
+    }
   }
-  ListarDireccion(id:string){
+  ListarDireccion(id: string) {
     this.direccionService.ListarDireccion(id)
-    .subscribe(res=>{
-      //
-     var Respuesta=JSON.parse(JSON.stringify(res));
-      for(var i=0;i<Object.keys(res).length;i++){
-       /* this.Fnombreicondirec(Respuesta[i].tipolocal);
-        console.log(Respuesta[i].tipolocal);*/
-        if(Respuesta[i].tipolocal=='Casa'){
-         Respuesta[i].nombreicon='home';
+      .subscribe(res => {
+        //
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        for (var i = 0; i < Object.keys(res).length; i++) {
+          /* this.Fnombreicondirec(Respuesta[i].tipolocal);
+           console.log(Respuesta[i].tipolocal);*/
+          if (Respuesta[i].tipolocal == 'Casa') {
+            Respuesta[i].nombreicon = 'home';
+          }
+          if (Respuesta[i].tipolocal == 'Oficina') {
+            Respuesta[i].nombreicon = 'business_center';
+          }
+          if (Respuesta[i].tipolocal == 'Departamento') {
+            Respuesta[i].nombreicon = 'store_mall_directory';
+          }
+          if (Respuesta[i].tipolocal == 'Edificio') {
+            Respuesta[i].nombreicon = 'domain';
+          }
+          if (Respuesta[i].tipolocal == 'Condominio') {
+            Respuesta[i].nombreicon = 'location_city ';
+          }
+          if (Respuesta[i].tipolocal == 'Otro') {
+            Respuesta[i].nombreicon = 'landscape';
+          }
         }
-        if(Respuesta[i].tipolocal=='Oficina'){
-          Respuesta[i].nombreicon='business_center';
-        }
-        if(Respuesta[i].tipolocal=='Departamento'){
-          Respuesta[i].nombreicon='store_mall_directory';
-        }
-        if(Respuesta[i].tipolocal=='Edificio'){
-          Respuesta[i].nombreicon='domain';
-        }
-        if(Respuesta[i].tipolocal=='Condominio'){
-          Respuesta[i].nombreicon='location_city ';
-        }
-        if(Respuesta[i].tipolocal=='Otro'){
-          Respuesta[i].nombreicon='landscape';
-        }  
-      }
-      this.direccionService.direccion=Respuesta as Direccion[];
-      this.RespuestaDir=Respuesta;
-    });
-   
+        this.direccionService.direccion = Respuesta as Direccion[];
+        this.RespuestaDir = Respuesta;
+      });
+
   }
 
-  departamentoSelected(departamento: string){
+  departamentoSelected(departamento: string) {
     var i = 0;
-    while(this.regionService.regiones[i].departamento != departamento){ i++; }
+    while (this.regionService.regiones[i].departamento != departamento) { i++; }
     this.regionService.departamentoSelected = this.regionService.regiones[i];
   }
 
-  provinciaSelected(provincia: string){
+  provinciaSelected(provincia: string) {
     var i = 0;
-    while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){ i++;}
+    while (this.regionService.departamentoSelected.provincias[i].provincia != provincia) { i++; }
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
-  finalizarcompra(){
-    alert('venta realizada');
+  finalizarcompra() {
+    this. guardardireccion();
+  }
+  guardardireccion(){
+    this.pagoservice.selectPago._id='asdsadsadsadsa';
+    this.pagoservice.selectPago.idCarrito='sd3s23d2s3d2';
+    this.pagoservice.selectPago.idUsuario='212ds1d2s1ds12ds';
+    this.pagoservice.selectPago.Articulo=null;
+    this.pagoservice.selectPago.EstadoPago='pagado';
+    this.pagoservice.selectPago.idDireccion='ds21ds21d';
+    this.pagoservice.selectPago.idTipoPago='tarjeta';
+    this.pagoservice.selectPago.Mensaje='f k akjdkasjd ';
+    this.pagoservice.selectPago.EstadoEnvio='enviado';
+    this.pagoservice.selectPago.PrecioTotal='152.25';
+    this.pagoservice.selectPago.NroTransaccion='2323232';
+    this.pagoservice.selectPago.Documento=null;
+    this.pagoservice.selectPago.idVendedor='112sd15d1s';
+
+    this.pagoservice.GuardarPago(this.pagoservice.selectPago)  
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 
 }
