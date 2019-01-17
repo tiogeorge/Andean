@@ -133,17 +133,17 @@
           <div class="detalle-precio-plan">
             <div class="item-precio-plan">
                 <div style="margin-right: 5px;">Precio del Plan: </div>     
-                <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.precio.toFixed(2)}}</div>
+                <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.montomes.toFixed(2)}}</div>
       
             </div>
             <div class="item-precio-plan">
                 <div style="margin-right: 5px;">Cuota : </div>     
-                <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.precio.toFixed(2)}}</div>
+                <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.cuotamensual.toFixed(2)}}</div>
     
             </div>
             <div class="item-precio-plan">
               <div style="margin-right: 5px;">Pago Mensual : </div>     
-              <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes+planSeleccionado.precio).toFixed(2)}}</div>
+              <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes+planSeleccionado.cuotamensual).toFixed(2)}}</div>
           </div>
               
           </div>
