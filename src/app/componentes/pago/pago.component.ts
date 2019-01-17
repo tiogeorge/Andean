@@ -197,11 +197,11 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
-     // console.log(this.listaArticulos);
-      //console.log(this.listaPlanArticulo[0].precio);
+      console.log(this.listaArticulos);
+      console.log(this.listaPlanArticulo);
+      this.sumarprecios();
     });
     //precios
-    this.sumarprecios();
     //   
     //stepps
     this.firstFormGroup = this._formBuilder.group({
@@ -278,13 +278,14 @@ export class PagoComponent implements OnInit {
   //funciones
   sumarprecios(){
     console.log('entra');
-    var num=0;
     var sum=0;
     for(var j=0;j<this.listaPlanArticulo.length;j++){
-      num=Number(this.listaPlanArticulo[j].precio);
-      sum=sum+num;
-      console.log('suma'+num.toString());
+      sum=sum+Number(this.listaPlanArticulo[j].precio);
+      console.log('suma'+sum.toString());
     }
+    this.subtotal=sum.toString();
+    this.montoenvio='10';
+    this.preciototal=(Number(this.subtotal)+ Number(this.montoenvio)).toString();
   }
   resetForm(form?: NgForm) {
     if (form) {
@@ -392,7 +393,7 @@ export class PagoComponent implements OnInit {
     this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
     this.pagoservice.selectPago.FechaEnvio=new Date(2019,1,18);
     this.pagoservice.selectPago.FechaEntrega=new Date(209,1,22);
-    this.pagoservice.selectPago.PrecioTotal = '152.25';
+    this.pagoservice.selectPago.PrecioTotal = this.preciototal;
     this.pagoservice.selectPago.NroTransaccion = '2323232';
     this.pagoservice.selectPago.Documento=this.Documento;
     this.pagoservice.selectPago.idVendedor = 'ROOT';
