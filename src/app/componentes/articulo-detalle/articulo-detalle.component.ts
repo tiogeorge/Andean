@@ -105,6 +105,7 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   buscarPreciosFiltro(){
+    this.slide=0;
     this.planSeleccionado = {
       nombreplan:"",
       precio:0,
@@ -144,14 +145,25 @@ export class ArticuloDetalleComponent implements OnInit {
       //console.log(res);
     });    
   }
-
+  slide=0;
   moverScroll(){
+    
     var contenedor = document.getElementById("contenido-planes-equipo");
-    contenedor.scrollLeft -= 180;
+    //contenedor.scrollLeft -= 180;
+    if(this.slide<this.listPreciosFiltro.length-2){
+      this.slide++;
+    }    
+      contenedor.style.transform="translateX(-"+186*this.slide+"px)";      
+    
+    
   }
-  moverScrollRigth(){
+  moverScrollRigth(){    
     var contenedor = document.getElementById("contenido-planes-equipo");
-    contenedor.scrollLeft += 180;
+    if(this.slide>0){
+      this.slide--;
+    }      
+    contenedor.style.transform="translateX(-"+186*this.slide+"px)";
+    
   }
 
   mouse_over(){

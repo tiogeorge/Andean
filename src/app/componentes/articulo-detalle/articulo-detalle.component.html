@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="cont-precios">
-                <div class="btn-planes" (click)="moverScroll()">                
+                <div class="btn-planes" (click)="moverScrollRigth()">                
                       <i class="material-icons" style="font-size: 35px;">chevron_left</i>                    
                 </div>
                 <div  style="width: 88%; display: flex; flex-direction: row; height: 210px; justify-content: center; align-items: center;" [hidden]="!nomostrarPrecios">
@@ -76,45 +76,49 @@
                   </div>
                   
                 </div>
-                <div  class="contenido-planes-equipo" id="contenido-planes-equipo" [hidden]="nomostrarPrecios">
-                    <div *ngFor="let plan of listPreciosFiltro" (click)="seleccionarPlan(plan)">
-                      <mat-card class="card-planes" *ngIf="plan.nombreplan != planSeleccionado.nombreplan">
-                        <mat-card-content style="text-align: center;">
-                          <h6 style="color: gray;"><strong>{{plan.nombreplan}}</strong> </h6>
-                          
-                            <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
-                              <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
-                              <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
-                              <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
-  
-                            </div>
-                            <div style="width: 100%;">
-                              <button class="btn btn-link" style="color: grey">Ver Detalle Plan</button>
-                            </div>
-                        
-                        </mat-card-content>
-                      </mat-card> 
-  
-                      <mat-card class="card-planes-seleccionado" *ngIf="plan.nombreplan == planSeleccionado.nombreplan">
-                        <mat-card-content style="text-align: center;">
-                          <h6><strong>{{plan.nombreplan}}</strong> </h6>
-                          
-                            <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
-                              <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
-                              <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
-                              <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
-  
-                            </div>
-                            <div style="width: 100%;">
-                              <button class="btn btn-link" style="color: rgb(36, 36, 39);">Ver Detalle Plan</button>
-                            </div>
-                        
-                        </mat-card-content>
-                      </mat-card>  
-                    </div>       
+                <div id="cont-carousel"  class="contenido-planes-equipo">
+                    <div class="contenido-planes-equipo-carousel" id="contenido-planes-equipo" [hidden]="nomostrarPrecios">
+                  
+                        <div *ngFor="let plan of listPreciosFiltro" (click)="seleccionarPlan(plan)">
+                          <mat-card class="card-planes" *ngIf="plan.nombreplan != planSeleccionado.nombreplan">
+                            <mat-card-content style="text-align: center;">
+                              <h6 style="color: gray;"><strong>{{plan.nombreplan}}</strong> </h6>
+                              
+                                <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
+                                  <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
+                                  <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
+                                  <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
+      
+                                </div>
+                                <div style="width: 100%;">
+                                  <button class="btn btn-link" style="color: grey">Ver Detalle Plan</button>
+                                </div>
+                            
+                            </mat-card-content>
+                          </mat-card> 
+      
+                          <mat-card class="card-planes-seleccionado" *ngIf="plan.nombreplan == planSeleccionado.nombreplan">
+                            <mat-card-content style="text-align: center;">
+                              <h6><strong>{{plan.nombreplan}}</strong> </h6>
+                              
+                                <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
+                                  <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
+                                  <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
+                                  <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
+      
+                                </div>
+                                <div style="width: 100%;">
+                                  <button class="btn btn-link" style="color: rgb(36, 36, 39);">Ver Detalle Plan</button>
+                                </div>
+                            
+                            </mat-card-content>
+                          </mat-card>  
+                        </div>       
+                </div>
+                
                     
                 </div>
-                <div class="btn-planes" (click)="moverScrollRigth()">
+                <div class="btn-planes" (click)="moverScroll()">
                     <i class="material-icons" style="font-size: 35px;">chevron_right</i>
                 </div>
             </div>  
