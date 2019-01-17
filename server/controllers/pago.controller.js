@@ -5,7 +5,8 @@ const pagoController={};
 pagoController.GuardarPago=async(req,res)=>{
     try{
         const pago =new Pago(req.body);
-        if(articulo){
+        console.log(req.body);
+        if(pago){
             await pago.save();
             res.json({
                 mensaje:"Se guardo el pago"

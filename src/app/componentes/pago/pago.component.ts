@@ -29,6 +29,16 @@ export interface Tipolocalenvio {
   value: string;
 }
 
+export interface temarti{
+  idArticulo: String,
+  PrecioUni: String,
+  idPlan: String,
+}
+export interface temdoc {
+  Tipo: String,
+  Serie: String,
+  Numero: String,
+}
 @Component({
   selector: 'app-pago',
   templateUrl: './pago.component.html',
@@ -118,6 +128,12 @@ export class PagoComponent implements OnInit {
     }
   }
   //fin chips
+  Arti:  temarti[]=[
+    {idArticulo:'14545454545', PrecioUni:'200',idPlan:'32d3s23ds2d3s'},
+  ];
+
+  Documento: temdoc[]=[{Tipo:'BBV', Serie:'1',Numero:'0001'}];
+
   Local: Tipolocalenvio[] = [
     { value: 'Casa' },
     { value: 'Oficina' },
@@ -323,21 +339,23 @@ export class PagoComponent implements OnInit {
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
   finalizarcompra() {
-    this.guardardireccion();
-    console.log(this.user);
-    console.log(this.pagoservice.selectPago.idTipoPago);
+    //this.guardarventa();
   }
-  guardardireccion() {
-    this.pagoservice.selectPago._id = 'asdsadsadsadsa';
-    this.pagoservice.selectPago.idCarrito = 'sd3s23d2s3d2';
+  guardarventa(form: NgForm) {
+   // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
     this.pagoservice.selectPago.idUsuario = this.user;
+    console.log(this.Arti);
+    //this.pagoservice.selectPago.Articulo.push(this.Arti[0]);
+    this.pagoservice.selectPago.Articulo=this.Arti;
     this.pagoservice.selectPago.FechaCompra=new Date(2019,1,17);
     this.pagoservice.selectPago.EstadoPago = 'Proceso';
     this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
     this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
-    this.pagoservice.selectPago.FechaEnvio=new Date(2019,1,20);
+    this.pagoservice.selectPago.FechaEnvio=new Date(2019,1,18);
+    this.pagoservice.selectPago.FechaEntrega=new Date(209,1,22);
     this.pagoservice.selectPago.PrecioTotal = '152.25';
     this.pagoservice.selectPago.NroTransaccion = '2323232';
+    this.pagoservice.selectPago.Documento=this.Documento;
     this.pagoservice.selectPago.idVendedor = 'ROOT';
 
     this.pagoservice.GuardarPago(this.pagoservice.selectPago)

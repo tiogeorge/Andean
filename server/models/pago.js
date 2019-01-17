@@ -2,14 +2,14 @@ const mongoose= require('mongoose');
 const {Schema}=mongoose;
 
 const pagoSchema= new Schema({
-    idCarrito:{type: String, required:true},
     idUsuario:{type:String,required:true},
     Articulo:[{
         idArticulo:{type: String},
         PrecioUni:{type: String},
         idPlan:{type:String},
     }],
-    FechaCompra:{type:String},
+  //  Articulo:{type: String, required:true},
+    FechaCompra:{type:Date},
     EstadoPago:{type:String, required:true},
     idDireccion:{type:String, required:true},
     idTipoPago:{type:String, required:true},
