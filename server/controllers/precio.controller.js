@@ -147,7 +147,8 @@ precioController.subirExcel=async(req,res)=>{
             precio: jsonHoja[fila][colprecio],
             cuotas:0,
             cuotainicial:0,
-            montomes:0            
+            montomes:0,
+            cuotamensual: 0               
           };
           // VERIFICAR SI EXISTE EL PLAN
            const existePlan = await Equipo.countDocuments({nombreequipo:jsonHoja[fila][colequipo],"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
@@ -189,7 +190,8 @@ precioController.subirExcel=async(req,res)=>{
                 precio: jsonHoja[fila][planesPostpago[contplan]],
                 cuotas:0,
                 cuotainicial:0,
-                montomes: montoMes            
+                montomes: montoMes,
+                cuotamensual: 0             
               };
               
               // VERIFICAR SI EXISTE EL PLAN
