@@ -11,8 +11,9 @@ const equipoSchema= new Schema({
             nombreplan:{type: String, required: true},
             precio:{type:Number, required: true},// PRECIO DEL PLAN
             cuotas:{type: Number, required: true}, //0, 12 o 18
-            cuotainicial:{type:Number, required: false},// EN CASO DE CUOTAS
-            montomes:{type: Number, required: false}
+            cuotainicial:{type:Number, required: false},// EN CASO DE CUOTAS            
+            montomes:{type: Number, required: false},
+            cuotamesual:{type:Number, required: false}
             
         }
     ]

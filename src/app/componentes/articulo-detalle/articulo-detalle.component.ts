@@ -45,7 +45,8 @@ export class ArticuloDetalleComponent implements OnInit {
     nombreplan:"",
     precio:0,
     montomes:0,
-    cuotainicial:0
+    cuotainicial:0,
+    cuotas:0
   };
   //Lista de precios segun el filtro seleccionado
   listPreciosFiltro: any[] = new Array();
@@ -107,7 +108,8 @@ export class ArticuloDetalleComponent implements OnInit {
       nombreplan:"",
       precio:0,
       montomes:0,
-      cuotainicial:0
+      cuotainicial:0,
+      cuotas:0
     };
     this.nomostrarPrecios = true;
     this.hayPrecios = false;

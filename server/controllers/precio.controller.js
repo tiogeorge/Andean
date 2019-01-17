@@ -94,10 +94,11 @@ precioController.subirExcel=async(req,res)=>{
               tipolinea: tipoLinea,
               tipoplan:nombreTipoPlan,
               nombreplan: planesCuotas[contcuotas],
-              precio: preciosPlanes[contcuotas],
+              precio: cuotasIniciales[contcuotas],
               cuotas: numeroCuotas,
               cuotainicial:cuotasIniciales[contcuotas],
-              montomes: montoMes           
+              montomes: montoMes,
+              cuotamensual: preciosPlanes[contcuotas]          
             };
             // VERIFICAR SI EXISTE EL PLAN
             const existePlan = await Equipo.countDocuments({nombreequipo:nombreEquipo,"planes.tipolinea": plan.tipolinea,"planes.tipoplan": plan.tipoplan,"planes.nombreplan":plan.nombreplan,"planes.cuotas": plan.cuotas});
