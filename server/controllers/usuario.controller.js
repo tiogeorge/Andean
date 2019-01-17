@@ -375,95 +375,41 @@ usuarioController.loginUsuario = async (req, res, next) => {
 };
 
 usuarioController.obtenerCarrito = async (req, res, next) => {
-  if(req.session.token) {
-    Usuario.findOne({ token: req.session.token }, function(err, usuario) {
-      if (err) {
-        res.json({
-          status: false,
-          error: 'Ocurrió un error al obtener el carrito de compras del usuario'
-        });
-      } else {
-        if (usuario) {
-          var articulosCarrito = [];
-          for(var i = 0; i < usuario.carrito.length; i++){
-            articulosCarrito.push(usuario.carrito[i].url);
+  if(req.session.articulos){
+    const carrito = req.session.articulos;
+    var carritoArticulos = new Array();
+    for(var i = 0; i < carrito.length; i++){
+      var precioArticulo;
+      var articulo = await Articulo.findOne({url : carrito[i].url});
+      var precio = await  Precio.findOne({nombreequipo: articulo.idprecio});
+      for(var j = 0; j < precio.planes.length; j++){
+        if(carrito[i].tipoLinea == 'PREPAGO'){
+          if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas){
+            precioArticulo = precio.planes[j];
           }
-          //articulosCarrito = articulosCarrito.sort();
-          Articulo.find({url:{$in:articulosCarrito}}, function(err, articulos) {
-            if(err){
-              res.json({
-                status: false,
-                error: 'Error al obtener los articulos del carrito'
-              });
-            } else {
-              var preciosCarrito = [];
-              for(var j = 0; j < articulos.length; j++){
-                preciosCarrito.push(articulos[j].idprecio);
-              }
-              Precio.find({nombreequipo:{$in:preciosCarrito}}, function(err, precios){
-                if(err){
-                  res.json({
-                    status: false,
-                    error: 'Los precios no se obtuvieron'
-                  });
-                } else {
-                  var preciosArticulo = [];
-                  for(var i = 0; i < precios.length; i++){
-                    for(var j = 0; j < precios[i].planes.length; j++){
-                      if(usuario.carrito[i].tipoLinea == 'PREPAGO'){
-                        if(precios[i].planes[j].tipolinea == usuario.carrito[i].tipoLinea &&
-                          precios[i].planes[j].tipoplan == usuario.carrito[i].tipoPlan){
-                          preciosArticulo.push(precios[i].planes[j]);
-                        }
-                      } else {
-                        if(precios[i].planes[j].tipolinea == usuario.carrito[i].tipoLinea &&
-                          precios[i].planes[j].tipoplan == usuario.carrito[i].tipoPlan &&
-                          precios[i].planes[j].nombreplan == usuario.carrito[i].nombrePlan &&
-                          precios[i].planes[j].cuotas == usuario.carrito[i].cuotas){
-                          preciosArticulo.push(precios[i].planes[j]);
-                        }
-                      }
-                    }
-                  }
-                  res.json({
-                    status: true,
-                    msg: 'Todos los datos obtenidos correctamente',
-                    carrito: usuario.carrito,
-                    data: articulos,
-                    precio: precios,
-                    plan: preciosArticulo
-                  })
-                }
-              })
-            }
-          });
-        } else {
-          res.json({
-            status: false,
-            error: 'No se puedo obtener los datos del cliente'
-          });
+        }else {
+          if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan){
+            precioArticulo = precio.planes[j];
+          }
         }
       }
-    })
-  } else {
-    if (req.session.articulos){
-      res.json({
-        status: true,
-        msg: 'Se obtuvo el carrito de compras del invitado',
-        data: req.session.articulos
-      });
-    } else {
-      res.json({
-        status: true,
-        msg: 'El invitado no tiene elementos en su carrito de compras',
-        data: []
-      });
+      carritoArticulos.push([articulo, precioArticulo]);
     }
+    res.json({
+      status: true,
+      msg: 'Se obtuvieron los artículos con éxito',
+      data: carritoArticulos
+    });
+  } else {
+    res.json({
+      status: false,
+      error: 'No se pudo obtener los precios'
+    });
   }
 };
 
-/*usuarioController.obtenerArticuloCarrito = async(urlArticulo, datosArticulo) => {
-  Articulo.findOne({url: urlArticulo}, function(err, articulo) {
+usuarioController.obtenerArticuloCarrito = async(res, req) => {
+  Articulo.findOne({url: req.body.url}, function(err, articulo) {
     if(err){
       res.json({
         status: false,
@@ -479,16 +425,16 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
         } else {
           var preciosArticulo = [];
           for(var i = 0; i < precio.planes.length; i++){
-            if(datosArticulo.tipoLinea == 'PREPAGO'){
-              if (precio.planes[i].tipolinea == datosArticulo.tipoLinea &&
-                precio.planes[i].tipoplan == datosArticulo.tipoPlan){
+            if(req.boyd.tipoLinea == 'PREPAGO'){
+              if (precio.planes[i].tipolinea == req.body.tipoLinea &&
+                precio.planes[i].tipoplan == req.body.tipoPlan){
                   preciosArticulo.push(precio.planes[i]);
                 }
             } else {
-              if (precio.planes[i].tipolinea == datosArticulo.tipoLinea &&
-                precio.planes[i].tipoplan == datosArticulo.tipoPlan && 
-                precio.planes[i].nombreplan == datosArticulo.nombrePlan &&
-                precio.planes[i].cuotas == datosArticulo.cuotas){
+              if (precio.planes[i].tipolinea == req.body.tipoLinea &&
+                precio.planes[i].tipoplan == req.body.tipoPlan && 
+                precio.planes[i].nombreplan == req.body.nombrePlan &&
+                precio.planes[i].cuotas == req.body.cuotas){
                   preciosArticulo.push(precio.planes[i]);
                 }
             }
@@ -505,7 +451,7 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
       })
     }
   });
-};*/
+};
 
 usuarioController.obtenerUsuario = async (req, res, next) => {
   if(req.session.token){

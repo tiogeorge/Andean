@@ -12,6 +12,7 @@ import { Articulo } from '../articulo-detalle/articulo';
 export class CarritocomprasComponent implements OnInit {
   listaCarrito            : any[];
   listaArticulos          : Articulo[] = [];
+  listaPlanArticulo       : any[] = [];
   usuarioService          : UsuarioService;
   articuloDetalleService  : ArticuloDetalleService;
   urlImagenes             : string = Constantes.URL_IMAGEN;
@@ -31,11 +32,10 @@ export class CarritocomprasComponent implements OnInit {
       var jres = JSON.parse(JSON.stringify(res));
       this.listaCarrito = jres.data;
       for(var i = 0; i < this.listaCarrito.length; i++){
-        this.articuloDetalleService.getArticulo(this.listaCarrito[i].url).subscribe( res => {
-          this.listaArticulos.push(res[0]);
-          this.mostrarArticulos = true;
-          this.sinProductos = false;
-        });
+        this.listaArticulos.push(this.listaCarrito[i][0]);
+        this.listaPlanArticulo.push(this.listaCarrito[i][1]);
+        this.mostrarArticulos = true;
+        this.sinProductos = false;
       }
     });    
     this.mencart();
