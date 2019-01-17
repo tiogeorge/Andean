@@ -41,8 +41,12 @@ export class ArticuloDetalleComponent implements OnInit {
   listatipoplanes: any[];
   listacuotas: any[];
 
-  planSeleccionado = null;
-
+  planSeleccionado = {
+    nombreplan:"",
+    precio:0,
+    montomes:0,
+    cuotainicial:0
+  };
   //Lista de precios segun el filtro seleccionado
   listPreciosFiltro: any[] = new Array();
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService) { 
@@ -99,6 +103,12 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   buscarPreciosFiltro(){
+    this.planSeleccionado = {
+      nombreplan:"",
+      precio:0,
+      montomes:0,
+      cuotainicial:0
+    };
     this.nomostrarPrecios = true;
     this.hayPrecios = false;
     if(this.tipoLineaSeleccionada == "PREPAGO"){
@@ -124,6 +134,7 @@ export class ArticuloDetalleComponent implements OnInit {
         if(this.tipoLineaSeleccionada=="PREPAGO"){
           this.listPreciosFiltro[0].nombreplan="Prepago";
         }
+        this.planSeleccionado = this.listPreciosFiltro[0];
       }
       
       //console.log(res);
