@@ -192,12 +192,57 @@
               
           </mat-tab>
           <mat-tab label="Calificacion">
-            
-            <div class="card" style="width: 100%">
-              <div class="card-body">
-                <h5 class="card-title" > Calificacion del producto</h5>
-              </div>
-            </div>
+            <mat-card class="card-calificaciones">
+              <mat-card-title>Calificacion del producto</mat-card-title>
+                <mat-card-content>
+                    <mat-card>
+                      <mat-card-header>
+                          <mat-icon>person</mat-icon>
+                          <label>Nombre Usuario </label>
+                      </mat-card-header>
+                        <mat-card-content>
+                            <mat-form-field class="comentarioUsuario">
+                                <textarea matInput placeholder="Comentario" maxlength="256"></textarea>
+                            </mat-form-field>
+                            <div class="valoracionUsuario">
+                                <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                --><label for="radio1"><img src="assets/images/star.png"></label><!--
+                                --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                --><label for="radio2"><img  src="assets/images/star.png"></label><!--
+                                --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                --><label for="radio3"><img src="assets/images/star.png"></label><!--
+                                --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                --><label for="radio4"><img src="assets/images/star.png"></label><!--
+                                --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                --><label for="radio5"><img src="assets/images/star.png"></label>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-raised-button color="primary">Comentar</button>
+                          </mat-card-actions>
+                      </mat-card>
+
+                      <mat-card *ngFor="let calificacion of articuloService.articuloSeleccionado.calificaciones">
+                        <mat-card-header>
+                          <mat-icon>person</mat-icon>
+                          <label> {{calificacion.usuario}} </label>
+                        </mat-card-header>
+                        <mat-card-content>
+                          <p>
+                              {{calificacion.comentario}}
+                          </p>
+                          <div class="valoracion">
+                              <img class="estrella1" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
+                              <img class="estrella2" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
+                              <img class="estrella3" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
+                              <img class="estrella4" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
+                              <img class="estrella5" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
+                          </div>
+                          <label>{{calificacion.fecha | date: 'dd/MM/yyyy' }} </label>
+                        </mat-card-content>
+                      </mat-card>
+                </mat-card-content>
+            </mat-card>
           </mat-tab>
           <mat-tab label="Sobre la Marca">
             
