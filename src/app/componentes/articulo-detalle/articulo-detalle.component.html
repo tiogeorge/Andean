@@ -124,31 +124,27 @@
         <div class="contenedor-detalle-precio">
           <div>
               <div><h5>Precio del equipo</h5></div>           
-              <div *ngIf="planSeleccionado.cuotainicial == 0" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%; text-align: center;">S/ {{planSeleccionado.precio.toFixed(2)}}</div>  
-              <div *ngIf="planSeleccionado.cuotainicial > 0" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%; text-align: center;">S/ {{planSeleccionado.cuotainicial.toFixed(2)}}</div>     
+              <div  style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%; text-align: center;">S/ {{planSeleccionado.precio.toFixed(2)}}</div>      
           </div>
           <div class="detalle-precio-plan">
             <div class="item-precio-plan">
                 <div style="margin-right: 5px;">Precio del Plan: </div>     
-                <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.montomes.toFixed(2)}}</div>
+                <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.precio.toFixed(2)}}</div>
       
             </div>
             <div class="item-precio-plan">
                 <div style="margin-right: 5px;">Cuota : </div>     
-                <div *ngIf="planSeleccionado.cuotas > 0" style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.precio.toFixed(2)}}</div>
-                <div *ngIf="planSeleccionado.cuotas == 0" style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ 0.00 </div>
+                <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.precio.toFixed(2)}}</div>
     
             </div>
             <div class="item-precio-plan">
               <div style="margin-right: 5px;">Pago Mensual : </div>     
-            <div *ngIf="planSeleccionado.cuotas > 0" style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes+planSeleccionado.precio).toFixed(2)}}</div>
-            <div *ngIf="planSeleccionado.cuotas == 0" style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes).toFixed(2)}}</div>
+              <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes+planSeleccionado.precio).toFixed(2)}}</div>
           </div>
               
           </div>
           <div>
-              <div *ngIf="planSeleccionado.cuotainicial == 0" style="margin-top:5px;">Monto a Pagar: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
-              <div *ngIf="planSeleccionado.cuotainicial >0" style="margin-top:5px;">Monto a Pagar: S/ {{(planSeleccionado.cuotainicial).toFixed(2)}} </div>    
+              <div  style="margin-top:5px;">Monto a Pagar: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
     
           </div>
           <div class="botones-compra">

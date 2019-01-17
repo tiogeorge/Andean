@@ -13,7 +13,7 @@ const equipoSchema= new Schema({
             cuotas:{type: Number, required: true}, //0, 12 o 18
             cuotainicial:{type:Number, required: false},// EN CASO DE CUOTAS            
             montomes:{type: Number, required: false},
-            cuotamesual:{type:Number, required: false}
+            cuotamensual:{type:Number, required: false}
             
         }
     ]
