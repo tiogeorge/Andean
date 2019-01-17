@@ -151,7 +151,7 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(private _formBuilder: FormBuilder, private direccionService: DireccionService, private pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService) {
+  constructor(public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService) {
     this.usuarioService = usuarioService;
     this.router = router;
     this.regionService = regionService;
@@ -331,9 +331,11 @@ export class PagoComponent implements OnInit {
     this.pagoservice.selectPago._id = 'asdsadsadsadsa';
     this.pagoservice.selectPago.idCarrito = 'sd3s23d2s3d2';
     this.pagoservice.selectPago.idUsuario = this.user;
+    this.pagoservice.selectPago.FechaCompra=new Date(2019,1,17);
     this.pagoservice.selectPago.EstadoPago = 'Proceso';
     this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
     this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
+    this.pagoservice.selectPago.FechaEnvio=new Date(2019,1,20);
     this.pagoservice.selectPago.PrecioTotal = '152.25';
     this.pagoservice.selectPago.NroTransaccion = '2323232';
     this.pagoservice.selectPago.idVendedor = 'ROOT';
