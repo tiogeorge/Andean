@@ -1,7 +1,8 @@
 import { Caracteristica} from './caracteristica'
 export class Articulo {
 
-    constructor( _id=null,idarticulo = '', titulo = '',url='', categoria = '',marca='',cantidad=0, idprecio = '', especaficaciones = [], caracteristicas= [], imagenes=[], descripcion='', garantias=[]) {
+    constructor( _id=null ,idarticulo = '', titulo = '',url='', categoria = '',marca='',cantidad=0, idprecio = '', especaficaciones = [], caracteristicas= [], imagenes=[], descripcion='', garantias=[]) {
+        this._id=_id;
         this.idarticulo = idarticulo;
         this.titulo = titulo;
         this.url = url;

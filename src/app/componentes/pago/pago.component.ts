@@ -10,6 +10,8 @@ import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Region } from '../perfil-usuario/region';
 import { RegionService } from '../perfil-usuario/region.service';
 import { PagoService } from './pago.service';
+import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
+import { Articulo } from '../articulo-detalle/articulo';
 import { Pago } from './pago';
 import { from } from 'rxjs';
 
@@ -50,6 +52,12 @@ export interface temdoc {
 })
 
 export class PagoComponent implements OnInit {
+  listaCarrito            : any[];
+  listaArticulos          : Articulo[] = [];
+  listaPlanArticulo       : any[] = [];
+  mostrarArticulos        : boolean = true;
+  sinProductos            : boolean = false;
+  articuloDetalleService  : ArticuloDetalleService;
   usuario: Usuario;
   usuarioService: UsuarioService;
   regionService: RegionService;
@@ -59,6 +67,10 @@ export class PagoComponent implements OnInit {
   localselec: string = 'Casa';
   RespuestaDir: any;
   logocard: string = '';
+  //montos
+  subtotal:string;
+  montoenvio:string;
+  preciototal:string;
   //stepper
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -167,13 +179,30 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService) {
+  constructor(public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService, articuloDetalleService: ArticuloDetalleService) {
+    this.articuloDetalleService = articuloDetalleService;
     this.usuarioService = usuarioService;
     this.router = router;
     this.regionService = regionService;
   }
 
   ngOnInit() {
+    //obtener carrito
+    this.articuloDetalleService.getCarrito().subscribe( res => {
+      var jres = JSON.parse(JSON.stringify(res));
+      this.listaCarrito = jres.data;
+      for(var i = 0; i < this.listaCarrito.length; i++){
+        this.listaArticulos.push(this.listaCarrito[i][0]);
+        this.listaPlanArticulo.push(this.listaCarrito[i][1]);
+        this.mostrarArticulos = true;
+        this.sinProductos = false;
+      }
+     // console.log(this.listaArticulos);
+      //console.log(this.listaPlanArticulo[0].precio);
+    });
+    //precios
+    this.sumarprecios();
+    //   
     //stepps
     this.firstFormGroup = this._formBuilder.group({
       datD1: ['', Validators.required],
@@ -247,6 +276,16 @@ export class PagoComponent implements OnInit {
   }
 
   //funciones
+  sumarprecios(){
+    console.log('entra');
+    var num=0;
+    var sum=0;
+    for(var j=0;j<this.listaPlanArticulo.length;j++){
+      num=Number(this.listaPlanArticulo[j].precio);
+      sum=sum+num;
+      console.log('suma'+num.toString());
+    }
+  }
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();

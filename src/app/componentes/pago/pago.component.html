@@ -291,7 +291,7 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
               <form #fomrguardarventa="ngForm" (ngSubmit)="guardarventa(fomrguardarventa)">
-                  <input  name="_id2" #_id2="ngModel" [(ngModel)]="pagoservice.selectPago._id">
+                  <input type="hidden" name="_id2" #_id2="ngModel" [(ngModel)]="pagoservice.selectPago._id">
                 <div class="card">
                   <div class="card-header"><label>Total</label></div>
                   <div class="card-body">
