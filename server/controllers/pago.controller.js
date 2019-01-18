@@ -29,4 +29,32 @@ pagoController.listarpedidos=async (req,res)=>{
     res.json(pedidos);
 }
 
+pagoController.listarpedidouni=async (req,res)=>{
+    const pedido= await Pago.findById(req.params.id);
+    res.json(pedido);
+}
+
+pagoController.actualizarpedido=async (req,res)=>{
+    try{
+        const art={
+            EstadoPago:req.body.EstadoPago,
+            EstadoEnvio:req.body.EstadoEnvio,
+            Documento:req.body.Documento
+        }
+        const pedido = await Pago.findByIdAndUpdate({_id:req.params.id},{$set:art},{new: true});
+        res.json({
+            mensaje:"Se actualizo los datos"
+        });
+    } catch(err){
+        res.json({
+            mensaje:" No se pudo actulizar los datos : ERROR:" + err
+        });
+    }
+}
+
+pagoController.eliminarpedido=async (req,res)=>{
+    await Pago.findByIdAndRemove(req,params.id);
+    res.json({'status':'Pedido eliminado'});
+}
+
 module.exports=pagoController;
