@@ -24,4 +24,9 @@ pagoController.GuardarPago=async(req,res)=>{
     }
 }
 
+pagoController.listarpedidos=async (req,res)=>{
+    const pedidos=await Pago.find();
+    res.json(pedidos);
+}
+
 module.exports=pagoController;
