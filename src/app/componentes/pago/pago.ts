@@ -1,8 +1,25 @@
 import { Articulo } from './../articulo-detalle/articulo';
 export interface temarti {
-    idArticulo: String,
-    PrecioUni: String,
-    idPlan: String,
+    idarticulo: String,
+    titulo: String,
+    url: String,
+    categoria: String,
+    marca: String,
+    cantidad: String,
+    idprecio: String,
+    especificaciones: String,
+    caracteristicas: String,
+    imagenes: String,
+    descripcion: String,
+    garantias: String,
+    cuotainicial: String,
+    cuotamensual: String,
+    cuotas: String,
+    montomes: String,
+    nombreplan: String,
+    precio: String,
+    tipolinea: String,
+    tipoplan: String,
 }
 export interface temdoc {
     Tipo: String,

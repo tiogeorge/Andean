@@ -31,10 +31,27 @@ export interface Tipolocalenvio {
   value: string;
 }
 
-export interface temarti{
-  idArticulo: String,
-  PrecioUni: String,
-  idPlan: String,
+export interface temarti {
+  idarticulo: String,
+  titulo: String,
+  url: String,
+  categoria: String,
+  marca: String,
+  cantidad: String,
+  idprecio: String,
+  especificaciones: String,
+  caracteristicas: String,
+  imagenes: String,
+  descripcion: String,
+  garantias: String,
+  cuotainicial: String,
+  cuotamensual: String,
+  cuotas: String,
+  montomes: String,
+  nombreplan: String,
+  precio: String,
+  tipolinea: String,
+  tipoplan: String,
 }
 export interface temdoc {
   Tipo: String,
@@ -52,12 +69,13 @@ export interface temdoc {
 })
 
 export class PagoComponent implements OnInit {
-  listaCarrito            : any[];
-  listaArticulos          : Articulo[] = [];
-  listaPlanArticulo       : any[] = [];
-  mostrarArticulos        : boolean = true;
-  sinProductos            : boolean = false;
-  articuloDetalleService  : ArticuloDetalleService;
+  listaCarrito: any[];
+  listaArticulos: Articulo[] = [];
+  listaPlanArticulo: any[] = [];
+  listaArticulos2: any[] = [];
+  mostrarArticulos: boolean = true;
+  sinProductos: boolean = false;
+  articuloDetalleService: ArticuloDetalleService;
   usuario: Usuario;
   usuarioService: UsuarioService;
   regionService: RegionService;
@@ -68,9 +86,9 @@ export class PagoComponent implements OnInit {
   RespuestaDir: any;
   logocard: string = '';
   //montos
-  subtotal:string;
-  montoenvio:string;
-  preciototal:string;
+  subtotal: string;
+  montoenvio: string;
+  preciototal: string;
   //stepper
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -140,11 +158,11 @@ export class PagoComponent implements OnInit {
     }
   }
   //fin chips
-  Arti:  temarti[]=[
-    {idArticulo:'14545454545', PrecioUni:'200',idPlan:'32d3s23ds2d3s'},
-  ];
+  /* Arti: temarti[] = [
+     { idArticulo: '14545454545', PrecioUni: '200', idPlan: '32d3s23ds2d3s' },
+   ];*/
 
-  Documento: temdoc[]=[{Tipo:'BBV', Serie:'1',Numero:'0001'}];
+  Documento: temdoc[] = [{ Tipo: 'BBV', Serie: '1', Numero: '0001' }];
 
   Local: Tipolocalenvio[] = [
     { value: 'Casa' },
@@ -188,18 +206,23 @@ export class PagoComponent implements OnInit {
 
   ngOnInit() {
     //obtener carrito
-    this.articuloDetalleService.getCarrito().subscribe( res => {
+    this.articuloDetalleService.getCarrito().subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
       this.listaCarrito = jres.data;
-      for(var i = 0; i < this.listaCarrito.length; i++){
+      for (var i = 0; i < this.listaCarrito.length; i++) {
         this.listaArticulos.push(this.listaCarrito[i][0]);
+        //   this.listaArticulos2=this.listaArticulos;
         this.listaPlanArticulo.push(this.listaCarrito[i][1]);
+        //   this.listaArticulos2[i].push(this.listaPlanArticulo[0]);
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
       console.log(this.listaArticulos);
       console.log(this.listaPlanArticulo);
+      console.log(this.listaCarrito);
+      //   console.log(this.listaArticulos2);
       this.sumarprecios();
+      this.insertaraarregloart();
     });
     //precios
     //   
@@ -248,7 +271,7 @@ export class PagoComponent implements OnInit {
       if (document.getElementById('datostarjeta').hidden == true) {
         document.getElementById('datostarjeta').hidden = false;
         document.getElementById('btnsig2').style.display = 'block';
-        this.pagoservice.selectPago.idTipoPago ='tarjeta';
+        this.pagoservice.selectPago.idTipoPago = 'tarjeta';
       }
       else {
         document.getElementById('datostarjeta').hidden = true;
@@ -256,11 +279,11 @@ export class PagoComponent implements OnInit {
     }
     if (value == '2') {
       document.getElementById('datostarjeta').hidden = true;
-      this.pagoservice.selectPago.idTipoPago ='efectivo';
+      this.pagoservice.selectPago.idTipoPago = 'efectivo';
     }
     if (value == '3') {
       document.getElementById('datostarjeta').hidden = true;
-      this.pagoservice.selectPago.idTipoPago ='deposito';
+      this.pagoservice.selectPago.idTipoPago = 'deposito';
     }
 
   }
@@ -276,17 +299,41 @@ export class PagoComponent implements OnInit {
   }
 
   //funciones
-  sumarprecios(){
+  sumarprecios() {
     console.log('entra');
-    var sum=0;
-    for(var j=0;j<this.listaPlanArticulo.length;j++){
-      sum=sum+Number(this.listaPlanArticulo[j].precio);
-      console.log('suma'+sum.toString());
+    var sum = 0;
+    for (var j = 0; j < this.listaPlanArticulo.length; j++) {
+      sum = sum + Number(this.listaPlanArticulo[j].precio);
+      console.log('suma' + sum.toString());
     }
-    this.subtotal=sum.toString();
-    this.montoenvio='10';
-    this.preciototal=(Number(this.subtotal)+ Number(this.montoenvio)).toString();
+    this.subtotal = sum.toString();
+    this.montoenvio = '10';
+    this.preciototal = (Number(this.subtotal) + Number(this.montoenvio)).toString();
   }
+  //insertar articulos en el export 
+  /*
+   Arti:  temarti[]=[
+    {idArticulo:'14545454545', PrecioUni:'200',idPlan:'32d3s23ds2d3s'},
+  ];
+  */
+  insertaraarregloart() {
+    this.listaArticulos2 = this.listaArticulos;
+    for (var i = 0; i < this.listaArticulos.length; i++) {
+      // this.listaArticulos2[i].push(this.listaPlanArticulo[i]);
+      this.listaArticulos2[i].cuotainicial = this.listaPlanArticulo[i].cuotainicial;
+      this.listaArticulos2[i].cuotamensual = this.listaPlanArticulo[i].cuotamensual;
+      this.listaArticulos2[i].cuotas = this.listaPlanArticulo[i].cuotas;
+      this.listaArticulos2[i].montomes = this.listaPlanArticulo[i].montomes;
+      this.listaArticulos2[i].nombreplan = this.listaPlanArticulo[i].nombreplan;
+      this.listaArticulos2[i].precio = this.listaPlanArticulo[i].precio;
+      this.listaArticulos2[i].tipolinea = this.listaPlanArticulo[i].tipolinea;
+      this.listaArticulos2[i].tipoplan = this.listaPlanArticulo[i].tipoplan;
+
+
+    }
+    console.log(this.listaArticulos2);
+  }
+  //
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
@@ -382,20 +429,20 @@ export class PagoComponent implements OnInit {
     //this.guardarventa();
   }
   guardarventa(form: NgForm) {
-   // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
+    // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
     this.pagoservice.selectPago.idUsuario = this.user;
-    console.log(this.Arti);
+    //console.log(this.Arti);
     //this.pagoservice.selectPago.Articulo.push(this.Arti[0]);
-    this.pagoservice.selectPago.Articulo=this.Arti;
-    this.pagoservice.selectPago.FechaCompra=new Date(2019,1,17);
+    this.pagoservice.selectPago.Articulo = this.listaArticulos2;
+    this.pagoservice.selectPago.FechaCompra = new Date(2019, 1, 17);
     this.pagoservice.selectPago.EstadoPago = 'Proceso';
     this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
     this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
-    this.pagoservice.selectPago.FechaEnvio=new Date(2019,1,18);
-    this.pagoservice.selectPago.FechaEntrega=new Date(209,1,22);
+    this.pagoservice.selectPago.FechaEnvio = new Date(2019, 1, 18);
+    this.pagoservice.selectPago.FechaEntrega = new Date(209, 1, 22);
     this.pagoservice.selectPago.PrecioTotal = this.preciototal;
     this.pagoservice.selectPago.NroTransaccion = '2323232';
-    this.pagoservice.selectPago.Documento=this.Documento;
+    this.pagoservice.selectPago.Documento = this.Documento;
     this.pagoservice.selectPago.idVendedor = 'ROOT';
 
     this.pagoservice.GuardarPago(this.pagoservice.selectPago)
