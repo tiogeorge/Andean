@@ -13,8 +13,13 @@
             <img class="img-item" src="{{articuloService.url_imagenes}}/tmp/{{imagen}}" alt="">
           </div>
         </div>        
-        <div class="cont-img-select">   
-          <img class="imagen-grande"  id="imagen-seleccionada" src="" alt="">
+        <div class="cont-img-select"  id="imagen-origen" (mouseover)="mouse_over()" (mouseout)="mouse_out()" (mousemove)="mouse_move($event)">   
+          <div id="lente" class="img-zoom-lens"  >
+
+          </div>
+          <img class="imagen-grande"  id="imagen-seleccionada" src="" alt="" >
+        </div>
+        <div class="cont-zoom-result" id="resultado-zoom" [hidden]="ocultarZoom">
         </div>
       </div>
       <div class="contenedor-info-articulo">
@@ -57,7 +62,7 @@
                   <h6 style="margin-bottom: 5px;">Pagar el equipo en:</h6>
                   <div class="input-select">
                       <mat-select  style="padding-left: 4px; padding-right: 4px;" name="tipocuota"[(ngModel)]="tipoCuotaSeleccionada" (selectionChange)="buscarPreciosFiltro()">
-                          <mat-option *ngFor="let cuota of listacuotas" value="{{cuota.valor}}">{{cuota.nombre}}</mat-option>
+                          <mat-option *ngFor="let cuota of listacuotasSeleccionadas" value="{{cuota.valor}}">{{cuota.nombre}}</mat-option>
                         </mat-select>
                   </div>
                   
@@ -76,8 +81,8 @@
                   </div>
                   
                 </div>
-                <div id="cont-carousel"  class="contenido-planes-equipo">
-                    <div class="contenido-planes-equipo-carousel" id="contenido-planes-equipo" [hidden]="nomostrarPrecios">
+                <div id="cont-carousel"  class="contenido-planes-equipo" [hidden]="nomostrarPrecios">
+                    <div class="contenido-planes-equipo-carousel" id="contenido-planes-equipo" >
                   
                         <div *ngFor="let plan of listPreciosFiltro" (click)="seleccionarPlan(plan)">
                           <mat-card class="card-planes" *ngIf="plan.nombreplan != planSeleccionado.nombreplan">

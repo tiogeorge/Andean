@@ -36,10 +36,14 @@ export class ArticuloDetalleComponent implements OnInit {
   nomostrarPrecios = true;
   hayPrecios=false;
   almes=" al mes";
+  ocultarZoom = true;
+
+  configuroZoom=false;
 
   listalineas: any[];
   listatipoplanes: any[];
   listacuotas: any[];
+  listacuotasSeleccionadas: any[] = new Array();
 
   planSeleccionado = {
     nombreplan:"",
@@ -104,7 +108,22 @@ export class ArticuloDetalleComponent implements OnInit {
     console.log(this.planSeleccionado)
   }
 
-  buscarPreciosFiltro(){
+  buscarPreciosFiltro(){    
+    var contenedor = document.getElementById("contenido-planes-equipo");
+    contenedor.style.transform="translateX(-0px)";
+    console.log(contenedor.clientWidth);
+    this.listacuotasSeleccionadas = new Array();
+    if(this.tipoPlanSeleccionado=="ALTA"){
+      for(var i = 0;i<this.listacuotas.length;i++){
+        if(this.listacuotas[i].valor == "0"){
+          this.listacuotasSeleccionadas.push(this.listacuotas[i]);
+          this.tipoCuotaSeleccionada = "0";
+        }
+      }
+    }else{
+        this.listacuotasSeleccionadas = this.listacuotas;
+        
+    }
     this.slide=0;
     this.planSeleccionado = {
       nombreplan:"",
@@ -127,6 +146,7 @@ export class ArticuloDetalleComponent implements OnInit {
       this.controlCuotas = false;
       this.almes=" al mes";
     }
+    console.log(this.tipoLineaSeleccionada+" - "+this.tipoPlanSeleccionado+" - "+this.tipoCuotaSeleccionada);
     this.articuloService.getPreciosArticulo(this.articuloService.articuloSeleccionado.idprecio,this.tipoLineaSeleccionada, this.tipoPlanSeleccionado, this.tipoCuotaSeleccionada)
     .subscribe(res=>{
       
@@ -146,14 +166,12 @@ export class ArticuloDetalleComponent implements OnInit {
     });    
   }
   slide=0;
-  moverScroll(){
-    
+  moverScroll(){    
     var contenedor = document.getElementById("contenido-planes-equipo");
-    //contenedor.scrollLeft -= 180;
-    if(this.slide<this.listPreciosFiltro.length-2){
+    if(this.slide<this.listPreciosFiltro.length-1){
       this.slide++;
-    }    
-      contenedor.style.transform="translateX(-"+186*this.slide+"px)";      
+    } 
+    contenedor.style.transform="translateX(-"+186*this.slide+"px)";
     
     
   }
@@ -162,22 +180,15 @@ export class ArticuloDetalleComponent implements OnInit {
     if(this.slide>0){
       this.slide--;
     }      
-    contenedor.style.transform="translateX(-"+186*this.slide+"px)";
-    
+    contenedor.style.transform="translateX(-"+186*this.slide+"px)";    
   }
 
   mouse_over(){
     if(screen.width>1024){
-      let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
-      let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
-      let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
-      let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
-      cont.style.width = (imageseleccionada.clientWidth+10)+"px";
-      cont.style.height = (imageseleccionada.clientHeight+10)+"px";
-      imagen.style.backgroundImage = "url('"+imageseleccionada.src+"')";
-      imagen.style.zIndex="-100";
-      imagen.style.transform="scale(2.5)";
-      cont.style.display="block";
+
+      this.ocultarZoom = false;     
+        
+      
     }else{
       console.log("no se permite el zoom de la imagen");
     }  
@@ -185,41 +196,53 @@ export class ArticuloDetalleComponent implements OnInit {
 
   mouse_out(){
     if(screen.width>1024){
-      let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
-      let imagen = document.getElementById("imagen-zoom") as HTMLImageElement;
-      let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
-      let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
-      cont.style.width = (imageseleccionada.clientWidth+10)+"px";
-      cont.style.height = (imageseleccionada.clientHeight+10)+"px";
-      imagen.style.backgroundImage = imageseleccionada.src;
-      imagen.style.transform="scale(1)";
-      cont.style.width = contenedor.clientWidth+"px";
-      cont.style.display="none";
-      //console.log("salio de la la imagen");
-      //  console.log("se permite zoom");
-      //  console.log("pantalla "+screen.height+"  ancho: "+screen.width);
+      this.ocultarZoom = true;
+      this.configuroZoom = false;
+     // console.log("salio de la imagen");
     }else{
       console.log("no se permite el zoom de la imagen");
     }
   }
 
-  mouse_move(){
+  mouse_move(evento){
     if(screen.width>1024){
-      let cont = document.getElementById("cont-imagen-zoom") as HTMLDivElement;
-      let imagen = document.getElementById("imagen-zoom") as HTMLDivElement;
-      let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
-      let contenedor = document.getElementById("imagen-grande-select") as HTMLDivElement;
-      let contenedor_img = document.getElementById("cont-images") as HTMLDivElement;
-      var x = (event as MouseEvent).pageX;
-      var y = (event as MouseEvent).pageY;
-      var ancho = imageseleccionada.clientWidth;
-      var altopor = ((y - imageseleccionada.offsetTop) / imageseleccionada.clientHeight) * 100 +'%';
-      imagen.style.transformOrigin= (((x - imageseleccionada.offsetLeft) / imageseleccionada.clientWidth* 100) )+ "% " +((((y - (contenedor_img.offsetTop+120)) / imageseleccionada.clientHeight) * 100) ) +'%';
+      var lens = document.getElementById("lente");
+      var img,x,y;    
+      img = document.getElementById("imagen-origen");
+      var result = document.getElementById("resultado-zoom");
+      evento.preventDefault();   
+      var pos = this.getCursorPos(evento);
+      /* Calculate the position of the lens: */
+      x = pos.x - (lens.offsetWidth / 2);
+      y = pos.y - (lens.offsetHeight / 2);
+      /* Prevent the lens from being positioned outside the image: */
+      if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+      if (x < 0) {x = 0;}
+      if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+      if (y < 0) {y = 0;}
+      /* Set the position of the lens: */
+      lens.style.left = x + "px";
+      lens.style.top = y + "px";
+      console.log(x+" - "+y);
+
     }else{
       console.log("no se permite el zoom de la imagen");
     }
   }
-
+  getCursorPos(e) {
+    var img = document.getElementById("imagen-origen");
+    var a, x = 0, y = 0;
+    e = e || window.event;
+    /* Get the x and y positions of the image: */
+    a = img.getBoundingClientRect();
+    /* Calculate the cursor's x and y coordinates, relative to the image: */
+    x = e.pageX - a.left;
+    y = e.pageY - a.top;
+    /* Consider any page scrolling: */
+    x = x - window.pageXOffset;
+    y = y - window.pageYOffset;
+    return {x : x, y : y};
+  }
   cambiar_imagen(url){
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
     imageseleccionada.src  = this.articuloService.url_imagenes+"/tmp/"+url;
