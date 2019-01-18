@@ -18,7 +18,7 @@ export class RegionService {
 
   readonly URL_API = Constantes.URL_API_REGION;
 
-  constructor(private http : HttpClient) {
+  constructor(public http : HttpClient) {
     this.departamentoSelected = new Region();
     this.provinciaSelected = new Provincia();
   }
@@ -37,5 +37,32 @@ export class RegionService {
 
   deleteRegion(_id: string) {
     return this.http.delete(this.URL_API + `/${_id}`, {withCredentials: true});
+  }
+
+  setDepartamentoSelected(departamento: string){
+    if(departamento != '1'){
+      var i = 0;
+      while(this.regiones[i].departamento != departamento){ i++; }
+      this.departamentoSelected = this.regiones[i];
+    }
+    this.provinciaSelected = new Provincia();
+  }
+
+  setProvinciaSelected(provincia: string){
+    if(provincia != '1'){
+      var i = 0;
+      while(this.departamentoSelected.provincias[i].provincia != provincia) { i++;}
+      this.provinciaSelected = this.departamentoSelected.provincias[i];
+    } else {
+      this.provinciaSelected = new Provincia();
+    }
+  }
+
+  setDistritoSelected(distrito: string){
+    if(distrito != '1'){
+      var i = 0;
+      while(this.provinciaSelected.distritos[i] != distrito){ i++; }
+      this.distritoSelected = this.provinciaSelected.distritos[i]; 
+    }
   }
 }

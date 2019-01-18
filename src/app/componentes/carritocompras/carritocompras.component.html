@@ -4,43 +4,38 @@
       <hr>
       <div class="container">
         <div class="row">
-          <div class="col-lg-9">
-            <h5>CARRITO DE COMPRAS</h5>
+          <div class="col-9 col-sm-9">
+            <h5 class="titulo">CARRITO DE COMPRAS</h5>
           </div>
-          <div class="col-lg-3">
-            <button mat-icon-button color="primary" (click)="eliminartodo()">
-              <mat-icon aria-label="Eliminar todo" matTooltip="Eliminar todos los artículos" matTooltipClass="colortooltip">delete_forever</mat-icon> ELIMINAR TODO
+          <div class="col-3 col-sm-3">
+            <button mat-icon-button color="primary" (click)="eliminartodo()" [hidden]="sinProductos">
+              <mat-icon aria-label="Eliminar todo" matTooltip="Eliminar todos los artículos" matTooltipClass="colortooltip" >delete_forever</mat-icon> {{tituloEliminar}}
             </button>
           </div>
         </div>
       </div>
       <hr>
-      <h3 [style.display]="sinProductos ? 'block' : 'none'" style="text-align:center;" >NO TIENES PRODUCTOS EN TU CARRITO<i class="material-icons">shopping_cart</i>
-      </h3>
+      <h5 class="titulo" [style.display]="sinProductos ? 'block' : 'none'">NO TIENES PRODUCTOS EN TU CARRITO</h5>
       <div class="container" [hidden]="!mostrarArticulos">
         <div class="row" *ngFor="let articulo of listaArticulos; let i = index">
           <div class="col-lg-12" id="contenedorarticulo{{articulo.titulo}}">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-4" id="colart1{{articulo.titulo}}" style="text-align: center;">
+                <div class="col-4" id="colart1{{articulo.titulo}}" style="text-align: center;">
                   <a href="#" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                    <img src="{{urlImagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.titulo}}" height="125px" width="auto">
+                    <img src="{{urlImagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.titulo}}" [style.height]="alturaImg" width="auto">
                   </a>
                 </div>
-                <div class="col-lg-6" id="colart2{{articulo.titulo}}">
-                  <p class="card-title">
-                    <a>{{ articulo.titulo }}</a>
-                  </p>
-                  <p class="card-text">PLAN: {{listaPlanArticulo[i].nombreplan}}</p>
-                  <p class="card-text" style="color: red;">S/ {{listaPlanArticulo[i].precio}}</p>
+                <div class="col-6" id="colart2{{articulo.titulo}}">
+                  <a class="card-title tituloPlan">{{ articulo.titulo }}</a>
+                  <p class="card-text nombrePlan">{{listaPlanArticulo[i].nombreplan}}</p>
+                  <p class="card-text precioPlan">S/ {{listaPlanArticulo[i].precio}}</p>
                 </div>
-                <div class="col-lg-2">
-                  <div class="example-button-row">
-                    <button type="button" class="close" aria-label="Close" matTooltip="Eliminar" matTooltipClass="colortooltip"
+                <div class="col-2">
+                  <button type="button" class="close" aria-label="Close" matTooltip="Eliminar" matTooltipClass="colortooltip"
                       (click)="eliminaritem(articulo.url)">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -50,61 +45,49 @@
       </div>
     </div>
     <!-- bloqueterminarcompras -->
-    <div class="col-lg-3" style="background-color: white">
-      <hr />
-      <h5>RESUMEN DE PEDIDO</h5>
-      <hr />
-      <p>Sub Total</p>
-      <hr />
-      <p>Envio</p>
-      <hr />
+    <div class="col-lg-3" style="background-color: white" [hidden]="sinProductos">
+      <hr>
+      <h5 class="titulo">RESUMEN DE PEDIDO</h5>
+      <hr>
+      <p class="subtitulo">Sub Total</p>
+      <p class="sol">S/</p>
+      <p class="precioSubtitulo">1200</p>
+      <hr>
+      <p class="subtitulo">Envio</p>
+      <p class="sol">S/</p>
+      <p class="precioSubtitulo">25</p>
+      <hr>
       <b>
         <p (click)="mostrardivenvio()">Calcular Envio</p>
       </b>
       <div [style.display]="mostrarEnvio ? 'block' : 'none'">
         <div class="form-group">
-          <label for="exampleSelect1">Departamento</label>
-          <select class="form-control" id="exampleSelect1">
-            <option>Amazonas</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <label for="sDepartamento">Departamento</label>
+          <select class="form-control" id="sDepartamento" (change)="regionService.setDepartamentoSelected($event.target.value)">
+            <option value="1">Seleccione un departamento</option>
+            <option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="exampleSelect2">Provincia</label>
-          <select class="form-control" id="exampleSelect2">
-            <option>Seleccione una Provincia</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <label for="sProvincia">Provincia</label>
+          <select class="form-control" id="sProvincia" (change)="regionService.setProvinciaSelected($event.target.value)">
+            <option value="1">Seleccione una provincia</option>
+            <option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">{{prov.provincia}}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="exampleSelect3">Distrito</label>
-          <select class="form-control" id="exampleSelect3">
-            <option>Seleccione un Distrito</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <label for="sDistrito">Distrito</label>
+          <select class="form-control" id="sDistrito" (change)="regionService.setDistritoSelected($event.target.value)">
+            <option value="1">Seleccione un distrito</option>
+            <option *ngFor="let dist of regionService.provinciaSelected.distritos" [value]="dist">{{dist}}</option>
           </select>
         </div>
-        <button class="btn btn-warning btnandean">CALCULAR</button>
+        <button class="btn btn-warning btnandean">CALCULAR ENVIO</button>
       </div>
       <hr />
-      <b>
-        <p (click)="mostrardivcupon()">Aplicar Cupón</p>
-      </b>
-      <div [style.display]="mostrarCupon ? 'block' : 'none'">
-        <input class="form-control" type="text" placeholder="INGRESAR CODIGO">
-        <br>
-        <button class="btn btn-warning btnandean">APLICAR</button>
-      </div>
-      <hr />
-      <p>TOTAL</p>
+      <p class="subtitulo">TOTAL</p>
+      <p class="sol">S/</p>
+      <p class="precioSubtitulo">25</p>
       <hr />
       <button class="btn btn-warning btnandean" style="background-color: orangered; color:white" routerLink="/pago">PROCESAR
         COMPRA</button>

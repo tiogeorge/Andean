@@ -1,8 +1,10 @@
-import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
-import { Component, OnInit } from "@angular/core";
-import { Constantes } from '../constantes';
-import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Articulo } from '../articulo-detalle/articulo';
+import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
+import { Constantes } from '../constantes';
+import { Component, OnInit } from "@angular/core";
+import { Region } from '../perfil-usuario/region';
+import { RegionService } from '../perfil-usuario/region.service';
+import { UsuarioService } from '../perfil-usuario/usuario.service';
 
 @Component({
   selector: "app-carritocompras",
@@ -13,40 +15,55 @@ export class CarritocomprasComponent implements OnInit {
   listaCarrito            : any[];
   listaArticulos          : Articulo[] = [];
   listaPlanArticulo       : any[] = [];
-  usuarioService          : UsuarioService;
-  articuloDetalleService  : ArticuloDetalleService;
   urlImagenes             : string = Constantes.URL_IMAGEN;
   mostrarArticulos        : boolean = true;
   sinProductos            : boolean = false;
   mostrarEnvio            : boolean = false;
   mostrarCupon            : boolean = false;
+  tituloEliminar          : string = '';
+  alturaImg               : string;
 
-  constructor(usuarioService: UsuarioService, articuloDetalleService: ArticuloDetalleService) {
-    this.articuloDetalleService = articuloDetalleService;
-    this.usuarioService = usuarioService;
+  constructor(public usuarioService: UsuarioService, public articuloDetalleService: ArticuloDetalleService, public regionService: RegionService) {
   }
 
   ngOnInit() {
+    this.responsivo();
     this.articuloDetalleService.getCarrito().subscribe( res => {
       console.log(res);
       var jres = JSON.parse(JSON.stringify(res));
-      this.listaCarrito = jres.data;
-      for(var i = 0; i < this.listaCarrito.length; i++){
-        this.listaArticulos.push(this.listaCarrito[i][0]);
-        this.listaPlanArticulo.push(this.listaCarrito[i][1]);
-        this.mostrarArticulos = true;
-        this.sinProductos = false;
-      }
+      if(jres.status){
+        this.listaCarrito = jres.data;
+        for(var i = 0; i < this.listaCarrito.length; i++){
+          this.listaArticulos.push(this.listaCarrito[i][0]);
+          this.listaPlanArticulo.push(this.listaCarrito[i][1]);
+          this.mostrarArticulos = true;
+          this.sinProductos = false;
+        }
+      }    
     });    
     this.mencart();
   }
 
-  mostrardivenvio() {
-    this.mostrarEnvio = this.mostrarEnvio ? false : true;
+  responsivo(): void {
+    if( screen.width <= 576){
+      this.alturaImg = "75px";
+    } else if(screen.width <= 768){
+      this.alturaImg = "75px";
+    } else if(screen.width <= 992){
+      this.alturaImg = "150px";
+    } else if(screen.width <= 1200){
+      this.alturaImg = "150px";
+    } else {
+      this.alturaImg = "150px";
+    }
   }
 
-  mostrardivcupon() {
-    this.mostrarCupon = this.mostrarCupon ? false : true;
+  mostrardivenvio() {
+    this.regionService.getRegiones().subscribe( res => {
+      this.regionService.regiones = res as Region[];
+      console.log(res);
+    });
+    this.mostrarEnvio = this.mostrarEnvio ? false : true;
   }
 
   eliminaritem(url: string) {

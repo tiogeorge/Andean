@@ -6,7 +6,7 @@ export class Constantes {
     public static URL               = URL;
     public static URL_API           = URL_API;
     public static URL_API_ARTICULO  = URL_API + 'articulos';
-    public static URL_API_CHAT          = URL_API + 'chat';
+    public static URL_API_CHAT      = URL_API + 'chat';
     public static URL_API_MARCA     = URL_API + 'marca';
     public static URL_API_IMAGEN    = URL_API + 'imagenes';
  //   public static URL_IMAGEN      = 'localhost:3000/imagenes';

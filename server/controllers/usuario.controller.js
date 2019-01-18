@@ -375,8 +375,9 @@ usuarioController.loginUsuario = async (req, res, next) => {
 };
 
 usuarioController.obtenerCarrito = async (req, res, next) => {
-  if(req.session.articulos){
-    const carrito = req.session.articulos;
+  if(req.session.token){
+    usuario = await Usuario.findOne({token: req.session.token});
+    const carrito = usuario.carrito;
     var carritoArticulos = new Array();
     for(var i = 0; i < carrito.length; i++){
       var precioArticulo;
@@ -401,10 +402,37 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
       data: carritoArticulos
     });
   } else {
-    res.json({
-      status: false,
-      error: 'No se pudo obtener los precios'
-    });
+    if(req.session.articulos){
+      const carrito = req.session.articulos;
+      var carritoArticulos = new Array();
+      for(var i = 0; i < carrito.length; i++){
+        var precioArticulo;
+        var articulo = await Articulo.findOne({url : carrito[i].url});
+        var precio = await  Precio.findOne({nombreequipo: articulo.idprecio});
+        for(var j = 0; j < precio.planes.length; j++){
+          if(carrito[i].tipoLinea == 'PREPAGO'){
+            if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas){
+              precioArticulo = precio.planes[j];
+            }
+          }else {
+            if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan){
+              precioArticulo = precio.planes[j];
+            }
+          }
+        }
+        carritoArticulos.push([articulo, precioArticulo]);
+      }
+      res.json({
+        status: true,
+        msg: 'Se obtuvieron los artículos con éxito',
+        data: carritoArticulos
+      });
+    } else {
+      res.json({
+        status: false,
+        error: 'El usuario no tiene un carrito de compras'
+      });
+    }
   }
 };
 
