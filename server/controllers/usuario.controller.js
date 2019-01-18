@@ -483,4 +483,9 @@ usuarioController.obtenerUsuario = async (req, res, next) => {
   }
 };
 
+usuarioController.usuarioid=async (req,res)=>{
+  const usuario=await Usuario.findById(req.params.id);
+  res.json(usuario);
+}
+
 module.exports = usuarioController;

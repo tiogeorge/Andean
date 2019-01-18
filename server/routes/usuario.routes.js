@@ -7,6 +7,7 @@ router.post('/', usuario.crearUsuario);
 router.post('/login', usuario.loginUsuario);
 router.post('/adminLogin', usuario.loginAdmin);
 router.get('/', usuario.listarUsuarios);
+router.get('/user/:id',usuario.usuarioid);
 router.put('/:id',usuario.actualizarUsuario);
 router.get('/carrito', usuario.obtenerCarrito);
 router.put('/carrito/:url', usuario.agregarArticulo);
