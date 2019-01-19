@@ -44,6 +44,8 @@ export class ArticuloDetalleComponent implements OnInit {
   listatipoplanes: any[];
   listacuotas: any[];
   listacuotasSeleccionadas: any[] = new Array();
+  cx=0;
+  cy=0;
 
   planSeleccionado = {
     nombreplan:"",
@@ -185,8 +187,11 @@ export class ArticuloDetalleComponent implements OnInit {
 
   mouse_over(){
     if(screen.width>1024){
+      var result = document.getElementById("resultado-zoom");
 
-      this.ocultarZoom = false;     
+      this.ocultarZoom = false;   
+      var imagen = document.getElementById("imagen-seleccionada") as HTMLImageElement;
+      result.style.backgroundImage = "url('" + imagen.src + "')";  
         
       
     }else{
@@ -197,7 +202,6 @@ export class ArticuloDetalleComponent implements OnInit {
   mouse_out(){
     if(screen.width>1024){
       this.ocultarZoom = true;
-      this.configuroZoom = false;
      // console.log("salio de la imagen");
     }else{
       console.log("no se permite el zoom de la imagen");
@@ -207,8 +211,9 @@ export class ArticuloDetalleComponent implements OnInit {
   mouse_move(evento){
     if(screen.width>1024){
       var lens = document.getElementById("lente");
-      var img,x,y;    
-      img = document.getElementById("imagen-origen");
+      var x,y;    
+      var img = document.getElementById("imagen-origen") as HTMLDivElement;
+      var imagen = document.getElementById("imagen-seleccionada");
       var result = document.getElementById("resultado-zoom");
       evento.preventDefault();   
       var pos = this.getCursorPos(evento);
@@ -216,15 +221,19 @@ export class ArticuloDetalleComponent implements OnInit {
       x = pos.x - (lens.offsetWidth / 2);
       y = pos.y - (lens.offsetHeight / 2);
       /* Prevent the lens from being positioned outside the image: */
-      if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+      if (x > img.clientWidth - lens.offsetWidth) {x = img.clientWidth - lens.offsetWidth;}
       if (x < 0) {x = 0;}
-      if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+      if (y > img.clientHeight - lens.offsetHeight) {y = img.clientHeight - lens.offsetHeight;}
       if (y < 0) {y = 0;}
+      var cx = (result.offsetWidth / lens.offsetWidth)/4;
+      var cy = (result.offsetHeight / lens.offsetHeight)/4;
+      
       /* Set the position of the lens: */
       lens.style.left = x + "px";
       lens.style.top = y + "px";
-      console.log(x+" - "+y);
-
+      console.log(x+" - "+y +" --- "+cx+"  -  "+cy);
+      /* Display what the lens "sees": */
+      result.style.backgroundPosition =  (-1*x+100)*cx + "px "+  (-1*y+100)*cy + "px";
     }else{
       console.log("no se permite el zoom de la imagen");
     }
@@ -246,6 +255,15 @@ export class ArticuloDetalleComponent implements OnInit {
   cambiar_imagen(url){
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
     imageseleccionada.src  = this.articuloService.url_imagenes+"/tmp/"+url;
+    var result = document.getElementById("resultado-zoom");
+    var img= document.getElementById("imagen-origen") as HTMLDivElement;
+    var imagen = document.getElementById("imagen-seleccionada") as HTMLImageElement;
+    var lens = document.getElementById("lente");
+    var cx = result.offsetWidth / lens.offsetWidth;
+    var cy = result.offsetHeight / lens.offsetHeight;
+    /* Set background properties for the result DIV */
+    result.style.backgroundImage = "url('" + imagen.src + "')";
+    result.style.backgroundSize = (imagen.width * 2.5) + "px " + (imagen.height * 2.5) + "px";
   }
 
   abrirImagen(){

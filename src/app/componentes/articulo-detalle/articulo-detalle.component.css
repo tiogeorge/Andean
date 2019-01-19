@@ -121,13 +121,28 @@
     position: absolute; 
     left: 40%; 
     margin: 5px;
-    width: auto;
-    min-width: 450px;
+    width: 400px;
     height: 400px;
-    max-height: 400px;
     border: 1px solid black;
-    background-color: rgb(90, 84, 84);
     z-index: 1000;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 100px;
+    background-position: center;
+    transition: transform .5s ease-out;
+    background-repeat: no-repeat;
+    background-color: white;
+   
+}
+.cont-zoom-result-img{
+   width: 100%;
+   height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: transform .5s ease-out;box-sizing: border-box;
+    z-index: 100;
+   
 }
 .img-zoom-lens {
     position: absolute;
@@ -135,6 +150,7 @@
     /*set the size of the lens:*/
     width: 40px;
     height: 40px;
+    border-radius: 20px;
 }
 /*--------------------------------------*/
 /* PARA INFORMACION DEL ARTICULO*/
