@@ -4,3 +4,11 @@
 body{
     background: #f0f2f5;
 }
+ 
+.exito {
+    background-color: green;
+}
+
+.error {
+    background-color: red;
+}

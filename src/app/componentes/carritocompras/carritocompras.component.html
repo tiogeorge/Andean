@@ -1,13 +1,13 @@
 <div class="container-fluid" style="background-color: white">
   <div class="row">
-    <div class="col-lg-9" id="contenedorarticuloscart">
+    <div class="col-md-8 col-lg-9" id="contenedorarticuloscart">
       <hr>
       <div class="container">
         <div class="row">
-          <div class="col-9 col-sm-9">
+          <div class="col-9 col-md-8">
             <h5 class="titulo">CARRITO DE COMPRAS</h5>
           </div>
-          <div class="col-3 col-sm-3">
+          <div class="col-3 col-md-4">
             <button mat-icon-button color="primary" (click)="eliminartodo()" [hidden]="!mostrarArticulos">
               <mat-icon aria-label="Eliminar todo" matTooltip="Eliminar todos los artículos" matTooltipClass="colortooltip">delete_forever</mat-icon>
               {{tituloEliminar}}
@@ -47,7 +47,7 @@
       </div>
     </div>
     <!-- bloqueterminarcompras -->
-    <div class="col-lg-3" style="background-color: white" [hidden]="!mostrarArticulos">
+    <div class="col-md-4 col-lg-3" style="background-color: white" [hidden]="!mostrarArticulos">
       <hr>
       <h5 class="titulo">RESUMEN DE PEDIDO</h5>
       <hr>
@@ -84,7 +84,7 @@
             <option *ngFor="let dist of regionService.provinciaSelected.distritos" [value]="dist">{{dist}}</option>
           </select>
         </div>
-        <button class="btn btn-warning btnandean">CALCULAR ENVIO</button>
+        <button class="btn btn-warning btnandean" (click)="calcularEnvio()">CALCULAR ENVIO</button>
       </div>
       <hr />
       <p class="subtitulo">TOTAL</p>

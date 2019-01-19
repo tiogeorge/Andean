@@ -31,7 +31,7 @@ import { MapaComponent } from './componentes/mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
 import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
 import { Ng5SliderModule } from 'ng5-slider';
-
+import { SnackbarComponent } from './componentes/snackbar/snackbar.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -73,7 +73,8 @@ const routes : Route[] = [
     ChatComponent,
     CompararEquiposComponent,
     MapaComponent,
-    DialogoCarritoComponent
+    DialogoCarritoComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +91,8 @@ const routes : Route[] = [
     Ng5SliderModule
   ],
   entryComponents: [
-    DialogoCarritoComponent
+    DialogoCarritoComponent,
+    SnackbarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
