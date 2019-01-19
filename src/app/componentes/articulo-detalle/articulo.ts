@@ -1,4 +1,5 @@
 import { Caracteristica} from './caracteristica'
+import { Calificacion} from './calificacion'
 export class Articulo {
 
     constructor( _id=null ,idarticulo = '', titulo = '',url='', categoria = '',marca='',cantidad=0, idprecio = '', especaficaciones = [], caracteristicas= [], imagenes=[], descripcion='', garantias=[]) {
@@ -28,5 +29,5 @@ export class Articulo {
     imagenes: string[];
     descripcion: string;
     garantias: string[];
-    calificaciones: any;
+    calificaciones: Calificacion[];
   }

@@ -8,7 +8,7 @@ import { Constantes } from '../constantes';
 import { MatDialog } from '@angular/material';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { DialogoCarritoComponent } from "./dialogo-carrito/dialogo-carrito.component";
-
+import { Calificacion } from './calificacion';
 @Component({
   selector: 'app-articulo-detalle',
   templateUrl: './articulo-detalle.component.html',
@@ -91,6 +91,7 @@ export class ArticuloDetalleComponent implements OnInit {
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
       this.buscarPreciosFiltro();
+      this.contarCalificaciones();
     //  this.obtenerPreciosArticulo();
     });   
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe( res => {
@@ -108,6 +109,27 @@ export class ArticuloDetalleComponent implements OnInit {
   seleccionarPlan(plan){
     this.planSeleccionado = plan;
     console.log(this.planSeleccionado)
+  }
+
+  contarCalificaciones(){
+    var a = this.articuloService.articuloSeleccionado.calificaciones;
+    if (a !== undefined) {
+    var sum = 0;
+    for(var i = 0; i < a.length; i++){
+      sum += Number(a[i].valoracion);
+    }
+    var prom = Math.round(sum/a.length);
+    document.getElementById("numeroComentarios").innerHTML = a.length +" Comentarios";
+
+    document.getElementById("valoracionPromedio").innerHTML = '';
+    for(var i = 0; i < prom; i++){
+    document.getElementById("valoracionPromedio").innerHTML += '<img src="assets/images/star2.png" width="17px" height="18px">';
+    }
+    for(var i = 0; i < 5-prom; i++){
+    document.getElementById("valoracionPromedio").innerHTML += '<img src="assets/images/star.png" width="17px" height="18px">'; 
+    }
+    
+    }
   }
 
   buscarPreciosFiltro(){    
