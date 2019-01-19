@@ -516,4 +516,8 @@ usuarioController.usuarioid=async (req,res)=>{
   res.json(usuario);
 }
 
+usuarioController.guardarEnvio = async(req, res) =>{
+  req.session.envio = req.body.envio;
+}
+
 module.exports = usuarioController;

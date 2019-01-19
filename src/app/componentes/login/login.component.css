@@ -32,3 +32,21 @@
     border-color:orange !important;
     box-shadow: 0 0 5px rgb(235, 134, 41) !important;
   }
+
+  /* Extra small devices (portrait phones, less than 576px) */
+  
+  /* Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) {  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) {  }
+  
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {  }
+  
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+      #correo, #contraseña {
+          width: 100%;
+      }
+  }

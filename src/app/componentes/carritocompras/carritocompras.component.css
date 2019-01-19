@@ -83,4 +83,21 @@
 @media (min-width: 992px) {}
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+  #contenedorarticuloscart {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .tituloPlan{
+    font-size: 1.5rem;
+  }
+
+  .nombrePlan {
+    font-size: 1rem;
+  }
+
+  .precioPlan {
+    font-size: 2rem;
+  }
+}

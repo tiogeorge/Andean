@@ -2,74 +2,49 @@
   <div class="row">
     <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
       <div class="card card-signin my-5">
-        <form #usuarioForm="ngForm" class="form-signin" (ngSubmit)="registrar(usuarioForm)">
+        <form #usuarioForm="ngForm" class="form-signin" (ngSubmit)="registrar(usuarioForm)" autocomplete="off">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
           <div class="card-body">
-            <ng-flash-message></ng-flash-message>
             <img id="btn-back" src="assets/images/back.png" alt="" routerLink="/login">
             <h5 class="card-title text-center" style="margin-top: -25px;">
               <img src="assets/images/new-user.png">
               Nuevo Usuario
             </h5>
             <hr>
+            <mat-form-field id="nombres">
+              <input matInput placeholder="Nombre(s)" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres" required>
+              <mat-error *ngIf="nombres.invalid && (nombres.dirty || nombres.touched) && nombres.errors.required">
+                Por favor complete su(s) nombre(s)
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field id="apellidos">
+              <input matInput placeholder="Apellidos" name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos" required>
+              <mat-error *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched) && apellidos.errors.required">
+                Por favor complete sus apellidos
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field id="email">
+              <input matInput type="email" autocomplete="off" placeholder="Correo Electrónico" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo" email required>
+              <mat-error *ngIf="correo.invalid && (correo.dirty || correo.touched) && correo.errors.required">
+                Por favor complete su correo electrónico
+              </mat-error>
+              <mat-error *ngIf="correo.invalid && (correo.dirty || correo.touched) && correo.errors.email">
+                Su correo electrónico debe tener el formato correcto
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field id="password">
+              <input matInput type="password" autocomplete="off" placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password" required minlength="6">
+              <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.required">
+                Por favor complete su contraseña
+              </mat-error>
+              <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.minlength">
+                Su contraseña debe tener al menos 6 caracteres
+              </mat-error>
+            </mat-form-field>
+            <mat-checkbox  name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en tu correo electrónico
+              </mat-checkbox>
             <div class="form-label-group">
-              <label for="txCodigo" class="etiqueta">Nombres</label>
-              <input type="text" placeholder="Ingrese Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres"
-                class="form-control" style="text-transform: capitalize;" required autofocus>
-              <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
-                <div *ngIf="nombres.errors.required">
-                  El campo Nombres es obligatorio.
-                </div>
-              </div>
-            </div>
-            <div class="form-label-group">
-              <label class="etiqueta">Apellidos</label>
-              <input type="text" placeholder="Ingrese Apellidos" name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
-                class="form-control" style="text-transform: capitalize;" required>
-              <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
-                <div *ngIf="apellidos.errors.required">
-                  El campo Apellidos es obligatorio.
-                </div>
-              </div>
-            </div>
-            <div class="form-label-group">
-              <div class="row">
-                <div class="col col-lg-6">
-                  <label class="etiqueta">Email</label>
-                  <input type="email" placeholder="Ingrese email" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
-                    class="form-control" email="true" required>
-                  <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
-                    <div *ngIf="correo.errors.required">
-                      El campo Email es obligatorio.
-                    </div>
-                    <div *ngIf="correo.errors.email">
-                      El Email debe ser válido.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col col-lg-6">
-                  <label class="etiqueta">Contraseña</label>
-                  <input type="password" placeholder="Ingrese contraseña" name="password" #password="ngModel"
-                    [(ngModel)]="usuarioService.usuarioSeleccionado.password" class="form-control" required minlength="6">
-                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-                    <div *ngIf="password.errors.required">
-                      El campo Contraseña es obligatorio.
-                    </div>
-                    <div *ngIf="password.errors.minlength">
-                      La contraseña debe tener una longitud mínima de 6 caracteres.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="form-label-group">
-              <label><input type="checkbox" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en tu email</label>
-            </div>
-            <div class="form-label-group">
-              <label>Al registrarse acepta los <a href="/terminosycondiciones" style="color: orange;">terminos y
-                  condiciones</a> y nuestras <a href="/politicas">politicas de privacidad</a></label>
+              <label id="condiciones">Al registrarse acepta nuestros <a href="/terminosycondiciones" style="color: orange;">términos y condiciones</a> y nuestras <a href="/politicas">politicas de privacidad</a>.</label>
             </div>
           </div>
           <div class="card-body" style="margin-top: -18px;">
@@ -79,7 +54,6 @@
           <div class="card-body" id="footer-login">
             <div class="form-label-group">
               <div class="row">
-
                 <div class="col col-lg-6 col-md-12 col-sm-12">
                   <label> Registrate con :</label>
                   <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i

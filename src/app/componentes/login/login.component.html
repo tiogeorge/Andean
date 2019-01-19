@@ -6,48 +6,35 @@
           <div class="card-body">        
             <h5 class="card-title text-center"><i class="fas fa-key"></i> Iniciar Sesión</h5>
             <hr>
-            <ng-flash-message></ng-flash-message>
-            <div class="form-label-group">
-              <label class="etiqueta">Email</label>
-              <input type="text" placeholder="Ingrese email" type="text" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
-                class="form-control" required email="true" autofocus>
-              <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
-                <div *ngIf="correo.errors.required">
-                  El campo Correo Electrónico es requerido.
-                </div>
-                <div *ngIf="correo.errors.email">
-                  El Correo debe ser válido.
-                </div>
-              </div>
-            </div>
-
-            <div class="form-label-group">
-              <label class="etiqueta">Contraseña</label>
-              <input type="password" placeholder="Ingrese contraseña" type="password" name="password" #password="ngModel"
-                [(ngModel)]="usuarioService.usuarioSeleccionado.password" class="form-control" required>
-              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-                <div *ngIf="password.errors.required">
-                  El campo Contraseña es requerido.
-                </div>
-                <div *ngIf="password.errors.minlength">
-                  La contraseña debe tener una longitud mínima de 6 caracteres.
-                </div>
-              </div>
-            </div>
+            <mat-form-field id="correo">
+              <input type="email" matInput placeholder="Correo electrónico" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo" required email>
+              <mat-error *ngIf="correo.invalid && (correo.dirty || correo.touched) && correo.errors.required">
+                El correo electrónico es obligatorio.
+              </mat-error>
+              <mat-error *ngIf="correo.invalid && (correo.dirty || correo.touched) && correo.errors.email">
+                El correo debe ser válido.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field id="contraseña">
+              <input type="password" matInput placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password" required minlength="6">
+              <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.required">
+                La contraseña es obligatoria.
+              </mat-error>
+              <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.minlength">
+                La contraseña debe tener una longitud mínima de 6 caracteres.
+              </mat-error>
+            </mat-form-field>
             <div class="form-label-group">
               <a routerLink="/restablecer">¿Olvidaste tu contraseña?</a>
             </div>
-
           </div>
           <div class="card-body">
             <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" id="btniniciosesion" style="margin-top: -15px;">
               Iniciar Sesión</button>
           </div>
-
           <hr>
           <div class="card-body" id="footer-login">
             <div class="row">
-
               <div class="col col-lg-6 col-md-12 col-sm-12">
                 <label> Inicia Sesión con :</label>
                 <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i
@@ -62,7 +49,6 @@
               </div>
               <div class="col col-lg-6 col-md-12 col-sm-12">
                 <label style="text-align: right" style="margin-top: 5px;">¿Eres nuevo? <a routerLink="/registro">Registrate</a></label>
-
               </div>
             </div>
           </div>

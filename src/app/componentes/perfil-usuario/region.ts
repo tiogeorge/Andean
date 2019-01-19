@@ -1,4 +1,4 @@
-import {Provincia} from './provincia';
+import { Provincia } from './provincia';
 
 export class Region {
   

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFlashMessageService } from 'ng-flash-messages';
+import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
+import { Respuesta } from '../perfil-usuario/respuesta';
 import { Router } from '@angular/router';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { Usuario } from '../perfil-usuario/usuario';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 
@@ -13,39 +15,58 @@ import { UsuarioService } from '../perfil-usuario/usuario.service';
 })
 
 export class RegistroComponent implements OnInit {
-  usuarioService  : UsuarioService;
-  flashMessage    : NgFlashMessageService;
-  router          : Router;
 
-  constructor(usuarioService: UsuarioService, flashMessage: NgFlashMessageService, router: Router){
-    this.usuarioService = usuarioService;
-    this.flashMessage   = flashMessage;
-    this.router         = router;
-   }
+  constructor(public usuarioService: UsuarioService, public router: Router, public snackBar: MatSnackBar){}
 
   ngOnInit() {
+    this.usuarioService.getUsuarioLogeado().subscribe( res => {
+      const respuesta = res as Respuesta;
+      if(respuesta.status){
+        this.router.navigate(['/perfil-usuario']);
+      }
+    })
   }
 
+  /**
+   * Método que muestra un Bar temporal para confirmar los mensajes de éxito y de error
+   */
+  openSnackBar(status: boolean, mensaje: string): void {
+    var clase = status ? 'exito' : 'error';
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 1500,
+      panelClass: [clase],
+      data: mensaje
+    });
+  }
+
+  /**
+   * Método que guarda los datos de un nuevo cliente
+   * @param form : formulario con los datos del nuevo cliente
+   */
   registrar(form?: NgForm){
     // Campos requeridos
     if(!this.usuarioService.validarUsuario(form.value)){
-      this.flashMessage.showFlashMessage({messages: ['Por favor Complete los campos'], timeout: 5000, dismissible: true ,type: 'danger'});
+      this.openSnackBar(false, 'Por favor complete todos los datos requeridos');
       this.resetForm(form);
     }else{
       // Registro de Usuario
       this.usuarioService.registrarUsuario(form.value).subscribe(res => {
-        var jres = JSON.parse(JSON.stringify(res));
-        if(jres.status){
-          this.flashMessage.showFlashMessage({messages: [jres.msg], timeout: 5000, dismissible: true, type: 'success'});
+        const respuesta = res as Respuesta;
+        if(respuesta.status){
+          this.openSnackBar(respuesta.status, respuesta.msg);
           this.router.navigate(['/login']);
         } else {
-          this.flashMessage.showFlashMessage({messages: [jres.error], timeout: 5000,dismissible: true, type: 'danger'});
+          this.openSnackBar(respuesta.status, respuesta.error);
           this.resetForm(form)
         }
       });
    }
   }
 
+  /**
+   * Método que limpia los campos para almacenar a un nuevo cliente
+   * @param form : formulario de registro
+   */
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();

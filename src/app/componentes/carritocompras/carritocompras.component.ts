@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material';
 import { Region } from '../perfil-usuario/region';
 import { RegionService } from '../perfil-usuario/region.service';
 import { Respuesta } from '../perfil-usuario/respuesta';
+import { Router } from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
@@ -26,7 +27,7 @@ export class CarritocomprasComponent implements OnInit {
   subtotal: number = 0;
   envio: number = 0;
 
-  constructor(public usuarioService: UsuarioService, public articuloDetalleService: ArticuloDetalleService, public regionService: RegionService, public snackBar: MatSnackBar) {}
+  constructor(public usuarioService: UsuarioService, public articuloDetalleService: ArticuloDetalleService, public regionService: RegionService, public snackBar: MatSnackBar, public router: Router) {}
 
   ngOnInit() {
     this.responsivo(); // verificar la pantalla del dispositivo
@@ -121,6 +122,21 @@ export class CarritocomprasComponent implements OnInit {
       duration: 1500,
       panelClass: [clase],
       data: mensaje
+    });
+  }
+
+  /**
+   * Método que guarda el precio de envío y lo almacena en la sesión del usuario
+   */
+  procesarCompra(): void {
+    this.usuarioService.guardarCostoEnvio({envio: this.envio}).subscribe( res => {
+      const respuesta = res as Respuesta;
+      if(respuesta.status){
+        this.openSnackBar(respuesta.status, respuesta.msg);
+        this.router.navigate(['/pago']);
+      } else {
+        this.openSnackBar(respuesta.status, respuesta.error);
+      }
     });
   }
 

@@ -8,6 +8,7 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-mo
 import { Provincia } from './provincia';
 import { Region } from './region';
 import { RegionService } from './region.service';
+import { Respuesta } from './respuesta';
 import { Router } from '@angular/router';
 import { UsuarioService } from './usuario.service';
 
@@ -24,34 +25,24 @@ import { UsuarioService } from './usuario.service';
 
 export class PerfilUsuarioComponent implements OnInit {
   botonActualizar             : string;
-  direccionService            : DireccionService;
-  flashMessageService         : NgFlashMessageService;
   mostrarFormularioDireccion  : boolean = false;
   mostrarMensajeCliente       : boolean = false;
   mostrarMensajeDireccion     : boolean = false;
-  regionService               : RegionService;
-  router                      : Router;
   tiposDocumento              : string[];
   tiposVivienda               : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
-  usuarioService              : UsuarioService;
   url                         : string;
 
-  constructor( private adapter: DateAdapter<any>, direccionService: DireccionService, flashMessageService: NgFlashMessageService, regionService: RegionService,router: Router, usuarioService: UsuarioService) {
-    this.adapter.setLocale('es');
-    this.direccionService     = direccionService;
-    this.flashMessageService  = flashMessageService;   
-    this.regionService        = regionService;
-    this.router               = router;
+  constructor( public adapter: DateAdapter<any>, public direccionService: DireccionService, public flashMessageService: NgFlashMessageService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService) {
+    this.adapter.setLocale('es'); 
     this.tiposDocumento       = ['DNI'];
-    this.usuarioService       = usuarioService;
   }
 
   ngOnInit() {
     this.usuarioService.getUsuarioLogeado().subscribe( res => {
-      var jres = JSON.parse(JSON.stringify(res));
-      if(jres.status){      
-        this.usuarioService.usuarioSeleccionado = jres.data;
-        this.getDirecciones(jres.data._id);
+      const respuesta = res as Respuesta;
+      if(respuesta.status){      
+        this.usuarioService.usuarioSeleccionado = respuesta.data;
+        this.getDirecciones(respuesta.data._id);
       }else{
         this.router.navigate(['/']);
       }
@@ -59,42 +50,53 @@ export class PerfilUsuarioComponent implements OnInit {
     this.url = this.router.url;
   }
 
+  /**
+   * Método que actualiza los datos de un usuario
+   */
   actualizar(): void{
     this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res => {
-      var jres = JSON.parse(JSON.stringify(res));
+      const respuesta = res as Respuesta;
       this.mostrarMensajeCliente = true;
       this.mostrarMensajeDireccion = false;
-      jres.status ? this.mostrarMensaje(jres.msg,'success') : this.mostrarMensaje(jres.error, 'danger');
+      respuesta.status ? this.mostrarMensaje(respuesta.msg,'success') : this.mostrarMensaje(respuesta.error, 'danger');
     });
   }
 
+  /**
+   * Método que permite añadir una nueva dirección al cliente
+   * @param direccion : datos de la dirección
+   */
   agregarDireccion(direccion: Direccion){
     if(direccion._id){
       this.direccionService.actualizarDireccion(direccion).subscribe(res => {
-        var jres = JSON.parse(JSON.stringify(res));
+        const respuesta = res as Respuesta;
         this.mostrarMensajeCliente = false;
         this.mostrarMensajeDireccion = true;
-        if (jres.status){
+        if (respuesta.status){
           this.mostrarFormularioDireccion = false;
-          this.mostrarMensaje(jres.msg, 'success');
+          this.mostrarMensaje(respuesta.msg, 'success');
         }else {
-          this.mostrarMensaje(jres.error, 'danger');
+          this.mostrarMensaje(respuesta.error, 'danger');
         }
       })
     } else {
       this.direccionService.AgregarDireccion(direccion).subscribe(res => {
-        var jres = JSON.parse(JSON.stringify(res));
-        if( jres.status) {
+        const respuesta = res as Respuesta;
+        if( respuesta.status) {
           this.mostrarFormularioDireccion = false;
-          this.mostrarMensaje(jres.msg, 'success');
-          this.direccionService.direccion.push(jres.data as Direccion);
+          this.mostrarMensaje(respuesta.msg, 'success');
+          this.direccionService.direccion.push(respuesta.data as Direccion);
         }else{
-          this.mostrarMensaje(jres.error, 'danger');
+          this.mostrarMensaje(respuesta.error, 'danger');
         }
       })
     }
   }
 
+  /**
+   * Método que selecciona un departamento para la nueva dirección
+   * @param departamento : nombre de la dirección
+   */
   departamentoSelected(departamento: string){
     var i : number = 0;
     while(this.regionService.regiones[i].departamento != departamento){ i++; }
@@ -102,6 +104,10 @@ export class PerfilUsuarioComponent implements OnInit {
     this.regionService.provinciaSelected = new Provincia("",[]);
   }
 
+  /**
+   * Método que muestra las direcciones que tiene un cliente
+   * @param _id 
+   */
   getDirecciones(_id: string){
     this.direccionService.ListarDireccion(_id).subscribe( res => {
       this.direccionService.direccion = res as Direccion[];
@@ -109,12 +115,19 @@ export class PerfilUsuarioComponent implements OnInit {
     })
   }
 
+  /**
+   * Método que muestra las regiones existentes
+   */
   getRegiones(){
     this.regionService.getRegiones().subscribe(res => {
       this.regionService.regiones = res as Region[];
     })
   }
 
+  /**
+   * Método que muestra los campos para modificar una dirección existente
+   * @param direccion 
+   */
   mostrarDireccion(direccion: Direccion){
     this.botonActualizar = "Actualizar mi dirección";
     this.direccionService.selecDireccion = direccion;
@@ -127,22 +140,38 @@ export class PerfilUsuarioComponent implements OnInit {
     this.mostrarFormularioDireccion = true;
   }
 
+  /**
+   * Métod que muestra el formulario para agregar una dirección
+   */
   mostrarFormulario(){
     this.botonActualizar = "Agregar nueva dirección";
     this.direccionService.selecDireccion = new Direccion();
     this.mostrarFormularioDireccion = this.mostrarFormularioDireccion ? false : true;
   }
 
+  /**
+   * Método que muestra mensaje de confirmación
+   * @param mensaje : mensaje que se muestra en el mensaje flash
+   * @param tipo : tipo de mensaje, si es de éxito o error
+   */
   mostrarMensaje(mensaje: string, tipo: string): void {
     this.flashMessageService.showFlashMessage({messages: [mensaje], timeout: 5000, dismissible: true, type: tipo});
   }
 
+  /**
+   * Método que guarda la nueva dirección del cliente
+   * @param form : datos de la nueva dirección
+   */
   nuevadireccion(form?: NgForm){
     this.direccionService.selecDireccion.usuario = this.usuarioService.usuarioSeleccionado._id;
     this.agregarDireccion(this.direccionService.selecDireccion);
     this.direccionService.selecDireccion = new Direccion();
   }
 
+  /**
+   * Método que selecciona una provincia
+   * @param provincia : nombre de la provincia seleccionada
+   */
   provinciaSelected(provincia: string){
     var i : number = 0;
     while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){ i++; }

@@ -6,9 +6,9 @@ body{
 }
  
 .exito {
-    background-color: green;
+    background-color: #2ECC71;
 }
 
 .error {
-    background-color: red;
+    background-color: #E74C3C;
 }
