@@ -2,10 +2,12 @@
 .example-button-row a {
   margin-right: 8px;
 }
-.btnandean{
+
+.btnandean {
   background: linear-gradient(orange, #ff8c00);
   width: 100%;
 }
+
 .titulo {
   font-size: 1.25rem;
   text-align: center;
@@ -24,24 +26,27 @@
 .tituloPlan {
   font-size: .9rem;
 }
+
 .subtitulo {
-  display: inline-block; 
+  display: inline-block;
   width: 70%;
   font-size: 1.25rem;
   margin-bottom: 0rem;
 }
-.precioSubtitulo{
-  display: inline-block; 
-  width: 25%; 
+
+.precioSubtitulo {
+  display: inline-block;
+  width: 25%;
   text-align: right;
   font-size: 1.25rem;
   padding-right: 10px;
-  margin-bottom:  0rem;
+  margin-bottom: 0rem;
 }
+
 .sol {
   display: inline-block;
   width: 5%;
-  margin-bottom:  0rem;
+  margin-bottom: 0rem;
 }
 
 #contenedorarticuloscart {
@@ -50,13 +55,13 @@
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {  }
+@media (min-width: 576px) {}
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {  }
+@media (min-width: 768px) {}
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {  }
+@media (min-width: 992px) {}
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  }
+@media (min-width: 1200px) {}

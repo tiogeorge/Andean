@@ -210,15 +210,15 @@
                   <mat-radio-group class="container-fluid">
                     <div class="row">
                       <div class="col-lg-4">
-                        <mat-radio-button style="font-size: 13px" (click)="mostrarform(1)" value="1"><i class="material-icons">credit_card</i>Tarjeta
+                        <mat-radio-button style="font-size: 13px" (click)="mostrarform('1')" value="1"><i class="material-icons">credit_card</i>Tarjeta
                           de crédito o débito</mat-radio-button>
                       </div>
                       <div class="col-lg-4">
-                        <mat-radio-button style="font-size: 13px" (click)=" mostrarform(2)" value="2"><i class="material-icons">monetization_on</i>Pago
+                        <mat-radio-button style="font-size: 13px" (click)=" mostrarform('2')" value="2"><i class="material-icons">monetization_on</i>Pago
                           en efectivo</mat-radio-button>
-                      </div>  
+                      </div>
                       <div class="col-lg-4">
-                        <mat-radio-button style="font-size: 13px" (click)=" mostrarform(3)" value="3"><i class="material-icons">domain</i>Depósito
+                        <mat-radio-button style="font-size: 13px" (click)=" mostrarform('3')" value="3"><i class="material-icons">domain</i>Depósito
                           bancario</mat-radio-button>
                       </div>
                     </div>
@@ -291,7 +291,7 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
               <form #fomrguardarventa="ngForm" (ngSubmit)="guardarventa(fomrguardarventa)">
-                  <input type="hidden" name="_id2" #_id2="ngModel" [(ngModel)]="pagoservice.selectPago._id">
+                <input type="hidden" name="_id2" #_id2="ngModel" [(ngModel)]="pagoservice.selectPago._id">
                 <div class="card">
                   <div class="card-header"><label>Total</label></div>
                   <div class="card-body">

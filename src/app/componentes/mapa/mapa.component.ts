@@ -7,7 +7,7 @@ import { TiendaService } from './tienda.service';
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
-  private tiendaService     : TiendaService;
+  public tiendaService     : TiendaService;
   lat         : number = -13.5226402;
   lng         : number = -71.9673386;
 

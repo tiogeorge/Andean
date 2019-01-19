@@ -13,7 +13,6 @@ export class Articulo {
         this.imagenes = imagenes;
         this.descripcion = descripcion;
         this.garantias = garantias;
-
     }
   
     _id: string;
@@ -29,4 +28,5 @@ export class Articulo {
     imagenes: string[];
     descripcion: string;
     garantias: string[];
+    calificaciones: any;
   }
