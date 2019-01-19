@@ -1,22 +1,37 @@
 const Categoria = require('../models/categoria');
 const categoriaController = {};
 
+/**
+ * Método que obtiene todas las categorias
+ */
 categoriaController.obtenerCategorias = async( req, res)=>{
     const categorias = await Categoria.find();
     res.json(categorias);
 }
+
+/**
+ * Método que obtiene una categoria dado su identificador
+ */
 categoriaController.obtenerCategoria = async(req,res)=>{
     const categoria = await Categoria.find({
         _id: req.params.id
     });
     res.json(categoria);
 }
+
+/**
+ * Método que obtiene las subcategorias de una categoria
+ */
 categoriaController.obtenerSubCategorias= async(req,res)=>{
     const categorias = await Categoria.find({
         padre:req.params.id
     });
     res.json(categorias);
 }
+
+/**
+ * Método que crea una nueva categoría
+ */
 categoriaController.crearCategoria = async (req, res) => {
     try{
         const categoria = new Categoria(req.body);
@@ -31,10 +46,7 @@ categoriaController.crearCategoria = async (req, res) => {
                 estado:0,
                 mensaje:"ERROR: Complete todos los datos."
             });
-        }
-        
-        
-        
+        }    
     }catch(e){  
         res.json({  
             estado:0,
@@ -42,6 +54,10 @@ categoriaController.crearCategoria = async (req, res) => {
         });
     }
 };
+
+/**
+ * Método que actualiza una categoría
+ */
 categoriaController.actualizarCategoria = async(req,res)=>{
     try{
         const cat = {
@@ -64,10 +80,11 @@ categoriaController.actualizarCategoria = async(req,res)=>{
             
         });
     }
-
 }
 
-
+/**
+ * Método que elimina una categoría
+ */
 categoriaController.eliminarCategoria = async (req,res)=>{
     try{
         const categoriashijo = await Categoria.find({
@@ -94,6 +111,10 @@ categoriaController.eliminarCategoria = async (req,res)=>{
         });
     }
 }
+
+/**
+ * Método que lista categorias
+ */
 categoriaController.listarcategoria=async(req,res)=>{
     const categoriaart=await Categoria.find({"descripcion":{$regex:'.*'+req.params.descripcion+'.*',$options: 'i'}},'_id');
     res.json(categoriaart);

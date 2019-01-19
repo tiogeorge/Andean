@@ -1,6 +1,9 @@
 const Tienda = require('../models/tienda');
 const TiendaController = {};
 
+/**
+ * Método que actualiza los datos de una tienda
+ */
 TiendaController.putTienda = async (req, res, next) => {
   const tienda = {
     nombre    : req.body.nombre,
@@ -29,6 +32,9 @@ TiendaController.putTienda = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que permite crear una nueva tienda en Google Maps
+ */
 TiendaController.createTienda = async (req, res, next) => {
   const tienda = new Tienda({
     nombre    : req.body.nombre,
@@ -51,6 +57,9 @@ TiendaController.createTienda = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que elimina una tienda 
+ */
 TiendaController.deleteTienda = async (req, res, next) => {
   await Tienda.remove({_id:req.params.id}, function(err){
     if(err){
@@ -67,6 +76,9 @@ TiendaController.deleteTienda = async (req, res, next) => {
   })
 };
 
+/**
+ * Método que devuelve los datos de todas las tiendas
+ */
 TiendaController.getTiendas = async (req, res, next) => {
   await Tienda.find(function(err, tiendas){
     if(err){

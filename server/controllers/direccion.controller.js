@@ -1,6 +1,9 @@
 const Direccion = require('../models/direccion');
 const direccionController = {};
 
+/**
+ * Método que actualiza una direccion de un usuario
+ */
 direccionController.putDireccion = async (req, res, next) => {
   try {
     const direccion = {
@@ -39,6 +42,9 @@ direccionController.putDireccion = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que crea una nueva dirección para el usuario
+ */
 direccionController.createDireccion = async (req, res, next) => {
   try {
     const direccion = new Direccion(
@@ -76,6 +82,9 @@ direccionController.createDireccion = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que permite eliminar una dirección
+ */
 direccionController.deleteDireccion = async (req, res, next) => {
   try {
     await Direccion.remove({_id: req.params.id});
@@ -92,11 +101,17 @@ direccionController.deleteDireccion = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que obtiene todas las direcciones de un cliente
+ */
 direccionController.getDirecciones = async (req, res, next) => {
   const direcciones = await Direccion.find({usuario: req.params.id});
   res.json(direcciones);
 };
 
+/**
+ * Método que obtiene una dirección
+ */
 direccionController.getDireccion = async (req, res, next) => {
   const direccion = await Direccion.find({id: req.params._id});
   res.json(direccion);

@@ -112,7 +112,6 @@
     </mat-card>
     <mat-card id="datosPersonales" class="card-datos-personales">
       <mat-card-title>Datos Personales</mat-card-title>
-      <ng-flash-message [hidden]="!mostrarMensajeCliente"></ng-flash-message>
       <form #clienteForm="ngForm" class="datos-form" *ngIf="usuarioService.usuarioSeleccionado">
         <mat-card-content>
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
@@ -175,7 +174,6 @@
       <mat-card-title>Mis Direcciones de Envío</mat-card-title>
       <mat-card-content>
         <mat-list>
-          <ng-flash-message [hidden]="!mostrarMensajeDireccion"></ng-flash-message>
           <mat-list-item class="itemDireccion" *ngFor="let direccion of direccionService.direccion" (click)="mostrarDireccion(direccion)">
             <mat-icon mat-list-icon>home</mat-icon>
             <h4 mat-line>{{direccion.direccion}}</h4>

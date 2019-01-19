@@ -119,7 +119,7 @@ export class CarritocomprasComponent implements OnInit {
   openSnackBar(status: boolean, mensaje: string): void {
     var clase = status ? 'exito' : 'error';
     this.snackBar.openFromComponent(SnackbarComponent, {
-      duration: 1500,
+      duration: 3000,
       panelClass: [clase],
       data: mensaje
     });

@@ -1,6 +1,9 @@
 const Region = require('../models/region');
 const RegionController = {};
 
+/**
+ * Método que actualiza un departamento o región
+ */
 RegionController.putRegion = async (req, res, next) => {
   const region = {
     departamento: req.body.departamento,
@@ -27,6 +30,9 @@ RegionController.putRegion = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que crea una nueva región o departamento
+ */
 RegionController.createRegion = async (req, res, next) => {
   const region = new Region({
     departamento : req.body.departamento,
@@ -48,6 +54,9 @@ RegionController.createRegion = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que eliminar una región junto con sus provincias y distritos
+ */
 RegionController.deleteRegion = async (req, res, next) => {
   await Region.remove({_id:req.params.id}, function(err){
     if(err){
@@ -64,6 +73,9 @@ RegionController.deleteRegion = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que muestra todas las regiones 
+ */
 RegionController.getRegiones = async (req, res, next) => {
   const regiones = await Region.find().sort('departamento');
   res.json(regiones);

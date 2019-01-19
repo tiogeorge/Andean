@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Direccion } from '../pago/direccion';
 import { DireccionService } from '../pago/direccion.service';
+import { MatSnackBar } from '@angular/material';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -10,6 +11,7 @@ import { Region } from './region';
 import { RegionService } from './region.service';
 import { Respuesta } from './respuesta';
 import { Router } from '@angular/router';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { UsuarioService } from './usuario.service';
 
 @Component({
@@ -26,13 +28,11 @@ import { UsuarioService } from './usuario.service';
 export class PerfilUsuarioComponent implements OnInit {
   botonActualizar             : string;
   mostrarFormularioDireccion  : boolean = false;
-  mostrarMensajeCliente       : boolean = false;
-  mostrarMensajeDireccion     : boolean = false;
   tiposDocumento              : string[];
   tiposVivienda               : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
   url                         : string;
 
-  constructor( public adapter: DateAdapter<any>, public direccionService: DireccionService, public flashMessageService: NgFlashMessageService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService) {
+  constructor( public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar) {
     this.adapter.setLocale('es'); 
     this.tiposDocumento       = ['DNI'];
   }
@@ -56,9 +56,7 @@ export class PerfilUsuarioComponent implements OnInit {
   actualizar(): void{
     this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res => {
       const respuesta = res as Respuesta;
-      this.mostrarMensajeCliente = true;
-      this.mostrarMensajeDireccion = false;
-      respuesta.status ? this.mostrarMensaje(respuesta.msg,'success') : this.mostrarMensaje(respuesta.error, 'danger');
+      respuesta.status ? this.openSnackBar(respuesta.status, respuesta.msg) : this.openSnackBar(respuesta.status, respuesta.error);
     });
   }
 
@@ -70,13 +68,11 @@ export class PerfilUsuarioComponent implements OnInit {
     if(direccion._id){
       this.direccionService.actualizarDireccion(direccion).subscribe(res => {
         const respuesta = res as Respuesta;
-        this.mostrarMensajeCliente = false;
-        this.mostrarMensajeDireccion = true;
         if (respuesta.status){
           this.mostrarFormularioDireccion = false;
-          this.mostrarMensaje(respuesta.msg, 'success');
+          this.openSnackBar(respuesta.status, respuesta.msg);
         }else {
-          this.mostrarMensaje(respuesta.error, 'danger');
+          this.openSnackBar(respuesta.status, respuesta.error);
         }
       })
     } else {
@@ -84,10 +80,10 @@ export class PerfilUsuarioComponent implements OnInit {
         const respuesta = res as Respuesta;
         if( respuesta.status) {
           this.mostrarFormularioDireccion = false;
-          this.mostrarMensaje(respuesta.msg, 'success');
+          this.openSnackBar(respuesta.status, respuesta.msg);
           this.direccionService.direccion.push(respuesta.data as Direccion);
         }else{
-          this.mostrarMensaje(respuesta.error, 'danger');
+          this.openSnackBar(respuesta.status, respuesta.error);
         }
       })
     }
@@ -150,15 +146,6 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   /**
-   * Método que muestra mensaje de confirmación
-   * @param mensaje : mensaje que se muestra en el mensaje flash
-   * @param tipo : tipo de mensaje, si es de éxito o error
-   */
-  mostrarMensaje(mensaje: string, tipo: string): void {
-    this.flashMessageService.showFlashMessage({messages: [mensaje], timeout: 5000, dismissible: true, type: tipo});
-  }
-
-  /**
    * Método que guarda la nueva dirección del cliente
    * @param form : datos de la nueva dirección
    */
@@ -166,6 +153,18 @@ export class PerfilUsuarioComponent implements OnInit {
     this.direccionService.selecDireccion.usuario = this.usuarioService.usuarioSeleccionado._id;
     this.agregarDireccion(this.direccionService.selecDireccion);
     this.direccionService.selecDireccion = new Direccion();
+  }
+
+  /**
+   * Método que muestra un Bar temporal para confirmar los mensajes de éxito y de error
+   */
+  openSnackBar(status: boolean, mensaje: string): void {
+    var clase = status ? 'exito' : 'error';
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 3000,
+      panelClass: [clase],
+      data: mensaje
+    });
   }
 
   /**

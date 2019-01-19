@@ -1,6 +1,9 @@
 const Conversacion = require('../models/conversacion'),
   Mensaje = require('../models/mensaje');
 
+/**
+ * Método para administrador que obtiene los mensajes de una conversación de chat
+ */
 exports.getMensajes = async(req, res, next) =>{
   Mensaje.find({conversacionId: req.params.id}, function(err, mensajes){
     if(err){
@@ -18,6 +21,9 @@ exports.getMensajes = async(req, res, next) =>{
   });
 };
 
+/**
+ * Método para administrador que obtiene todas las conversaciones
+ */
 exports.getConversaciones = async (req, res, next) => {
   Conversacion.find(function(err, conversaciones){
     if(err){
@@ -38,6 +44,9 @@ exports.getConversaciones = async (req, res, next) => {
   }).sort('-createdAt');
 };
 
+/**
+ * Método en el que el cliente inicia una nueva conversación
+ */
 exports.nuevaConversacion = async (req, res, next) => {
   const conversacion = new Conversacion({
     nombreCliente : req.body.nombreCliente,
@@ -61,6 +70,9 @@ exports.nuevaConversacion = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que envia una respuesta a el otro cliente
+ */
 exports.enviarRespuesta = async (req, res, next) => {
   const respuesta = new Mensaje({
     conversacionId : req.params.conversacionId,
@@ -84,6 +96,9 @@ exports.enviarRespuesta = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que permite al administrador unirse a un chat de un cliente seleccionado
+ */
 exports.unirChat = async(req, res, next) => {
   await Conversacion.findOneAndUpdate(
     {_id : req.params.id}, 

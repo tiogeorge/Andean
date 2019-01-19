@@ -7,6 +7,9 @@ const jwt               = require('jsonwebtoken');
 const usuarioController = {};
 process.env.JWT_SECRET  = 'andeantechnology';
 
+/**
+ * Método que permite actualizar la información de un cliente
+ */
 usuarioController.actualizarUsuario = async (req, res, next) => {
   try {
     const user = {
@@ -45,6 +48,9 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que permite agregar un artículo al carrito de compras
+ */
 usuarioController.agregarArticulo = async (req, res, next) => {
   console.log(req.body);
   if(req.session.token){
@@ -141,6 +147,9 @@ usuarioController.agregarArticulo = async (req, res, next) => {
   } 
 };
 
+/**
+ * Método que permite crear un nuevo cliente
+ */
 usuarioController.crearUsuario = async (req, res, next) => {
   Usuario.findOne({correo: req.body.correo}, function(err, usuario){
     if(err){
@@ -188,6 +197,9 @@ usuarioController.crearUsuario = async (req, res, next) => {
   })
 };
 
+/**
+ * Método que permite eliminar un artículo del carrito de compras
+ */
 usuarioController.eliminarArticulo = async (req, res, next) => {
   if(req.session.token){
     await Usuario.findOne({
@@ -254,6 +266,9 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que elimina todos los artículos del carrito de compras
+ */
 usuarioController.eliminarTodoArticulos = async (req, res, next) => {
   console.log(req.session.articulos);
   if (req.session.token){
@@ -279,6 +294,9 @@ usuarioController.eliminarTodoArticulos = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que permite eliminar un usuario
+ */
 usuarioController.eliminarUsuario = async (req, res, next) => {
   await Usuario.remove({
     id: req.params.id
@@ -297,6 +315,9 @@ usuarioController.eliminarUsuario = async (req, res, next) => {
     });
 };
 
+/**
+ * Método que permite listar todos los usuarios existentes
+ */
 usuarioController.listarUsuarios = async (req, res, next) => {
   const usuarios = await Usuario.find(function(err, usuarios){
     if(err){
@@ -310,6 +331,9 @@ usuarioController.listarUsuarios = async (req, res, next) => {
   })
 };
 
+/**
+ * Método que permite iniciar sesión como administrador
+ */
 usuarioController.loginAdmin = async (req, res, next) => {
   req.getConnection(function (error, conn) {
     var consulta = "call spuPrin_IniciarSesionUsuario(?,?,?)";
@@ -342,6 +366,9 @@ usuarioController.loginAdmin = async (req, res, next) => {
   });
 };
 
+/**
+ * Método que permite iniciar sesión como cliente
+ */
 usuarioController.loginUsuario = async (req, res, next) => {
   Usuario.findOne({correo: req.body.correo}, function(err, usuario){
     if(err){
@@ -374,6 +401,9 @@ usuarioController.loginUsuario = async (req, res, next) => {
   })
 };
 
+/**
+ * Método que permite obtener los artículos y planes de un carrito de compras
+ */
 usuarioController.obtenerCarrito = async (req, res, next) => {
   if(req.session.token){
     usuario = await Usuario.findOne({token: req.session.token});
@@ -436,6 +466,9 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que permite obtner los datos de un elemento de un carrito
+ */
 usuarioController.obtenerArticuloCarrito = async(res, req) => {
   Articulo.findOne({url: req.body.url}, function(err, articulo) {
     if(err){
@@ -481,6 +514,9 @@ usuarioController.obtenerArticuloCarrito = async(res, req) => {
   });
 };
 
+/**
+ * Método que permite obtener los datos de un usuario
+ */
 usuarioController.obtenerUsuario = async (req, res, next) => {
   if(req.session.token){
     Usuario.findOne({ token: req.session.token }, function(err, usuario) {
@@ -511,11 +547,17 @@ usuarioController.obtenerUsuario = async (req, res, next) => {
   }
 };
 
+/**
+ * Método que obtiene un usuario por su identificador de base de datos
+ */
 usuarioController.usuarioid=async (req,res)=>{
   const usuario=await Usuario.findById(req.params.id);
   res.json(usuario);
 }
 
+/**
+ * Método que guarda el costo de envío en la sesión del cliente
+ */
 usuarioController.guardarEnvio = async(req, res) =>{
   req.session.envio = req.body.envio;
 }
