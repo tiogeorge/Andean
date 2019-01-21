@@ -97,9 +97,9 @@
                                   <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
       
                                 </div>
-                                <div style="width: 100%;">
+                              <!--  <div style="width: 100%;">
                                   <button class="btn btn-link" style="color: grey">Ver Detalle Plan</button>
-                                </div>
+                                </div>-->
                             
                             </mat-card-content>
                           </mat-card> 
@@ -110,13 +110,13 @@
                               
                                 <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
                                   <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
-                                  <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
-                                  <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(231, 151, 3); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
+                                  <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: #ff8c00; font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
+                                  <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: #ff8c00; font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
       
                                 </div>
-                                <div style="width: 100%;">
+                              <!--   <div style="width: 100%;">
                                   <button class="btn btn-link" style="color: rgb(36, 36, 39);">Ver Detalle Plan</button>
-                                </div>
+                                </div>-->
                             
                             </mat-card-content>
                           </mat-card>  
@@ -138,6 +138,11 @@
               <div  style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%; text-align: center;">S/ {{planSeleccionado.precio.toFixed(2)}}</div>      
           </div>
           <div class="detalle-precio-plan">
+              <div class="item-precio-plan">
+                  <div style="margin-right: 5px; font-size: 14px;">Plan: </div>     
+                  <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 14px; width: auto; text-align: center;">{{planSeleccionado.nombreplan}}</div>
+        
+              </div>
             <div class="item-precio-plan">
                 <div style="margin-right: 5px;">Precio del Plan: </div>     
                 <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.montomes.toFixed(2)}}</div>
@@ -151,7 +156,11 @@
             <div class="item-precio-plan">
               <div style="margin-right: 5px;">Pago Mensual : </div>     
               <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes+planSeleccionado.cuotamensual).toFixed(2)}}</div>
-          </div>
+            </div>
+            <div class="item-precio-plan">
+              <button class="btn-detalle-plan" (click)="abrirDetallesPlan()"> Ver Detalles </button>
+
+            </div>
               
           </div>
           <div>
@@ -169,7 +178,7 @@
       </div>
     </div>
     <div class="detalle-articulo">      
-        <mat-tab-group style="width: 100%;">
+        <mat-tab-group style="width: 100%;"(selectedTabChange)="buscarDetallesArticulo($event)">
           <mat-tab label="Detalles del Producto">
               <div class="card" style="width: 100%" >
                 <div class="card-body">
@@ -198,7 +207,7 @@
               </div>
               
           </mat-tab>
-          <mat-tab label="Calificacion">
+          <mat-tab label="Calificación">
             <mat-card class="card-calificaciones">
               <mat-card-title>Calificacion del producto</mat-card-title>
                 <mat-card-content>
@@ -251,16 +260,27 @@
                 </mat-card-content>
             </mat-card>
           </mat-tab>
-          <mat-tab label="Sobre la Marca">
+          <mat-tab label="Sobre la Marca" >
             
             <div class="card" style="width: 100%">
               <div class="card-body">
-                <img src="assets/images/logomarca.jpg" class="img-fluid mx-auto d-block" alt="" width="500px" height="250px">
-                <h5 class="card-title" style="text-align: center"> HUAWEI</h5>
+                <h5 class="card-title" style="text-align: center"> {{marca.nombremarca}}</h5>
+                <div><hr style="margin: 0px; padding: 0px;"></div>
+                <br>
+                <p>
+                  {{marca.descripcion}}
+                </p>
+                <div class="cont-img-marca">
+                  <img class="imagen-marca" src="{{articuloService.url_imagenes}}/tmp/{{marca.imagen}}" alt="" hspace="5" vspace="5" style="float: none;">
+
+                </div>
+                  
+
+
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Garantia">
+          <mat-tab label="Garantía">
             <div class="card" style="width: 100%" >
               <div class="card-body">
                 <h5 class="card-title"> Informacion de la garantia</h5>

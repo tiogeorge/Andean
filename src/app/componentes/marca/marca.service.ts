@@ -16,6 +16,9 @@ export class MarcaService {
     this.http=http;
    }
 
+   obtenerMarca(id:string){
+     return this.http.get(Constantes.URL_API_MARCA+"/mdb/"+id,{withCredentials: true})
+   }
    listarMarcas(id:string){
     return this.http.get(Constantes.URL_API_MARCA+`/marc/` + id, {withCredentials: true});
    }

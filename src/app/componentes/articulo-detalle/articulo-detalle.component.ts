@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { DialogoCarritoComponent } from "./dialogo-carrito/dialogo-carrito.component";
 import { Calificacion } from './calificacion';
+import { MarcaService} from '../marca/marca.service';
+import { Marca } from '../marca/marca';
 @Component({
   selector: 'app-articulo-detalle',
   templateUrl: './articulo-detalle.component.html',
@@ -21,6 +23,9 @@ export class ArticuloDetalleComponent implements OnInit {
   URL_IMAGENES          : string  = Constantes.URL_API_IMAGEN;
   habilitarBotonCarrito : boolean = true;
   categoria             : Categoria;
+  marcaService          : MarcaService;
+  marca                 : Marca = new Marca();
+  
 
   //Precios
   tipoLineaSeleccionada : string = "PREPAGO";
@@ -46,6 +51,7 @@ export class ArticuloDetalleComponent implements OnInit {
   listacuotasSeleccionadas: any[] = new Array();
   cx=0;
   cy=0;
+  cargoMarca=false;
 
   planSeleccionado = {
     nombreplan:"",
@@ -57,10 +63,11 @@ export class ArticuloDetalleComponent implements OnInit {
   };
   //Lista de precios segun el filtro seleccionado
   listPreciosFiltro: any[] = new Array();
-  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService) { 
+  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService, marcaService: MarcaService) { 
     this.articuloService  = articuloService;
     this.categoriaService = categoriaService;
     this.usuarioService   = usuarioService;
+    this.marcaService = marcaService;
   }
 
   ngOnInit() {
@@ -81,6 +88,7 @@ export class ArticuloDetalleComponent implements OnInit {
     this.controlCuotas = true;
     this.controlTipoPlan = true;
     this.controlLineas = false;
+    
     
   }
   
@@ -214,6 +222,7 @@ export class ArticuloDetalleComponent implements OnInit {
       this.ocultarZoom = false;   
       var imagen = document.getElementById("imagen-seleccionada") as HTMLImageElement;
       result.style.backgroundImage = "url('" + imagen.src + "')";  
+      result.style.backgroundSize = (imagen.width * 2.5) + "px " + (imagen.height * 2.5) + "px";
         
       
     }else{
@@ -294,6 +303,18 @@ export class ArticuloDetalleComponent implements OnInit {
       var imagenzoom = document.getElementById("imagezoommobile") as HTMLImageElement;
       imagenzoom.src = imageseleccionada.src;      
       document.getElementById("btnzoommobile").click();
+    }
+  }
+  buscarDetallesArticulo(e){
+    if(e.tab.textLabel=="Sobre la Marca"){
+      if(!this.cargoMarca){
+        this.marcaService.obtenerMarca(this.articuloService.articuloSeleccionado.marca)
+        .subscribe(res=>{
+          this.marca = res as Marca;
+          this.cargoMarca = true;
+        });
+      }
+      
     }
   }
 

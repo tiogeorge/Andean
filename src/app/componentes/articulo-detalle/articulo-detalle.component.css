@@ -81,7 +81,7 @@
     width: 60%;
     height: 300px;
     min-height: 150px;
-    border: 1px solid rgb(70, 71, 78);
+    border: 1px solid rgb(154, 154, 160);
     box-sizing: border-box;
     display: flex;
     position: relative;
@@ -93,7 +93,7 @@
     width: 65px;
     height: 65px;
     padding: 5px;
-    border: 1px solid rgb(122, 119, 119);    
+    border: 1px solid rgb(179, 178, 178);    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,7 +123,7 @@
     margin: 5px;
     width: 400px;
     height: 400px;
-    border: 1px solid black;
+    border: 1px solid rgb(211, 206, 206);
     z-index: 1000;
     overflow: hidden;
     box-sizing: border-box;
@@ -151,6 +151,17 @@
     width: 40px;
     height: 40px;
     border-radius: 20px;
+}
+.btn-detalle-plan{
+    font-size: 15px;
+    border-radius: 10px;
+    color: rgb(226, 147, 0);
+    background-color: rgba(128, 128, 128, 0);
+    border: 0px solid rgb(62, 62, 63);
+    font-weight: bold;    
+}
+.btn-detalle-plan:hover{
+    cursor: pointer;
 }
 /*--------------------------------------*/
 /* PARA INFORMACION DEL ARTICULO*/
@@ -274,21 +285,24 @@
 }
 .card-planes{
     width: 170px;
-    height: 160px;
-    border: 1px solid #cecccb7c; 
-    border-radius: 3px; 
+    height: 125px;
+    border: 1px solid #1817177c; 
+    border-radius: 10px; 
     transition: 0.2s;
     margin-left: 8px;
     margin-right: 8px;
+    box-shadow: 0 0px 0px rgba(51, 51, 51, 0);
 }
 .card-planes-seleccionado{
     width: 170px;
-    height: 160px;
-    border: 1px solid orange; 
-    border-radius: 3px; 
+    height: 125px;
+    border: 1.2px solid #ff8c00;
+    border-radius: 10px; 
     transition: 0.2s;
     margin-left: 8px;
     margin-right: 8px;
+    box-shadow: 0 0px 0px rgba(51, 51, 51, 0);
+    padding: 12px !important;
 }
 .card-planes-seleccionado:hover{
     transform: scale(1.1);
@@ -410,6 +424,16 @@
     display: flex;
     flex-direction: row;
     width: auto;
+    align-items: center;
+    justify-content: center;
+}
+.imagen-marca{
+    height: 250px;
+    width: auto;
+}
+.cont-img-marca{
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
