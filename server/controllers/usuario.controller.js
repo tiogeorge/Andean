@@ -1,6 +1,7 @@
 const Articulo          = require('../models/articulo');
 const Precio            = require('../models/equipos');
 const Usuario           = require('../models/usuario');
+const NodeMailer        = require('nodemailer');
 const bcrypt            = require('bcrypt');
 const salt              = bcrypt.genSaltSync();
 const jwt               = require('jsonwebtoken');
@@ -560,6 +561,69 @@ usuarioController.usuarioid=async (req,res)=>{
  */
 usuarioController.guardarEnvio = async(req, res) =>{
   req.session.envio = req.body.envio;
+}
+
+/**
+ * Método que permite recuperar la contraseña mediante un correo electrónico
+ */
+usuarioController.recuperarContraseña = async(req, res) => {
+  var transporter = NodeMailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'zapata.gabriel.avi', 
+        pass: '' 
+    }
+  });
+  Usuario.findOne({correo: req.body.email}, function(err, usuario){
+    console.log('Correo encontrado');
+    if(err){
+      res.json({
+        status: false,
+        error: 'El usuario no está registrado'
+      });
+    } else {
+      const mailOptions = {
+        from: `”El Tío George” <tioGeorge@gmail.com>`,
+        to: req.body.email, // Cambia esta parte por el destinatario
+        subject: req.body.asunto,
+        html: `
+        <h3>Recuperación de Contraseña</h3>
+      <p>Hola ${usuario.nombres} ${usuario.apellidos} ,<strong> el Tío George</strong> se compadece de tu mala memoria y te da la clave para que recuperes tu contraseña. </p>
+      <a href="https://latiendadeltiogeorge.herokuapp.com/cambiarPassword/${usuario.token}">Este link tambien es valido</a>
+      <p>Atentatemente: <strong>El Tío George</strong></p>
+      `
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err){
+        res.json({
+          status: false,
+          error: 'Ocurrió un error al enviar el mensaje. ' + err
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'El enlace para recuperar su contraseña ha sido enviado a su correo'
+        });
+      }
+    });
+    }
+  });   
+}
+
+usuarioController.cambiarPassword = async(req, res) => {
+  Usuario.findOneAndUpdate({token: req.body.token}, {$set : {password: req.body.password}}, function(err, usuario){
+    if(err){
+      res.json({
+        status: false,
+        error: 'Se produjo un error al cambiar la contraseña. ' + err
+      });
+    } else {
+      res.json({
+        status: true,
+        msg: 'Su contraseña ha sido cambiada con éxito'
+      });
+    }
+  });
 }
 
 module.exports = usuarioController;

@@ -3,26 +3,20 @@
       <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
           <div class="card card-signin my-5">
               <form class="form-signin"  method="post">
-                  <div class="card-body">
-                  
+                  <div class="card-body">       
                     <img id="btn-back" src="assets/images/back.png" alt="" routerLink="/login" style="">
                       <h5 class="card-title text-center" style="margin-top: -25px;"><i class="fas fa-undo"></i> Restablecer Contraseña </h5>
                       <hr>
                       <div class="form-label-group">
-                          <label class="etiqueta">Ingrese su correo electronico para restablecer su contraseña: </label>
-                      </div>
-                      
+                          <label class="etiqueta">Ingrese su correo electrónico para restablecer su contraseña: </label>
+                      </div>        
                       <div class="form-label-group">
-                          <input type="email" placeholder="Ingrese Correo Electronico" type="password" name="password" id="password" class="form-control" required>
-                          
-                      </div>
-                      
-                      
+                          <input type="email" #email placeholder="Ingrese Correo Electronico" name="email" class="form-control" required>               
+                      </div>                  
                   </div>
                   <div class="card-body">
-                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit" id="btniniciosesion" style="margin-top: -15px;"> Continuar</button>
-                  </div>
-                  
+                      <button class="btn btn-lg btn-secondary btn-block text-uppercase" id="btniniciosesion" style="margin-top: -15px;" (click)="recuperarPassword(email.value)"> Continuar</button>
+                  </div>            
               </form>
           </div>
       </div>

@@ -7,12 +7,14 @@ router.post('/', usuario.crearUsuario);
 router.post('/login', usuario.loginUsuario);
 router.post('/adminLogin', usuario.loginAdmin);
 router.post('/envio', usuario.guardarEnvio);
+router.post('/recuperar', usuario.recuperarContraseña);
 router.get('/', usuario.listarUsuarios);
 router.get('/user/:id',usuario.usuarioid);
-router.put('/:id',usuario.actualizarUsuario);
 router.get('/carrito', usuario.obtenerCarrito);
-router.put('/carrito/:url', usuario.agregarArticulo);
 router.get('/cliente',usuario.obtenerUsuario);
+router.put('/cambiar', usuario.cambiarPassword);
+router.put('/carrito/:url', usuario.agregarArticulo);
+router.put('/:id',usuario.actualizarUsuario);
 router.delete('/carrito', usuario.eliminarTodoArticulos);
 router.delete('/carrito/:url',usuario.eliminarArticulo);
 

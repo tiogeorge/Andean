@@ -13,7 +13,8 @@ const usuarioSchema = new Schema({
   sexo: { type: String },
   fechaNacimiento: { type: Date },
   token: { type: String },
-  carrito: {type: [{url: String, tipoLinea: String, tipoPlan: String, nombrePlan: String, cuotas: String}], default: []}
+  carrito: {type: [{url: String, tipoLinea: String, tipoPlan: String, nombrePlan: String, cuotas: String}], default: []},
+  clave: { type: String}
 });
 usuarioSchema.indexes({
   correo: 1

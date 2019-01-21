@@ -32,6 +32,7 @@ import { AgmCoreModule } from '@agm/core';
 import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SnackbarComponent } from './componentes/snackbar/snackbar.component';
+import { CambiarPasswordComponent } from './componentes/restablecer/cambiar-password/cambiar-password.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -47,7 +48,8 @@ const routes : Route[] = [
   {path: 'terminos', component: TerminosComponent},
   {path: 'perfil-usuario', component: PerfilUsuarioComponent},
   {path: 'pago', component: PagoComponent},
-  {path: 'compararEqui',component:CompararEquiposComponent}
+  {path: 'compararEqui',component:CompararEquiposComponent},
+  {path: 'cambiarPassword/:token', component: CambiarPasswordComponent}
 ];
 
 @NgModule({
@@ -74,7 +76,8 @@ const routes : Route[] = [
     CompararEquiposComponent,
     MapaComponent,
     DialogoCarritoComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    CambiarPasswordComponent
   ],
   imports: [
     BrowserModule,
