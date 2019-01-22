@@ -1,6 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { MensajeService } from '../mensaje.service';
 import { Respuesta } from '../../perfil-usuario/respuesta';
@@ -20,11 +19,9 @@ export class CambiarPasswordComponent implements OnInit {
   }
 
   /**
-   * Método para cambiar la contraseña de un usuario
-   * @param form 
+   * Método para cambiar la contraseña del cliente
    */
   cambiarPassword(newPassword: string, repeatPassword: string){
-    console.log(newPassword);
     if(newPassword != repeatPassword){
       this.openSnackBar(false, 'La contraseña no coincide en los campos anteriores');
     } else {

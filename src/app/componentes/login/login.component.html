@@ -3,11 +3,12 @@
     <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
       <div class="card card-signin my-5">
         <form #loginForm="ngForm" class="form-signin" method="post" (ngSubmit)="login(loginForm)">
-          <div class="card-body">        
+          <div class="card-body">
             <h5 class="card-title text-center"><i class="fas fa-key"></i> Iniciar Sesión</h5>
             <hr>
             <mat-form-field id="correo">
-              <input type="email" matInput placeholder="Correo electrónico" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo" required email>
+              <input type="email" matInput placeholder="Correo electrónico" name="correo" #correo="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.correo"
+                required email>
               <mat-error *ngIf="correo.invalid && (correo.dirty || correo.touched) && correo.errors.required">
                 El correo electrónico es obligatorio.
               </mat-error>
@@ -16,7 +17,8 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field id="contraseña">
-              <input type="password" matInput placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password" required minlength="6">
+              <input type="password" matInput placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.password"
+                required minlength="6">
               <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.required">
                 La contraseña es obligatoria.
               </mat-error>

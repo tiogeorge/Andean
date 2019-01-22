@@ -111,7 +111,7 @@
       </mat-card-content>
     </mat-card>
     <mat-card id="datosPersonales" class="card-datos-personales">
-      <mat-card-title>Datos Personales</mat-card-title>
+      <mat-card-title>Mis Datos Personales</mat-card-title>
       <form #clienteForm="ngForm" class="datos-form" *ngIf="usuarioService.usuarioSeleccionado">
         <mat-card-content>
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
@@ -162,7 +162,7 @@
             <mat-datepicker-toggle matSuffix [for]="fechaAfiliacion"></mat-datepicker-toggle>
             <mat-datepicker #fechaAfiliacion></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Promociones:
+          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en mi correo.
           </mat-checkbox>
         </mat-card-content>
         <mat-card-actions>
@@ -187,13 +187,13 @@
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
           <mat-form-field id="departamento" class="campo-form">
             <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento"
-              (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
+              (selectionChange)="regionService.setDepartamentoSelected($event.value)" placeholder="Departamento">
               <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field id="provincia" class="campo-form">
             <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"
-              (selectionChange)="provinciaSelected($event.value)" placeholder="Provincia">
+              (selectionChange)="regionService.setProvinciaSelected($event.value)" placeholder="Provincia">
               <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">{{prov.provincia}}</mat-option>
             </mat-select>
           </mat-form-field>

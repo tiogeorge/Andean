@@ -32,7 +32,7 @@ export class PerfilUsuarioComponent implements OnInit {
   tiposVivienda               : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
   url                         : string;
 
-  constructor( public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar) {
+  constructor(public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar) {
     this.adapter.setLocale('es'); 
     this.tiposDocumento       = ['DNI'];
   }
@@ -90,17 +90,6 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   /**
-   * Método que selecciona un departamento para la nueva dirección
-   * @param departamento : nombre de la dirección
-   */
-  departamentoSelected(departamento: string){
-    var i : number = 0;
-    while(this.regionService.regiones[i].departamento != departamento){ i++; }
-    this.regionService.departamentoSelected = this.regionService.regiones[i];
-    this.regionService.provinciaSelected = new Provincia("",[]);
-  }
-
-  /**
    * Método que muestra las direcciones que tiene un cliente
    * @param _id 
    */
@@ -125,7 +114,7 @@ export class PerfilUsuarioComponent implements OnInit {
    * @param direccion 
    */
   mostrarDireccion(direccion: Direccion){
-    this.botonActualizar = "Actualizar mi dirección";
+    this.botonActualizar = "ACTUALIZAR MI DIRECCIÓN";
     this.direccionService.selecDireccion = direccion;
     var i = 0;
     while(this.regionService.regiones[i].departamento != this.direccionService.selecDireccion.departamento){ i ++}
@@ -140,7 +129,7 @@ export class PerfilUsuarioComponent implements OnInit {
    * Métod que muestra el formulario para agregar una dirección
    */
   mostrarFormulario(){
-    this.botonActualizar = "Agregar nueva dirección";
+    this.botonActualizar = "AGREGAR UNA NUEVA DIRECCIÓN";
     this.direccionService.selecDireccion = new Direccion();
     this.mostrarFormularioDireccion = this.mostrarFormularioDireccion ? false : true;
   }
@@ -165,16 +154,6 @@ export class PerfilUsuarioComponent implements OnInit {
       panelClass: [clase],
       data: mensaje
     });
-  }
-
-  /**
-   * Método que selecciona una provincia
-   * @param provincia : nombre de la provincia seleccionada
-   */
-  provinciaSelected(provincia: string){
-    var i : number = 0;
-    while(this.regionService.departamentoSelected.provincias[i].provincia != provincia){ i++; }
-    this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
 
 }

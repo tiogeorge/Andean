@@ -11,12 +11,12 @@ caracteristicaController.createCaracteristica = async(req, res) => {
   });
   caracteristica.save(function(err){
     if(err){
-      res.json({
+      res.status(500).json({
         status: false,
         error: "Error al crear esta característica: " + err
       });
     } else {
-      res.json({
+      res.status(200).json({
         status: true,
         msg: "Característica creada con éxito."
       });
@@ -27,19 +27,20 @@ caracteristicaController.createCaracteristica = async(req, res) => {
 /**
  * Método que elimina una característica
  */
-caracteristicaController.deleteCaracteristica = async(req, res, next) => {
-  try {
-    await Caracteristica.remove({_id: req.params.id});
-    res.json({
-      status: true,
-      msg: "La característica ha sido eliminada."
-    })
-  } catch (e){
-    res.json({
-      status: false,
-      error: "Se produjo un error al eliminar la característica: " + e
-    })
-  }
+caracteristicaController.deleteCaracteristica = async(req, res) => {
+  Caracteristica.remove({_id: req.params.id}, function(err){
+    if(err){
+      res.status(500).json({
+        status: false,
+        error: "Se produjo un error al eliminar la característica: " + err
+      })
+    } else {
+      res.status(200).json({
+        status: true,
+        msg: "La característica ha sido eliminada."
+      })
+    }
+  })
 }
 
 /**
@@ -50,23 +51,28 @@ caracteristicaController.getCaracteristica = async(req,res)=>{
   Categoria.find({
       id:req.params.id
   }, function(err, caracteristica){
-    res.json(caracteristica);
+    if(err){
+      res.status(500).json(null);
+    }else {
+      res.status(200).json(caracteristica);
+    } 
   });
 }
 
 /**
  * Métod que obtiene todas las característica de la base de datos
  */
-caracteristicaController.getCaracteristicas = async(req, res, next) => {
+caracteristicaController.getCaracteristicas = async(req, res) => {
   Caracteristica.find(function(err, caracteristicas){
-    res.json(caracteristicas);
+    if(err) res.status(500).json(null);
+    else res.status(200).json(caracteristicas);
   });
 }
 
 /**
  * Método que actualiza una característica
  */
-caracteristicaController.putCaracteristica = async(req, res, next) => {
+caracteristicaController.putCaracteristica = async(req, res) => {
   const caracteristica = {
     nombre : req.body.nombre,
     medida : req.body.medida
@@ -79,12 +85,12 @@ caracteristicaController.putCaracteristica = async(req, res, next) => {
     new: false
   }, function(err, car){
     if(err){
-      res.json({
+      res.status(500).json({
         status: false,
         error: "Error al actualizar la característica: " +  err
       })
     } else {
-      res.json({
+      res.status(200).json({
         status: true,
         msg: "La características ha sido actualizada"
       });

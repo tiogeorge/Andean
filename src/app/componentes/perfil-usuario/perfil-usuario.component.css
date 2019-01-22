@@ -1,14 +1,16 @@
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
-.card-perfil, .card-datos-personales, .card-direcciones {
+.card-perfil,
+.card-datos-personales,
+.card-direcciones {
   margin: 5px 5px;
 }
 
 .card-perfil {
-    width: 100%;
+  width: 100%;
 }
 
 .datos-form {
@@ -16,7 +18,7 @@ a {
 }
 
 .itemDireccion :hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .menuLateral {
@@ -53,48 +55,69 @@ a {
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
+
+  mat-card-title {
+    text-align: center;
+  }
+
   .menuLateral {
     display: inline;
   }
 
   #botonActualizar {
-      position: absolute;
-      right: 1rem;
-      bottom: 1rem;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
   }
 
   #nombres,
   #apellidos,
   #tipoDocumento,
-  #numeroDocumento, #correo, #sexo, #fechaNacimiento, #fechaAfiliacion, #telefono {
+  #numeroDocumento,
+  #correo,
+  #sexo,
+  #fechaNacimiento,
+  #fechaAfiliacion,
+  #telefono {
     width: 50%;
+    padding: .25rem;
   }
 
-  #departamento, #provincia, #distrito {
-      width: 33%;
+  #sexo {
+    font-size: 12px;
+  }
+
+  #departamento,
+  #provincia,
+  #distrito {
+    width: 33%;
   }
 
   #tipolocal {
-      width: 30%;
+    width: 30%;
   }
+
   #referencia {
     width: 70%;
+  }
+  #departamento, #provincia, #distrito, #tipolocal, #referencia, #direccion {
+    padding: 0px .25rem;
   }
 }
 
 /* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-
-}
+@media (min-width: 992px) {}
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
-    #perfil-usuario {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .card-datos-personales, .card-direcciones {
-        width: 48%;
-    }
+  #perfil-usuario {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-datos-personales,
+  .card-direcciones {
+    width: 48%;
+  }
 }

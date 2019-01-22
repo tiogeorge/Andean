@@ -561,6 +561,10 @@ usuarioController.usuarioid=async (req,res)=>{
  */
 usuarioController.guardarEnvio = async(req, res) =>{
   req.session.envio = req.body.envio;
+  res.status(200).json({
+    status: true,
+    msg: 'Listos para procesar la compra'
+  });
 }
 
 /**

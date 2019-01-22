@@ -2,7 +2,7 @@
    No media query for `xs` since this is the default in Bootstrap*/
 footer {
   width: 100%;
-  background: #202020;
+  background: hsl(0, 0%, 13%);
   color: white;
 }
 

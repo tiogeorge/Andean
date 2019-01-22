@@ -7,9 +7,9 @@ import { Router} from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
 import { SesionService } from '../perfil-usuario/sesion.service';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -20,23 +20,17 @@ import {map, startWith} from 'rxjs/operators';
 export class MenuComponent implements OnInit {
   artbus:ArticulosbusquedaComponent;
   pclave2:string;
-  categoriaService    : CategoriaService;
   estaLogeado         : boolean = false;
   nombre_tienda       : string  = 'Andean Store';
-  router              : Router;
   urlImg              : string = Constantes.URL_IMAGEN;
   urlImagen           : string = "https://via.placeholder.com/400x300";
-
   //auto completado
   myControl = new FormControl();
   options: string[] = ['Celulares', 'Smartphone'];
   filteredOptions: Observable<string[]>;
   //fin auto completado
 
-  constructor(categoriaService: CategoriaService, router: Router, private servicioapoyo:ServicioapoyoService, public sesionService : SesionService) {
-    this.categoriaService     = categoriaService;
-    this.router               = router; 
-  }
+  constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService) {}
 
   ngOnInit() {
   //  this.actualizarcomponente();

@@ -1,52 +1,58 @@
-#footer-login{
-    margin-top: -20px;
+#footer-login {
+  margin-top: -20px;
 }
-#boton-facebook{
-    align-items: center;
-    background-color:#4267b2;
-    color: white; 
+
+#boton-facebook {
+  align-items: center;
+  background-color: #4267b2;
+  color: white;
 }
-#boton-google{
-    background-color:#b1301f;
-    color: white; 
+
+#boton-google {
+  background-color: #b1301f;
+  color: white;
 }
-#boton-twitter{
-    background-color:#099bdf;
-    color: white; 
+
+#boton-twitter {
+  background-color: #099bdf;
+  color: white;
 }
-#btniniciosesion{
-    background: orange linear-gradient(orange,#ff8c00);
+
+#btniniciosesion {
+  background: orange linear-gradient(orange, #ff8c00);
 }
 
 .btn-circle {
-    width: 30px;
-    height: 30px;
-    padding: 6px 0px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-    margin: 3px;
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+  margin: 3px;
 }
-.form-control:focus {
-    border-color:orange !important;
-    box-shadow: 0 0 5px rgb(235, 134, 41) !important;
-  }
 
-  /* Extra small devices (portrait phones, less than 576px) */
-  
-  /* Small devices (landscape phones, 576px and up) */
-  @media (min-width: 576px) {  }
-  
-  /* Medium devices (tablets, 768px and up) */
-  @media (min-width: 768px) {  }
-  
-  /* Large devices (desktops, 992px and up) */
-  @media (min-width: 992px) {  }
-  
-  /* Extra large devices (large desktops, 1200px and up) */
-  @media (min-width: 1200px) {
-      #correo, #contraseña {
-          width: 100%;
-      }
-  }
+.form-control:focus {
+  border-color: orange !important;
+  box-shadow: 0 0 5px rgb(235, 134, 41) !important;
+}
+
+#correo,
+#contraseña {
+  width: 100%;
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}
