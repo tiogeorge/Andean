@@ -242,10 +242,15 @@ precioController.listarplanesequipo=async(req,res)=>{
 
 }*/
 precioController.getListaPrecios=async(req,res)=>{
-  
+  const equipos = await Equipo.find().select('nombreequipo');
+  res.json(equipos);
 }
 precioController.getPlanes=async(req,res)=>{
   const planes = await Plan.find();
+  res.json(planes);
+}
+precioController.getPreciosEquipo= async(req,res)=>{
+  const planes =await Equipo.find({nombreequipo: req.params.id}).select('planes');
   res.json(planes);
 }
 

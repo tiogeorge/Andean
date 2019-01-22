@@ -17,6 +17,7 @@ var upload = multer({storage: storage});
 
 router.get('/', precio.getListaPrecios);
 //router.get('/planes',precio.getPlanesEquipos);
+router.get('/planesequipo/:id', precio.getPreciosEquipo);
 router.get('/planesequipo/:id/:linea/:tipoplan/:cuotas',precio.getPlanesEquipo);
 router.get('/planeq/:nombre',precio.listarplanesequipo);
 router.get('/plan', precio.getPlanes);
