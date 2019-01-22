@@ -1,18 +1,9 @@
 const Equipo = require('../models/equipos');
-const Linea = require('../models/linea');//TEMP
-const Tipoplan = require('../models/tipoplan');
 const precioController = {};
 const XLSX= require('xlsx');
+const Plan = require('../models/plan');
 
-precioController.getPrecio= async(req,res)=>{
-  const tipoplanes = await Tipoplan.find();
-  res.json(tipoplanes);
-}
 
-precioController.getPlanesEquipos = async(req, res)=>{
-  const precios = await Linea.find();
-  res.json(precios);
-}
 precioController.getPlanesEquipo = async(req,res)=>{
   var id = req.params.id;
   var tipoLinea = req.params.linea;
@@ -106,6 +97,15 @@ precioController.subirExcel=async(req,res)=>{
               await Equipo.update({nombreequipo:nombreEquipo},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan, cuotas:plan.cuotas }}});          
             }
             await Equipo.findOneAndUpdate({nombreequipo:nombreEquipo},{$push: {planes:plan}},{ new: true });
+            const plan2= new Plan({
+              nombreplan: plan.nombreplan,
+              detalle:""
+            });
+            //Agregar plan si no existe
+            const existePlan2 = await Plan.countDocuments({nombreplan:plan2.nombreplan});
+            if(existePlan2 == 0){
+              await plan2.save();
+            }
           }          
         }
         console.log(nombreEquipo);
@@ -156,6 +156,16 @@ precioController.subirExcel=async(req,res)=>{
               await Equipo.update({nombreequipo:jsonHoja[fila][colequipo]},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan, cuotas: plan.cuotas}}});          
            }
           await Equipo.findOneAndUpdate({nombreequipo:jsonHoja[fila][colequipo]},{$push: {planes:plan}},{ new: true });
+          const plan2= new Plan({
+            nombreplan: plan.nombreplan,
+            detalle:""
+          });
+          //Agregar plan si no existe
+          const existePlan2 = await Plan.countDocuments({nombreplan:plan2.nombreplan});
+          if(existePlan2 == 0){
+            await plan2.save();
+          }
+
         }
         
       }else{// POSTPAGO
@@ -200,7 +210,15 @@ precioController.subirExcel=async(req,res)=>{
                   await Equipo.update({nombreequipo:jsonHoja[fila][colequipo]},{$pull: {planes:{tipolinea: plan.tipolinea,tipoplan: plan.tipoplan,nombreplan:plan.nombreplan, cuotas:plan.cuotas}}});          
               }
               await Equipo.findOneAndUpdate({nombreequipo:jsonHoja[fila][colequipo]},{$push: {planes:plan}});
-              
+              const plan2= new Plan({
+                nombreplan: plan.nombreplan,
+                detalle:""
+              });
+              //Agregar plan si no existe
+              const existePlan2 = await Plan.countDocuments({nombreplan:plan2.nombreplan});
+              if(existePlan2 == 0){
+                await plan2.save();
+              }
             }
           }
           console.log(jsonHoja[fila][colequipo]);        
@@ -214,27 +232,6 @@ precioController.subirExcel=async(req,res)=>{
   });  
 }
 
-precioController.actualizarPlan=async(req,res)=>{  
-  await Tipoplan.findOneAndUpdate({tipo:req.params.id, "planes.nombreplan":req.body.nombreplan},{$set: {"planes.$":req.body}},{ new: true });
-  res.json({
-    estado:1,
-    mensaje:"Se actualizaron los datos correctamente"
-  });
-}
-
-precioController.eliminarPlan=async(req,res)=>{
-  console.log(req.body);
-  console.log(req.params.id)
-  const updateplan = {
-    descripcion: req.body.descripcion,
-    nombreplan: req.body.nombreplan
-  }
-  await Tipoplan.findOneAndUpdate({tipo:req.params.id},{$pull:{planes:{nombreplan: req.body.nombreplan}}});
-  res.json({
-    estado:1,
-    mensaje:"Se elimino los datos correctamente"
-  });
-}
 precioController.listarplanesequipo=async(req,res)=>{
   const precioeq=await Equipo.find({
     nombreequipo:req.params.nombre,
@@ -244,6 +241,31 @@ precioController.listarplanesequipo=async(req,res)=>{
 /*subirPreciosPrepago = ()=>{
 
 }*/
+precioController.getListaPrecios=async(req,res)=>{
+  
+}
+precioController.getPlanes=async(req,res)=>{
+  const planes = await Plan.find();
+  res.json(planes);
+}
+
+precioController.actualizarPlan= async(req,res)=>{
+  console.log("ESTA ENTRANDO A ACTUALIZAR PLAN");
+  await Plan.findOneAndUpdate({_id:req.params.id},{$set:{detalle:req.body.detalle}});
+  res.json({
+    estado:1,
+    mensaje:"Se actulizo los datos correctamente"
+  });
+}
+precioController.eliminarPlan= async(req,res)=>{
+  var id = req.params.id;
+  await Plan.findOneAndDelete({_id:id});
+  res.json({
+    estado:1,
+    mensaje:"Se elimino los datos correctamente"
+  });
+}
+
 
 
 module.exports = precioController;
