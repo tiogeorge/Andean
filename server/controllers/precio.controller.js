@@ -270,6 +270,10 @@ precioController.eliminarPlan= async(req,res)=>{
     mensaje:"Se elimino los datos correctamente"
   });
 }
+precioController.getDetallePlan = async(req,res)=>{
+  const detalle = await Plan.find({nombreplan: req.params.id}).select('detalle');
+  res.json(detalle);
+}
 
 
 

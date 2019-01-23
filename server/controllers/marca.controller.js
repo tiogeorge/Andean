@@ -9,11 +9,9 @@ marcacontroller.obtenerMarcaMysql = async( req, res)=>{
                 console.log(err);
             }else{
                 res.json(results);
-            } 
-            
+            }             
         });
-    });
-    
+    });    
 }
 
 marcacontroller.obtenerMarcas= async (req, res) =>{

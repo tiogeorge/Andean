@@ -89,6 +89,9 @@
     justify-content: center;
     margin: 5px;
 }
+.cont-img-select:hover{
+    cursor: none;
+}
 .item-imagen{
     width: 65px;
     height: 65px;

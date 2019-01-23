@@ -49,6 +49,7 @@ export class ArticuloDetalleComponent implements OnInit {
   listatipoplanes: any[];
   listacuotas: any[];
   listacuotasSeleccionadas: any[] = new Array();
+  listaDetallePlan: any[] = new Array();
   cx=0;
   cy=0;
   cargoMarca=false;
@@ -116,6 +117,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
   seleccionarPlan(plan){
     this.planSeleccionado = plan;
+    this.listaDetallePlan = new Array();
     console.log(this.planSeleccionado)
   }
 
@@ -316,6 +318,14 @@ export class ArticuloDetalleComponent implements OnInit {
       }
       
     }
+  }
+  abrirDetallesPlan(){
+    this.articuloService.getDetallePlan(this.planSeleccionado.nombreplan)
+    .subscribe(res=>{
+      console.log(res);
+      this.listaDetallePlan = res[0].detalle.split('\n');
+      console.log(this.listaDetallePlan);
+    });
   }
 
   openDialog(res: any) : void {

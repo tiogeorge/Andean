@@ -29,6 +29,9 @@ export class ArticuloDetalleService {
   getPreciosArticulo(nombreequipo: string,linea:string,tipoplan:string,cuotas:string){
     return this.http.get(Constantes.URL_API_PLANES +'/planesequipo/'+nombreequipo +'/'+linea+'/'+tipoplan+'/'+cuotas, {withCredentials: true});
   }
+  getDetallePlan(nombre: string){
+    return this.http.get(Constantes.URL_API_PLANES+"/plan/"+nombre, {withCredentials: true});
+  }
 
   listarArticulos(palabraclave:string,linea:string,tipo:string,cuota:string) {
      //return this.http.get(Constantes.URL_API_ARTICULO+`/mongo/`);
