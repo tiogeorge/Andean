@@ -18,7 +18,6 @@ import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articul
 import { ArticuloComponent } from './componentes/articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgFlashMessagesModule } from 'ng-flash-messages';
 import { CarritocomprasComponent } from './componentes/carritocompras/carritocompras.component';
 import { TerminosComponent } from './componentes/terminos/terminos.component';
 import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
@@ -85,7 +84,6 @@ const routes : Route[] = [
     FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    NgFlashMessagesModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
     MomentDateModule,

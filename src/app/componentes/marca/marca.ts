@@ -12,4 +12,5 @@ export class Marca {
     nombre:string;
     descripcion:string;
     imagen:string;
+    nombremarca: string;
 }

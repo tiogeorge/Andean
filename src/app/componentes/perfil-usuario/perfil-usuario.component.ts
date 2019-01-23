@@ -3,10 +3,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material
 import { Direccion } from '../pago/direccion';
 import { DireccionService } from '../pago/direccion.service';
 import { MatSnackBar } from '@angular/material';
-import { NgFlashMessageService } from 'ng-flash-messages';
 import { NgForm } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { Provincia } from './provincia';
 import { Region } from './region';
 import { RegionService } from './region.service';
 import { Respuesta } from './respuesta';
