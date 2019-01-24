@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TiendaService } from './tienda.service';
 
 @Component({
@@ -7,13 +7,10 @@ import { TiendaService } from './tienda.service';
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
-  public tiendaService     : TiendaService;
   lat         : number = -13.5226402;
   lng         : number = -71.9673386;
 
-  constructor(tiendaService: TiendaService) {
-    this.tiendaService = tiendaService;
-   }
+  constructor(public tiendaService: TiendaService) { }
 
   ngOnInit() {
     this.tiendaService.getTiendas().subscribe(res => {
@@ -22,7 +19,6 @@ export class MapaComponent implements OnInit {
         this.tiendaService.tiendas = jres.data;
       } 
     });
-    console.log('Hola desde el mapa');
   }
 
 }

@@ -27,7 +27,6 @@ import { ChatComponent } from './componentes/chat/chat.component';
 import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
 import { CompararEquiposComponent } from './componentes/comparar-equipos/comparar-equipos.component';
 import { MapaComponent } from './componentes/mapa/mapa.component';
-import { AgmCoreModule } from '@agm/core';
 import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SnackbarComponent } from './componentes/snackbar/snackbar.component';
@@ -88,7 +87,6 @@ const routes : Route[] = [
     HttpClientModule,
     MomentDateModule,
     MatMomentDateModule,
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyBdQR9bsblCqFPBmv7L8Yy2uAgsazSXtaM' }),
     Ng5SliderModule
   ],
   entryComponents: [
