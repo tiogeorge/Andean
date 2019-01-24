@@ -195,7 +195,7 @@
                   <mat-card class="example-card " style="size: 100px;height: 380px;" *ngIf="articulo.precioplan != 'no tiene'">
                     <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
                       <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;" id="{{articulo._id}}"
-                        src="{{articulodetalleService.url_imagenes}}/tmp/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}">
+                        src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}">
                     </a>
                     <br>
                     <mat-card-title style="height: 20;">

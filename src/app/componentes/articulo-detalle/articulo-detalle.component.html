@@ -10,7 +10,7 @@
       <div class="contenidor-imagenes">        
         <div class="cont-items-img-small">              
           <div class="item-imagen"*ngFor="let imagen of articuloService.articuloSeleccionado.imagenes"  (mouseover)="cambiar_imagen(imagen)">
-            <img class="img-item" src="{{articuloService.url_imagenes}}/tmp/{{imagen}}" alt="">
+            <img class="img-item" src="{{articuloService.url_imagenes_sm}}/{{imagen}}" alt="">
           </div>
         </div>        
         <div class="cont-img-select"  id="imagen-origen" (mouseover)="mouse_over()" (mouseout)="mouse_out()" (mousemove)="mouse_move($event)">   

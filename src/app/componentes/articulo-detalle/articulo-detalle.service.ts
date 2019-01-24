@@ -12,6 +12,8 @@ export class ArticuloDetalleService {
   Articulo: Articulo[];
   articuloSeleccionado: Articulo = new Articulo();
   url_imagenes = Constantes.URL_IMAGEN;
+  url_imagenes_md = Constantes.URL_IMAGEN_MD;
+  url_imagenes_sm = Constantes.URL_IMAGEN_SM;
   categoria : Categoria;
 
   constructor(http: HttpClient) {

@@ -20,8 +20,8 @@ const imageCompressorRun = (input, output, plugins) => {
     return imagemin(input, output, { plugins });
 }
 const compressorPluginsLG = [
-    mozjpeg({ speed: 1, quality: '60' }),
-    pngquant({ speed: 1, quality: '60' })
+    mozjpeg({ speed: 3, quality: '80' }),
+    pngquant({ speed: 3, quality: '80' })
 ];
 const compressorPluginsMD = [
     mozjpeg({ speed: 3, quality: '40' }),
@@ -37,13 +37,13 @@ const imagenController = {};
 
 
 imagenController.subirImagen = function (req,res){
-    console.log(req.file);
+    console.log(req.file.originalname);
     
     //Comprimir imagen
     //imageCompressorRun([`${input}/*.{jpg,jpeg,png}`], output, compressorPlugins)
     imageCompressorRun([input+"/"+req.file.originalname], output_lg, compressorPluginsLG)
     .then(()=>{
-       jimp.read(output_lg+"/"+req.file.originalname, function(err, image){
+       jimp.read(input+"/"+req.file.originalname, function(err, image){
         if(err){
             console.log("NO SE GENERO IMAGENES");
             res.json({
@@ -52,7 +52,7 @@ imagenController.subirImagen = function (req,res){
             });
         }else{
             // Tamaño meadiano
-            image.resize(jimp.AUTO, 200)
+            image.resize(jimp.AUTO, 250)
             .quality(100)
             .write(output_md+"/"+req.file.originalname);
             // Tamaño pequeño
