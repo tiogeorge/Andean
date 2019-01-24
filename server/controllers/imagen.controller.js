@@ -1,7 +1,7 @@
 const imagen = require('../models/imagen');
 const express = require('express');
 const fs = require('fs');
-
+const jimp = require('jimp');
 //SDependencia para la compresion de la imagen
 const imagemin = require('imagemin');
 const pngquant = require('imagemin-pngquant');
@@ -43,17 +43,29 @@ imagenController.subirImagen = function (req,res){
     //imageCompressorRun([`${input}/*.{jpg,jpeg,png}`], output, compressorPlugins)
     imageCompressorRun([input+"/"+req.file.originalname], output_lg, compressorPluginsLG)
     .then(()=>{
-        imageCompressorRun([input+"/"+req.file.originalname], output_md, compressorPluginsMD)
-        .then(()=>{
-            imageCompressorRun([input+"/"+req.file.originalname], output_sm, compressorPluginsSM)
-            .then(()=>{
-                console.log("Imagenes comprimidas");
-                res.json({
-                    estado:1,
-                    mensaje:"Se comprimio la imagen correctamente"
-                });
+       jimp.read(output_lg+"/"+req.file.originalname, function(err, image){
+        if(err){
+            console.log("NO SE GENERO IMAGENES");
+            res.json({
+                estado:0,
+                mensaje:"No se puedo completar le procesamiento de la imagen"
             });
-        });
+        }else{
+            // Tamaño meadiano
+            image.resize(jimp.AUTO, 200)
+            .quality(100)
+            .write(output_md+"/"+req.file.originalname);
+            // Tamaño pequeño
+            image.resize(jimp.AUTO, 65)
+            .quality(100)
+            .write(output_sm+"/"+req.file.originalname);
+            
+            res.json({
+                estado:1,
+                mensaje:"Exito"
+            });
+        }
+       });  
     });
 
 }
