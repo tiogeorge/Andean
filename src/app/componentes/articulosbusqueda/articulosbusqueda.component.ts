@@ -152,9 +152,9 @@ export class ArticulosbusquedaComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
     this.subscription = this.servicioapoyo.getPalabraClave()
     .subscribe(clave=>{
-      this.palabraClave = clave;
-      console.log("LLEGO DEL MENU :"+this.palabraClave.clave);
-      this.listaraarticulos(this.palabraClave.clave)
+      this.palabraClave = clave.clave;
+      console.log("LLEGO DEL MENU :"+this.palabraClave);
+      this.listaraarticulos(this.palabraClave)
     })
   }
 
@@ -176,6 +176,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     var url = this.route.snapshot.paramMap.get("pclave");
     this.listaraarticulos(url);
     this.palabrabusq = url;
+    this.palabraClave = url;
     //this. vistanoencontrado();
 
   }
