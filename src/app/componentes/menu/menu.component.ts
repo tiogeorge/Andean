@@ -91,7 +91,9 @@ export class MenuComponent implements OnInit {
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
      this.router.navigateByUrl('busqueda/'+this.pclave2);
-     this.actualizarcomponente(this.pclave2);
+     this.enviarPalabraClave();
+     //this.actualizarcomponente(this.pclave2);
+     
      //html routerLink="/busqueda/{{pclave2}}"
      /* var input=document.getElementById('buscar2input') as HTMLInputElement;
       this.actualizarcomponente();
@@ -113,8 +115,10 @@ export class MenuComponent implements OnInit {
       //location.reload();
      /* this.actualizarcomponente();
       var input=document.getElementById('buscar2input') as HTMLInputElement;*/
-      this.actualizarcomponente(this.pclave2);
-      //this.router.navigate(['busqueda/'+this.pclave2]);
+      
+      // this.actualizarcomponente(this.pclave2);
+      
+      this.router.navigate(['busqueda/'+this.pclave2]);
       //alert('busqueda/'+this.pclave2);
 //      this.router.navigateByUrl('busqueda/'+this.pclave2);
     }
@@ -124,5 +128,11 @@ export class MenuComponent implements OnInit {
   }
   public actualizarcomponente(dat:string){
     this.servicioapoyo.actualizarpag(dat);
+  }
+  public enviarPalabraClave(){
+    this.servicioapoyo.enviarPalabraClave(this.pclave2);
+  }
+  public limpiarMensaje(){
+    this.servicioapoyo.limpiarMensaje();
   }
 }

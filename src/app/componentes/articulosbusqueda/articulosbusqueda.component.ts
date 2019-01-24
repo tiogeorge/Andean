@@ -16,6 +16,7 @@ import { Options, ChangeContext, PointerType } from 'ng5-slider';
 import { filter } from 'rxjs/operators';
 import { DataRowOutlet } from '@angular/cdk/table';
 import { IfStmt } from '@angular/compiler';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -145,7 +146,16 @@ export class ArticulosbusquedaComponent implements OnInit {
   private _tickInterval = 1;
   //fin slider
 
+  palabraClave: any;
+  subscription: Subscription;
+
   constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
+    this.subscription = this.servicioapoyo.getPalabraClave()
+    .subscribe(clave=>{
+      this.palabraClave = clave;
+      console.log("LLEGO DEL MENU :"+this.palabraClave.clave);
+      this.listaraarticulos(this.palabraClave.clave)
+    })
   }
 
   ngOnInit() {
@@ -168,6 +178,9 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.palabrabusq = url;
     //this. vistanoencontrado();
 
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
   openSnackBar() {
     var message = 'Cargando';
@@ -264,7 +277,9 @@ export class ArticulosbusquedaComponent implements OnInit {
     //Resul=this.listaarticulos(datobusq);
   }
   listaraarticulos(pclave: string) {
-
+    document.getElementById('contenedorbusqueda').hidden = false;
+    document.getElementById('noencontrado').hidden = true;
+    this.articuloslista = new Array();
     this.articulodetalleService.listarArticulos(pclave, this.linea, this.tipo, this.cuota)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
