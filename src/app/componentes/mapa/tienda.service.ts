@@ -17,19 +17,19 @@ export class TiendaService {
     this.tienda = new Tienda();
   }
 
-  postTienda(tienda: Tienda): Observable<Tienda>{
+  postTienda(tienda: Tienda): Observable<any>{
     return this.http.post<Tienda>(this.URL, tienda, {withCredentials: true}).pipe(
       catchError(this.manejarError<Tienda>('postTienda'))
     );
   }
 
-  getTiendas() : Observable<Tienda[]>{
+  getTiendas() : Observable<any>{
     return this.http.get<Tienda[]>(this.URL, {withCredentials: true}).pipe(
       catchError(this.manejarError('getTiendas',[]))
     );
   }
 
-  putTienda(tienda: Tienda): Observable<Tienda>{
+  putTienda(tienda: Tienda): Observable<any>{
     return this.http.put<Tienda>(this.URL + `/${tienda._id}`, tienda ,{withCredentials: true}).pipe(
       catchError(this.manejarError<any>('putTienda'))
     );
