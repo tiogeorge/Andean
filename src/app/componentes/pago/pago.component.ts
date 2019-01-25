@@ -65,7 +65,7 @@ export interface temdoc {
   providers: [{
     provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
   }, DireccionService, PagoService],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 
 export class PagoComponent implements OnInit {
