@@ -32,26 +32,23 @@ export interface Tipolocalenvio {
 }
 
 export interface temarti {
-  idarticulo: String,
-  titulo: String,
-  url: String,
-  categoria: String,
-  marca: String,
-  cantidad: String,
-  idprecio: String,
-  especificaciones: String,
-  caracteristicas: String,
-  imagenes: String,
-  descripcion: String,
-  garantias: String,
-  cuotainicial: String,
-  cuotamensual: String,
-  cuotas: String,
-  montomes: String,
-  nombreplan: String,
-  precio: String,
-  tipolinea: String,
-  tipoplan: String,
+  _id: string,
+  idarticulo:string;
+  titulo: string,
+  url: string,
+  categoria: string,
+  marca: string,
+  cantidad: string,
+  idprecio: string,
+  imagenes: any[],
+  cuotainicial: string,
+  cuotamensual: string,
+  cuotas: string,
+  montomes: string,
+  nombreplan: string,
+  precio: string,
+  tipolinea: string,
+  tipoplan: string,
 }
 export interface temdoc {
   Tipo: String,
@@ -71,7 +68,9 @@ export interface temdoc {
 export class PagoComponent implements OnInit {
   listaCarrito: any[];
   listaArticulos: Articulo[] = [];
+  tempoarti: Articulo[] = [];
   listaPlanArticulo: any[] = [];
+ // listaArticulos2: temarti[] = [];
   listaArticulos2: any[] = [];
   mostrarArticulos: boolean = true;
   sinProductos: boolean = false;
@@ -81,6 +80,7 @@ export class PagoComponent implements OnInit {
   regionService: RegionService;
   router: Router;
   user: string = '';
+  correoclient:string='';
   listdirecciones: string[];
   localselec: string = 'Casa';
   RespuestaDir: any;
@@ -217,8 +217,11 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
+      console.log('arreglo articulos');
       console.log(this.listaArticulos);
+      console.log('arreglo planes');
       console.log(this.listaPlanArticulo);
+      console.log('arreglo carrito');
       console.log(this.listaCarrito);
       //   console.log(this.listaArticulos2);
       this.sumarprecios();
@@ -253,7 +256,10 @@ export class PagoComponent implements OnInit {
         this.usuario = jres.data as Usuario;
         console.log(this.usuario._id);
         this.user = this.usuario._id;
-        console.log(this.user);
+        this.correoclient=this.usuario.correo;
+        console.log('usuario');
+        console.log(this.usuario);
+        console.log('fin usuario');
         this.direccionService.selecDireccion.usuario = this.usuario._id;
         this.ListarDireccion(this.usuario._id.toString());
         this.regionService.getRegiones().subscribe(res => {
@@ -317,9 +323,21 @@ export class PagoComponent implements OnInit {
   ];
   */
   insertaraarregloart() {
+ //   this.tempoarti=this.listaArticulos;
+ //   console.log('_id:'+this.tempoarti[0]._id);
     this.listaArticulos2 = this.listaArticulos;
     for (var i = 0; i < this.listaArticulos.length; i++) {
       // this.listaArticulos2[i].push(this.listaPlanArticulo[i]);
+   /*   console.log(this.tempoarti[i]._id)
+      this.listaArticulos2[i]._id=this.tempoarti[i]._id;
+      this.listaArticulos2[i].imagenes=this.tempoarti[i].imagenes;
+      this.listaArticulos2[i].idarticulo=this.tempoarti[i].idarticulo;
+      this.listaArticulos2[i].titulo=this.tempoarti[i].titulo;
+      this.listaArticulos2[i].url=this.tempoarti[i].url;
+      this.listaArticulos2[i].categoria=this.tempoarti[i].categoria;
+      this.listaArticulos2[i].idprecio=this.tempoarti[i].idprecio;
+      this.listaArticulos2[i].marca=this.tempoarti[i].marca;
+      this.listaArticulos2[i].cantidad=this.tempoarti[i].cantidad.toString();*/
       this.listaArticulos2[i].cuotainicial = this.listaPlanArticulo[i].cuotainicial;
       this.listaArticulos2[i].cuotamensual = this.listaPlanArticulo[i].cuotamensual;
       this.listaArticulos2[i].cuotas = this.listaPlanArticulo[i].cuotas;
@@ -331,6 +349,7 @@ export class PagoComponent implements OnInit {
 
 
     }
+    console.log('lista de articulo del carrito');
     console.log(this.listaArticulos2);
   }
   //
@@ -431,6 +450,7 @@ export class PagoComponent implements OnInit {
   guardarventa(form: NgForm) {
     // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
     this.pagoservice.selectPago.idUsuario = this.user;
+    this.pagoservice.selectPago.Correocliente=this.correoclient;
     //console.log(this.Arti);
     //this.pagoservice.selectPago.Articulo.push(this.Arti[0]);
     this.pagoservice.selectPago.Articulo = this.listaArticulos2;
@@ -439,12 +459,12 @@ export class PagoComponent implements OnInit {
     this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
     this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
     this.pagoservice.selectPago.FechaEnvio = new Date(2019, 1, 18);
-    this.pagoservice.selectPago.FechaEntrega = new Date(209, 1, 22);
+    this.pagoservice.selectPago.FechaEntrega = new Date(2019, 1, 22);
     this.pagoservice.selectPago.PrecioTotal = this.preciototal;
     this.pagoservice.selectPago.NroTransaccion = '2323232';
     this.pagoservice.selectPago.Documento = this.Documento;
     this.pagoservice.selectPago.idVendedor = 'ROOT';
-
+    console.log(this.pagoservice.selectPago.FechaEntrega);
     this.pagoservice.GuardarPago(this.pagoservice.selectPago)
       .subscribe(res => {
         console.log(res);

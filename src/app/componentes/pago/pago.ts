@@ -1,5 +1,6 @@
 import { Articulo } from './../articulo-detalle/articulo';
 export interface temarti {
+    _id:String,
     idarticulo: String,
     titulo: String,
     url: String,
@@ -7,11 +8,7 @@ export interface temarti {
     marca: String,
     cantidad: String,
     idprecio: String,
-    especificaciones: String,
-    caracteristicas: String,
-    imagenes: String,
-    descripcion: String,
-    garantias: String,
+    imagenes: any[],
     cuotainicial: String,
     cuotamensual: String,
     cuotas: String,
@@ -29,9 +26,10 @@ export interface temdoc {
 
 export class Pago {
 
-    constructor(_id = null, idUsuario = '', Articulo = null, FechaCompra = new Date(), EstadoPago = '', idDireccion = '', idTipoPago = '', Mensaje = '', EstadoEnvio = '', FechaEnvio = new Date(), FechaEntrega = new Date(), PrecioTotal = '', NroTransaccion = '', Documento = null, idVendedor = '') {
+    constructor(_id = null, idUsuario = '',Correocliente='', Articulo = null, FechaCompra = new Date(), EstadoPago = '', idDireccion = '', idTipoPago = '', Mensaje = '', EstadoEnvio = '', FechaEnvio = new Date(), FechaEntrega = new Date(), PrecioTotal = '', NroTransaccion = '', Documento = null, idVendedor = '') {
         this._id = _id;
         this.idUsuario = idUsuario;
+        this.Correocliente=Correocliente;
         this.Articulo = Articulo;
         this.FechaCompra = FechaCompra;
         this.EstadoPago = EstadoPago;
@@ -47,8 +45,8 @@ export class Pago {
         this.idVendedor = idVendedor;
     }
     _id: string;
-    idCarrito: string;
     idUsuario: string;
+    Correocliente:string;
     Articulo: temarti[];
    // Articulo:string;
     FechaCompra: Date;

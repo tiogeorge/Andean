@@ -28,7 +28,7 @@ pagoController.GuardarPago = async (req, res) => {
 
 pagoController.listarpedidos = async (req, res) => {
     //const correoclient;
-/*    db.pagos.aggregate({
+    /*const pet= await Pago.aggregate({
         $lookup:
         {
             from: "usuarios",
@@ -36,9 +36,9 @@ pagoController.listarpedidos = async (req, res) => {
             foreignField: "_id",
             as: "datosclient"
         }
-    })*/
+    })
+    console.log(pet);*/
     const pedidos = await Pago.find();
-    console.log(pedidos);
     res.json(pedidos);
 }
 

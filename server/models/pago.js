@@ -2,7 +2,9 @@ const mongoose= require('mongoose');
 const {Schema}=mongoose;
 
 const pagoSchema= new Schema({
+   // _id:{type:String,required:true},
     idUsuario:{type:String,required:true},
+    Correocliente:{type:String,required:true},
     Articulo:[{
         idarticulo:{type: String},
         titulo:{type: String},
