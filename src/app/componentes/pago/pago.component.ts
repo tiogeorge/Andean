@@ -12,6 +12,7 @@ import { RegionService } from '../perfil-usuario/region.service';
 import { PagoService } from './pago.service';
 import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
 import { Articulo } from '../articulo-detalle/articulo';
+import { MatSnackBar } from '@angular/material';
 import { Pago } from './pago';
 import { from } from 'rxjs';
 
@@ -197,7 +198,7 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService, articuloDetalleService: ArticuloDetalleService) {
+  constructor(public snackBar: MatSnackBar,public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService, articuloDetalleService: ArticuloDetalleService) {
     this.articuloDetalleService = articuloDetalleService;
     this.usuarioService = usuarioService;
     this.router = router;
@@ -468,6 +469,14 @@ export class PagoComponent implements OnInit {
     this.pagoservice.GuardarPago(this.pagoservice.selectPago)
       .subscribe(res => {
         console.log(res);
+        if(res='ok'){
+          this.snackBar.open('Venta Realizada', '🧓🏻', {
+            duration: 2000,
+          });
+        }
+        else{
+
+        }
       });
   }
 

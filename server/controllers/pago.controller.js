@@ -11,7 +11,7 @@ pagoController.GuardarPago = async (req, res) => {
         if (pago) {
             await pago.save();
             res.json({
-                mensaje: "Se guardo el pago"
+                mensaje: "ok"
             });
         }
         else {
