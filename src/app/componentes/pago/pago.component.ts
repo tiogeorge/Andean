@@ -13,6 +13,8 @@ import { PagoService } from './pago.service';
 import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
 import { Articulo } from '../articulo-detalle/articulo';
 import { MatSnackBar } from '@angular/material';
+import { Constantes } from './../constantes';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Pago } from './pago';
 import { from } from 'rxjs';
 
@@ -67,6 +69,12 @@ export interface temdoc {
 })
 
 export class PagoComponent implements OnInit {
+  //expansion panel
+  panelOpenState = false;
+  //fin panel
+  //img
+  url_imagenes_md = Constantes.URL_IMAGEN_MD;
+  //fin img
   listaCarrito: any[];
   listaArticulos: Articulo[] = [];
   tempoarti: Articulo[] = [];
@@ -481,3 +489,7 @@ export class PagoComponent implements OnInit {
   }
 
 }
+
+//tabla material
+
+//fin tabla

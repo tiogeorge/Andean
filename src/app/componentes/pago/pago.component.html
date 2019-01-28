@@ -299,7 +299,7 @@
                     <p>Monto de envio: s/.{{montoenvio}}</p>
                     <p>Total a pagar: s/.{{preciototal}}</p>
                   </div>
-               <!--   <div class="card-header">
+                  <!--   <div class="card-header">
                     <p>Fecha de entrega</p>
                     <mat-form-field>
                       <input matInput [matDatepicker]="picker" placeholder="Choose a date">
@@ -308,11 +308,54 @@
                     </mat-form-field>
                   </div>-->
                   <div class="card-body">
-                    <p>Producto</p>
+                    <p>Articulos</p>
                     <!--tabla material-->
-                    <div>
-                      
-                    </div>
+                    <mat-accordion>
+                      <mat-expansion-panel *ngFor="let artiped of listaArticulos">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            {{artiped.titulo}}
+                          </mat-panel-title>
+                         <!-- <mat-panel-description>
+                            {{artiped.precio}}
+                          </mat-panel-description>-->
+                        </mat-expansion-panel-header>
+                        <table class="table" *ngIf="artiped.tipolinea=='PREPAGO'" >
+                            <tr>
+                              <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
+                                  src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}" alt="{{artiped.imagenes[0]}}"> </td>
+                              <td>Linea:</td>
+                              <td>{{artiped.tipolinea}}</td>
+                              <td>Plan:</td>
+                              <td>{{artiped.nombreplan}}</td>
+                            </tr>
+                            <tr>
+                              <td>Precio:</td>
+                              <td>{{artiped.precio}}</td>
+                            </tr>
+                          </table>
+                        <table class="table" *ngIf="artiped.tipolinea=='POSTPAGO'">
+                          <tr>
+                            <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
+                                src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}" alt="{{artiped.imagenes[0]}}"> </td>
+                            <td>Linea:</td>
+                            <td>{{artiped.tipolinea}}</td>
+                            <td>Plan:</td>
+                            <td>{{artiped.nombreplan}}</td>
+                          </tr>
+                          <tr>
+                              <td>Cuota inicial:</td>
+                              <td>{{artiped.cuotainicial}}</td>
+                              <td>Cuota mensual</td>
+                              <td>{{artiped.cuotamensual}} por {{artiped.cuotas}} menses</td>
+                          </tr>
+                          <tr>
+                            <td>Precio:</td>
+                            <td>{{artiped.precio}}</td>
+                          </tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
                     <!--tabla material-->
                   </div>
                   <button class="btn btn-success" style="background-color: orange">Finalizar Compra</button>

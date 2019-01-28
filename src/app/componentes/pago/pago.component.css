@@ -41,3 +41,19 @@
   .example-header-image {
     background-size: cover;
   }
+/*card*/
+.wrapper {
+	background-color: black;
+	color: white;
+	display: flex;
+	flex-flow: row nowrap;
+	min-height: 100%;
+	width: 300px;
+}
+
+.centrarimg {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+/*fin card*/
