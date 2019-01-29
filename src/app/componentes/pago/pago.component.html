@@ -293,7 +293,7 @@
               <form #fomrguardarventa="ngForm" (ngSubmit)="guardarventa(fomrguardarventa)">
                 <input type="hidden" name="_id2" #_id2="ngModel" [(ngModel)]="pagoservice.selectPago._id">
                 <div class="card">
-                  <div class="card-header"><label>Total</label></div>
+                  <div class="card-header"><label>Total: s/.{{preciototal}}</label></div>
                   <div class="card-body">
                     <p>SubTotal: s/.{{subtotal}}</p>
                     <p>Monto de envio: s/.{{montoenvio}}</p>
@@ -313,7 +313,7 @@
                     <mat-accordion>
                       <mat-expansion-panel *ngFor="let artiped of listaArticulos">
                         <mat-expansion-panel-header>
-                          <mat-panel-title>
+                          <mat-panel-title style="font-size: 10px;">
                             {{artiped.titulo}}
                           </mat-panel-title>
                          <!-- <mat-panel-description>
