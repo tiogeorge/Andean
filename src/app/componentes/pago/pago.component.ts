@@ -486,6 +486,14 @@ export class PagoComponent implements OnInit {
 
         }
       });
+      this.eliminarcarrito();
+      this.router.navigateByUrl('home');
+  }
+  eliminarcarrito(){
+    this.usuarioService.eliminarArticulosCarrito()
+    .subscribe(res=>{
+      console.log(res);
+    });
   }
 
 }
