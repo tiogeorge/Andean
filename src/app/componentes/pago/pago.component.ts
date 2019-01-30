@@ -14,7 +14,7 @@ import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.ser
 import { Articulo } from '../articulo-detalle/articulo';
 import { MatSnackBar } from '@angular/material';
 import { Constantes } from './../constantes';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Pago } from './pago';
 import { from } from 'rxjs';
 
@@ -36,7 +36,7 @@ export interface Tipolocalenvio {
 
 export interface temarti {
   _id: string,
-  idarticulo:string;
+  idarticulo: string;
   titulo: string,
   url: string,
   categoria: string,
@@ -79,7 +79,7 @@ export class PagoComponent implements OnInit {
   listaArticulos: Articulo[] = [];
   tempoarti: Articulo[] = [];
   listaPlanArticulo: any[] = [];
- // listaArticulos2: temarti[] = [];
+  // listaArticulos2: temarti[] = [];
   listaArticulos2: any[] = [];
   mostrarArticulos: boolean = true;
   sinProductos: boolean = false;
@@ -89,11 +89,13 @@ export class PagoComponent implements OnInit {
   regionService: RegionService;
   router: Router;
   user: string = '';
-  correoclient:string='';
+  correoclient: string = '';
   listdirecciones: string[];
+  listtemporaldir: string[];
   localselec: string = 'Casa';
   RespuestaDir: any;
   logocard: string = '';
+  direccionsel: string = '';
   //montos
   subtotal: string;
   montoenvio: string;
@@ -142,6 +144,7 @@ export class PagoComponent implements OnInit {
         document.getElementById(this.RespuestaDir[i]._id).style.background = '#FFBF00';
         document.getElementById(this.RespuestaDir[i]._id).style.color = 'white';
         //fin
+        this.direccionsel = this.RespuestaDir[i].direccion;
         document.getElementById('lbdirec').innerHTML = this.RespuestaDir[i].direccion;
         document.getElementById('lbtipolocal').innerHTML = this.RespuestaDir[i].tipolocal;
         document.getElementById('lbdepartamento').innerHTML = this.RespuestaDir[i].departamento;
@@ -206,7 +209,7 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(public snackBar: MatSnackBar,public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService, articuloDetalleService: ArticuloDetalleService) {
+  constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService, articuloDetalleService: ArticuloDetalleService) {
     this.articuloDetalleService = articuloDetalleService;
     this.usuarioService = usuarioService;
     this.router = router;
@@ -226,12 +229,12 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
-      console.log('arreglo articulos');
-      console.log(this.listaArticulos);
-      console.log('arreglo planes');
-      console.log(this.listaPlanArticulo);
-      console.log('arreglo carrito');
-      console.log(this.listaCarrito);
+      /*   console.log('arreglo articulos');
+         console.log(this.listaArticulos);
+         console.log('arreglo planes');
+         console.log(this.listaPlanArticulo);
+         console.log('arreglo carrito');
+         console.log(this.listaCarrito);*/
       //   console.log(this.listaArticulos2);
       this.sumarprecios();
       this.insertaraarregloart();
@@ -263,9 +266,9 @@ export class PagoComponent implements OnInit {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status) {
         this.usuario = jres.data as Usuario;
-        console.log(this.usuario._id);
+        // console.log(this.usuario._id);
         this.user = this.usuario._id;
-        this.correoclient=this.usuario.correo;
+        this.correoclient = this.usuario.correo;
         console.log('usuario');
         console.log(this.usuario);
         console.log('fin usuario');
@@ -295,10 +298,12 @@ export class PagoComponent implements OnInit {
     if (value == '2') {
       document.getElementById('datostarjeta').hidden = true;
       this.pagoservice.selectPago.idTipoPago = 'efectivo';
+      document.getElementById('btnsig2').style.display = 'block';
     }
     if (value == '3') {
       document.getElementById('datostarjeta').hidden = true;
       this.pagoservice.selectPago.idTipoPago = 'deposito';
+      document.getElementById('btnsig2').style.display = 'block';
     }
 
   }
@@ -332,21 +337,21 @@ export class PagoComponent implements OnInit {
   ];
   */
   insertaraarregloart() {
- //   this.tempoarti=this.listaArticulos;
- //   console.log('_id:'+this.tempoarti[0]._id);
+    //   this.tempoarti=this.listaArticulos;
+    //   console.log('_id:'+this.tempoarti[0]._id);
     this.listaArticulos2 = this.listaArticulos;
     for (var i = 0; i < this.listaArticulos.length; i++) {
       // this.listaArticulos2[i].push(this.listaPlanArticulo[i]);
-   /*   console.log(this.tempoarti[i]._id)
-      this.listaArticulos2[i]._id=this.tempoarti[i]._id;
-      this.listaArticulos2[i].imagenes=this.tempoarti[i].imagenes;
-      this.listaArticulos2[i].idarticulo=this.tempoarti[i].idarticulo;
-      this.listaArticulos2[i].titulo=this.tempoarti[i].titulo;
-      this.listaArticulos2[i].url=this.tempoarti[i].url;
-      this.listaArticulos2[i].categoria=this.tempoarti[i].categoria;
-      this.listaArticulos2[i].idprecio=this.tempoarti[i].idprecio;
-      this.listaArticulos2[i].marca=this.tempoarti[i].marca;
-      this.listaArticulos2[i].cantidad=this.tempoarti[i].cantidad.toString();*/
+      /*   console.log(this.tempoarti[i]._id)
+         this.listaArticulos2[i]._id=this.tempoarti[i]._id;
+         this.listaArticulos2[i].imagenes=this.tempoarti[i].imagenes;
+         this.listaArticulos2[i].idarticulo=this.tempoarti[i].idarticulo;
+         this.listaArticulos2[i].titulo=this.tempoarti[i].titulo;
+         this.listaArticulos2[i].url=this.tempoarti[i].url;
+         this.listaArticulos2[i].categoria=this.tempoarti[i].categoria;
+         this.listaArticulos2[i].idprecio=this.tempoarti[i].idprecio;
+         this.listaArticulos2[i].marca=this.tempoarti[i].marca;
+         this.listaArticulos2[i].cantidad=this.tempoarti[i].cantidad.toString();*/
       this.listaArticulos2[i].cuotainicial = this.listaPlanArticulo[i].cuotainicial;
       this.listaArticulos2[i].cuotamensual = this.listaPlanArticulo[i].cuotamensual;
       this.listaArticulos2[i].cuotas = this.listaPlanArticulo[i].cuotas;
@@ -358,8 +363,8 @@ export class PagoComponent implements OnInit {
 
 
     }
-    console.log('lista de articulo del carrito');
-    console.log(this.listaArticulos2);
+  /*  console.log('lista de articulo del carrito');
+    console.log(this.listaArticulos2);*/
   }
   //
   resetForm(form?: NgForm) {
@@ -369,9 +374,14 @@ export class PagoComponent implements OnInit {
     }
   }
   AgregarDireccion(form: NgForm) {
+    /*this.listdirecciones = JSON.parse(JSON.stringify(this.direccionService.selecDireccion));
+    console.log('direccion:');
+    console.log(this.listdirecciones);*/
+    var rres;
     this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
       .subscribe(res => {
         console.log(res);
+        rres=JSON.parse(JSON.stringify(res));
         /* resumedir*/
         document.getElementById('lbdirec').innerHTML = this.direccionService.selecDireccion.direccion;
         document.getElementById('lbtipolocal').innerHTML = this.direccionService.selecDireccion.tipolocal;
@@ -381,8 +391,10 @@ export class PagoComponent implements OnInit {
         document.getElementById('lbreferencia').innerHTML = this.direccionService.selecDireccion.referencia;
         document.getElementById('lbtelefono').innerHTML = this.direccionService.selecDireccion.telefono;
         this.nombreiconresdir(this.direccionService.selecDireccion.tipolocal);
+        this.direccionsel = this.direccionService.selecDireccion.direccion;
         /*fin */
         this.resetForm(form);
+        this.recuperariddirec(rres.data._id,rres.data.tipolocal);
         console.log('Direccion Agregada')
         this.ListarDireccion(this.usuario._id);
       });
@@ -408,6 +420,11 @@ export class PagoComponent implements OnInit {
     if (nombreicon == 'Otro') {
       this.logocard = 'landscape';
     }
+  }
+  recuperariddirec(id:string,tiplocal:string) {
+    //nombreiconresdir
+    this.nombreiconresdir(tiplocal);
+    this.direccionselec(id,this.logocard);
   }
   ListarDireccion(id: string) {
     this.direccionService.ListarDireccion(id)
@@ -438,8 +455,9 @@ export class PagoComponent implements OnInit {
         }
         this.direccionService.direccion = Respuesta as Direccion[];
         this.RespuestaDir = Respuesta;
+        this.listtemporaldir = Respuesta// JSON.parse(JSON.stringify(res));
+        console.log(this.RespuestaDir);
       });
-
   }
 
   departamentoSelected(departamento: string) {
@@ -459,41 +477,42 @@ export class PagoComponent implements OnInit {
   guardarventa(form: NgForm) {
     // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
     this.pagoservice.selectPago.idUsuario = this.user;
-    this.pagoservice.selectPago.Correocliente=this.correoclient;
+    this.pagoservice.selectPago.Correocliente = this.correoclient;
     //console.log(this.Arti);
     //this.pagoservice.selectPago.Articulo.push(this.Arti[0]);
     this.pagoservice.selectPago.Articulo = this.listaArticulos2;
-    this.pagoservice.selectPago.FechaCompra = new Date(2019, 1, 17);
+    this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
+    // console.log(this.pagoservice.selectPago.FechaCompra);
     this.pagoservice.selectPago.EstadoPago = 'Proceso';
     this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
     this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
-    this.pagoservice.selectPago.FechaEnvio = new Date(2019, 1, 18);
-    this.pagoservice.selectPago.FechaEntrega = new Date(2019, 1, 22);
+    this.pagoservice.selectPago.FechaEnvio = new Date();
+    this.pagoservice.selectPago.FechaEntrega = new Date();
     this.pagoservice.selectPago.PrecioTotal = this.preciototal;
     this.pagoservice.selectPago.NroTransaccion = '2323232';
     this.pagoservice.selectPago.Documento = this.Documento;
     this.pagoservice.selectPago.idVendedor = 'ROOT';
-    console.log(this.pagoservice.selectPago.FechaEntrega);
+    //console.log(this.pagoservice.selectPago.FechaEntrega);
     this.pagoservice.GuardarPago(this.pagoservice.selectPago)
       .subscribe(res => {
         console.log(res);
-        if(res='ok'){
+        if (JSON.parse(JSON.stringify(res)).mensaje == 'ok') {
           this.snackBar.open('Venta Realizada', '🧓🏻', {
             duration: 2000,
           });
+          this.eliminarcarrito();
+          this.router.navigateByUrl('home');
         }
-        else{
-
+        else {
+          alert('Error!!!');
         }
       });
-      this.eliminarcarrito();
-      this.router.navigateByUrl('home');
   }
-  eliminarcarrito(){
+  eliminarcarrito() {
     this.usuarioService.eliminarArticulosCarrito()
-    .subscribe(res=>{
-      console.log(res);
-    });
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
 }
