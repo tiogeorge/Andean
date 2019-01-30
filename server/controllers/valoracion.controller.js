@@ -1,45 +1,115 @@
 const Valoracion = require('../models/valoracion');
 const valoracionController = {};
 
-valoracionController.obtenerValoracionesArticulo = async( req, res)=>{
+
+/* Prueba */
+valoracionController.obtenerValoraciones = async (req, res, next) => {
+    const valoraciones = await Valoracion.find();
+    res.json(valoraciones);
+}
+
+/* Obtener comentarios de un articulo */
+valoracionController.obtenerValoracionArticulo = async (req, res) => {
     const valoraciones = await Valoracion.find({
-        idarticulo:req.params.id
+        idarticulo: req.params.idarticulo
     });
     res.json(valoraciones);
 }
 
-valoracionController.obtenerPuntuacionArticulo = async(req,res)=>{
-    /*const puntuacion1 =await Valoracion.count({puntuacion:1, idarticulo: req.params.id});
-    const puntuacion2 =await Valoracion.count({puntuacion:1});
-    const puntuacion3 =await Valoracion.count({puntuacion:1});
-    const puntuacion4 =await Valoracion.count({puntuacion:1});
-    const puntuacion5 =await Valoracion.count({puntuacion:1});
-    var total = puntuacion1+puntuacion2+puntuacion3+puntuacion4+puntuacion5;    
-    var puntuacionprommedio = ((puntuacion1*1)+(puntuacion2*2)+(puntuacion3*3)+(puntuacion4*4)+(puntuacion5*5))/total;
-    res.json({
-        estado:1,
-        promedio: puntuacionprommedio
-    })    */
+/* Obtener comentarios de un articulo menos del cliente Actual*/
+valoracionController.obtenerValoracionArticuloSinCliente = async (req, res) => {
+    const valoraciones = await Valoracion.find({
+        idarticulo: req.params.idarticulo,
+        cliente: { $ne: req.params.cliente } 
+    });
+    res.json(valoraciones);
 }
-valoracionController.crearValoracion = async (req, res) => {
-    try{
+
+/* Obtener comentario de un cliente respecto de un articulo */
+valoracionController.obtenerValoracionArticuloCliente = async (req, res) => {
+    const valoraciones = await Valoracion.find({
+        idarticulo: req.params.idarticulo,
+        cliente: req.params.cliente
+    });
+    res.json(valoraciones);
+}
+
+/* Crear una valoracion nueva */
+valoracionController.crearValoracionArticulo = async (req, res) => {
+    try {
         const valoracion = new Valoracion(req.body);
-        if(valoracion.cliente && valoracion.comentario && valoracion.idarticulo){
+        if (valoracion) {
             await valoracion.save();
             res.json({
-                estado:1,
-                mensaje:"Comentario se guardo con exito."
+                estado: 1,
+                mensaje: "Comentario Guardado"
             });
-        }else{
+        } else {
             res.json({
-                estado:0,
-                mensaje:"Ingrese un comentario"
+                estado: 0,
+                mensaje: "Error, comentario no valido"
             });
-        }     
-    }catch(e){  
-        res.json({  
-            estado:0,
-            mensaje:"ERROR :"+e
+        }
+    } catch (e) {
+        res.json({
+            estado: 0,
+            mensaje: "ERROR :" + e
         });
     }
 }
+
+/* Editar una valoracion */
+valoracionController.actualizarValoracionArticuloCliente = async (req, res) => {
+    try {
+        const valoracion = {
+            puntuacion: req.body.puntuacion,
+            comentario: req.body.comentario
+        }
+        if (valoracion) {
+            await Valoracion.findOneAndUpdate(
+                {
+                    idarticulo: req.params.idarticulo,
+                    cliente: req.params.cliente
+                },
+                { $set: valoracion },
+                { new: true }
+            );
+            res.json({
+                estado: 1,
+                mensaje: "Comentario Actualizado"
+            });
+        } else {
+            res.json({
+                estado: 0,
+                mensaje: "Error, comentario no valido"
+            });
+        }
+    } catch (e) {
+        res.json({
+            estado: 0,
+            mensaje: "ERROR :" + e
+        });
+    }
+}
+
+valoracionController.eliminarValoracionArticuloCliente = async (req, res, next) => {
+    await Valoracion.findOneAndRemove(
+        {
+            idarticulo: req.params.idarticulo,
+            cliente: req.params.cliente
+        }, function (err) {
+            if (err) {
+                res.json({
+                    status: false,
+                    error: 'Se produjo el siguiente error al eliminar la valoracion del cliente del articulo' + err
+                });
+            } else {
+                res.json({
+                    status: true,
+                    msg: 'La valoracion del cliente respecto del artciculo ha sido eliminada'
+                })
+            }
+        })
+};
+
+module.exports = valoracionController;

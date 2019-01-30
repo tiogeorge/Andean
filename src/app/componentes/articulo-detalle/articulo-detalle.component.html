@@ -238,23 +238,23 @@
                           </mat-card-actions>
                       </mat-card>
 
-                      <mat-card *ngFor="let calificacion of articuloService.articuloSeleccionado.calificaciones">
+                      <mat-card *ngFor="let valoracion of articuloService.articuloSeleccionado.valoracioness">
                         <mat-card-header>
                           <mat-icon>person</mat-icon>
-                          <label> {{calificacion.usuario}} </label>
+                          <label> {{valoracion.nombrecliente}} </label>
                         </mat-card-header>
                         <mat-card-content>
                           <p>
-                              {{calificacion.comentario}}
+                              {{valoracion.comentario}}
                           </p>
                           <div class="valoracion">
-                              <img class="estrella1" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
-                              <img class="estrella2" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
-                              <img class="estrella3" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
-                              <img class="estrella4" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
-                              <img class="estrella5" alt="{{calificacion.valoracion}}" src="assets/images/star.png">
+                              <img class="estrella1" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
+                              <img class="estrella2" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
+                              <img class="estrella3" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
+                              <img class="estrella4" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
+                              <img class="estrella5" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
                           </div>
-                          <label>{{calificacion.fecha | date: 'dd/MM/yyyy' }} </label>
+                          <label>{{valoracion.fecha | date: 'dd/MM/yyyy' }} </label>
                         </mat-card-content>
                       </mat-card>
                 </mat-card-content>
