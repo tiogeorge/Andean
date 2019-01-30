@@ -92,7 +92,7 @@ export class PagoComponent implements OnInit {
   correoclient: string = '';
   listdirecciones: string[];
   listtemporaldir: string[];
-  localselec: string = 'Casa';
+  localselec= 'Casa';
   RespuestaDir: any;
   logocard: string = '';
   direccionsel: string = '';
@@ -217,6 +217,7 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.localselec= 'Casa';
     //obtener carrito
     this.articuloDetalleService.getCarrito().subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
@@ -378,6 +379,7 @@ export class PagoComponent implements OnInit {
     console.log('direccion:');
     console.log(this.listdirecciones);*/
     var rres;
+   // this.direccionService.selecDireccion.tipolocal=this.localselec;
     this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
       .subscribe(res => {
         console.log(res);

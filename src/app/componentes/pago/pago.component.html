@@ -99,7 +99,7 @@
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
                                 <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal">
-                                  <mat-option *ngFor="let local of Local" [value]="local.value">
+                                  <mat-option *ngFor="let local of Local" value="local.value">
                                     {{local.value}}
                                   </mat-option>
                                 </mat-select>
@@ -308,7 +308,8 @@
                     </mat-form-field>
                   </div>-->
                   <div class="card-body">
-                    <p>Dirección</p><p>{{direccionsel}}</p>
+                    <p>Dirección</p>
+                    <p>{{direccionsel}}</p>
                   </div>
                   <div class="card-body">
                     <p>Articulos</p>
@@ -319,24 +320,24 @@
                           <mat-panel-title style="font-size: 10px;">
                             {{artiped.titulo}}
                           </mat-panel-title>
-                         <!-- <mat-panel-description>
+                          <!-- <mat-panel-description>
                             {{artiped.precio}}
                           </mat-panel-description>-->
                         </mat-expansion-panel-header>
-                        <table class="table" *ngIf="artiped.tipolinea=='PREPAGO'" >
-                            <tr>
-                              <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
-                                  src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}" alt="{{artiped.imagenes[0]}}"> </td>
-                              <td>Linea:</td>
-                              <td>{{artiped.tipolinea}}</td>
-                              <td>Plan:</td>
-                              <td>{{artiped.nombreplan}}</td>
-                            </tr>
-                            <tr>
-                              <td>Precio:</td>
-                              <td>{{artiped.precio}}</td>
-                            </tr>
-                          </table>
+                        <table class="table" *ngIf="artiped.tipolinea=='PREPAGO'">
+                          <tr>
+                            <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
+                                src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}" alt="{{artiped.imagenes[0]}}"> </td>
+                            <td>Linea:</td>
+                            <td>{{artiped.tipolinea}}</td>
+                            <td>Plan:</td>
+                            <td>{{artiped.nombreplan}}</td>
+                          </tr>
+                          <tr>
+                            <td>Precio:</td>
+                            <td>{{artiped.precio}}</td>
+                          </tr>
+                        </table>
                         <table class="table" *ngIf="artiped.tipolinea=='POSTPAGO'">
                           <tr>
                             <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
@@ -347,10 +348,10 @@
                             <td>{{artiped.nombreplan}}</td>
                           </tr>
                           <tr>
-                              <td>Cuota inicial:</td>
-                              <td>{{artiped.cuotainicial}}</td>
-                              <td>Cuota mensual</td>
-                              <td>{{artiped.cuotamensual}} por {{artiped.cuotas}} menses</td>
+                            <td>Cuota inicial:</td>
+                            <td>{{artiped.cuotainicial}}</td>
+                            <td>Cuota mensual</td>
+                            <td>{{artiped.cuotamensual}} por {{artiped.cuotas}} menses</td>
                           </tr>
                           <tr>
                             <td>Precio:</td>
