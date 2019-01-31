@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { DialogoCarritoComponent } from "./dialogo-carrito/dialogo-carrito.component";
 import { Calificacion } from './calificacion';
+import { Valoracion } from './valoracion';
 import { MarcaService} from '../marca/marca.service';
 import { Marca } from '../marca/marca';
 @Component({
@@ -122,11 +123,11 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   contarCalificaciones(){
-    var a = this.articuloService.articuloSeleccionado.calificaciones;
+    var a = this.articuloService.articuloSeleccionado.valoracioness;
     if (a !== undefined) {
     var sum = 0;
     for(var i = 0; i < a.length; i++){
-      sum += Number(a[i].valoracion);
+      sum += Number(a[i].puntuacion);
     }
     var prom = Math.round(sum/a.length);
     document.getElementById("numeroComentarios").innerHTML = a.length +" Comentarios";
