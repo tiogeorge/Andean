@@ -127,6 +127,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   funcionArreglo() {
     var arreglotem2: any = this.arreglotempo;
     this.articuloslista = arreglotem2;
+    this.numeroencontrados=Object.keys(this.articuloslista).length;
   }
   //
 
@@ -402,10 +403,12 @@ export class ArticulosbusquedaComponent implements OnInit {
       }
       this.articuloslista = articuloslista2;
       this.temporallistaarti2=this.articuloslista;
+      this.numeroencontrados=Object.keys(this.articuloslista).length;
     }
     else{
       this.articuloslista = this.temporallistaarti;
       this.temporallistaarti2=this.temporallistaarti;
+      this.numeroencontrados=Object.keys(this.articuloslista).length;
     }
   }
   //fin filtro marca
