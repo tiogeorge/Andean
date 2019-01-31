@@ -46,6 +46,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
+  temporallistaarti2: any;
   arreglotempo = Array();
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
@@ -108,17 +109,15 @@ export class ArticulosbusquedaComponent implements OnInit {
   //extraer datos que estan en el rango de precios
   filtrarprecios() {
     this.arreglotempo = [];
-    //   this.articuloslista=this.temporallistaarti;
-    //  this.arreglotempo;
-    //console.log(this.articuloslista);
-    for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+   // this.temporallistaarti2=this.temporallistaarti;
+   /* for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
       if ((Number(this.temporallistaarti[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti[i].precioplan.precio) < this.maxValue)) {
-        //  console.log(i);
-        //  arreglotempo.push(this.articuloslista[i]);
-        //     console.log(this.articuloslista[i].titulo);
         this.arreglotempo.push(this.temporallistaarti[i]);
-        //this.articuloslista = this.articuloslista.filter(dat => dat.marca === '5bfd74f99650f92edcf10dbb');
-        //   this.articuloslista=this.articuloslista.find(myObj => myObj._id === this.articuloslista[i]._id);
+      }
+    }*/
+     for (var i = 0; i < Object.keys(this.temporallistaarti2).length; i++) {
+      if ((Number(this.temporallistaarti2[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti2[i].precioplan.precio) < this.maxValue)) {
+        this.arreglotempo.push(this.temporallistaarti2[i]);
       }
     }
     this.funcionArreglo();
@@ -386,18 +385,24 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.arreglomarcas = dat;
   }
   verarr() {
-    var articuloslista2 = new Array();
-    var tempArr = this.temporallistaarti as any[];
-    for (var j = 0; j < this.arreglomarcas.length; j++) {
-      for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
-        console.log(i);
-        if (tempArr[i].marca == this.arreglomarcas[j]) {
-          console.log(tempArr[i].marca == this.arreglomarcas[j]);
-          articuloslista2.push(tempArr[i]);
+    if(this.arreglomarcas.length>0){
+      var articuloslista2 = new Array();
+      var tempArr = this.temporallistaarti as any[];
+      for (var j = 0; j < this.arreglomarcas.length; j++) {
+        for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+          console.log(i);
+          if (tempArr[i].marca == this.arreglomarcas[j]) {
+            console.log(tempArr[i].marca == this.arreglomarcas[j]);
+            articuloslista2.push(tempArr[i]);
+          }
         }
       }
+      this.articuloslista = articuloslista2;
+      this.temporallistaarti2=this.articuloslista;
     }
-    this.articuloslista = articuloslista2;
+    else{
+      this.articuloslista = this.temporallistaarti;
+    }
   }
   //fin filtro marca
   //cambiar precio

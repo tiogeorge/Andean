@@ -98,7 +98,7 @@
                             </div>
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
-                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal">
+                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal" placeholder="Tipo de Vivienda">
                                   <mat-option *ngFor="let local of Local" value="local.value">
                                     {{local.value}}
                                   </mat-option>
