@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
   artbus:ArticulosbusquedaComponent;
   pclave2:string;
   estaLogeado         : boolean = false;
-  nombre_tienda       : string  = 'Andean Store';
+  nombre_tienda       : string  = 'Smarket';
   urlImg              : string = Constantes.URL_IMAGEN;
   urlImagen           : string = "https://via.placeholder.com/400x300";
   //auto completado

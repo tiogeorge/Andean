@@ -4,6 +4,10 @@ a {
   color: whitesmoke;
 }
 
+.bg-dark {
+  background-color: #1b2437;
+}
+
 .btn {
   padding: 0px;
 }
@@ -83,7 +87,7 @@ a {
 
 #menu-principal {
   position: relative;
-  background: linear-gradient(orange, #ff8c00);
+  background: linear-gradient(#8700ff, #592f7f);
   height: 64px;
   color: whitesmoke;
 }
