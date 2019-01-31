@@ -288,6 +288,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.articuloslista = Respuesta;
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta;
+          this.temporallistaarti2= Respuesta;
         }
         else {
           this.temprecuperarmarcas(pclave);
@@ -305,6 +306,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
+        this.temporallistaarti2= Respuesta;
         console.log('Marca' + this.temporallistaarti);
       });
     // }
@@ -323,6 +325,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
+        this.temporallistaarti2= Respuesta;
       });
   }
   temprecuperarmarcas(pclave2: string) {
@@ -402,6 +405,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
     else{
       this.articuloslista = this.temporallistaarti;
+      this.temporallistaarti2=this.temporallistaarti;
     }
   }
   //fin filtro marca
