@@ -68,7 +68,7 @@
               <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
                 <label style="cursor: pointer;" (click)="filtroMarca()">
                   <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}">
-                  <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                  <span class="cr" ><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>
               </div>
