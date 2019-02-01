@@ -19,6 +19,7 @@ export class Constantes {
     public static URL_API_USUARIO   = URL_API + 'usuarios';
     public static URL_API_PLANES    = URL_API + 'precio';
     public static URL_API_PAGO      = URL_API + 'pago';
+    public static URL_API_VALORACION= URL_API + 'valoracion';
     public static URL_IMAGEN_LG     = 'https://latiendadeltiogeorge.herokuapp.com/imagenes/lg';
     public static URL_IMAGEN_MD     = 'https://latiendadeltiogeorge.herokuapp.com/imagenes/md';
     public static URL_IMAGEN_SM     = 'https://latiendadeltiogeorge.herokuapp.com/imagenes/sm';

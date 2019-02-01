@@ -9,9 +9,10 @@ import { MatDialog } from '@angular/material';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { DialogoCarritoComponent } from "./dialogo-carrito/dialogo-carrito.component";
 import { Calificacion } from './calificacion';
-import { Valoracion } from './valoracion';
 import { MarcaService} from '../marca/marca.service';
 import { Marca } from '../marca/marca';
+import { ValoracionService } from "../valoracion/valoracion.service";
+import { Valoracion } from '../valoracion/valoracion';
 @Component({
   selector: 'app-articulo-detalle',
   templateUrl: './articulo-detalle.component.html',
@@ -21,6 +22,7 @@ export class ArticuloDetalleComponent implements OnInit {
   articuloService       : ArticuloDetalleService;
   usuarioService        : UsuarioService;
   categoriaService      : CategoriaService;
+  valoracionService     : ValoracionService;
   URL_IMAGENES          : string  = Constantes.URL_API_IMAGEN;
   habilitarBotonCarrito : boolean = true;
   categoria             : Categoria;
@@ -65,11 +67,12 @@ export class ArticuloDetalleComponent implements OnInit {
   };
   //Lista de precios segun el filtro seleccionado
   listPreciosFiltro: any[] = new Array();
-  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService, marcaService: MarcaService) { 
+  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService, marcaService: MarcaService, valoracionService: ValoracionService) { 
     this.articuloService  = articuloService;
     this.categoriaService = categoriaService;
     this.usuarioService   = usuarioService;
     this.marcaService = marcaService;
+    this.valoracionService  = valoracionService;
   }
 
   ngOnInit() {
@@ -91,7 +94,6 @@ export class ArticuloDetalleComponent implements OnInit {
     this.controlTipoPlan = true;
     this.controlLineas = false;
     
-    
   }
   
   ngAfterViewInit() {
@@ -102,11 +104,12 @@ export class ArticuloDetalleComponent implements OnInit {
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
       this.buscarPreciosFiltro();
       this.contarCalificaciones();
-    //  this.obtenerPreciosArticulo();
+      //  this.obtenerPreciosArticulo();
     });   
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe( res => {
       this.articuloService.categoria = res[0] as Categoria;
     });
+
   }
 
   agregarCarrito(){
