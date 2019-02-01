@@ -203,30 +203,30 @@
                         <a class="titulo-articulo .centrarletras" style="font-size: 14px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                       </p>
                     </mat-card-title>
-                      <div id="precio1">
+                    <div id="precio1">
+                      <p class="card-text text-center">
+                        <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
+                            S/. {{articulo.precioplan.precio}}</a></strong>
+                      </p>
+                    </div>
+                    <div id="precio2" style="display: flex; align-items: flex-end; display: none">
+                      <div>
                         <p class="card-text text-center">
                           <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
                               S/. {{articulo.precioplan.precio}}</a></strong>
                         </p>
                       </div>
-                      <div id="precio2" style="display: flex; align-items: flex-end; display: none">
-                        <div>
-                          <p class="card-text text-center">
-                            <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
-                                S/. {{articulo.precioplan.precio}}</a></strong>
-                          </p>
-                        </div>
-                        <div>
-                          <p class="card-text text-center">
-                            <strong><a class="titulo-articulo" style="font-size: 12px;color: red" routerLink="/articulo/{{articulo.url}}">
-                                x {{articulo.precioplan.cuotas}} meses</a></strong>
-                          </p>
-                        </div>
+                      <div>
+                        <p class="card-text text-center">
+                          <strong><a class="titulo-articulo" style="font-size: 12px;color: red" routerLink="/articulo/{{articulo.url}}">
+                              x {{articulo.precioplan.cuotas}} meses</a></strong>
+                        </p>
                       </div>
-                      <p class="card-text text-center">
-                        <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
-                          PLAN {{articulo.precioplan.nombreplan}}</a>
-                      </p>
+                    </div>
+                    <p class="card-text text-center">
+                      <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
+                        PLAN {{articulo.precioplan.nombreplan}}</a>
+                    </p>
                   </mat-card>
                   <hr>
                 </div>
