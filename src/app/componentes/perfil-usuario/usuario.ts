@@ -15,4 +15,9 @@ export class Usuario {
   apellidos: string;
   password: string;
   promociones: boolean;
+  tipoDocumento: string;
+  numeroDocumento: string;
+  sexo: string;
+  fechaNacimiento: any;
+  fecha_afiliacion: any;
 }

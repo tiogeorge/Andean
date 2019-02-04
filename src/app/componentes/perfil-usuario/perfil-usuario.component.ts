@@ -52,10 +52,14 @@ export class PerfilUsuarioComponent implements OnInit {
    * Método que actualiza los datos de un usuario
    */
   actualizar(): void{
-    this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res => {
-      const respuesta = res as Respuesta;
-      respuesta.status ? this.openSnackBar(respuesta.status, respuesta.msg) : this.openSnackBar(respuesta.status, respuesta.error);
-    });
+    if(this.usuarioService.usuarioSeleccionado.numeroDocumento.length != 8){
+      this.openSnackBar(false, 'El documento debe tener una longitud de 8 dígitos');
+    } else {
+      this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res => {
+        const respuesta = res as Respuesta;
+        respuesta.status ? this.openSnackBar(respuesta.status, respuesta.msg) : this.openSnackBar(respuesta.status, respuesta.error);
+      });
+    }
   }
 
   /**
