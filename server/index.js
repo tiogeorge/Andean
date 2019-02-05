@@ -10,6 +10,19 @@ const mongoose      = require('./config/database');
 const MongoStore    = require('connect-mongo')(session);
 const jwt           = require('jsonwebtoken');
 const socketIO      = require('socket.io');
+const https         = require('https');
+
+// Certificate
+/*const privateKey = fs.readFileSync('/etc/letsencrypt/live/www.smarket.com.pe/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/www.smarket.com.pe/cert.pem', 'utf8');
+const ca = fs.readFileSync(' /etc/letsencrypt/live/www.smarket.com.pe/fullchain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
+*/
 
 // Setting
 app.set('port',process.env.PORT || 3000);
@@ -32,7 +45,7 @@ app.use(myConnection(mysql, dbOptions, 'pool'))
 
 // Middlewares
 app.use('/imagenes', express.static('imagenes'));
-app.use(cors({origin: ['http://localhost:4200','http://localhost:4201'], credentials : true}));
+app.use(cors({origin: ['www.smarket.com.pe','https://www.smarket.com.pe','http://www.localhost:4200','http://localhost:4200','http://localhost:4201'], credentials : true}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
@@ -67,6 +80,12 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
+
+// Iniciar servidor
+/*const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(app.get('port'), () => {
+	console.log('HTTPS Server running on port 443');
+});*/
 const server = app.listen(app.get('port'),()=>{
     console.log('Servidor corriendo en el puerto ',app.get('port'));
 });
