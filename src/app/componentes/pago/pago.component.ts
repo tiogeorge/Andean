@@ -69,6 +69,9 @@ export interface temdoc {
 })
 
 export class PagoComponent implements OnInit {
+  seriedoc:string="";
+  numerodoc:string="";
+  tipodoc:string="BBV";
   //expansion panel
   panelOpenState = false;
   //fin panel
@@ -96,6 +99,7 @@ export class PagoComponent implements OnInit {
   RespuestaDir: any;
   logocard: string = '';
   direccionsel: string = '';
+  DocumentoT: temdoc[] = [{ Tipo: 'BBV', Serie: '', Numero: '' }];
   //montos
   subtotal: string;
   montoenvio: string;
@@ -174,7 +178,7 @@ export class PagoComponent implements OnInit {
      { idArticulo: '14545454545', PrecioUni: '200', idPlan: '32d3s23ds2d3s' },
    ];*/
 
-  Documento: temdoc[] = [{ Tipo: 'BBV', Serie: '1', Numero: '0001' }];
+  
 
   Local: Tipolocalenvio[] = [
     { value: 'Casa' },
@@ -477,6 +481,9 @@ export class PagoComponent implements OnInit {
     //this.guardarventa();
   }
   guardarventa(form: NgForm) {
+    /*recuperar datos doc */
+    this.asignardocumentoventa();
+    /* fin */
     // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
     this.pagoservice.selectPago.idUsuario = this.user;
     this.pagoservice.selectPago.Correocliente = this.correoclient;
@@ -492,7 +499,9 @@ export class PagoComponent implements OnInit {
     this.pagoservice.selectPago.FechaEntrega = new Date();
     this.pagoservice.selectPago.PrecioTotal = this.preciototal;
     this.pagoservice.selectPago.NroTransaccion = '2323232';
-    this.pagoservice.selectPago.Documento = this.Documento;
+   // this.pagoservice.selectPago.Documento = this.Documento;
+   console.log('documento actua');
+   console.log(this.pagoservice.selectPago.Documento);
     this.pagoservice.selectPago.idVendedor = 'ROOT';
     //console.log(this.pagoservice.selectPago.FechaEntrega);
     this.pagoservice.GuardarPago(this.pagoservice.selectPago)
@@ -502,8 +511,8 @@ export class PagoComponent implements OnInit {
           this.snackBar.open('Venta Realizada', '🧓🏻', {
             duration: 2000,
           });
-          this.eliminarcarrito();
-          this.router.navigateByUrl('home');
+          /*this.eliminarcarrito();
+          this.router.navigateByUrl('home');*/
         }
         else {
           alert('Error!!!');
@@ -515,6 +524,37 @@ export class PagoComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
       });
+  }
+
+  asignardocumentoventa(){
+    this.recuperarserie();
+    this.recuperarnumero();
+    this.DocumentoT[0].Tipo=this.tipodoc;
+    console.log('documentos');
+    console.log(this.DocumentoT);  
+    this.pagoservice.selectPago.Documento = this.DocumentoT;
+    console.log(this.pagoservice.selectPago.Documento);
+  }
+
+  recuperarserie(){
+    console.log('serie');
+    this.pagoservice.recuperarserie()
+    .subscribe(res=>{
+     // this.seriedoc=JSON.parse(JSON.stringify(res));
+      console.log(res);
+      this.seriedoc=JSON.parse(JSON.stringify(res));
+      this.DocumentoT[0].Serie=this.seriedoc;
+      console.log(this.seriedoc);
+    });
+  }
+  recuperarnumero(){
+    this.pagoservice.recuperarnumerodoc()
+    .subscribe(res=>{
+      console.log(res);
+      this.numerodoc=(Number(JSON.parse(JSON.stringify(res)))+1).toString();
+      this.DocumentoT[0].Numero=this.numerodoc;
+      console.log(this.numerodoc);
+    });
   }
 
 }

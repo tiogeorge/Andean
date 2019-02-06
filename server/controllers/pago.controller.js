@@ -25,6 +25,31 @@ pagoController.GuardarPago = async (req, res) => {
         })
     }
 }
+/*funciones mysql */
+pagoController.recuperarseriedoc=async(req,res)=>{
+    req.getConnection(function(error,conn){
+        var consulta ="SELECT fnRep_SerieLocalDocumento('586','BBV') as 'SERIE'" ;
+        conn.query(consulta, function (err, results){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.json(results[0].SERIE);
+            }
+        });
+    });
+}
+
+pagoController.ultimonumeroemitido=async(req,res)=>{
+    var numerodedoc=await Pago.countDocuments({EstadoPago:'Pagado'});
+    res.json(numerodedoc);
+}
+
+pagoController.guardarpagomysql= async(req,res)=>{
+    req.getConnection(function (error,conn){
+        var consulta = "";
+    });
+}
 
 pagoController.listarpedidos = async (req, res) => {
     //const correoclient;
@@ -64,6 +89,8 @@ pagoController.actualizarpedido = async (req, res) => {
         });
     }
 }
+
+
 
 pagoController.eliminarpedido = async (req, res) => {
     await Pago.findByIdAndRemove(req, params.id);

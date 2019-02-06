@@ -18,4 +18,11 @@ export class PagoService {
   GuardarPago(pago:Pago){
     return this.http.post(this.URL_API,pago, {withCredentials: true});
   }
+  
+  recuperarserie(){
+    return this.http.get(this.URL_API+'/serielocal')
+  }
+  recuperarnumerodoc(){
+    return this.http.get(this.URL_API+'/numerodoc/numero')
+  }
 }

@@ -51,6 +51,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
+  tempocategoria:any;
   arreglomarcas: string[]; //= new Array();
 
   selected = 'option1';
@@ -169,6 +170,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     //this.cambiaridfiltro();
     // this.openSnackBar();
     this.listarmarcasfiltro();
+    //this.listarcategoriafiltro();
     this.linea = 'PREPAGO';
     this.tipo = 'ALTA';
     this.cuota = '0';
@@ -273,6 +275,19 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.tempomarcas = resp;
       });
   }
+  listarcategoriafiltro(){
+    this.categoriaservice.listarcategoriasT()
+    .subscribe(res=>{
+      this.categoriaservice.categoria=res as Categoria[];
+      var respuesta=JSON.parse(JSON.stringify(res));
+      this.tempocategoria=respuesta;
+    });
+  }
+  listcategoraisfil(tem :any){
+     tem=this.articuloslista;
+    console.log('arreglo necesario');
+    console.log(tem);
+  }
   buscararticulos(datobusq: string) {
     var Resul;
     //Resul=this.listaarticulos(datobusq);
@@ -290,6 +305,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta;
           this.temporallistaarti2= Respuesta;
+          this.listcategoraisfil(this.listaraarticulos);
         }
         else {
           this.temprecuperarmarcas(pclave);
@@ -308,6 +324,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
         this.temporallistaarti2= Respuesta;
+        this.listcategoraisfil(this.listaraarticulos);
         console.log('Marca' + this.temporallistaarti);
       });
     // }

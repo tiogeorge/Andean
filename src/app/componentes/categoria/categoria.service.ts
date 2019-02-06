@@ -14,6 +14,10 @@ export class CategoriaService {
     this.categoriaSeleccionada = new Categoria();
   }
 
+  listarcategoriasT(){
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/', {withCredentials: true});
+  }
+
   listarcategoria(id:string){
     return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriaart/'+id, {withCredentials: true});
   }

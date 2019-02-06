@@ -32,6 +32,7 @@ import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-
 import { Ng5SliderModule } from 'ng5-slider';
 import { SnackbarComponent } from './componentes/snackbar/snackbar.component';
 import { CambiarPasswordComponent } from './componentes/restablecer/cambiar-password/cambiar-password.component';
+import { CategoriahomeComponent } from './componentes/categoriahome/categoriahome.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -76,7 +77,8 @@ const routes : Route[] = [
     MapaComponent,
     DialogoCarritoComponent,
     SnackbarComponent,
-    CambiarPasswordComponent
+    CambiarPasswordComponent,
+    CategoriahomeComponent
   ],
   imports: [
     BrowserModule,
