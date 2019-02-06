@@ -18,6 +18,29 @@ categoriaController.obtenerCategoria = async(req,res)=>{
     });
     res.json(categoria);
 }
+// Método que obtiene las categorias padre
+/*categoriaController.obtenerCategoriapadre=async(req,res)=>{
+    const categoria=await Categoria.find({
+        padre:req.params.padre
+    });
+    res.json(categoria);
+}*/
+categoriaController.obtenerCategoriapadre=async(req,res)=>{
+    const categoriap=await Categoria.find({ padre:req.params.padre});
+    var jsoncategoriap = JSON.parse(JSON.stringify(categoriap));
+    for(var i=0;i<categoriap.length;i++){
+        var id=categoriap[i]._id
+        const categoriah =await Categoria.find({padre:id});
+        var arreglohijos=new Array();
+        arreglohijos.push(categoriah);
+      /*  for(var j=0;j<categoriah.length;j++){
+            arreglohijos.push(categoriah[j]._id);
+            arreglohijos.push(categoriah[j].nombre);
+        }*/
+        jsoncategoriap[i].hijos=arreglohijos;
+    }
+    res.json(jsoncategoriap);
+}
 
 /**
  * Método que obtiene las subcategorias de una categoria

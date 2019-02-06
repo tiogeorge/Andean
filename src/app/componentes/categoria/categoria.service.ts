@@ -21,5 +21,12 @@ export class CategoriaService {
   listarcategoria(id:string){
     return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriaart/'+id, {withCredentials: true});
   }
+  listarcategoriaspadres(){
+    const padre='root';
+    return this.http.get(Constantes.URL_API_CATEGORIA+/categoriapadre/+padre, {withCredentials: true});
+  }
+  listarcategoriashijos(id:string){
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/subcategorias/'+id, {withCredentials: true});
+  }
   
 }
