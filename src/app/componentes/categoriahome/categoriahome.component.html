@@ -8,8 +8,8 @@
           {{categoriap.nombre}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div>
-        {{categoriap.hijos[0]}}
+      <div *ngFor="let item of categoriap.hijos[0]" >
+        <p>{{item.nombre}}</p>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
