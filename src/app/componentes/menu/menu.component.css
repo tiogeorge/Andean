@@ -50,7 +50,7 @@ a {
 
 #categorias {
   padding: .5rem 0rem;
-  background: #304ffe;
+  background: #1b2437;
 }
 
 #categorias .nav-item a {
@@ -84,8 +84,8 @@ a {
 
 #menu-principal {
   position: relative;
-  /*background: linear-gradient(#8700ff, #592f7f);*/
-  background: #3f51b5;
+  background: linear-gradient(to right,#8700ff, #3863a7);
+  /*background: #3f51b5;*/
   height: 64px;
   color: whitesmoke;
 }
