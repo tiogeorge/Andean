@@ -15,17 +15,27 @@ export class ValoracionService {
     this.http=http;
    }
 
+   /*
    obtenerValoracionesTotales(){
     return this.http.get(Constantes.URL_API_VALORACION);
    }
-
-   obtenerValoraciones(idarticulo:string){
+   */
+   obtenerValoracionesArticulo(idarticulo:string){
      return this.http.get(Constantes.URL_API_VALORACION +"/"+idarticulo,{withCredentials: true});
    }
    obtenerValoracionCliente(idarticulo:string, cliente:string){
-    return this.http.get(Constantes.URL_API_VALORACION+"/"+idarticulo+"/"+cliente,{withCredentials: true});
+    return this.http.get(Constantes.URL_API_VALORACION+"/"+idarticulo+"/"+ cliente,{withCredentials: true});
    }
    obtenerValoracionesSinCliente(idarticulo:string, cliente:string){
-     return this.http.get(Constantes.URL_API_VALORACION+"/"+idarticulo+"/"+cliente+"/sin", {withCredentials: true});
+     return this.http.get(Constantes.URL_API_VALORACION+"/"+idarticulo+"/"+ cliente +"/sin", {withCredentials: true});
    }
+
+   crearValoracion(valoracion: Valoracion){
+    return this.http.post(Constantes.URL_API_VALORACION, valoracion, {withCredentials: true});
+   };
+  
+   editarValoracion(valoracion: Valoracion){
+    return this.http.post(Constantes.URL_API_VALORACION, valoracion, {withCredentials: true});
+   };
+
 }
