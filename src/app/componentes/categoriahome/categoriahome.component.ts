@@ -7,7 +7,7 @@ import {CategoriaService} from '../categoria/categoria.service';
   styleUrls: ['./categoriahome.component.css']
 })
 export class CategoriahomeComponent implements OnInit {
-  panelOpenState = false;
+  step = 0;
   listacategoriaspadre:any[];
   listacategoriashijos:any[];
 

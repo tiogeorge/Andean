@@ -1,16 +1,25 @@
 <mat-card>
   <h5>Categorias</h5>
   <br>
-  <mat-accordion>
-    <mat-expansion-panel  *ngFor="let categoriap of listacategoriaspadre; index as i" >
+  <mat-accordion *ngFor="let categoriap of listacategoriaspadre; index as i">
+    <mat-expansion-panel [expanded]="step === 0">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{categoriap.nombre}}
+          <strong>{{categoriap.nombre}}</strong>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div *ngFor="let item of categoriap.hijos[0]" >
+      <div *ngFor="let item of categoriap.hijos[0]">
         <p>{{item.nombre}}</p>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+  <!--<div>
+      <ul id="treeview" *ngFor="let categoriap of listacategoriaspadre; index as i" style="margin-right: 105px">
+          <li data-icon-cls="fa fa-inbox" data-expanded="true"> {{categoriap.nombre}}
+            <ul *ngFor="let item of categoriap.hijos[0]">
+              <li style="font-size: 14px">{{item.nombre}}</li>
+            </ul>
+          </li>
+        </ul>
+  </div>-->
 </mat-card>

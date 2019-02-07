@@ -1,37 +1,9 @@
-.portfolio-item {
-    margin-bottom: 30px;
-  }
-  
-.img-portafolio{
-    height: 350px;
+.simple-card {
+  max-width: 400px;
 }
-
-.card-text{
-  font-weight: bold;
-  font-size: 1.2rem;
+.grande-card{
+  max-width: 400px;
 }
-
-.texto-marca{
-  color: gray;
+.largo-card{
+  max-width: 400px;
 }
-
-
-
-@media (max-width: 768px) {
-  .img-portafolio{
-    height: 450px;
-  }
-}
-
-@media (max-width: 568px) {
-  .img-portafolio{
-    height: 430px;
-  }
-}
-
-@media (max-width: 468px) {
-  .img-portafolio{
-    height: 350px;
-  }
-}
-
