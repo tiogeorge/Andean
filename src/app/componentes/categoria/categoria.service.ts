@@ -28,5 +28,8 @@ export class CategoriaService {
   listarcategoriashijos(id:string){
     return this.http.get(Constantes.URL_API_CATEGORIA+'/subcategorias/'+id, {withCredentials: true});
   }
+  listarpadressegunhijo(id:string){
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/padre/padre/'+id, {withCredentials: true})
+  }
   
 }

@@ -55,7 +55,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   arreglomarcas: string[]; //= new Array();
 
   selected = 'option1';
-  listacategorias: string[] = ['Todos', 'Equipos más pedidos', 'Nuevos Lanzamientos', 'Equipos 4.5G', 'Equipos Premiun'];
+  listacategorias: any;
   listamarcas: any;
   listamarcas2: string[];//any = [{ id: any, nombre: string }];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
@@ -283,15 +283,55 @@ export class ArticulosbusquedaComponent implements OnInit {
       this.tempocategoria=respuesta;
     });
   }
-  listcategoraisfil(tem :any){
-     tem=this.articuloslista;
-    console.log('arreglo necesario');
-    console.log(tem);
+  listcategoraisfil(){
+     var tem=this.articuloslista;
+     var temp: any[] = new Array();
+     for(var i=0;i<Object.keys(tem).length;i++){
+       //temp.push(tem[i].categoria);
+       temp[i]=tem[i].categoria;
+     }
+     this.funcionrepetir(temp);
   }
-  buscararticulos(datobusq: string) {
-    var Resul;
-    //Resul=this.listaarticulos(datobusq);
+
+  //contar repetidos
+  funcionrepetir(tem:any[]) {
+    console.log(tem)
+    var ArrOrdenado = [],
+      norepetidos=[],
+      count = 1;
+    ArrOrdenado = tem.sort(function (a, b) {
+      return a - b
+    });
+    console.log('ordenado');
+    console.log(ArrOrdenado);
+    for (var i = 0; i < ArrOrdenado.length; i = i + count) {
+      count = 1;
+      for (var j = i + 1; j < ArrOrdenado.length; j++) {
+        if (ArrOrdenado[i] === ArrOrdenado[j])
+          count++;
+      }
+      console.log(ArrOrdenado[i] + " = " + count);
+      norepetidos[i]=ArrOrdenado[i];
+    }
+    console.log(norepetidos);
+    this.recuperarpadres(norepetidos);
   }
+  recuperarpadres(tem:any[]){
+    var padres=[];
+    for(var i=0;i<tem.length;i++){
+      this.categoriaservice.listarpadressegunhijo(tem[i])
+      .subscribe(res=>{
+        padres.push(JSON.parse(JSON.stringify(res)));
+      });
+    }
+    console.log('los padres son');
+    console.log(padres);
+    this.listacategorias=padres;
+    console.log(this.listacategorias);
+  }
+  //fin
+
+
   listaraarticulos(pclave: string) {
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
@@ -305,7 +345,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta;
           this.temporallistaarti2= Respuesta;
-          this.listcategoraisfil(this.listaraarticulos);
+          this.listcategoraisfil();
         }
         else {
           this.temprecuperarmarcas(pclave);
@@ -324,7 +364,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
         this.temporallistaarti2= Respuesta;
-        this.listcategoraisfil(this.listaraarticulos);
+        this.listcategoraisfil();
         console.log('Marca' + this.temporallistaarti);
       });
     // }

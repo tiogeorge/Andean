@@ -19,12 +19,19 @@ categoriaController.obtenerCategoria = async(req,res)=>{
     res.json(categoria);
 }
 // Método que obtiene las categorias padre
-/*categoriaController.obtenerCategoriapadre=async(req,res)=>{
-    const categoria=await Categoria.find({
-        padre:req.params.padre
-    });
-    res.json(categoria);
-}*/
+categoriaController.obtenerCategoriapadresegunhijo=async(req,res)=>{
+    const categoria=await Categoria.find({_id:req.params.id}).select('padre');
+    var jsoncate=JSON.parse(JSON.stringify(categoria));
+    for(var i=0;i<Object.keys(categoria).length;i++){
+        var id=categoria[i].padre;
+        const categoria2=await Categoria.findById({_id:id}).select('nombre');
+        console.log(categoria2.nombre);
+        var arreglopadres=new Array();
+        arreglopadres.push(categoria2.nombre);
+        jsoncate[i].nombre=arreglopadres[0];
+    }
+    res.json(jsoncate);
+}
 categoriaController.obtenerCategoriapadre=async(req,res)=>{
     const categoriap=await Categoria.find({ padre:req.params.padre});
     var jsoncategoriap = JSON.parse(JSON.stringify(categoriap));

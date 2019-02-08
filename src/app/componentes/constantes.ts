@@ -10,7 +10,7 @@ export class Constantes {
     public static URL_API_MARCA     = URL_API + 'marca';
     public static URL_API_IMAGEN    = URL_API + 'imagenes';
  //   public static URL_IMAGEN      = 'localhost:3000/imagenes';
-    public static URL_IMAGEN        = 'https://www.smarket.com.pe:3000/imagenes';
+    public static URL_IMAGEN        ='localhost:3000/imagenes';// 'https://www.smarket.com.pe:3000/imagenes';
     public static URL_API_TIENDA    = URL_API + 'tienda';
     public static URL_API_CATEGORIA = URL_API + 'categorias';
     public static URL_API_DIRECCION = URL_API + 'dir';
@@ -20,8 +20,8 @@ export class Constantes {
     public static URL_API_PLANES    = URL_API + 'precio';
     public static URL_API_PAGO      = URL_API + 'pago';
     public static URL_API_VALORACION= URL_API + 'valoracion';
-    public static URL_IMAGEN_LG     = 'https://www.smarket.com.pe:3000/imagenes/lg';
-    public static URL_IMAGEN_MD     = 'https://www.smarket.com.pe:3000/imagenes/md';
-    public static URL_IMAGEN_SM     = 'https://www.smarket.com.pe:3000/imagenes/sm';
+    public static URL_IMAGEN_LG     ='localhost:3000/imagenes/lg';// 'https://www.smarket.com.pe:3000/imagenes/lg';
+    public static URL_IMAGEN_MD     ='localhost:3000/imagenes/md';// 'https://www.smarket.com.pe:3000/imagenes/md';
+    public static URL_IMAGEN_SM     ='localhost:3000/imagenes/sm';// 'https://www.smarket.com.pe:3000/imagenes/sm';
 
 }
