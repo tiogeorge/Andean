@@ -4,6 +4,7 @@ const articuloController = {};
 const MarcaArt = require('../models/marca');
 var jsonArticulos;
 const Equipo = require('../models/equipos');
+const Card = require('../models/card');
 
 articuloController.obtenerArticulosMysql = async (req, res) => {
     try {
@@ -278,6 +279,18 @@ articuloController.obtenerPreciosMysql = async (req, res) => {
 
 }
 
+articuloController.guardarCards = async(req, res) => {
+    await Card.update({},{$set: {activo: false}});
+    var carteles = req.body.cards;
+    for(var i = 0; i < carteles.length; i++){
+        if(carteles[i]._id){
+            await Card.findOneAndUpdate({_id: carteles[i]._id}, {$set : carteles[i]});
+        }else{
+            var cartel = new Card(carteles[i]);
+            await cartel.save();
+        }
+    }
+}
 
 
 module.exports = articuloController;

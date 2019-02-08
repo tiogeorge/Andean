@@ -14,6 +14,7 @@ router.get('/url/:id', articulo.obtenerArticuloURL);
 router.get('/mysql/precios/:id', articulo.obtenerPreciosMysql);
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
 router.post('/', articulo.crearArticulo);
+router.post('/cartel', articulo.guardarCards);
 router.put('/:id', articulo.actualizarArticulo);
 //router.delete('/:id', articulo.eliminarCategoria);
 
