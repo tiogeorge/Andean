@@ -280,16 +280,44 @@ articuloController.obtenerPreciosMysql = async (req, res) => {
 }
 
 articuloController.guardarCards = async(req, res) => {
-    await Card.update({},{$set: {activo: false}});
-    var carteles = req.body.cards;
-    for(var i = 0; i < carteles.length; i++){
-        if(carteles[i]._id){
-            await Card.findOneAndUpdate({_id: carteles[i]._id}, {$set : carteles[i]});
-        }else{
-            var cartel = new Card(carteles[i]);
-            await cartel.save();
+    try{
+        await Card.update({},{$set: {activo: false}});
+        var carteles = req.body.cards;
+        for(var i = 0; i < carteles.length; i++){
+            if(carteles[i]._id){
+                await Card.findOneAndUpdate({_id: carteles[i]._id}, {$set : carteles[i]});
+            }else{
+                var cartel = new Card(carteles[i]);
+                await cartel.save();
+            }
         }
+        res.json({
+            status: true,
+            msg: 'Los carteles han sigo registrados con éxito'
+        })
+    }catch(err){
+        res.json({
+            status: false,
+            error: err
+        })
     }
+}
+
+articuloController.obtenerCards = async(req, res) => {
+    Card.find({activo: true}, function(err, cards) {
+        if(err){
+            res.json({
+                status: false,
+                error: err
+            });
+        } else {
+            res.json({
+                status: true,
+                msg: 'Los datos se obtuvieron con éxito',
+                data: cards
+            })
+        }
+    })
 }
 
 
