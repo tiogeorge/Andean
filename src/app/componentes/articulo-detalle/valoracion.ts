@@ -1,17 +1,16 @@
 export class Valoracion {
-    constructor( _id='', cliente = '' , nombrecliente = '', comentario = ''  , puntuacion =  0 , fecha = new Date()){
-        this._id = _id;
+    constructor(idarticulo='' ,cliente = '' , nombrecliente = '', comentario = ''  , puntuacion =  0 , fecha = new Date()){
+        this.idarticulo = idarticulo;
         this.cliente = cliente;
         this.nombrecliente = nombrecliente;
         this.comentario = comentario;
         this.puntuacion = puntuacion;
         this.fecha = fecha;
     }
-    _id: string;
+    idarticulo : string;
     cliente: string;
     nombrecliente : string;
     comentario: string;
     puntuacion: Number;
     fecha:Date;
   }
-  

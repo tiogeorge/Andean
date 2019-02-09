@@ -20,7 +20,7 @@ valoracionController.obtenerValoracionArticulo = async (req, res) => {
 valoracionController.obtenerValoracionArticuloSinCliente = async (req, res) => {
     const valoraciones = await Valoracion.find({
         idarticulo: req.params.idarticulo,
-        cliente: { $ne: req.params.cliente } 
+        cliente: { $ne: req.params.cliente }
     });
     res.json(valoraciones);
 }
@@ -36,18 +36,32 @@ valoracionController.obtenerValoracionArticuloCliente = async (req, res) => {
 
 /* Crear una valoracion nueva */
 valoracionController.crearValoracionArticulo = async (req, res) => {
+
     try {
-        const valoracion = new Valoracion(req.body);
-        if (valoracion) {
-            await valoracion.save();
-            res.json({
-                estado: 1,
-                mensaje: "Comentario Guardado"
-            });
-        } else {
+        const valoracionExiste = await Valoracion.find({
+            idarticulo: req.body.idarticulo,
+            cliente: req.body.cliente
+        });
+
+        if (valoracionExiste.length == 0) {
+            const valoracion = new Valoracion(req.body);
+            if (valoracion) {
+                await valoracion.save();
+                res.json({
+                    estado: 1,
+                    mensaje: "Comentario Guardado"
+                });
+            } else {
+                res.json({
+                    estado: 0,
+                    mensaje: "Error, comentario no valido"
+                });
+            }
+        }
+        else {
             res.json({
                 estado: 0,
-                mensaje: "Error, comentario no valido"
+                mensaje: "Comentario ya existe"
             });
         }
     } catch (e) {

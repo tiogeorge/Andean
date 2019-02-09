@@ -34,6 +34,7 @@ import { SnackbarComponent } from './componentes/snackbar/snackbar.component';
 import { CambiarPasswordComponent } from './componentes/restablecer/cambiar-password/cambiar-password.component';
 import { CategoriahomeComponent } from './componentes/categoriahome/categoriahome.component';
 import { RedessocialesComponent } from './componentes/redessociales/redessociales.component';
+import { ValoracionComponent } from './componentes/valoracion/valoracion.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -80,7 +81,8 @@ const routes : Route[] = [
     SnackbarComponent,
     CambiarPasswordComponent,
     CategoriahomeComponent,
-    RedessocialesComponent
+    RedessocialesComponent,
+    ValoracionComponent
   ],
   imports: [
     BrowserModule,

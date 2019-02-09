@@ -78,11 +78,8 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   //Valoraciones
-  clienteComento: boolean = false;
-  sesionActiva: boolean = false;
-  valoracionNueva = new Valoracion();
-  comentario: string = '';
-  puntuacion: string = '';
+  numeroComentarios: Number  = 0;
+  puntuacionPromedio: Number  = 0;
 
   ngOnInit() {
 
@@ -111,79 +108,39 @@ export class ArticuloDetalleComponent implements OnInit {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
+      this.infoComentarios();      
       this.buscarPreciosFiltro();
-      //  this.obtenerPreciosArticulo();
-      
+      //  this.obtenerPreciosArticulo();     
     });
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe(res => {
       this.articuloService.categoria = res[0] as Categoria;
-    });
+    })
+
+  }
 
 
-    this.usuarioService.getUsuarioLogeado().subscribe(res => {
-      var jres = JSON.parse(JSON.stringify(res));
-
-      if (jres.status) {
-        console.log(jres.status);
-        this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
-        console.log('usuario del servicio');
-        console.log(this.usuarioService.usuarioSeleccionado._id);
-        console.log(this.articuloService.articuloSeleccionado.idarticulo);
-        console.log('usuario del servicio II');
-        this.sesionActiva = true;
-        
-        this.articuloService.getArticulo(url).subscribe(res => {
-          this.articuloService.articuloSeleccionado = res[0] as Articulo;
-          this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
-            console.log("Solo producto");
-            this.valoracionService.valoraciones = res as Valoracion[];
-            this.contarCalificaciones();
-          });
-        });
-
-        this.valoracionService.obtenerValoracionCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
-          console.log("Solo cliente");
-          this.valoracionService.valoracionCliente = (res as Valoracion[])[0];
-          if (this.valoracionService.valoracionCliente != undefined) {
-            this.clienteComento = true;
+  infoComentarios() {
+    this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
+      var a = res as Valoracion[];
+      
+      this.puntuacionPromedio = 0;
+      this.numeroComentarios = 0;
+      this.numeroComentarios = a.length;
+      if (a !== undefined) {
+        if (a.length > 0) {
+          var sum = 0;
+          for (var i = 0; i < a.length; i++) {
+            sum += Number(a[i].puntuacion);
           }
-          console.log(this.valoracionService.valoracionCliente);
-
-          this.valoracionService.obtenerValoracionesSinCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
-            console.log("Todo menos cliente");
-            this.valoracionService.valoracionSinCliente = res as Valoracion[];
-            console.log(this.valoracionService.valoracionSinCliente);
-
-          })
-        })
+          var prom = Math.round(sum / a.length);
+          this.puntuacionPromedio = prom;
+        }
       }
-      if (!jres.status) {
-        console.log(jres.status);
-        this.articuloService.getArticulo(url).subscribe(res => {
-          this.articuloService.articuloSeleccionado = res[0] as Articulo;
-          this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
-            console.log("Solo producto");
-            this.valoracionService.valoraciones = res as Valoracion[];
-            this.contarCalificaciones();
-          });
-        });
-      }
-     
     });
+    console.log(this.numeroComentarios);
+    console.log(this.puntuacionPromedio);
   }
 
-  comentar() {
-    console.log("Nuevo comentario");
-    console.log(this.comentario + this.puntuacion);
-    this.valoracionNueva.cliente = this.usuarioService.usuarioSeleccionado._id;
-    this.valoracionNueva.idarticulo = this.articuloService.articuloSeleccionado.idarticulo;
-    this.valoracionNueva.nombrecliente = this.usuarioService.usuarioSeleccionado.nombres;
-    this.valoracionNueva.fecha = new Date();
-    this.valoracionService.crearValoracion(this.valoracionNueva).subscribe(res => {
-      var jres = JSON.parse(JSON.stringify(res));
-      console.log(jres);
-    });
-  }
 
   agregarCarrito() {
     this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.url, this.planSeleccionado).subscribe(res => {
@@ -196,34 +153,6 @@ export class ArticuloDetalleComponent implements OnInit {
     this.planSeleccionado = plan;
     this.listaDetallePlan = new Array();
     console.log(this.planSeleccionado)
-  }
-
-  contarCalificaciones() {
-    var a = this.valoracionService.valoraciones;
-    if (a !== undefined) {
-      if (a.length > 0) {
-        var sum = 0;
-        for (var i = 0; i < a.length; i++) {
-          sum += Number(a[i].puntuacion);
-        }
-        var prom = Math.round(sum / a.length);
-
-        if(a.length == 1)
-        {
-          document.getElementById("numeroComentarios").innerHTML = "1 Comentario";
-        }
-        else
-        {document.getElementById("numeroComentarios").innerHTML = a.length + " Comentarios";}
-
-        document.getElementById("valoracionPromedio").innerHTML = '';
-        for (var i = 0; i < prom; i++) {
-          document.getElementById("valoracionPromedio").innerHTML += '<img src="assets/images/star2.png" width="17px" height="18px">';
-        }
-        for (var i = 0; i < 5 - prom; i++) {
-          document.getElementById("valoracionPromedio").innerHTML += '<img src="assets/images/star.png" width="17px" height="18px">';
-        }
-      }
-    }
   }
 
   buscarPreciosFiltro() {
