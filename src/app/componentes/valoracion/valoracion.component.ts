@@ -32,20 +32,19 @@ export class ValoracionComponent implements OnInit {
     var url = this.route.snapshot.paramMap.get("id");
     this.articuloService.getArticulo(url).subscribe(res => {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
-
       this.recuperarValoraciones();
-    });
 
-    this.usuarioService.getUsuarioLogeado().subscribe(res => {
-      var jres = JSON.parse(JSON.stringify(res));
-      if (jres.status) {
-        console.log(jres.status);
-        this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
-        this.sesionActiva = true;
-        this.recuperarValoracionesLogeado();  
-        this.recuperarValoracionesLogeado2();      
-      }
-    }); 
+      this.usuarioService.getUsuarioLogeado().subscribe(res => {
+        var jres = JSON.parse(JSON.stringify(res));
+        if (jres.status) {
+          console.log(jres.status);
+          this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
+          this.sesionActiva = true;
+          this.recuperarValoracionesLogeadoCliente();  
+          this.recuperarValoracionesLogeadoSinCliente();      
+        }
+      }); 
+    });
   }
 
   ngAfterViewInit() {
@@ -60,7 +59,7 @@ export class ValoracionComponent implements OnInit {
     });
   }
 
-  recuperarValoracionesLogeado() {
+  recuperarValoracionesLogeadoCliente() {
     this.valoracionService.obtenerValoracionCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
       console.log("Solo cliente");
       this.valoracionService.valoracionCliente = (res as Valoracion[])[0];
@@ -71,32 +70,14 @@ export class ValoracionComponent implements OnInit {
     });
   }
 
-  recuperarValoracionesLogeado2() {
+  recuperarValoracionesLogeadoSinCliente() {
       this.valoracionService.obtenerValoracionesSinCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
         console.log("Todo menos cliente");
         this.valoracionService.valoracionSinCliente = res as Valoracion[];
         console.log(this.valoracionService.valoracionSinCliente);
       })
   }
-/*
-  calcularNumeroComentarios() {
-    this.numeroComentarios = this.valoracionService.valoraciones.length;
-  }
 
-  calcularValoracionPromedio() {
-    var a = this.valoracionService.valoraciones;
-    if (a !== undefined) {
-      if (a.length > 0) {
-        var sum = 0;
-        for (var i = 0; i < a.length; i++) {
-          sum += Number(a[i].puntuacion);
-        }
-        var prom = Math.round(sum / a.length);
-        this.promedioValoracion = prom;
-      }
-    }
-  }
-*/
   comentar() {
     console.log("Nuevo comentario");
     console.log(this.usuarioService.usuarioSeleccionado._id);
@@ -108,7 +89,7 @@ export class ValoracionComponent implements OnInit {
     this.valoracionService.crearValoracion(this.valoracionNueva).subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
       console.log(jres);
-      this.recuperarValoracionesLogeado();    
+      this.recuperarValoracionesLogeadoCliente();    
     });
     
   }
