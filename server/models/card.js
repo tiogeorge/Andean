@@ -11,6 +11,7 @@ const CardSchema = new Schema({
     cuotas: {type: String},
     plan: {type: String},
     idPrecio: {type: String},
-    orden: {type: Number}
+    orden: {type: Number},
+    titulo: {type: String}
 });
 module.exports = mongoose.model('Card', CardSchema);

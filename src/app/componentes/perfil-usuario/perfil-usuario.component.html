@@ -4,7 +4,7 @@
       <mat-card-title>Mi cuenta</mat-card-title>
       <mat-card-content>
         <mat-list>
-          <mat-list-item>
+          <!--<mat-list-item>
             <mat-icon mat-list-icon>local_mall</mat-icon>
             <a href="{{url}}#ordenes-de-compra" mat-line>Ordenes de Compra</a>
           </mat-list-item>
@@ -23,7 +23,7 @@
             <mat-icon mat-list-icon>local_atm</mat-icon>
             <a href="{{url}}#metodos-de-pago" mat-line>Métodos de Pago</a>
           </mat-list-item>
-          <mat-divider></mat-divider>
+          <mat-divider></mat-divider>-->
           <mat-list-item>
             <mat-icon mat-list-icon>how_to_reg</mat-icon>
             <a href="{{url}}#datosPersonales" mat-line>Datos Personales</a>
@@ -34,6 +34,7 @@
     </mat-card>
   </mat-sidenav>
   <mat-sidenav-content id="perfil-usuario">
+    <!--
     <mat-card id="ordenes-de-compra" class="card-perfil">
       <mat-card-title>Ordenes de Compra</mat-card-title>
       <mat-card-content>
@@ -109,7 +110,7 @@
           </mat-list-item>
         </mat-list>
       </mat-card-content>
-    </mat-card>
+    </mat-card>-->
     <mat-card id="datosPersonales" class="card-datos-personales">
       <mat-card-title>Mis Datos Personales</mat-card-title>
       <form #clienteForm="ngForm" class="datos-form" *ngIf="usuarioService.usuarioSeleccionado">
