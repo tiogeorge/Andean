@@ -12,7 +12,7 @@ valoracionController.obtenerValoraciones = async (req, res, next) => {
 valoracionController.obtenerValoracionArticulo = async (req, res) => {
     const valoraciones = await Valoracion.find({
         idarticulo: req.params.idarticulo
-    });
+    }).sort({fecha:-1});
     res.json(valoraciones);
 }
 
@@ -21,7 +21,7 @@ valoracionController.obtenerValoracionArticuloSinCliente = async (req, res) => {
     const valoraciones = await Valoracion.find({
         idarticulo: req.params.idarticulo,
         cliente: { $ne: req.params.cliente }
-    });
+    }).sort({fecha:-1});
     res.json(valoraciones);
 }
 

@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
       cb(null, './imagenes/tmp')
     },
     filename: (req, file, cb) => {
-      cb(null, file.originalname)
+      cb(null, file.originalname.split(" ").join("-"))
     }
 });
 var upload = multer({storage: storage});

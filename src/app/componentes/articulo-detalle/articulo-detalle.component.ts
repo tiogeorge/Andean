@@ -79,6 +79,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
   //Valoraciones
   numeroComentarios: Number  = 0;
+  textoNumeroComentarios: String = 'Sin Comentarios';
   puntuacionPromedio: Number  = 0;
 
   ngOnInit() {
@@ -126,6 +127,15 @@ export class ArticuloDetalleComponent implements OnInit {
       this.puntuacionPromedio = 0;
       this.numeroComentarios = 0;
       this.numeroComentarios = a.length;
+      if(this.numeroComentarios == 1)
+      {
+        this.textoNumeroComentarios = "1 Comentario";
+      }
+      else if (this.numeroComentarios > 1)
+      {
+        this.textoNumeroComentarios = a.length + " Comentarios";
+      }
+
       if (a !== undefined) {
         if (a.length > 0) {
           var sum = 0;
