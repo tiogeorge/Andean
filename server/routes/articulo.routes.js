@@ -12,6 +12,7 @@ router.get('/categoriaart/:categoria/:linea/:tipoplan/:cuotas',articulo.buscarar
 router.get('/:id', articulo.obtenerArticulo);
 router.get('/url/:id', articulo.obtenerArticuloURL);
 router.get('/mysql/precios/:id', articulo.obtenerPreciosMysql);
+router.get('/card/card/card/:tipo',articulo.obtenerCardsTipo);
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
 router.post('/', articulo.crearArticulo);
 router.post('/cartel', articulo.guardarCards);

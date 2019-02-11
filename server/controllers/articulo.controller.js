@@ -319,6 +319,16 @@ articuloController.obtenerCards = async(req, res) => {
         }
     })
 }
+articuloController.obtenerCardsTipo=async(req,res)=>{
+    Card.find({tipo:req.params.tipo,activo:true},function(err, cards){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(cards);
+        }
+    })
+}
 
 
 module.exports = articuloController;

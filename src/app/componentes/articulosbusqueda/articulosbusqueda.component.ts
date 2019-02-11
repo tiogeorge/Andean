@@ -51,7 +51,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   //URL_IMAGENES = Constantes.URL_API_IMAGEN;
   URL_IMAGENES = Constantes.URL_IMAGEN;
   tempomarcas: any;
-  tempocategoria:any;
+  tempocategoria: any;
   arreglomarcas: string[]; //= new Array();
 
   selected = 'option1';
@@ -110,13 +110,13 @@ export class ArticulosbusquedaComponent implements OnInit {
   //extraer datos que estan en el rango de precios
   filtrarprecios() {
     this.arreglotempo = [];
-   // this.temporallistaarti2=this.temporallistaarti;
-   /* for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
-      if ((Number(this.temporallistaarti[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti[i].precioplan.precio) < this.maxValue)) {
-        this.arreglotempo.push(this.temporallistaarti[i]);
-      }
-    }*/
-     for (var i = 0; i < Object.keys(this.temporallistaarti2).length; i++) {
+    // this.temporallistaarti2=this.temporallistaarti;
+    /* for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+       if ((Number(this.temporallistaarti[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti[i].precioplan.precio) < this.maxValue)) {
+         this.arreglotempo.push(this.temporallistaarti[i]);
+       }
+     }*/
+    for (var i = 0; i < Object.keys(this.temporallistaarti2).length; i++) {
       if ((Number(this.temporallistaarti2[i].precioplan.precio) > this.minValue) && (Number(this.temporallistaarti2[i].precioplan.precio) < this.maxValue)) {
         this.arreglotempo.push(this.temporallistaarti2[i]);
       }
@@ -128,7 +128,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   funcionArreglo() {
     var arreglotem2: any = this.arreglotempo;
     this.articuloslista = arreglotem2;
-    this.numeroencontrados=Object.keys(this.articuloslista).length;
+    this.numeroencontrados = Object.keys(this.articuloslista).length;
   }
   //
 
@@ -152,18 +152,18 @@ export class ArticulosbusquedaComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
     this.subscription = this.servicioapoyo.getPalabraClave()
-    .subscribe(clave=>{
-      this.palabraClave = clave.clave;
-      console.log("LLEGO DEL MENU :"+this.palabraClave);
-      this.listaraarticulos(this.palabraClave)
-    })
+      .subscribe(clave => {
+        this.palabraClave = clave.clave;
+        console.log("LLEGO DEL MENU :" + this.palabraClave);
+        this.listaraarticulos(this.palabraClave)
+      })
   }
 
   ngOnInit() {
     document.getElementById('selectplan').hidden = true;
     document.getElementById('selectcuotas').hidden = true;
     document.getElementById('noencontrado').hidden = true;
-   // document.getElementById('precio2').style.display='none';
+    // document.getElementById('precio2').style.display='none';
     //location.reload();
     // this.articuloslista="";
     // console.log(screen.width);
@@ -182,7 +182,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     //this. vistanoencontrado();
 
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
   openSnackBar() {
@@ -275,29 +275,30 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.tempomarcas = resp;
       });
   }
-  listarcategoriafiltro(){
+  listarcategoriafiltro() {
     this.categoriaservice.listarcategoriasT()
-    .subscribe(res=>{
-      this.categoriaservice.categoria=res as Categoria[];
-      var respuesta=JSON.parse(JSON.stringify(res));
-      this.tempocategoria=respuesta;
-    });
+      .subscribe(res => {
+        this.categoriaservice.categoria = res as Categoria[];
+        var respuesta = JSON.parse(JSON.stringify(res));
+        this.tempocategoria = respuesta;
+      });
   }
-  listcategoraisfil(){
-     var tem=this.articuloslista;
-     var temp: any[] = new Array();
-     for(var i=0;i<Object.keys(tem).length;i++){
-       //temp.push(tem[i].categoria);
-       temp[i]=tem[i].categoria;
-     }
-     this.funcionrepetir(temp);
+  listcategoraisfil() {
+    var tem = this.articuloslista;
+    var temp: any[] = new Array();
+    for (var i = 0; i < Object.keys(tem).length; i++) {
+      //temp.push(tem[i].categoria);
+      temp[i] = tem[i].categoria;
+    }
+    console.log(temp);
+    this.funcionrepetir(temp);
   }
 
   //contar repetidos
-  funcionrepetir(tem:any[]) {
+  funcionrepetir(tem: any[]) {
     console.log(tem)
     var ArrOrdenado = [],
-      norepetidos=[],
+      norepetidos = [],
       count = 1;
     ArrOrdenado = tem.sort(function (a, b) {
       return a - b
@@ -311,22 +312,22 @@ export class ArticulosbusquedaComponent implements OnInit {
           count++;
       }
       console.log(ArrOrdenado[i] + " = " + count);
-      norepetidos[i]=ArrOrdenado[i];
+      norepetidos[i] = ArrOrdenado[i];
     }
     console.log(norepetidos);
     this.recuperarpadres(norepetidos);
   }
-  recuperarpadres(tem:any[]){
-    var padres=[];
-    for(var i=0;i<tem.length;i++){
+  recuperarpadres(tem: any[]) {
+    var padres = [];
+    for (var i = 0; i < tem.length; i++) {
       this.categoriaservice.listarpadressegunhijo(tem[i])
-      .subscribe(res=>{
-        padres.push(JSON.parse(JSON.stringify(res)));
-      });
+        .subscribe(res => {
+          padres.push(JSON.parse(JSON.stringify(res)));
+        });
     }
     console.log('los padres son');
     console.log(padres);
-    this.listacategorias=padres;
+    this.listacategorias = padres;
     console.log(this.listacategorias);
   }
   //fin
@@ -344,7 +345,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.articuloslista = Respuesta;
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta;
-          this.temporallistaarti2= Respuesta;
+          this.temporallistaarti2 = Respuesta;
           this.listcategoraisfil();
         }
         else {
@@ -363,7 +364,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
-        this.temporallistaarti2= Respuesta;
+        this.temporallistaarti2 = Respuesta;
         this.listcategoraisfil();
         console.log('Marca' + this.temporallistaarti);
       });
@@ -383,7 +384,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
-        this.temporallistaarti2= Respuesta;
+        this.temporallistaarti2 = Respuesta;
       });
   }
   temprecuperarmarcas(pclave2: string) {
@@ -446,7 +447,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.arreglomarcas = dat;
   }
   verarr() {
-    if(this.arreglomarcas.length>0){
+    if (this.arreglomarcas.length > 0) {
       var articuloslista2 = new Array();
       var tempArr = this.temporallistaarti as any[];
       for (var j = 0; j < this.arreglomarcas.length; j++) {
@@ -459,13 +460,13 @@ export class ArticulosbusquedaComponent implements OnInit {
         }
       }
       this.articuloslista = articuloslista2;
-      this.temporallistaarti2=this.articuloslista;
-      this.numeroencontrados=Object.keys(this.articuloslista).length;
+      this.temporallistaarti2 = this.articuloslista;
+      this.numeroencontrados = Object.keys(this.articuloslista).length;
     }
-    else{
+    else {
       this.articuloslista = this.temporallistaarti;
-      this.temporallistaarti2=this.temporallistaarti;
-      this.numeroencontrados=Object.keys(this.articuloslista).length;
+      this.temporallistaarti2 = this.temporallistaarti;
+      this.numeroencontrados = Object.keys(this.articuloslista).length;
     }
   }
   //fin filtro marca
@@ -478,14 +479,14 @@ export class ArticulosbusquedaComponent implements OnInit {
       this.tipo = 'ALTA';//malena fernandes 76729209
       this.cambiarprecio();
       this.cambiarvistaprecio();
-   /*   if ((this.cuota == '12') || (this.cuota == '18')) {
-        document.getElementById('precio1').hidden = true;
-        document.getElementById('precio2').hidden = false;
-      }
-      else {
-        document.getElementById('precio1').hidden = false;
-        document.getElementById('precio2').hidden = true;
-      }*/
+      /*   if ((this.cuota == '12') || (this.cuota == '18')) {
+           document.getElementById('precio1').hidden = true;
+           document.getElementById('precio2').hidden = false;
+         }
+         else {
+           document.getElementById('precio1').hidden = false;
+           document.getElementById('precio2').hidden = true;
+         }*/
     }
     else {
       document.getElementById('selectplan').hidden = true;
@@ -493,21 +494,21 @@ export class ArticulosbusquedaComponent implements OnInit {
       this.linea = 'PREPAGO';
       this.tipo = 'ALTA';
       this.cambiarprecio();
-      this. cambiarvistaprecio();
-  /*    document.getElementById('precio1').hidden = false;
-      document.getElementById('precio2').hidden = true;*/
+      this.cambiarvistaprecio();
+      /*    document.getElementById('precio1').hidden = false;
+          document.getElementById('precio2').hidden = true;*/
     }
   }
-  cambiarvistaprecio(){
+  cambiarvistaprecio() {
     if ((this.cuota == '12') || (this.cuota == '18')) {
       console.log('cambiar vista');
-      document.getElementById('precio1').style.display='none';
-      document.getElementById('precio2').style.display='block';
+      document.getElementById('precio1').style.display = 'none';
+      document.getElementById('precio2').style.display = 'block';
     }
     else {
       console.log('no cambiar vista');
-      document.getElementById('precio2').style.display='none';
-      document.getElementById('precio1').style.display='block';
+      document.getElementById('precio2').style.display = 'none';
+      document.getElementById('precio1').style.display = 'block';
     }
   }
   cambiarprecio() {
@@ -529,7 +530,23 @@ export class ArticulosbusquedaComponent implements OnInit {
     //console.log(this.articuloslista.sort(function(a,b){return b.titulo - a.titulo}));
 
   }
-  //fin ordenar|
+  //fin ordenar   //"5c55baea18017021a05c7021",
 }
+
+function removeDuplicates(originalArray, prop) {
+  var newArray = [];
+  var lookupObject = {};
+
+  for (var i in originalArray) {
+    lookupObject[originalArray[i][prop]] = originalArray[i];
+  }
+
+  for (i in lookupObject) {
+    newArray.push(lookupObject[i]);
+  }
+  return newArray;
+}
+
+
 
 

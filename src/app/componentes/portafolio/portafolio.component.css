@@ -7,3 +7,8 @@
 .largo-card{
   max-width: 400px;
 }
+.centrarletras{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
