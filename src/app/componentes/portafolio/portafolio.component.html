@@ -3,7 +3,7 @@
     <div class="col-lg-8">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-4 col-md-6 mb-4" *ngFor="let cardsimple of listarcardtipo1" >
+          <div class="col-lg-4 col-md-6 mb-4" *ngFor="let cardsimple of listarcardtipo1">
             <mat-card class="simple-card" style="border-radius: 50px 50px ;">
               <img style="border-radius: 30px 30px 50px 50px;
               -moz-border-radius: 30px 30px 50px 50px;
@@ -12,10 +12,10 @@
                 mat-card-image src="http://placehold.it/450x350" alt="">
               <mat-card-content>
                 <p class="text-center" style="text-transform: uppercase;">
-                  {{cardsimple.link}}
+                  {{cardsimple.titulo}}
                 </p>
                 <p class="text-center" style="text-transform: uppercase;">
-                  Precio
+                  s/. {{cardsimple.precioplan.precio}}
                 </p>
               </mat-card-content>
             </mat-card>
@@ -26,7 +26,7 @@
     <div class="col-lg-4 col-md-12 mb-4">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-12 col-md-6" *ngFor="let grandecard of listarcardtipo2" >
+          <div class="col-lg-12 col-md-6" *ngFor="let grandecard of listarcardtipo2">
             <mat-card class="grande-card" style="border-radius: 50px 50px ;">
               <img style="border-radius: 30px 30px 50px 50px;
               -moz-border-radius: 30px 30px 50px 50px;
@@ -35,19 +35,19 @@
                 mat-card-image src="http://placehold.it/850x600" alt="">
               <mat-card-content>
                 <p class="text-center" style="text-transform: uppercase;">
-                  {{grandecard.link}}
+                  {{grandecard.titulo}}
                 </p>
               </mat-card-content>
               <mat-card-content>
                 <p class="text-center" style="text-transform: uppercase;">
-                  Precio
+                  s./ {{grandecard.precioplan.precio}}
                 </p>
               </mat-card-content>
             </mat-card>
           </div>
           <div class="col-lg-12 col-md-6">
             <br>
-            <div class="card grande-card mat-elevation-z2" style="border-radius: 50px 50px;" *ngFor="let largocard of listarcardtipo3" >
+            <div class="card grande-card mat-elevation-z2" style="border-radius: 50px 50px;" *ngFor="let largocard of listarcardtipo3">
               <div class="row ">
                 <div class="col-md-8">
                   <img src="http://placehold.it/850x350" class="w-100" style="border-radius: 30px 50px 50px 30px;
@@ -57,11 +57,10 @@
                 </div>
                 <div class="col-md-4">
                   <div class="card-block">
-                    <p class="card-title text-center" style="text-transform: uppercase;">{{largocard.link}}</p>
-                    <p class="card-text text-center" style="text-transform: uppercase;">Precio</p>
+                    <p class="card-title text-center" style="text-transform: uppercase;font-size: 11px;margin-right: 35px" >{{largocard.titulo}}</p>
+                    <p class="card-text text-center" style="text-transform: uppercase;margin-right: 35px">s/. {{largocard.precioplan.precio}}</p>
                   </div>
                 </div>
-
               </div>
             </div>
             <br>
