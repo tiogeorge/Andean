@@ -1,12 +1,12 @@
-const Articulo          = require('../models/articulo');
-const Precio            = require('../models/equipos');
-const Usuario           = require('../models/usuario');
-const NodeMailer        = require('nodemailer');
-const bcrypt            = require('bcryptjs');
-const salt              = bcrypt.genSaltSync();
-const jwt               = require('jsonwebtoken');
+const Articulo = require('../models/articulo');
+const Precio = require('../models/equipos');
+const Usuario = require('../models/usuario');
+const NodeMailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync();
+const jwt = require('jsonwebtoken');
 const usuarioController = {};
-process.env.JWT_SECRET  = 'andeantechnology';
+process.env.JWT_SECRET = 'andeantechnology';
 
 /**
  * Método que permite actualizar la información de un cliente
@@ -28,19 +28,32 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
       $set: user
     }, {
       new: false
-    }, function(err, usuario){
-      if(err){
+    }, function (err, usuario) {
+      if (err) {
         res.json({
           status: false,
           error: 'Se produjo el siguiente error' + err
         });
-      }else{
-          res.json({
-            status: true,
-            msg: 'Los datos del usuario se han actualizado con éxito'
-          });
-        }
-      })
+      } else {
+        req.getConnection(function (error, conn) {
+          var consulta = "call spWeb_ActualizarDatosCliente(?,?,?,?,?)";
+          var valores = [usuario.numeroDocumento, usuario.nombres, usuario.apellidos, usuario.sexo, usuario.correo];
+          conn.query(consulta, valores, function (err) {
+            if (err) {
+              res.json({
+                status: false,
+                error: 'Ocurrió un error al actualizar su usuario.'
+              });
+            } else {
+              res.json({
+                status: true,
+                msg: 'Su información ha sido actualizada con éxito'
+              });
+            }
+          })
+        });
+      }
+    })
   } catch (err) {
     res.json({
       status: false,
@@ -54,48 +67,52 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
  */
 usuarioController.agregarArticulo = async (req, res, next) => {
   console.log(req.body);
-  if(req.session.token){
-    await Usuario.findOne({ token: req.session.token }, function(err, usuario){
-      if(err){
+  if (req.session.token) {
+    await Usuario.findOne({
+      token: req.session.token
+    }, function (err, usuario) {
+      if (err) {
         res.json({
           status: false,
           error: 'Se produjo un error al obtener el usuario'
         });
       } else {
-        if(usuario){
+        if (usuario) {
           var carritoArticulo = [];
           var existeArticulo = false;
-          if (usuario.carrito){
-            carritoArticulo = usuario.carrito;     
-            for(var i = 0; i < carritoArticulo.length; i++){
-              if(carritoArticulo[i].url == req.params.url){
+          if (usuario.carrito) {
+            carritoArticulo = usuario.carrito;
+            for (var i = 0; i < carritoArticulo.length; i++) {
+              if (carritoArticulo[i].url == req.params.url) {
                 existeArticulo = true;
                 break;
               }
             }
           }
-          if (existeArticulo){
+          if (existeArticulo) {
             res.json({
               status: true,
               msg: 'El artículo ya está agregado en su carrito de compras'
             });
           } else {
             const articuloCarrito = {
-              url: req.params.url, 
-              tipoLinea: req.body.tipoLinea, 
-              tipoPlan: req.body.tipoPlan, 
-              nombrePlan: req.body.nombrePlan, 
+              url: req.params.url,
+              tipoLinea: req.body.tipoLinea,
+              tipoPlan: req.body.tipoPlan,
+              nombrePlan: req.body.nombrePlan,
               cuotas: req.body.cuotas
             };
             carritoArticulo.push(articuloCarrito);
             Usuario.findOneAndUpdate({
               token: req.session.token
             }, {
-              $set : {carrito : carritoArticulo}
+              $set: {
+                carrito: carritoArticulo
+              }
             }, {
               new: false
-            }, function(err, usuarioArticulo){
-              if(err){
+            }, function (err, usuarioArticulo) {
+              if (err) {
                 res.json({
                   status: false,
                   error: 'Se produjo error al agregar el artículo en tu carrito de compras'
@@ -108,36 +125,36 @@ usuarioController.agregarArticulo = async (req, res, next) => {
                 });
               }
             });
-          }       
-        }     
+          }
+        }
       }
     });
   } else {
     var carritoArticulo = [];
     var existeArticulo = false;
     const articuloCarrito = {
-      url: req.params.url, 
-      tipoLinea: req.body.tipoLinea, 
-      tipoPlan: req.body.tipoPlan, 
-      nombrePlan: req.body.nombrePlan, 
+      url: req.params.url,
+      tipoLinea: req.body.tipoLinea,
+      tipoPlan: req.body.tipoPlan,
+      nombrePlan: req.body.nombrePlan,
       cuotas: req.body.cuotas
     };
-    if (req.session.articulos){
-      carritoArticulo = req.session.articulos;     
-      for(var i = 0; i < carritoArticulo.length; i++){
-        if(carritoArticulo[i].url == req.params.url){
+    if (req.session.articulos) {
+      carritoArticulo = req.session.articulos;
+      for (var i = 0; i < carritoArticulo.length; i++) {
+        if (carritoArticulo[i].url == req.params.url) {
           existeArticulo = true;
           break;
         }
       }
-      if(!existeArticulo){
+      if (!existeArticulo) {
         req.session.articulos.push(articuloCarrito);
       }
       res.json({
         status: true,
         msg: 'El artículo se ha agregado a tu carrito de compras exitosamente'
       })
-    }  else {
+    } else {
       carritoArticulo.push(articuloCarrito);
       req.session.carrito = carritoArticulo;
       res.json({
@@ -145,21 +162,23 @@ usuarioController.agregarArticulo = async (req, res, next) => {
         error: 'El artículo se ha agregado a tu carrito de compras exitosamente'
       })
     }
-  } 
+  }
 };
 
 /**
  * Método que permite crear un nuevo cliente
  */
 usuarioController.crearUsuario = async (req, res, next) => {
-  Usuario.findOne({correo: req.body.correo}, function(err, usuario){
-    if(err){
+  Usuario.findOne({
+    correo: req.body.correo
+  }, function (err, usuario) {
+    if (err) {
       res.json({
         status: false,
         error: 'Se produjo el siguiente error: ' + err
       });
     } else {
-      if (usuario){
+      if (usuario) {
         res.json({
           status: false,
           error: 'El correo electrónico ya esta siendo usado'
@@ -177,20 +196,20 @@ usuarioController.crearUsuario = async (req, res, next) => {
           sexo: req.body.sexo,
           fechaNacimiento: req.body.fechaNacimiento
         });
-        usuarioModel.save(function(err, usuario){
+        usuarioModel.save(function (err, usuario) {
           usuario.token = jwt.sign(usuario.toJSON(), process.env.JWT_SECRET);
-          usuario.save(function(err, userToken){
-            if(err){
+          usuario.save(function (err, userToken) {
+            if (err) {
               res.json({
                 status: false,
-                error: 'Se produjo el siguiente error: ' + err 
+                error: 'Se produjo el siguiente error: ' + err
               });
             } else {
               res.json({
                 status: true,
                 msg: 'El usuario ha sido creado con éxito',
               });
-            }        
+            }
           });
         });
       }
@@ -202,11 +221,11 @@ usuarioController.crearUsuario = async (req, res, next) => {
  * Método que permite eliminar un artículo del carrito de compras
  */
 usuarioController.eliminarArticulo = async (req, res, next) => {
-  if(req.session.token){
+  if (req.session.token) {
     await Usuario.findOne({
       token: req.session.token
-    }, function( err, usuario){
-      if (err){
+    }, function (err, usuario) {
+      if (err) {
         res.json({
           status: false,
           error: 'No se pudo obtener los datos del cliente'
@@ -214,8 +233,8 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
       } else {
         var carritoArticulos = usuario.carrito;
         var indice = 0;
-        for(var i = 0; i < usuario.carrito.length; i++){
-          if (usuario.carrito[i].url == req.params.url){
+        for (var i = 0; i < usuario.carrito.length; i++) {
+          if (usuario.carrito[i].url == req.params.url) {
             indice = i;
             break;
           }
@@ -224,9 +243,11 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
         Usuario.findOneAndUpdate({
           token: req.session.token
         }, {
-          $set : { carrito : carritoArticulos }
-        }, function(err){
-          if(err){
+          $set: {
+            carrito: carritoArticulos
+          }
+        }, function (err) {
+          if (err) {
             res.json({
               status: false,
               error: 'Error al eliminar un articulo del carrito'
@@ -243,11 +264,11 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
     });
   } else {
     var carritoArticulo = [];
-    if(req.session.articulos){
+    if (req.session.articulos) {
       carritoArticulo = req.session.articulos;
       var indice = 0;
-      for(var i = 0; i < req.session.articulos.length; i++){
-        if (req.session.articulos[i].url == req.params.url){
+      for (var i = 0; i < req.session.articulos.length; i++) {
+        if (req.session.articulos[i].url == req.params.url) {
           indice = i;
           break;
         }
@@ -272,13 +293,15 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
  */
 usuarioController.eliminarTodoArticulos = async (req, res, next) => {
   console.log(req.session.articulos);
-  if (req.session.token){
+  if (req.session.token) {
     await Usuario.findOneAndUpdate({
       token: req.session.token
-    },{
-      $set : {carrito : [] }
-    } ,function(err) {
-      if(err){
+    }, {
+      $set: {
+        carrito: []
+      }
+    }, function (err) {
+      if (err) {
         res.json({
           status: false,
           error: 'Error al intentar eliminar el artículo del carrito de compras'
@@ -301,32 +324,32 @@ usuarioController.eliminarTodoArticulos = async (req, res, next) => {
 usuarioController.eliminarUsuario = async (req, res, next) => {
   await Usuario.remove({
     id: req.params.id
-  }, function(err){
-    if(err){
+  }, function (err) {
+    if (err) {
       res.json({
         status: false,
         error: 'Se produjo un error al eliminar el usuario: ' + err
       });
-    }else{
-        res.json({
-          status: true,
-          msg: 'El usuario ha sido eliminado con éxito'
-        });
-      }
-    });
+    } else {
+      res.json({
+        status: true,
+        msg: 'El usuario ha sido eliminado con éxito'
+      });
+    }
+  });
 };
 
 /**
  * Método que permite listar todos los usuarios existentes
  */
 usuarioController.listarUsuarios = async (req, res, next) => {
-  const usuarios = await Usuario.find(function(err, usuarios){
-    if(err){
+  const usuarios = await Usuario.find(function (err, usuarios) {
+    if (err) {
       res.json({
         status: false,
         error: 'Se produjo el siguiente error: ' + err
       });
-    }else{
+    } else {
       res.json(usuarios);
     }
   })
@@ -340,7 +363,7 @@ usuarioController.loginAdmin = async (req, res, next) => {
     var consulta = "call spuPrin_IniciarSesionUsuario(?,?,?)";
     var valores = [req.body.usuario.toUpperCase(), req.body.password, 'web'];
     conn.query(consulta, valores, function (err, results) {
-      if (err){
+      if (err) {
         res.json({
           status: false,
           error: 'El usuario y/o contraseña son incorrectos'
@@ -362,7 +385,7 @@ usuarioController.loginAdmin = async (req, res, next) => {
             errror: 'El usuario y/o contraseña son incorrectas.'
           });
         }
-      }    
+      }
     })
   });
 };
@@ -371,16 +394,18 @@ usuarioController.loginAdmin = async (req, res, next) => {
  * Método que permite iniciar sesión como cliente
  */
 usuarioController.loginUsuario = async (req, res, next) => {
-  Usuario.findOne({correo: req.body.correo}, function(err, usuario){
-    if(err){
+  Usuario.findOne({
+    correo: req.body.correo
+  }, function (err, usuario) {
+    if (err) {
       res.json({
         status: false,
         error: 'Se produjo el siguiente error: ' + err
       });
     } else {
-      if (usuario){
+      if (usuario) {
         var login = bcrypt.compareSync(req.body.password, usuario.password);
-        if (login){
+        if (login) {
           req.session.token = usuario.token;
           res.json({
             status: true,
@@ -406,21 +431,27 @@ usuarioController.loginUsuario = async (req, res, next) => {
  * Método que permite obtener los artículos y planes de un carrito de compras
  */
 usuarioController.obtenerCarrito = async (req, res, next) => {
-  if(req.session.token){
-    usuario = await Usuario.findOne({token: req.session.token});
+  if (req.session.token) {
+    usuario = await Usuario.findOne({
+      token: req.session.token
+    });
     const carrito = usuario.carrito;
     var carritoArticulos = new Array();
-    for(var i = 0; i < carrito.length; i++){
+    for (var i = 0; i < carrito.length; i++) {
       var precioArticulo;
-      var articulo = await Articulo.findOne({url : carrito[i].url});
-      var precio = await  Precio.findOne({nombreequipo: articulo.idprecio});
-      for(var j = 0; j < precio.planes.length; j++){
-        if(carrito[i].tipoLinea == 'PREPAGO'){
-          if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas){
+      var articulo = await Articulo.findOne({
+        url: carrito[i].url
+      });
+      var precio = await Precio.findOne({
+        nombreequipo: articulo.idprecio
+      });
+      for (var j = 0; j < precio.planes.length; j++) {
+        if (carrito[i].tipoLinea == 'PREPAGO') {
+          if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas) {
             precioArticulo = precio.planes[j];
           }
-        }else {
-          if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan){
+        } else {
+          if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan) {
             precioArticulo = precio.planes[j];
           }
         }
@@ -433,20 +464,24 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
       data: carritoArticulos
     });
   } else {
-    if(req.session.articulos){
+    if (req.session.articulos) {
       const carrito = req.session.articulos;
       var carritoArticulos = new Array();
-      for(var i = 0; i < carrito.length; i++){
+      for (var i = 0; i < carrito.length; i++) {
         var precioArticulo;
-        var articulo = await Articulo.findOne({url : carrito[i].url});
-        var precio = await  Precio.findOne({nombreequipo: articulo.idprecio});
-        for(var j = 0; j < precio.planes.length; j++){
-          if(carrito[i].tipoLinea == 'PREPAGO'){
-            if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas){
+        var articulo = await Articulo.findOne({
+          url: carrito[i].url
+        });
+        var precio = await Precio.findOne({
+          nombreequipo: articulo.idprecio
+        });
+        for (var j = 0; j < precio.planes.length; j++) {
+          if (carrito[i].tipoLinea == 'PREPAGO') {
+            if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas) {
               precioArticulo = precio.planes[j];
             }
-          }else {
-            if(carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan){
+          } else {
+            if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan) {
               precioArticulo = precio.planes[j];
             }
           }
@@ -470,35 +505,39 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
 /**
  * Método que permite obtner los datos de un elemento de un carrito
  */
-usuarioController.obtenerArticuloCarrito = async(res, req) => {
-  Articulo.findOne({url: req.body.url}, function(err, articulo) {
-    if(err){
+usuarioController.obtenerArticuloCarrito = async (res, req) => {
+  Articulo.findOne({
+    url: req.body.url
+  }, function (err, articulo) {
+    if (err) {
       res.json({
         status: false,
         error: 'Error al obtener el artículo'
       });
     } else {
-      Precio.find({ nombreequipo: articulo.idprecio }, function(err, precio){
-        if(err){
+      Precio.find({
+        nombreequipo: articulo.idprecio
+      }, function (err, precio) {
+        if (err) {
           res.json({
             status: false,
             error: 'No se obtuvo el precio'
           });
         } else {
           var preciosArticulo = [];
-          for(var i = 0; i < precio.planes.length; i++){
-            if(req.boyd.tipoLinea == 'PREPAGO'){
+          for (var i = 0; i < precio.planes.length; i++) {
+            if (req.boyd.tipoLinea == 'PREPAGO') {
               if (precio.planes[i].tipolinea == req.body.tipoLinea &&
-                precio.planes[i].tipoplan == req.body.tipoPlan){
-                  preciosArticulo.push(precio.planes[i]);
-                }
+                precio.planes[i].tipoplan == req.body.tipoPlan) {
+                preciosArticulo.push(precio.planes[i]);
+              }
             } else {
               if (precio.planes[i].tipolinea == req.body.tipoLinea &&
-                precio.planes[i].tipoplan == req.body.tipoPlan && 
+                precio.planes[i].tipoplan == req.body.tipoPlan &&
                 precio.planes[i].nombreplan == req.body.nombrePlan &&
-                precio.planes[i].cuotas == req.body.cuotas){
-                  preciosArticulo.push(precio.planes[i]);
-                }
+                precio.planes[i].cuotas == req.body.cuotas) {
+                preciosArticulo.push(precio.planes[i]);
+              }
             }
           }
           res.json({
@@ -519,20 +558,22 @@ usuarioController.obtenerArticuloCarrito = async(res, req) => {
  * Método que permite obtener los datos de un usuario
  */
 usuarioController.obtenerUsuario = async (req, res, next) => {
-  if(req.session.token){
-    Usuario.findOne({ token: req.session.token }, function(err, usuario) {
-      if(err){
+  if (req.session.token) {
+    Usuario.findOne({
+      token: req.session.token
+    }, function (err, usuario) {
+      if (err) {
         res.json({
           status: false,
           error: 'Se produjo el siguiente error: ' + err
         });
-      }else{
-        if(usuario){
+      } else {
+        if (usuario) {
           res.json({
             status: true,
             data: usuario
           });
-        }else {
+        } else {
           res.json({
             status: false,
             error: 'No se encontró al usuario'
@@ -551,15 +592,15 @@ usuarioController.obtenerUsuario = async (req, res, next) => {
 /**
  * Método que obtiene un usuario por su identificador de base de datos
  */
-usuarioController.usuarioid=async (req,res)=>{
-  const usuario=await Usuario.findById(req.params.id);
+usuarioController.usuarioid = async (req, res) => {
+  const usuario = await Usuario.findById(req.params.id);
   res.json(usuario);
 }
 
 /**
  * Método que guarda el costo de envío en la sesión del cliente
  */
-usuarioController.guardarEnvio = async(req, res) =>{
+usuarioController.guardarEnvio = async (req, res) => {
   req.session.envio = req.body.envio;
   res.status(200).json({
     status: true,
@@ -570,17 +611,19 @@ usuarioController.guardarEnvio = async(req, res) =>{
 /**
  * Método que permite recuperar la contraseña mediante un correo electrónico
  */
-usuarioController.recuperarContraseña = async(req, res) => {
+usuarioController.recuperarContraseña = async (req, res) => {
   var transporter = NodeMailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'zapata.gabriel.avi', 
-        pass: '' 
+      user: 'zapata.gabriel.avi',
+      pass: ''
     }
   });
-  Usuario.findOne({correo: req.body.email}, function(err, usuario){
+  Usuario.findOne({
+    correo: req.body.email
+  }, function (err, usuario) {
     console.log('Correo encontrado');
-    if(err){
+    if (err) {
       res.json({
         status: false,
         error: 'El usuario no está registrado'
@@ -596,27 +639,33 @@ usuarioController.recuperarContraseña = async(req, res) => {
       <a href="https://latiendadeltiogeorge.herokuapp.com/cambiarPassword/${usuario.token}">Este link tambien es valido</a>
       <p>Atentatemente: <strong>El Tío George</strong></p>
       `
-    };
-    transporter.sendMail(mailOptions, function (err, info) {
-      if (err){
-        res.json({
-          status: false,
-          error: 'Ocurrió un error al enviar el mensaje. ' + err
-        });
-      } else {
-        res.json({
-          status: true,
-          msg: 'El enlace para recuperar su contraseña ha sido enviado a su correo'
-        });
-      }
-    });
+      };
+      transporter.sendMail(mailOptions, function (err, info) {
+        if (err) {
+          res.json({
+            status: false,
+            error: 'Ocurrió un error al enviar el mensaje. ' + err
+          });
+        } else {
+          res.json({
+            status: true,
+            msg: 'El enlace para recuperar su contraseña ha sido enviado a su correo'
+          });
+        }
+      });
     }
-  });   
+  });
 }
 
-usuarioController.cambiarPassword = async(req, res) => {
-  Usuario.findOneAndUpdate({token: req.body.token}, {$set : {password: req.body.password}}, function(err, usuario){
-    if(err){
+usuarioController.cambiarPassword = async (req, res) => {
+  Usuario.findOneAndUpdate({
+    token: req.body.token
+  }, {
+    $set: {
+      password: req.body.password
+    }
+  }, function (err, usuario) {
+    if (err) {
       res.json({
         status: false,
         error: 'Se produjo un error al cambiar la contraseña. ' + err
