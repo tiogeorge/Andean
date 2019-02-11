@@ -57,6 +57,7 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "tslib": "^1.9.0",
+    "webp-converter": "^2.2.2",
     "xlsx": "^0.14.1",
     "zone.js": "~0.8.29"
   },

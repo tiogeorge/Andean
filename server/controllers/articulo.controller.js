@@ -5,6 +5,7 @@ const MarcaArt = require('../models/marca');
 var jsonArticulos;
 const Equipo = require('../models/equipos');
 const Card = require('../models/card');
+var jsonEquipos = new Array();
 
 articuloController.obtenerArticulosMysql = async (req, res) => {
     try {
@@ -12,7 +13,7 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
         req.getConnection(function (error, conn) {
             var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0";
             var consulta2 = "SELECT * FROM taarticulosglobal";
-            var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0 GROUP BY idArticuloGlobal";
+            var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAlm_StockArticuloLocal(idArticulo,'586') AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0 GROUP BY idArticuloGlobal";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
                     console.log(err);
@@ -43,6 +44,82 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
     }
 
 }
+
+articuloController.ObtenerEquiposArticulo = async (req, res)=>{
+    console.log("ONTENIENDO EQUIPOS DE LOS ARTICULOS..");
+    jsonEquipos = new Array();
+    try {
+        req.getConnection(function (error, conn) {
+            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'586')as Cantidad FROM taarticulo WHERE idArticuloGlobal = '"+req.params.idglobal+"'";
+            conn.query(consulta3, async function (err, results) {
+                if (err) {
+                    console.log(err);
+                    res.json({
+                        estado: "0",
+                        mensaje: "ERROR: " + err
+                    });
+                } else {
+                    var jsoneq = JSON.parse(JSON.stringify(results));
+                    for (var i = 0; i < jsoneq.length; i++) {
+                        await verificarEquipoArticuloMongo(req.params.idglobal,jsoneq[i].idArticulo, jsoneq[i].Descripcion, jsoneq[i].Cantidad);
+                    }
+                    console.log("termino verificar equipos");
+                    res.json(jsonEquipos);
+                    // console.log(jsonArticulos);
+
+                }
+            });
+            if (error) {
+                console.log(error);
+                res.json(error);
+            }
+        });
+
+
+    } catch (e) {
+        console.log(e);
+    }
+
+}
+
+
+verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad) => {
+    try {
+        const articulomongo = await Articulo.find({idarticulo: idGlobal},{equipos: {$elemMatch: {idequipo: idequipo}}});
+        if (articulomongo.length > 0) {
+            /*const categoriamongo = await Categoria.findById(articulomongo[0].categoria);
+            jsonArticulos[i].Categoria = categoriamongo.nombre;
+            jsonArticulos[i].Estado = "1";
+            console.log(jsonArticulos[i]);*/
+            console.log(articulomongo[0].equipos);
+            console.log("=================================");
+            jsonEquipos.push({
+                idequipo:idequipo,
+                descripcion: descripcion,
+                cantidad:cantidad,
+                color:articulomongo[0].equipos[0].color,
+                detalle:articulomongo[0].equipos[0].detalle,
+                imagen:articulomongo[0].equipos[0].imagen,
+                codigocolor:articulomongo[0].equipos[0].codigocolor
+            });
+        } else {
+           /* jsonArticulos[i].Categoria = "SIN CATEGORIA";
+            jsonArticulos[i].Estado = "0";*/
+            jsonEquipos.push({
+                idequipo:idequipo,
+                descripcion: descripcion,
+                cantidad:cantidad,
+                color:"",
+                detalle:"",
+                imagen:"",
+                codigocolor:"#000000"
+            });
+        }
+    } catch (e) {
+        console.log("currio un error");
+    }
+}
+
 
 verificarArticulosMongo = async (id, i) => {
     try {
@@ -123,7 +200,7 @@ articuloController.actualizarArticulo = async (req, res) => {
             descripcion: req.body.descripcion,
             garantias: req.body.garantias
         }
-        const articulo = await Articulo.findOneAndUpdate({ _id: req.params.id }, { $set: art }, { new: true });
+        const articulo = await Articulo.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
         res.json({
             estado: 1,
             mensaje: "Se actualizaron los datos correctamente"

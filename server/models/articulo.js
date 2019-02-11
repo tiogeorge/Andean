@@ -14,7 +14,17 @@ const ArticuloSchema = new Schema({
     }],
     imagenes:[String],
     descripcion:{type: String, require: true},
-    garantias:[String]
+    garantias:[String],
+    equipos:[{
+        idequipo:{type: String, required:true},
+        descripcion:{type: String, required:true},
+        cantidad:{type: Number, required: false},
+        color:{type:String, required:false},
+        detalle:{type: String, required:false},
+        imagen:{type: String, required: false},
+        codigocolor:{type: String, required: false}
+    }],
+    palabrasclaves:{type: String, required: true}
     
 });
 module.exports = mongoose.model('Articulo', ArticuloSchema);
