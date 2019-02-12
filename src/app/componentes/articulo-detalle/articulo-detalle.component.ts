@@ -77,6 +77,16 @@ export class ArticuloDetalleComponent implements OnInit {
     this.valoracionService = valoracionService;
   }
 
+  //Actualizacion de numero de comentarios y promedio de puntaje
+
+  message:string;
+
+  receiveMessage($event) {
+    this.infoComentarios();
+    this.message = $event;
+    console.log(this.message);
+  }
+
   //Valoraciones
   numeroComentarios: Number  = 0;
   textoNumeroComentarios: String = 'Sin Comentarios';
@@ -118,6 +128,8 @@ export class ArticuloDetalleComponent implements OnInit {
     })
 
   }
+
+  
 
 
   infoComentarios() {

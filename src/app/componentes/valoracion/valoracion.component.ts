@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Articulo } from '../articulo-detalle/articulo';
 import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
 import { ValoracionService } from "./valoracion.service";
@@ -13,14 +13,16 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./valoracion.component.css']
 })
 export class ValoracionComponent implements OnInit {
+  message: string = "Hola Mundo!"
+  @Output() messageEvent = new EventEmitter<string>();
+
   articuloService: ArticuloDetalleService;
   usuarioService: UsuarioService;
   valoracionService: ValoracionService;
   clienteComento = false;
   sesionActiva = false;
-  numeroComentarios: Number = 0;
-  promedioValoracion: Number = 0;
   valoracionNueva = new Valoracion();
+
 
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, valoracionService: ValoracionService) {
     this.articuloService = articuloService;
@@ -41,7 +43,7 @@ export class ValoracionComponent implements OnInit {
           this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
           this.sesionActiva = true;
           this.recuperarValoracionesLogeadoCliente();  
-          this.recuperarValoracionesLogeadoSinCliente();      
+          this.recuperarValoracionesLogeadoSinCliente();                
         }
       }); 
     });
@@ -49,6 +51,10 @@ export class ValoracionComponent implements OnInit {
 
   ngAfterViewInit() {
     
+  }
+
+  sendMessage() {
+    this.messageEvent.emit(this.message)
   }
 
   recuperarValoraciones() {
@@ -89,9 +95,9 @@ export class ValoracionComponent implements OnInit {
     this.valoracionService.crearValoracion(this.valoracionNueva).subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
       console.log(jres);
-      this.recuperarValoracionesLogeadoCliente();    
+      this.recuperarValoracionesLogeadoCliente();
+      this.recuperarValoraciones();    
+      this.sendMessage();
     });
-    
   }
-
 }
