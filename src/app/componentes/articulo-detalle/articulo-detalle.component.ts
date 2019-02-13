@@ -322,7 +322,7 @@ export class ArticuloDetalleComponent implements OnInit {
   }
   cambiar_imagen(url) {
     let imageseleccionada = document.getElementById("imagen-seleccionada") as HTMLImageElement;
-    imageseleccionada.src = this.articuloService.url_imagenes + "/tmp/" + url;
+    imageseleccionada.src = this.articuloService.url_imagenes + "/lg/" + url;
     var result = document.getElementById("resultado-zoom");
     var img = document.getElementById("imagen-origen") as HTMLDivElement;
     var imagen = document.getElementById("imagen-seleccionada") as HTMLImageElement;
