@@ -75,6 +75,7 @@ app.use('/api/precio', require('./routes/precio.routes'));
 app.use('/api/sesion', require('./routes/sesion.routes'));
 app.use('/api/pago', require('./routes/pago.routes'));
 app.use('/api/valoracion', require('./routes/valoracion.routes'));
+app.use('/api/facturacion', require('./routes/facturacion.route'));
 
 process.on('uncaughtException', function(err) {
     console.log(err);
