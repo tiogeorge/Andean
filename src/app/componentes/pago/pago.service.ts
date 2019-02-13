@@ -20,7 +20,7 @@ export class PagoService {
   }
   
   recuperarserie(){
-    return this.http.get(this.URL_API+'/serielocal')
+    return this.http.get(this.URL_API+'/serielocal/serie')
   }
   recuperarnumerodoc(){
     return this.http.get(this.URL_API+'/numerodoc/numero')

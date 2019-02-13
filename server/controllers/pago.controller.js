@@ -26,6 +26,19 @@ pagoController.GuardarPago = async (req, res) => {
     }
 }
 /*funciones mysql */
+pagoController.recuperarseriesequipos=async(req,res)=>{
+    req.getConnection(function(error, conn){
+        var consulta="SELECT idNroSerie AS 'serie' FROM `taexistencias` WHERE idArticulo=('"+req.params.idarti+"') AND Disponibles>0";
+        conn.query(consulta,function(err,results){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.json(results);
+            }
+        });
+    });
+}
 pagoController.recuperarseriedoc=async(req,res)=>{
     req.getConnection(function(error,conn){
         var consulta ="SELECT fnRep_SerieLocalDocumento('586','BBV') as 'SERIE'" ;
@@ -52,23 +65,18 @@ pagoController.guardarpagomysql= async(req,res)=>{
 }
 
 pagoController.listarpedidos = async (req, res) => {
-    //const correoclient;
-    /*const pet= await Pago.aggregate({
-        $lookup:
-        {
-            from: "usuarios",
-            localField: "idUsuario",
-            foreignField: "_id",
-            as: "datosclient"
-        }
-    })
-    console.log(pet);*/
     const pedidos = await Pago.find();
     res.json(pedidos);
 }
 
 pagoController.listarpedidouni = async (req, res) => {
     const pedido = await Pago.findById(req.params.id);
+    console.log(pedido.Articulo.lengh);
+    var jsonpedido=JSON.parse(JSON.stringify(pedido));
+    for(var i=0; i<Object.keys(pedido.Articulo).lengh;i++){
+        console.log('ids');
+        console.log(pedido.Articulo[i].idarticulo);
+    }
     res.json(pedido);
 }
 

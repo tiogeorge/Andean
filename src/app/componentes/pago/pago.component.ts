@@ -69,9 +69,9 @@ export interface temdoc {
 })
 
 export class PagoComponent implements OnInit {
-  seriedoc:string="";
-  numerodoc:string="";
-  tipodoc:string="BBV";
+  seriedoc: string = "";
+  numerodoc: string = "";
+  tipodoc: string = "BBV";
   //expansion panel
   panelOpenState = false;
   //fin panel
@@ -95,11 +95,11 @@ export class PagoComponent implements OnInit {
   correoclient: string = '';
   listdirecciones: string[];
   listtemporaldir: string[];
-  localselec= 'Casa';
+  localselec = 'Casa';
   RespuestaDir: any;
   logocard: string = '';
   direccionsel: string = '';
-  DocumentoT: temdoc[] = [{ Tipo: 'BBV', Serie: '', Numero: '' }];
+  DocumentoT: temdoc[] = [{ Tipo: 'BBV', Serie: '1', Numero: '1' }];
   //montos
   subtotal: string;
   montoenvio: string;
@@ -178,7 +178,7 @@ export class PagoComponent implements OnInit {
      { idArticulo: '14545454545', PrecioUni: '200', idPlan: '32d3s23ds2d3s' },
    ];*/
 
-  
+
 
   Local: Tipolocalenvio[] = [
     { value: 'Casa' },
@@ -221,7 +221,7 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.localselec= 'Casa';
+    this.localselec = 'Casa';
     //obtener carrito
     this.articuloDetalleService.getCarrito().subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
@@ -368,8 +368,8 @@ export class PagoComponent implements OnInit {
 
 
     }
-  /*  console.log('lista de articulo del carrito');
-    console.log(this.listaArticulos2);*/
+    /*  console.log('lista de articulo del carrito');
+      console.log(this.listaArticulos2);*/
   }
   //
   resetForm(form?: NgForm) {
@@ -383,11 +383,11 @@ export class PagoComponent implements OnInit {
     console.log('direccion:');
     console.log(this.listdirecciones);*/
     var rres;
-   // this.direccionService.selecDireccion.tipolocal=this.localselec;
+    // this.direccionService.selecDireccion.tipolocal=this.localselec;
     this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
       .subscribe(res => {
         console.log(res);
-        rres=JSON.parse(JSON.stringify(res));
+        rres = JSON.parse(JSON.stringify(res));
         /* resumedir*/
         document.getElementById('lbdirec').innerHTML = this.direccionService.selecDireccion.direccion;
         document.getElementById('lbtipolocal').innerHTML = this.direccionService.selecDireccion.tipolocal;
@@ -400,7 +400,7 @@ export class PagoComponent implements OnInit {
         this.direccionsel = this.direccionService.selecDireccion.direccion;
         /*fin */
         this.resetForm(form);
-        this.recuperariddirec(rres.data._id,rres.data.tipolocal);
+        this.recuperariddirec(rres.data._id, rres.data.tipolocal);
         console.log('Direccion Agregada')
         this.ListarDireccion(this.usuario._id);
       });
@@ -427,10 +427,10 @@ export class PagoComponent implements OnInit {
       this.logocard = 'landscape';
     }
   }
-  recuperariddirec(id:string,tiplocal:string) {
+  recuperariddirec(id: string, tiplocal: string) {
     //nombreiconresdir
     this.nombreiconresdir(tiplocal);
-    this.direccionselec(id,this.logocard);
+    this.direccionselec(id, this.logocard);
   }
   ListarDireccion(id: string) {
     this.direccionService.ListarDireccion(id)
@@ -482,42 +482,61 @@ export class PagoComponent implements OnInit {
   }
   guardarventa(form: NgForm) {
     /*recuperar datos doc */
-    this.asignardocumentoventa();
-    /* fin */
-    // this.pagoservice.selectPago._id = 'asdsadsadsadsa';
-    this.pagoservice.selectPago.idUsuario = this.user;
-    this.pagoservice.selectPago.Correocliente = this.correoclient;
-    //console.log(this.Arti);
-    //this.pagoservice.selectPago.Articulo.push(this.Arti[0]);
-    this.pagoservice.selectPago.Articulo = this.listaArticulos2;
-    this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
-    // console.log(this.pagoservice.selectPago.FechaCompra);
-    this.pagoservice.selectPago.EstadoPago = 'Proceso';
-    this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
-    this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
-    this.pagoservice.selectPago.FechaEnvio = new Date();
-    this.pagoservice.selectPago.FechaEntrega = new Date();
-    this.pagoservice.selectPago.PrecioTotal = this.preciototal;
-    this.pagoservice.selectPago.NroTransaccion = '2323232';
-   // this.pagoservice.selectPago.Documento = this.Documento;
-   console.log('documento actua');
-   console.log(this.pagoservice.selectPago.Documento);
-    this.pagoservice.selectPago.idVendedor = 'ROOT';
-    //console.log(this.pagoservice.selectPago.FechaEntrega);
-    this.pagoservice.GuardarPago(this.pagoservice.selectPago)
+    this.DocumentoT[0].Tipo = this.tipodoc;
+    console.log('serie');
+    this.pagoservice.recuperarserie()
       .subscribe(res => {
         console.log(res);
-        if (JSON.parse(JSON.stringify(res)).mensaje == 'ok') {
-          this.snackBar.open('Venta Realizada', '🧓🏻', {
-            duration: 2000,
+        this.seriedoc = JSON.parse(JSON.stringify(res));
+        this.DocumentoT[0].Serie = this.seriedoc;
+        console.log(this.seriedoc);
+        console.log('numero');
+        this.pagoservice.recuperarnumerodoc()
+          .subscribe(res => {
+            console.log(res);
+            this.numerodoc = (Number(JSON.parse(JSON.stringify(res))) + 1).toString();
+            this.DocumentoT[0].Numero = this.numerodoc;
+            console.log(this.numerodoc);
+            //
+            this.pagoservice.selectPago.idUsuario = this.user;
+            this.pagoservice.selectPago.Correocliente = this.correoclient;
+            this.pagoservice.selectPago.Articulo = this.listaArticulos2;
+            this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
+            this.pagoservice.selectPago.EstadoPago = 'Pagado';
+            this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
+            this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
+            this.pagoservice.selectPago.FechaEnvio = new Date();
+            this.pagoservice.selectPago.FechaEntrega = new Date();
+            this.pagoservice.selectPago.PrecioTotal = this.preciototal;
+            this.pagoservice.selectPago.NroTransaccion = '2323232';
+            this.pagoservice.selectPago.Documento = this.DocumentoT;
+            console.log('documento actua');
+            console.log(this.pagoservice.selectPago.Documento);
+            this.pagoservice.selectPago.idVendedor = 'ROOT';
+            //console.log(this.pagoservice.selectPago.FechaEntrega);
+            this.pagoservice.GuardarPago(this.pagoservice.selectPago)
+              .subscribe(res => {
+                console.log(res);
+                if (JSON.parse(JSON.stringify(res)).mensaje == 'ok') {
+                  this.snackBar.open('Venta Realizada', '🧓🏻', {
+                    duration: 2000,
+                  });
+                  this.eliminarcarrito();
+                  this.router.navigateByUrl('home');
+                }
+                else {
+                  alert('Error!!!');
+                }
+              });
+            //
           });
-          /*this.eliminarcarrito();
-          this.router.navigateByUrl('home');*/
-        }
-        else {
-          alert('Error!!!');
-        }
+        // this.seriedoc=JSON.parse(JSON.stringify(res));
+
       });
+
+    // this.asignardocumentoventa();
+    /* fin */
+
   }
   eliminarcarrito() {
     this.usuarioService.eliminarArticulosCarrito()
@@ -526,36 +545,37 @@ export class PagoComponent implements OnInit {
       });
   }
 
-  asignardocumentoventa(){
+  asignardocumentoventa() {
     this.recuperarserie();
     this.recuperarnumero();
-    this.DocumentoT[0].Tipo=this.tipodoc;
+    this.DocumentoT[0].Tipo = this.tipodoc;
     console.log('documentos');
-    console.log(this.DocumentoT);  
+    console.log(this.DocumentoT);
     this.pagoservice.selectPago.Documento = this.DocumentoT;
     console.log(this.pagoservice.selectPago.Documento);
   }
 
-  recuperarserie(){
+  recuperarserie() {
     console.log('serie');
     this.pagoservice.recuperarserie()
-    .subscribe(res=>{
-     // this.seriedoc=JSON.parse(JSON.stringify(res));
-      console.log(res);
-      this.seriedoc=JSON.parse(JSON.stringify(res));
-      this.DocumentoT[0].Serie=this.seriedoc;
-      console.log(this.seriedoc);
-    });
+      .subscribe(res => {
+        // this.seriedoc=JSON.parse(JSON.stringify(res));
+        console.log(res);
+        this.seriedoc = JSON.parse(JSON.stringify(res));
+        this.DocumentoT[0].Serie = this.seriedoc;
+        console.log(this.seriedoc);
+      });
   }
-  recuperarnumero(){
+  recuperarnumero() {
     this.pagoservice.recuperarnumerodoc()
-    .subscribe(res=>{
-      console.log(res);
-      this.numerodoc=(Number(JSON.parse(JSON.stringify(res)))+1).toString();
-      this.DocumentoT[0].Numero=this.numerodoc;
-      console.log(this.numerodoc);
-    });
+      .subscribe(res => {
+        console.log(res);
+        this.numerodoc = (Number(JSON.parse(JSON.stringify(res))) + 1).toString();
+        this.DocumentoT[0].Numero = this.numerodoc;
+        console.log(this.numerodoc);
+      });
   }
+
 
 }
 
