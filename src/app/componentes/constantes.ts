@@ -1,3 +1,4 @@
+//const URL = 'https://latiendadeltiogeorge.herokuapp.com'
 const URL = 'http://localhost:3000';
 //const URL = 'https://www.smarket.com.pe:3000'
 const URL_API = URL + '/api/';
