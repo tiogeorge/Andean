@@ -3,7 +3,69 @@ No media query since this is the default in Bootstrap*/
 a {
   color: whitesmoke;
 }
+button:focus{
+  outline: 0px;
+}
+.campo-busqueda{
+  width: 70%;
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 3px;
 
+}
+.campo-opciones-usuario{
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+.categorias-busqueda{
+  height: auto;
+  width: 35%;
+  padding-left: 5px;
+}
+.campo-busqueda select{
+  border: 0px;
+}
+.item-menu-opciones{
+  margin-left: 10px; 
+  margin-right: 10px;
+  height: 100%; 
+  display: flex; 
+  flex-direction: row; 
+  align-items: center;
+}
+.item-menu-opciones:hover{
+  cursor: pointer;
+}
+select:active{
+  border: 0px;
+  outline: 0px;
+}
+select:focus{
+  border: 0px;
+  outline: 0px;
+}
+select:hover{
+  cursor: pointer;
+}
+.input-busqueda{
+  height: 100%;
+  width: 60%;
+  border: 0px;
+  border-left: 1px solid rgb(199, 198, 198);
+  padding-left: 5px;
+}
+.input-busqueda:focus{
+  outline: 0px;
+}
 .btn {
   padding: 0px;
 }

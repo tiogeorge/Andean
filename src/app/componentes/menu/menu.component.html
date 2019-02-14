@@ -4,9 +4,8 @@
     aria-expanded="false" aria-label="Toggle navigation">
     <mat-icon id="menu-icon">menu</mat-icon>
   </button>
-  <div class="navbar navbar-expand-lg" id="menu-iconos">
-    <ul class="navbar-nav mr-auto">
-    </ul>
+  <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 70%;">
+    <!--
     <form id="buscar-form" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" id="buscarartpal" name="buscarartpal" type="search" placeholder="Buscar"
         aria-label="Search" (keypress)="buscarpa($event)" [formControl]="myControl" [matAutocomplete]="auto">
@@ -19,7 +18,50 @@
         </mat-option>
       </mat-autocomplete>
     </form>
-    <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda/smartphone">
+  -->
+  <div class="campo-busqueda">
+    <select class="categorias-busqueda">
+        <option value="volvo">Todas las Categorias</option>
+      <option value="volvo">Celulares y Smartphones</option>
+      <option value="saab">Ropas</option>
+      <option value="opel">Audifonos</option>
+      <option value="audi">Accesorios para Smartphones</option>
+    </select>
+    <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
+    <i class="material-icons" id="btnbusqueda2" (click)="buscarArti()">search</i>
+  </div>
+  <div class="campo-opciones-usuario">   
+      <div class="item-menu-opciones">
+        <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
+      
+      </div>   
+      <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
+          <i class="material-icons" style="font-size:30px; margin-right: 5px;"> account_circle</i>
+          Identficate
+      </div>
+      <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px;" xPosition="before">
+
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">person</i> <div style="margin-left: 10px;">Perfil de Usuario</div></button>
+        <hr style="margin: 0px;">
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_mall</i> <div style="margin-left: 10px;">Ordenes de Compra</div></button>
+        <hr *ngIf="estaLogeado" style="margin: 0px;">
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_play</i> <div style="margin-left: 10px;">Lista de Deseos</div></button>
+        <hr *ngIf="estaLogeado" style="margin: 0px;">
+        <button *ngIf="estaLogeado"(click)="logout()" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center; background-color: rgb(230, 223, 223);"><i class="material-icons" style="font-size: large;margin-left: 14px; ">close</i> <div style="margin-left: 10px;">Cerrar Sesion</div></button>
+        <hr *ngIf="estaLogeado" style="margin: 0px;">
+
+        <button *ngIf="!estaLogeado"  routerLink="/login" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">vpn_key</i> <div style="margin-left: 10px;">Iniciar Sesion</div></button>
+        <hr *ngIf="!estaLogeado" style="margin: 0px;">
+        <button *ngIf="!estaLogeado" routerLink="/registro" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">person_add</i> <div style="margin-left: 10px;">Nuevo Usuario</div></button>
+        <hr *ngIf="!estaLogeado" style="margin: 0px;">
+      </mat-menu>  
+      
+      <div class="item-menu-opciones">
+          <i class="material-icons" style="font-size:30px; margin-right: 5px;"> shopping_cart </i>        
+      </div>  
+  </div>
+  <!--
+<button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda/smartphone">
       <mat-icon id="icono-buscar" class="icono">search</mat-icon>
     </button>
     <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu">
@@ -48,6 +90,8 @@
     <button type="button" class="btn btn-link" routerLink="/cart">
       <mat-icon class="icono">shopping_cart</mat-icon>
     </button>
+  -->
+    
   </div>
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark" id="categorias">
