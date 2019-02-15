@@ -13,7 +13,7 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./valoracion.component.css']
 })
 export class ValoracionComponent implements OnInit {
-  message: string = "Hola Mundo!"
+  message: string = "Valoracion Nueva"
   @Output() messageEvent = new EventEmitter<string>();
 
   articuloService: ArticuloDetalleService;
@@ -22,7 +22,6 @@ export class ValoracionComponent implements OnInit {
   clienteComento = false;
   sesionActiva = false;
   valoracionNueva = new Valoracion();
-
 
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, valoracionService: ValoracionService) {
     this.articuloService = articuloService;
