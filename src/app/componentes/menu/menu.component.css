@@ -156,6 +156,9 @@ select:hover{
   border-radius: 1%;
   border: 0rem;
 }
+#descripcion-categoria{
+  background-color: rgb(36, 36, 37);
+}
 
 #descripcion-categoria img {
   width: 200px;
@@ -301,9 +304,9 @@ select:hover{
     width: 80%;
   }
 
-  #lista-categorias div a {
+  /*#lista-categorias div a {
     text-transform: uppercase;
-  }
+  }*/
 
   /* Animacion */
   .dropdown-slide>.dropdown-menu {

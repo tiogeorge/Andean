@@ -28,13 +28,14 @@ export class MenuComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['Celulares', 'Smartphone'];
   filteredOptions: Observable<string[]>;
+  listasubcategorias : Categoria[] = new Array();
   //fin auto completado
 
   constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService) {}
 
   ngOnInit() {
   //  this.actualizarcomponente();
-    this.categoriaService.getCategorias().subscribe( res => {
+    this.categoriaService.getSubCategorias("root").subscribe( res => {
       this.categoriaService.categorias = res as Categoria[];
       this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
     });
@@ -55,11 +56,15 @@ export class MenuComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   //fin auto comple
-  categoriaSelected(nombreCategoria: string){
-    var i= 0;
-    while(this.categoriaService.categorias[i].nombre != nombreCategoria) { i++; }
-    this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[i];
-    this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
+  categoriaSelected(idcategoria: string){
+   // var i= 0;
+   // while(this.categoriaService.categorias[i].nombre != nombreCategoria) { i++; }
+    //this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[i];
+    //this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
+    /*this.categoriaService.getSubCategorias(idcategoria).subscribe(res=>{
+      console.log(res);
+    });*/
+    console.log(idcategoria);
   }
 
   getSesion(){

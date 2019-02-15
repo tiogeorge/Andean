@@ -17,18 +17,14 @@
           {{option}}
         </mat-option>
       </mat-autocomplete>
-    </form>
-  -->
+    </form>  -->
   <div class="campo-busqueda">
     <select class="categorias-busqueda">
-        <option value="volvo">Todas las Categorias</option>
-      <option value="volvo">Celulares y Smartphones</option>
-      <option value="saab">Ropas</option>
-      <option value="opel">Audifonos</option>
-      <option value="audi">Accesorios para Smartphones</option>
+      <option value="todo">Todas las Categorias</option>
+      <option  *ngFor="let categoria of categoriaService.categorias" value="categoria._id">{{categoria.nombre}}</option>
     </select>
     <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
-    <i class="material-icons" id="btnbusqueda2" (click)="buscarArti()">search</i>
+    <i class="material-icons btn-busqueda" id="btnbusqueda2" (click)="buscarArti()">search</i>
   </div>
   <div class="campo-opciones-usuario">   
       <div class="item-menu-opciones">
@@ -54,10 +50,9 @@
         <hr *ngIf="!estaLogeado" style="margin: 0px;">
         <button *ngIf="!estaLogeado" routerLink="/registro" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">person_add</i> <div style="margin-left: 10px;">Nuevo Usuario</div></button>
         <hr *ngIf="!estaLogeado" style="margin: 0px;">
-      </mat-menu>  
-      
+      </mat-menu>        
       <div class="item-menu-opciones">
-          <i class="material-icons" style="font-size:30px; margin-right: 5px;"> shopping_cart </i>        
+          <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>        
       </div>  
   </div>
   <!--
@@ -101,15 +96,15 @@
       <li class="nav-item dropdown dropdown-slide active">
         <a class="nav-link dropdown-toggle" href="#" id="menu-categorias" role="button" data-toggle="dropdown"
           aria-haspopup="false" aria-expanded="false">Categorias</a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="menu-categorias" id="nav-categorias">
+        <div class="dropdown-menu bg-dark" aria-labelledby="menu-categorias" id="nav-categorias" style="padding-top: 0px;padding-bottom: 0px;">
           <div id="lista-categorias">
             <div *ngFor="let categoria of categoriaService.categorias">
-              <a class="dropdown-item text-white" href="#" (mouseover)="categoriaSelected($event.target.text)">{{categoria.nombre}}</a>
+              <a class="dropdown-item text-white" href="#"(mouseover)="categoriaSelected(categoria._id)">{{categoria.nombre}}</a>
+              <div class="dropdown-divider" style="margin: 0px; padding: 0px;"></div>
             </div>
           </div>
           <div id="descripcion-categoria">
-            <img [src]="urlImagen" alt="">
-            <h5 class="text-white">{{categoriaService.categoriaSeleccionada.descripcion}}</h5>
+            
           </div>
         </div>
       </li>

@@ -10,6 +10,8 @@ export class CategoriahomeComponent implements OnInit {
   step = 0;
   listacategoriaspadre:any[];
   listacategoriashijos:any[];
+  mostrarDetalleCategoria : boolean = false;
+  listahijos:any[];
 
   constructor(public categoriaservice:CategoriaService) { }
 
@@ -33,6 +35,14 @@ export class CategoriahomeComponent implements OnInit {
       this.listacategoriashijos=Respuesta;
     })
    
+  }
+  mostrarDetalle(categoriap){
+    this.mostrarDetalleCategoria = true;
+    this.listahijos = categoriap.hijos[0];
+    console.log(categoriap);
+  }
+  ocultarDetalle(){
+    this.mostrarDetalleCategoria = false;
   }
 
 }
