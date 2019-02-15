@@ -68,5 +68,29 @@ facturacionController.getDetalleDocumento = async (req, res) => {
   });
 }
 
+facturacionController.xmlqr = async(req, res) => {
+  console.log(req.body);
+  var idDoc = req.body[0].Value;
+  var xml = req.body[1].Value;
+  var qr = req.body[2].Value;
+  var codigoHash = req.body[3].Value;
+  var fechaEnvio = req.body[4].Value;
+  var estado = req.body[5].Value;
+  req.getConnection(function(err, conn){
+    var consulta = "INSERT INTO tadocumentosxml VALUES(?,null,null,?,?,?) ON DUPLICATE KEY UPDATE estadoenvio = '"+estado+"'";
+    conn.query(consulta, [idDoc, codigoHash, fechaEnvio, estado], function(err, results){
+      if(err){
+        res.json({
+          mensaje: 'Error al guardar el XML y QR'
+        });
+      } else {
+        res.json({
+          mensaje: 'El comprobante fue registrado con éxito'
+        })
+      }
+    })
+  });
+}
+
 
 module.exports = facturacionController;
