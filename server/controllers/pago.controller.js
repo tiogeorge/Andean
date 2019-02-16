@@ -26,40 +26,40 @@ pagoController.GuardarPago = async (req, res) => {
     }
 }
 /*funciones mysql */
-pagoController.recuperarseriesequipos=async(req,res)=>{
-    req.getConnection(function(error, conn){
-        var consulta="SELECT idNroSerie AS 'serie' FROM `taexistencias` WHERE idArticulo=('"+req.params.idarti+"') AND Disponibles>0";
-        conn.query(consulta,function(err,results){
-            if(err){
+pagoController.recuperarseriesequipos = async (req, res) => {
+    req.getConnection(function (error, conn) {
+        var consulta = "SELECT idNroSerie AS 'serie' FROM `taexistencias` WHERE idArticulo=('" + req.params.idarti + "') AND Disponibles>0";
+        conn.query(consulta, function (err, results) {
+            if (err) {
                 console.log(err);
             }
-            else{
+            else {
                 res.json(results);
             }
         });
     });
 }
-pagoController.recuperarseriedoc=async(req,res)=>{
-    req.getConnection(function(error,conn){
-        var consulta ="SELECT fnRep_SerieLocalDocumento('586','BBV') as 'SERIE'" ;
-        conn.query(consulta, function (err, results){
-            if(err){
+pagoController.recuperarseriedoc = async (req, res) => {
+    req.getConnection(function (error, conn) {
+        var consulta = "SELECT fnRep_SerieLocalDocumento('586','BBV') as 'SERIE'";
+        conn.query(consulta, function (err, results) {
+            if (err) {
                 console.log(err);
             }
-            else{
+            else {
                 res.json(results[0].SERIE);
             }
         });
     });
 }
 
-pagoController.ultimonumeroemitido=async(req,res)=>{
-    var numerodedoc=await Pago.countDocuments({EstadoPago:'Pagado'});
+pagoController.ultimonumeroemitido = async (req, res) => {
+    var numerodedoc = await Pago.countDocuments({ EstadoPago: 'Pagado' });
     res.json(numerodedoc);
 }
 
-pagoController.guardarpagomysql= async(req,res)=>{
-    req.getConnection(function (error,conn){
+pagoController.guardarpagomysql = async (req, res) => {
+    req.getConnection(function (error, conn) {
         var consulta = "";
     });
 }
@@ -70,16 +70,56 @@ pagoController.listarpedidos = async (req, res) => {
 }
 
 pagoController.listarpedidouni = async (req, res) => {
-    const pedido = await Pago.findById(req.params.id);
-    console.log(pedido.Articulo.lengh);
-    var jsonpedido=JSON.parse(JSON.stringify(pedido));
-    for(var i=0; i<Object.keys(pedido.Articulo).lengh;i++){
-        console.log('ids');
-        console.log(pedido.Articulo[i].idarticulo);
-    }
-    res.json(pedido);
+    console.log(JSON.parse(JSON.stringify(req.params._id)));
+    const pedidos = await Pago.findById(req.params._id);
+    console.log(pedidos);
+    res.json(pedidos);
 }
 
+/*cpnsoo(){}
+const pedido = await Pago.find({ _id: req.params.id });
+    const jsonpedidos= JSON.parse(JSON.stringify(pedido));
+    const articulosped = await Pago.find({ _id: req.params.id }, 'Articulo');
+    //console.log((articulosped[0].Articulo).length);
+    var cantarti = (articulosped[0].Articulo).length;
+
+    //  console.log('id:' +idarti);
+    // funcion mysql
+    var cont_art = 0;
+    req.getConnection(function (error, conn) {
+        for (var con = 0; con < cantarti; con++) {
+            var idarti = articulosped[0].Articulo[con].idarticulo;
+            console.log(con);
+            console.log('id art para la consulta:' + idarti)
+            var consulta = "SELECT idNroSerie AS 'serie' FROM `taexistencias` WHERE idArticulo=('" + idarti + "') AND Disponibles>0";
+             conn.query(consulta, function (err, results) {
+                 cont_art++;
+                if (err) {
+                     console.log(err);
+                     var arreglotem=new Array();
+                     arreglotem.push('Error');
+                }
+                else {
+                    //console.log(idarti);
+                     console.log(JSON.parse(JSON.stringify(results)));
+                     //var arreglotem=new Array();
+                     //arreglotem.push(JSON.parse(JSON.stringify(results[0].serie)))
+                     jsonpedidos[0].series=JSON.parse(JSON.stringify(results));
+                    //res.json(results);
+                }
+                if(cont_art==cantarti){
+                    console.log("TERMIO DE CONSULTAR");
+                    res.json(jsonpedidos);
+                }
+                // console.log('id2:' +idarti);
+            });
+            console.log("===========================");
+        }
+    });
+    //
+    //        console.log(idarti);
+
+*/
 pagoController.actualizarpedido = async (req, res) => {
     try {
         const art = {
