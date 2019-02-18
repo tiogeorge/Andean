@@ -588,6 +588,15 @@ usuarioController.obtenerUsuario = async (req, res, next) => {
     });
   }
 };
+/**
+ * Método que permite obtener el numero de documento
+ */
+usuarioController.obtenerDocUsuario = async (req, res) => {
+  const documento = await Usuario.find({_id:req.params.id}).select('numeroDocumento');
+  console.log(documento);
+  res.json(documento[0].numeroDocumento);
+};
+
 
 /**
  * Método que obtiene un usuario por su identificador de base de datos

@@ -27,6 +27,7 @@ pagoController.GuardarPago = async (req, res) => {
 }
 /*funciones mysql */
 pagoController.recuperarseriesequipos = async (req, res) => {
+
     req.getConnection(function (error, conn) {
         var consulta = "SELECT idNroSerie AS 'serie' FROM `taexistencias` WHERE idArticulo=('" + req.params.idarti + "') AND Disponibles>0";
         conn.query(consulta, function (err, results) {
@@ -70,10 +71,40 @@ pagoController.listarpedidos = async (req, res) => {
 }
 
 pagoController.listarpedidouni = async (req, res) => {
-    console.log(JSON.parse(JSON.stringify(req.params._id)));
-    const pedidos = await Pago.findById(req.params._id);
+    // console.log(JSON.parse(JSON.stringify(req.params._id)));
+    const pedidos = await Pago.find({ _id: req.params.id });
     console.log(pedidos);
     res.json(pedidos);
+}
+pagoController.listarpedidouniArt = async (req, res) => {
+    const pedarti = await Pago.find({ _id: req.params.id }, 'Articulo');
+    const jsonpedarti = JSON.parse(JSON.stringify(pedarti[0].Articulo));
+    var cantart = (pedarti[0].Articulo).length;
+    console.log(cantart);
+    var cont_art = 0;
+    req.getConnection(function (error, conn) {
+        req.getConnection(function (error, conn) {
+            for (var i = 0; i < cantart; i++) {
+                var idarti = pedarti[0].Articulo[i].idarticulo;
+                var consulta = "SELECT idNroSerie AS 'serie' FROM `taexistencias` WHERE idArticulo=('" + idarti + "') ";//AND Disponibles>0";
+                conn.query(consulta, function (err, results) {
+                    cont_art++;
+                    if (err) {
+                        console.log(err);
+                       /* var arreglotem = new Array();
+                        arreglotem.push('Error');*/
+                    }
+                    else {
+                        jsonpedarti[i].series = JSON.parse(JSON.stringify(results));
+                    }
+                    if (cont_art == cantart) {
+                        console.log("TERMIO DE CONSULTAR");
+                        res.json(jsonpedarti);
+                    }
+                });
+            }
+        });
+    });
 }
 
 /*cpnsoo(){}

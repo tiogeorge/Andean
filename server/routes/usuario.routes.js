@@ -12,6 +12,7 @@ router.get('/', usuario.listarUsuarios);
 router.get('/user/:id',usuario.usuarioid);
 router.get('/carrito', usuario.obtenerCarrito);
 router.get('/cliente',usuario.obtenerUsuario);
+router.get('/clien/doc/:id',usuario.obtenerDocUsuario);
 router.put('/cambiar', usuario.cambiarPassword);
 router.put('/carrito/:url', usuario.agregarArticulo);
 router.put('/:id',usuario.actualizarUsuario);
