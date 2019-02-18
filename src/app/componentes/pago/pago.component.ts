@@ -86,11 +86,7 @@ export class PagoComponent implements OnInit {
   listaArticulos2: any[] = [];
   mostrarArticulos: boolean = true;
   sinProductos: boolean = false;
-  articuloDetalleService: ArticuloDetalleService;
   usuario: Usuario;
-  usuarioService: UsuarioService;
-  regionService: RegionService;
-  router: Router;
   user: string = '';
   correoclient: string = '';
   listdirecciones: string[];
@@ -121,6 +117,7 @@ export class PagoComponent implements OnInit {
   fruits: NombreDirec[] = [
     { nombre: 'Direccion1' },
   ];
+  tiposDocumento              : string[];
   //
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -213,14 +210,11 @@ export class PagoComponent implements OnInit {
     { value: '12', viewValue: '12' }
   ];
 
-  constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, usuarioService: UsuarioService, router: Router, regionService: RegionService, articuloDetalleService: ArticuloDetalleService) {
-    this.articuloDetalleService = articuloDetalleService;
-    this.usuarioService = usuarioService;
-    this.router = router;
-    this.regionService = regionService;
+  constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService,public usuarioService: UsuarioService,public router: Router,public regionService: RegionService, public articuloDetalleService: ArticuloDetalleService) {
   }
 
   ngOnInit() {
+    this.tiposDocumento       = ['DNI'];
     this.localselec = 'Casa';
     //obtener carrito
     this.articuloDetalleService.getCarrito().subscribe(res => {
@@ -228,19 +222,10 @@ export class PagoComponent implements OnInit {
       this.listaCarrito = jres.data;
       for (var i = 0; i < this.listaCarrito.length; i++) {
         this.listaArticulos.push(this.listaCarrito[i][0]);
-        //   this.listaArticulos2=this.listaArticulos;
         this.listaPlanArticulo.push(this.listaCarrito[i][1]);
-        //   this.listaArticulos2[i].push(this.listaPlanArticulo[0]);
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
-      /*   console.log('arreglo articulos');
-         console.log(this.listaArticulos);
-         console.log('arreglo planes');
-         console.log(this.listaPlanArticulo);
-         console.log('arreglo carrito');
-         console.log(this.listaCarrito);*/
-      //   console.log(this.listaArticulos2);
       this.sumarprecios();
       this.insertaraarregloart();
     });
@@ -264,19 +249,14 @@ export class PagoComponent implements OnInit {
       datoN5: ['', Validators.required],
     });
     //fin stepps
-    //  document.getElementById('datostarjeta').hidden = true;
-    //document.getElementById('Agregardireccion').hidden = true;
     //recuperar usuario
     this.usuarioService.getUsuarioLogeado().subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status) {
+        this.usuarioService.usuarioSeleccionado = jres.data  as Usuario;
         this.usuario = jres.data as Usuario;
-        // console.log(this.usuario._id);
         this.user = this.usuario._id;
         this.correoclient = this.usuario.correo;
-        console.log('usuario');
-        console.log(this.usuario);
-        console.log('fin usuario');
         this.direccionService.selecDireccion.usuario = this.usuario._id;
         this.ListarDireccion(this.usuario._id.toString());
         this.regionService.getRegiones().subscribe(res => {
@@ -288,6 +268,7 @@ export class PagoComponent implements OnInit {
     });
     //fin recuperar
   }
+
   mostrarform(value: string) {
     console.log(value);
     if (value == '1') {

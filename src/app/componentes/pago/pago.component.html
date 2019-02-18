@@ -1,9 +1,25 @@
-<!--stepps-->
 <div>
   <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step class="mat-step2" [stepControl]="firstFormGroup" state="direc">
+      <ng-template matStepLabel>Informacion de Envío</ng-template>
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Informacion de Envío</ng-template>
+        <mat-card>
+          <mat-card-title>
+            <label for="">Hola, {{usuarioService.usuarioSeleccionado.nombres}}
+              {{usuarioService.usuarioSeleccionado.apellidos}}</label>
+          </mat-card-title>
+          <mat-card-content *ngIf="usuarioService.usuarioSeleccionado.numeroDocumento">
+            <h5>Ingrese su documento de identidad (DNI)</h5>
+            <mat-form-field>
+              <input matInput name="numeroDocumento" #numeroDocumento placeholder="Número de Documento" minlength="8" required>
+              <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">El
+                número de Documento es obligatorio</mat-error>
+              <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.minlength">El
+                documento debe tener mínimo 8 dígitos</mat-error>
+            </mat-form-field>
+            <button mat-icon-button color="primary"><mat-icon>done</mat-icon></button>
+          </mat-card-content>
+        </mat-card>
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-2"></div>
@@ -54,10 +70,6 @@
                                   (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
                                   <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
                                 </mat-select>
-                                <!-- <mat-label>Departamento</mat-label>
-                                <input matInput placeholder="Departamento" name="departamento" #departamento="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.departamento">
-                                <mat-icon matSuffix>local_library</mat-icon>-->
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
@@ -67,10 +79,6 @@
                                   <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias"
                                     [value]="prov.provincia">{{prov.provincia}}</mat-option>
                                 </mat-select>
-                                <!--<mat-label>Provincia</mat-label>
-                                <input matInput placeholder="Provincia" name="provincia" #provincia="ngModel"
-                                  [(ngModel)]="direccionService.selecDireccion.provincia">
-                                <mat-icon matSuffix>map</mat-icon>-->
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
@@ -79,9 +87,6 @@
                                   placeholder="Distrito">
                                   <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
                                 </mat-select>
-                                <!--<mat-label>Distrito</mat-label>
-                                <input matInput placeholder="Distrito" name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito">
-                                <mat-icon matSuffix>place</mat-icon> -->
                               </mat-form-field>
                             </div>
                           </div>
@@ -98,7 +103,8 @@
                             </div>
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
-                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal" placeholder="Tipo de Vivienda">
+                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
+                                  placeholder="Tipo de Vivienda">
                                   <mat-option *ngFor="let local of Local" value="local.value">
                                     {{local.value}}
                                   </mat-option>
