@@ -13,7 +13,7 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
         req.getConnection(function (error, conn) {
             var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0";
             var consulta2 = "SELECT * FROM taarticulosglobal";
-            var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAlm_StockArticuloLocal(idArticulo,'586') AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0 GROUP BY idArticuloGlobal";
+            var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAlm_StockArticuloLocal(idArticulo,'609') AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0 GROUP BY idArticuloGlobal";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
                     console.log(err);
@@ -50,7 +50,7 @@ articuloController.ObtenerEquiposArticulo = async (req, res)=>{
     jsonEquipos = new Array();
     try {
         req.getConnection(function (error, conn) {
-            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'586')as Cantidad FROM taarticulo WHERE idArticuloGlobal = '"+req.params.idglobal+"'";
+            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'609')as Cantidad FROM taarticulo WHERE idArticuloGlobal = '"+req.params.idglobal+"'";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
                     console.log(err);

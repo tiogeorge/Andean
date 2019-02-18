@@ -95,7 +95,8 @@ categoriaController.actualizarCategoria = async(req,res)=>{
             descripcion: req.body.descripcion,
             imagen: req.body.imagen,
             padre: req.body.padre,
-            caracteristicas: req.body.caracteristicas
+            caracteristicas: req.body.caracteristicas,
+            icono: req.body.icono
         }
         const categoria = await Categoria.findOneAndUpdate({_id:req.params.id},{$set: cat},{new: true});        
         res.json({

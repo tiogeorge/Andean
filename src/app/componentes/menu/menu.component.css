@@ -30,9 +30,10 @@ button:focus{
   height: auto;
   width: 35%;
   padding-left: 5px;
+  border: 0px;
 }
 .campo-busqueda select{
-  border: 0px;
+  
 }
 .item-menu-opciones{
   margin-left: 10px; 
