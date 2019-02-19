@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Usuario } from './../perfil-usuario/usuario';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { MatChipInputEvent, MatSnackBar } from '@angular/material';
+import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DireccionService } from './direccion.service';
 import { Direccion } from './direccion';
@@ -12,11 +12,13 @@ import { RegionService } from '../perfil-usuario/region.service';
 import { PagoService } from './pago.service';
 import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
 import { Articulo } from '../articulo-detalle/articulo';
-import { MatSnackBar } from '@angular/material';
 import { Constantes } from './../constantes';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Pago } from './pago';
-import { from } from 'rxjs';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
+import * as _moment from 'moment';
+import {default as _rollupMoment, Moment} from 'moment';
+const moment = _rollupMoment || _moment;
 
 export interface NombreDirec {
   nombre: string;
@@ -58,13 +60,29 @@ export interface temdoc {
   Serie: String,
   Numero: String,
 }
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY/MM',
+  },
+  display: {
+    dateInput: 'YYYY/MM',
+    monthYearLabel: 'MMM YYYY',
+    dateAllyLabel: 'LL',
+    monthYearAllylabel: 'MMMM YYYY',
+  },
+};
+
+
 @Component({
   selector: 'app-pago',
   templateUrl: './pago.component.html',
   styleUrls: ['./pago.component.css'],
-  providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }, DireccionService, PagoService],
+  providers: [
+    { provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false } },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}, 
+    DireccionService, PagoService],
   encapsulation: ViewEncapsulation.None
 })
 
@@ -118,6 +136,11 @@ export class PagoComponent implements OnInit {
     { nombre: 'Direccion1' },
   ];
   tiposDocumento              : string[];
+  date = new FormControl(moment());
+  anioHoy = new Date().getFullYear();
+  mesHoy = new Date().getMonth();
+  minDate : Date;
+
   //
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -214,6 +237,12 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Validar la fecha de expiración de la tarjeta como mínimo al mes siguiente
+    if(this.mesHoy == 12){
+      this.mesHoy = 1;
+      this.anioHoy = this.anioHoy + 1;
+    }
+    this.minDate = new Date(this.anioHoy, this.mesHoy + 1);
     this.tiposDocumento       = ['DNI'];
     this.localselec = 'Casa';
     //obtener carrito
@@ -359,6 +388,7 @@ export class PagoComponent implements OnInit {
       this.direccionService.selecDireccion = new Direccion();
     }
   }
+
   AgregarDireccion(form: NgForm) {
     /*this.listdirecciones = JSON.parse(JSON.stringify(this.direccionService.selecDireccion));
     console.log('direccion:');
@@ -458,9 +488,11 @@ export class PagoComponent implements OnInit {
     while (this.regionService.departamentoSelected.provincias[i].provincia != provincia) { i++; }
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
   }
+
   finalizarcompra() {
     //this.guardarventa();
   }
+
   guardarventa(form: NgForm) {
     /*recuperar datos doc */
     this.DocumentoT[0].Tipo = this.tipodoc;
@@ -547,6 +579,7 @@ export class PagoComponent implements OnInit {
         console.log(this.seriedoc);
       });
   }
+
   recuperarnumero() {
     this.pagoservice.recuperarnumerodoc()
       .subscribe(res => {
@@ -557,9 +590,25 @@ export class PagoComponent implements OnInit {
       });
   }
 
+  /**
+   * Método que ocurre cuando el usuario selecciona el año de expiración de la tarjeta
+   * @param yearNormalizado 
+   */
+  yearSelected(yearNormalizado: Moment){
+    const ctrlValue = this.date.value;
+    ctrlValue.year(yearNormalizado.year());
+    this.date.setValue(ctrlValue);
+  }
 
+  /**
+   * Método que ocurre cuando el usuario selecciona el mes de expiración de su tarjeta
+   * @param mesNormalizado : mes seleccionado
+   * @param datepicker : objeto de datepicker
+   */
+  mesSelected(mesNormalizado: Moment, datepicker: MatDatepicker<Moment>){
+    const ctrlValue = this.date.value;
+    ctrlValue.month(mesNormalizado.month());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
+  }
 }
-
-//tabla material
-
-//fin tabla

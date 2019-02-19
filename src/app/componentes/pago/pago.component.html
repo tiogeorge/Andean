@@ -8,8 +8,11 @@
             <label for="">Hola, {{usuarioService.usuarioSeleccionado.nombres}}
               {{usuarioService.usuarioSeleccionado.apellidos}}</label>
           </mat-card-title>
-          <mat-card-content *ngIf="usuarioService.usuarioSeleccionado.numeroDocumento">
-            <h5>Ingrese su documento de identidad (DNI)</h5>
+          <mat-card-content>
+            <p>Por favor, elija una dirección de envío o cree una nueva dirección</p>
+          </mat-card-content>
+          <!-- <mat-card-content *ngIf="usuarioService.usuarioSeleccionado.numeroDocumento">
+            <h5 style="font-size: 16px;">Ingrese su documento de identidad (DNI)</h5>
             <mat-form-field>
               <input matInput name="numeroDocumento" #numeroDocumento placeholder="Número de Documento" minlength="8" required>
               <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">El
@@ -18,7 +21,7 @@
                 documento debe tener mínimo 8 dígitos</mat-error>
             </mat-form-field>
             <button mat-icon-button color="primary"><mat-icon>done</mat-icon></button>
-          </mat-card-content>
+          </mat-card-content>-->
         </mat-card>
         <div class="container-fluid">
           <div class="row">
@@ -201,7 +204,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo">
+    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo" [optional]="false">
       <form [formGroup]="secondFormGroup" ng-disabled="all">
         <ng-template matStepLabel>Informacion de Pago</ng-template>
         <div class="container-fluid">
@@ -213,6 +216,7 @@
                   <label>Método de Pago</label>
                 </div>
                 <div class="card-body">
+                  <!--
                   <mat-radio-group class="container-fluid">
                     <div class="row">
                       <div class="col-lg-4">
@@ -228,41 +232,57 @@
                           bancario</mat-radio-button>
                       </div>
                     </div>
-                  </mat-radio-group>
-                  <div id="datostarjeta" hidden>
+                  </mat-radio-group>-->
+                  <div>
                     <hr>
                     <div class="container-fluid">
                       <div class="row">
+                        <div class="col-lg-3" style="text-align:center; opacity: 0.5;">
+                          <img src="assets/tarjetas/visa2.png" height="75px" alt="">
+                        </div>
+                        <div class="col-lg-3" style="text-align:center; opacity: 0.5;">
+                          <img src="assets/tarjetas/mastercard1.png" height="75px" alt="">
+                        </div>
+                        <div class="col-lg-3" style="text-align:center; opacity: 0.5;">
+                          <img src="assets/tarjetas/amex2.png" height="75px" alt="">
+                        </div>
+                        <div class="col-lg-3" style="text-align:center; opacity: 0.5;">
+                          <img src="assets/tarjetas/diners2.png" height="75px" alt="">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <mat-form-field appearance="outline" class="example-form-field" style="width: 100%">
+                            <mat-label>Número de la tarjeta</mat-label>
+                            <input matInput name="tarjeta" type="text" placeholder="Número de la tarjeta" autocomplete="off" #tarjeta minlength="13" maxlength="16" required>
+                            <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.required">
+                              El número de tarjeta es un campo obligatorio.
+                            </mat-error>
+                            <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.minlength">
+                              La tarjeta debe contener como mínimo 13 carácteres.
+                            </mat-error>
+                            <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.maxlength">
+                              La tarjeta no debe contener más de 16 carácteres.
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
                         <div class="col-lg-12">
                           <mat-form-field appearance="outline" style="width: 100%">
                             <mat-label>Nombre del titular</mat-label>
-                            <input matInput placeholder="Nombre del titular">
+                            <input matInput placeholder="Nombre del titular" maxlength="15" pattern="*[a-zA-Z]" required>
                             <mat-icon matSuffix>person</mat-icon>
                           </mat-form-field>
                         </div>
-                        <div class="col-lg-7">
-                          <mat-form-field class="example-form-field" style="width: 100%">
-                            <input matInput type="text" placeholder="Número de la tarjeta">
-                          </mat-form-field>
-                        </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-12">
                           <div style="width: 100%">
-                            <mat-form-field style="width: 60px">
-                              <mat-select placeholder="Mes">
-                                <mat-option *ngFor="let Mes of mes" [value]="Mes.value">
-                                  {{Mes.viewValue}}
-                                </mat-option>
-                              </mat-select>
+                            <mat-form-field>
+                              <input matInput [matDatepicker]="dp" [min]="minDate" [formControl]="date" autocomplete="off">
+                              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                              <mat-datepicker #dp startView="multi-year" (yearSelected)="yearSelected($event)"
+                                (monthSelected)="mesSelected($event,dp)"></mat-datepicker>
                             </mat-form-field>
                             <mat-form-field style="width: 60px;margin-left: 30px;">
-                              <mat-select placeholder="Año">
-                                <mat-option *ngFor="let anho of Anhos" [value]="anho.value">
-                                  {{anho.viewValue}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                            <mat-form-field style="width: 60px;margin-left: 30px;">
-                              <input matInput type="text" placeholder="CVV">
+                              <input matInput type="text" placeholder="CVV" autocomplete="off">
                             </mat-form-field>
                           </div>
                         </div>
