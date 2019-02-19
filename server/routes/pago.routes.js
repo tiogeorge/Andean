@@ -9,6 +9,7 @@ router.get('/serielocal/serie',pago.recuperarseriedoc);
 router.get('/numerodoc/numero',pago.ultimonumeroemitido);
 router.get('/artic/series/:idarti',pago.recuperarseriesequipos);
 router.post('/', pago.GuardarPago);
+router.post('/pagomysql/',pago.guardarpagomysql);
 router.put('/:id', pago.actualizarpedido);
 router.delete('/:id',pago.eliminarpedido);
 

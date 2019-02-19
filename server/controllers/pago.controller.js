@@ -1,8 +1,13 @@
 const Pago = require('../models/pago');
+const Pago2 = require('../models/PagoMysql');
 const Clientecontroller = require('../controllers/usuario.controller');
 const Cliente = require('../models/usuario');
 
 const pagoController = {};
+
+/* estructura mysql */
+
+/* */
 
 pagoController.GuardarPago = async (req, res) => {
     try {
@@ -24,6 +29,10 @@ pagoController.GuardarPago = async (req, res) => {
             mensaje: "ERROR:" + e
         })
     }
+}
+pagoController.guardarpagomysql = async (req, res) => {
+    const pag2=JSON.parse(JSON.stringify(req.body))
+    console.log(pag2[0].tipocomprobante);
 }
 /*funciones mysql */
 pagoController.recuperarseriesequipos = async (req, res) => {
@@ -59,12 +68,6 @@ pagoController.ultimonumeroemitido = async (req, res) => {
     res.json(numerodedoc);
 }
 
-pagoController.guardarpagomysql = async (req, res) => {
-    req.getConnection(function (error, conn) {
-        var consulta = "";
-    });
-}
-
 pagoController.listarpedidos = async (req, res) => {
     const pedidos = await Pago.find();
     res.json(pedidos);
@@ -91,8 +94,8 @@ pagoController.listarpedidouniArt = async (req, res) => {
                     cont_art++;
                     if (err) {
                         console.log(err);
-                       /* var arreglotem = new Array();
-                        arreglotem.push('Error');*/
+                        /* var arreglotem = new Array();
+                         arreglotem.push('Error');*/
                     }
                     else {
                         jsonpedarti[i].series = JSON.parse(JSON.stringify(results));
