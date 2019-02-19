@@ -1,5 +1,6 @@
 import { CardService } from './card.service';
 import { Component, OnInit } from '@angular/core';
+import { Constantes } from '../constantes';
 
 @Component({
   selector: 'app-portafolio',
@@ -11,6 +12,7 @@ export class PortafolioComponent implements OnInit {
   listarcardtipo2: any;
   listarcardtipo3: any;
   constructor(public cardservice: CardService) { }
+  URL_IMAGENES = Constantes.URL_IMAGEN_MD;
 
   ngOnInit() {
     this.obtenercard();

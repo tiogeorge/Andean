@@ -12,3 +12,19 @@
   margin-right: auto;
   display: block;
 }
+.imagen-card-articulo{
+  max-height: 160px;
+  height: auto;
+  width: auto;
+  margin: 3px;
+}
+.noseleccionable{
+  -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.noseleccionable:hover{
+  cursor: pointer;
+}
