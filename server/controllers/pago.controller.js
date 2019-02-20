@@ -33,6 +33,34 @@ pagoController.GuardarPago = async (req, res) => {
 pagoController.guardarpagomysql = async (req, res) => {
     const pag2=JSON.parse(JSON.stringify(req.body))
     console.log(pag2[0].tipocomprobante);
+    req.getConnection(function (error, conn) {
+        var consulta = "CALL spuVen_RegistrarComprobantePago('"+ pag2[0].tipocomprobante +"','"+ pag2[0].seriecomprobante +"','"+ pag2[0].pNroComprobante +"','"+ pag2[0].pFechaVenta +"','"+ pag2[0].pFechaRegistro +"','"+ pag2[0].pEsVentaAlContad +"','"+ pag2[0].pIdEmpleado +"','"+ pag2[0].pIdLocal +"','"+ pag2[0].pIdCliente +"','"+ pag2[0].pEsCancelad +"','"+ pag2[0].pImprimirGui +"','"+ pag2[0].pMontoPagado +"','"+ pag2[0].pPrecioVentaTotal +"','"+ pag2[0].pIGVTotal +"','"+ pag2[0].pRedondeo +"','"+ pag2[0].pIdNivelCliente +"','"+ pag2[0].pIdLineaProducto +"','"+ pag2[0].pUsarNivel +"','"+ pag2[0].pObservacion +"','"+ pag2[0].pMontoPagadoReal +"')";
+        console.log(consulta);
+        conn.query(consulta, function (err, results) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json(results);
+            }
+        });
+    });
+}
+
+pagoController.guardardetallemysql=async (req,res)=>{
+    const detall=JSON.parse(JSON.stringify(req.body))
+    req.getConnection(function (error, conn) {
+        var consulta = "CALL spuVen_RegistrarDetalleVenta('"+ detall[0].pIdLocal +"','"+ detall[0].pTipoComprobante +"','"+ detall[0].pSerieComprobante +"','"+ detall[0].pNroComprobante +"','"+ detall[0].pIdArticulo +"','"+ detall[0].pIdNroSerieArticulo +"','"+ detall[0].pCantidad +"','"+ detall[0].pPrecioVenta +"','"+ detall[0].pDsctoCliente +"','"+ detall[0].pIdDsctoEspecial +"','"+ detall[0].pDsctoEspecial +"','"+ detall[0].pDsctoNivel4 +"','"+ detall[0].pIdTipoPlan +"')";
+        console.log(consulta);
+        conn.query(consulta, function (err, results) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json(results);
+            }
+        });
+    });
 }
 /*funciones mysql */
 pagoController.recuperarseriesequipos = async (req, res) => {
@@ -51,7 +79,7 @@ pagoController.recuperarseriesequipos = async (req, res) => {
 }
 pagoController.recuperarseriedoc = async (req, res) => {
     req.getConnection(function (error, conn) {
-        var consulta = "SELECT fnRep_SerieLocalDocumento('586','BBV') as 'SERIE'";
+        var consulta = "SELECT fnRep_SerieLocalDocumento('609','BBV') as 'SERIE'";
         conn.query(consulta, function (err, results) {
             if (err) {
                 console.log(err);
