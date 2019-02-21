@@ -39,8 +39,16 @@
               </div>             
           </div>
           <div><hr style="margin: 0px; padding: 0px;"></div>
+          <div class="preciounitario" style="margin-top:10px; display: flex; flex-direction: row; align-items: flex-end; flex-wrap: wrap;">
+            <h6 style="width: 100%;">Precio: </h6>
+            <div style="margin-left:10px; color: black; font-size: x-large; display: flex; flex-direction: row;align-items: flex-end; font-weight: 500;">
+              <div>S/</div><div style="margin-left: 5px;"> {{planSeleccionado.precio.toFixed(2)}} </div><div style="color: rgb(132, 133, 136); font-size: medium; margin-bottom: 5px; margin-right: 3px;margin-left: 3px;"> / </div><div style="color: rgb(168, 168, 170); font-size: medium; margin-bottom: 4px;"> unidad</div>
+            </div>
+            
+
+          </div>
           <div class="colores" style="margin-top:10px;">
-            <h6>Colores: </h6>
+            <h6>Color: {{colorSeleccionado}}</h6>
             <div class="item-colores" style="display: flex; flex-direction: row; margin: 10px">
               <div style="width: 50px; height: 50px; border: 1px solid gray; margin-right: 5px;">
               <img src="https://www.smarket.com.pe:3000/imagenes/sm/huawei-y6-2018-1.jpg.webp" alt="" width="100%" height="100%">
@@ -51,22 +59,19 @@
             </div>
 
           </div>
-          <div><hr style="margin: 0px; padding: 0px;"></div>
-          <div class="colores" style="margin-top:10px;">
-            <h6>Cantidad: </h6>
-            <div class="item-colores" style="display: flex; flex-direction: row; margin: 10px">
-              <div class="input-select"  style="width: 100px;">
-                <mat-select style="padding-left: 4px; padding-right: 4px;" value="1">
-                    <mat-option >1</mat-option>
-                    <mat-option >2</mat-option>
-                    <mat-option >3</mat-option>
-                    <mat-option >4</mat-option>
-                </mat-select> 
+          <div class="cantidad" style="margin-top:10px; display: flex; flex-direction: row; align-items: center; flex-wrap: wrap;">
+            <h6 style="width: 100%;">Cantidad: </h6>
+            <div style="display: flex; flex-direction: row; margin: 10px; margin-top:0px;border: 1px  solid rgb(180, 180, 180); width: 125px;align-items: center; height: 35px; border-radius: 3px;">
+              <i class="material-icons btn-cantidad noseleccionable" (click)="disminuirCantidad()">remove</i>
+              <div style="width: 80px; text-align: center;">{{cantidadSeleccionada}}</div>
+              
+              <i class="material-icons btn-cantidad noseleccionable" (click)="aumentarCantidad()">add</i>
             </div>
-            </div>
+            <div style="color: rgb(112, 113, 114)"> x unidades disponibles</div>
 
           </div>
-          <div class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
+          
+          <div hidden="true" class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
               <div class="cont-selec" >
                   <h6 style="margin-bottom: 5px;">Tipo Linea:</h6>
                   <div class="input-select" >
@@ -95,7 +100,7 @@
                   
               </div>
             </div>
-            <div class="cont-precios">
+            <div  hidden="true"class="cont-precios">
                 <div class="btn-planes" (click)="moverScrollRigth()">                
                       <i class="material-icons" style="font-size: 35px;">chevron_left</i>                    
                 </div>
@@ -158,11 +163,14 @@
       
       <div class="contenedor-precios">
         <div class="contenedor-detalle-precio">
-          <div>
-              <div><h5>Precio del equipo</h5></div>           
-              <div  style="font-weight: bold; color: rgb(231, 151, 3); font-size: 18px; width: 100%; text-align: center;">S/ {{planSeleccionado.precio.toFixed(2)}}</div>      
+          <div style="width: 100%; display: flex; flex-direction: column;">
+              <div>Para continuar la compra seleccione un color.</div>   
+              <div  style="margin-top:5px;">Costo del Articulo: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
+              <div  style="margin-top:5px;">Costo de Envio: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
+              <div  style="margin-top:5px;">Pago Total: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
+       
           </div>
-          <div class="detalle-precio-plan">
+          <div [hidden]="nomostrarPlanesPostpago" class="detalle-precio-plan">
               <div class="item-precio-plan">
                   <div style="margin-right: 5px; font-size: 14px;">Plan: </div>     
                   <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 14px; width: auto; text-align: center;">{{planSeleccionado.nombreplan}}</div>
@@ -188,10 +196,7 @@
             </div>
               
           </div>
-          <div>
-              <div  style="margin-top:5px;">Monto a Pagar: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
-    
-          </div>
+         
           <div class="botones-compra">
             <button class="btn-compra btn-procesar" routerLink="/pago"><i class="fa fa-credit-card"></i> Procesar Compra</button>
             <button class="btn-compra btn-agregar" (click)="agregarCarrito()" [disabled]="!habilitarBotonCarrito"> <i class="fa fa-cart-plus" style="font-size: 18px;"></i> Agregar al Carrito</button>
@@ -229,8 +234,7 @@
                       </div>
                     </div>
                 </div>
-              </div>
-              
+              </div>              
           </mat-tab>
           <mat-tab label="Calificación">
             <mat-card class="card-calificaciones">
@@ -250,11 +254,7 @@
                 </p>
                 <div class="cont-img-marca">
                   <img class="imagen-marca" src="{{articuloService.url_imagenes}}/tmp/{{marca.imagen}}" alt="" hspace="5" vspace="5" style="float: none;">
-
                 </div>
-                  
-
-
               </div>
             </div>
           </mat-tab>

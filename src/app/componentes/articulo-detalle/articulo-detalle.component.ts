@@ -58,6 +58,9 @@ export class ArticuloDetalleComponent implements OnInit {
   cx = 0;
   cy = 0;
   cargoMarca = false;
+  cantidadSeleccionada = 1;
+  nomostrarPlanesPostpago= true;
+  colorSeleccionado="";
 
   planSeleccionado = {
     nombreplan: "",
@@ -110,6 +113,8 @@ export class ArticuloDetalleComponent implements OnInit {
     this.controlCuotas = true;
     this.controlTipoPlan = true;
     this.controlLineas = false;
+    document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
   }
 
@@ -131,7 +136,14 @@ export class ArticuloDetalleComponent implements OnInit {
 
   
 
-
+  disminuirCantidad(){
+    if(this.cantidadSeleccionada>1)
+    this.cantidadSeleccionada--;
+  }
+  aumentarCantidad(){
+    if(this.cantidadSeleccionada<20)
+    this.cantidadSeleccionada++;
+  }
   infoComentarios() {
     this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
       var a = res as Valoracion[];
@@ -299,7 +311,6 @@ export class ArticuloDetalleComponent implements OnInit {
       /* Set the position of the lens: */
       lens.style.left = x + "px";
       lens.style.top = y + "px";
-      console.log(x + " - " + y + " --- " + cx + "  -  " + cy);
       /* Display what the lens "sees": */
       result.style.backgroundPosition = (-1 * x + 100) * cx + "px " + (-1 * y + 100) * cy + "px";
     } else {
