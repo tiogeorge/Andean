@@ -79,13 +79,14 @@ pagoController.recuperarseriesequipos = async (req, res) => {
 }
 pagoController.recuperarseriedoc = async (req, res) => {
     req.getConnection(function (error, conn) {
-        var consulta = "SELECT fnRep_SerieLocalDocumento('609','BBV') as 'SERIE'";
+        var consulta = "SELECT NroSerie FROM `tadocumentosventa` WHERE idLocal=('609') AND idTipoDocumento=('BBV')";
         conn.query(consulta, function (err, results) {
             if (err) {
                 console.log(err);
             }
             else {
                 res.json(results[0].SERIE);
+                console.log(results[0]);
             }
         });
     });

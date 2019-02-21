@@ -255,6 +255,7 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
+      console.log(this.listaPlanArticulo);
       this.sumarprecios();
       this.insertaraarregloart();
     });
@@ -493,7 +494,7 @@ export class PagoComponent implements OnInit {
     //this.guardarventa();
   }
 
-  guardarventa(form: NgForm) {
+  guardarventa() {
     /*recuperar datos doc */
     this.DocumentoT[0].Tipo = this.tipodoc;
     console.log('serie');
@@ -515,6 +516,7 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.Correocliente = this.correoclient;
             this.pagoservice.selectPago.Articulo = this.listaArticulos2;
             this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
+            this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.EstadoPago = 'Pagado';
             this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
             this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
@@ -534,8 +536,8 @@ export class PagoComponent implements OnInit {
                   this.snackBar.open('Venta Realizada', '🧓🏻', {
                     duration: 2000,
                   });
-                  this.eliminarcarrito();
-                  this.router.navigateByUrl('home');
+                 /* this.eliminarcarrito();
+                  this.router.navigateByUrl('home');*/
                 }
                 else {
                   alert('Error!!!');
