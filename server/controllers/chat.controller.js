@@ -44,6 +44,35 @@ exports.getConversaciones = async (req, res, next) => {
   }).sort('-createdAt');
 };
 
+exports.getConversacionesEntre = async(req, res) =>{
+  var hoy = new Date(req.params.anio, req.params.mes, req.params.dia);
+  var siguiente = new Date(hoy.getTime() + 24*60*60*1000);
+  //console.log(hoy);
+  //console.log(siguiente);
+  Conversacion.find()
+    .where('createdAt').gte(hoy).lte(siguiente)
+    .exec( function(err, conversaciones) {
+      if(err){
+        res.json({
+          status: false,
+          error: err
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'Las conversaciones se obtuvieron con éxito',
+          data: conversaciones,
+          idUsuario : req.session.idEmpleado,
+          usuario: req.session.usuario,
+          tipoUsuario : req.session.tipoUsuario
+        })
+      }
+    });
+  /*Conversacion.find( {'createdAt' : {'$lte': req.params.fechaFin, '$gte': req.params.fechaInicio} } ,function(err, conversaciones) {
+    
+  });*/
+}
+
 /**
  * Método en el que el cliente inicia una nueva conversación
  */
