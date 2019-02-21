@@ -47,8 +47,6 @@ exports.getConversaciones = async (req, res, next) => {
 exports.getConversacionesEntre = async(req, res) =>{
   var hoy = new Date(req.params.anio, req.params.mes, req.params.dia);
   var siguiente = new Date(hoy.getTime() + 24*60*60*1000);
-  //console.log(hoy);
-  //console.log(siguiente);
   Conversacion.find()
     .where('createdAt').gte(hoy).lte(siguiente)
     .exec( function(err, conversaciones) {
@@ -68,9 +66,6 @@ exports.getConversacionesEntre = async(req, res) =>{
         })
       }
     });
-  /*Conversacion.find( {'createdAt' : {'$lte': req.params.fechaFin, '$gte': req.params.fechaInicio} } ,function(err, conversaciones) {
-    
-  });*/
 }
 
 /**

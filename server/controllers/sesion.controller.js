@@ -1,3 +1,4 @@
+const Conversacion = require('../models/conversacion');
 const sesionController = {};
 
 /**
@@ -85,5 +86,25 @@ sesionController.limpiarSesion = async(req, res, next) => {
     });
   }
 };
+
+sesionController.getNotificaciones = async(req, res) => {
+  var hoy = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+  Conversacion.find({concluido: false, participantes: []})
+    .where('createdAt').gte(hoy)
+    .exec( function(err, conversaciones) {
+      if(err){
+        res.json({
+          status: false,
+          error: err
+        });
+      } else {
+        res.json({
+          status: true,
+          msg: 'El número de conversaciones se obtuvieron con éxito',
+          data: conversaciones.length
+        })
+      }
+    });
+}
 
 module.exports = sesionController;

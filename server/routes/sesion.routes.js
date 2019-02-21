@@ -7,6 +7,6 @@ router.get('/', sesion.obtenerSesion);
 router.delete('/', sesion.limpiarSesion);
 router.get('/admin', sesion.obtenerSesionAdmin);
 router.delete('/admin', sesion.eliminarSesionAdmin);
-//router.get('/admin/sesiones', sesion.obtenerSesiones);
+router.get('/notificaciones', sesion.getNotificaciones);
 
 module.exports = router;
