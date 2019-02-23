@@ -239,7 +239,7 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    Culqi.publicKey = '';
+    Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
     Culqi.init();
     // Validar la fecha de expiración de la tarjeta como mínimo al mes siguiente
     if(this.mesHoy == 12){
