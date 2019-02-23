@@ -15,6 +15,7 @@ import { ValoracionService } from "../valoracion/valoracion.service";
 import { Valoracion } from '../valoracion/valoracion';
 import { Usuario } from './../perfil-usuario/usuario';
 import { NgForm } from '@angular/forms';
+import { Equipo } from './equipo';
 
 @Component({
   selector: 'app-articulo-detalle',
@@ -61,6 +62,7 @@ export class ArticuloDetalleComponent implements OnInit {
   cantidadSeleccionada = 1;
   nomostrarPlanesPostpago= true;
   colorSeleccionado="";
+  equipoSeleccionado: Equipo = new Equipo();
 
   planSeleccionado = {
     nombreplan: "",
@@ -114,7 +116,7 @@ export class ArticuloDetalleComponent implements OnInit {
     this.controlTipoPlan = true;
     this.controlLineas = false;
     document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
   }
 
@@ -126,6 +128,8 @@ export class ArticuloDetalleComponent implements OnInit {
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
       this.infoComentarios();      
       this.buscarPreciosFiltro();
+      console.log(this.articuloService.articuloSeleccionado);
+      this.equipoSeleccionado = this.articuloService.articuloSeleccionado.equipos[0];
       //  this.obtenerPreciosArticulo();     
     });
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe(res => {
@@ -134,14 +138,18 @@ export class ArticuloDetalleComponent implements OnInit {
 
   }
 
-  
+  seleccionarEquipo(equipo){
+    this.equipoSeleccionado = equipo;
+    this.colorSeleccionado = this.equipoSeleccionado.color;
+    console.log(this.equipoSeleccionado);
+  }
 
   disminuirCantidad(){
     if(this.cantidadSeleccionada>1)
     this.cantidadSeleccionada--;
   }
   aumentarCantidad(){
-    if(this.cantidadSeleccionada<20)
+    if(this.cantidadSeleccionada<this.equipoSeleccionado.cantidad)
     this.cantidadSeleccionada++;
   }
   infoComentarios() {

@@ -48,14 +48,17 @@
 
           </div>
           <div class="colores" style="margin-top:10px;">
-            <h6>Color: {{colorSeleccionado}}</h6>
+            <h6>Color: {{equipoSeleccionado.color}}</h6>
             <div class="item-colores" style="display: flex; flex-direction: row; margin: 10px">
-              <div style="width: 50px; height: 50px; border: 1px solid gray; margin-right: 5px;">
-              <img src="https://www.smarket.com.pe:3000/imagenes/sm/huawei-y6-2018-1.jpg.webp" alt="" width="100%" height="100%">
-            </div>
-            <div style="width: 50px; height: 50px; border: 1px solid gray;">
-              <img src="https://www.smarket.com.pe:3000/imagenes/sm/huawei-y6-2018-1.jpg.webp" alt="" width="100%" height="100%">
-            </div>
+              <div  *ngFor="let equipo of articuloService.articuloSeleccionado.equipos" (click)="seleccionarEquipo(equipo)">
+                <div *ngIf="equipo.idequipo != equipoSeleccionado.idequipo" class="item-cantidad">
+                  <img src="https://www.smarket.com.pe:3000/imagenes/sm/{{equipo.imagen}}" alt="" width="100%" height="100%">
+                </div>
+                <div *ngIf="equipo.idequipo == equipoSeleccionado.idequipo" class="item-color">
+                  <img src="https://www.smarket.com.pe:3000/imagenes/sm/{{equipo.imagen}}" alt="" width="100%" height="100%">
+                </div>
+              </div>
+              
             </div>
 
           </div>
@@ -67,8 +70,8 @@
               
               <i class="material-icons btn-cantidad noseleccionable" (click)="aumentarCantidad()">add</i>
             </div>
-            <div style="color: rgb(112, 113, 114)"> x unidades disponibles</div>
-
+            <div *ngIf="equipoSeleccionado.cantidad==1" style="color: rgb(112, 113, 114)"> {{equipoSeleccionado.cantidad}} unidad disponible</div>
+            <div *ngIf="equipoSeleccionado.cantidad>1" style="color: rgb(112, 113, 114)"> {{equipoSeleccionado.cantidad}} unidades disponibles</div>
           </div>
           
           <div hidden="true" class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
