@@ -516,6 +516,7 @@ export class PagoComponent implements OnInit {
             this.DocumentoT[0].Numero = this.numerodoc;
             console.log(this.numerodoc);
             //
+            this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.idUsuario = this.user;
             this.pagoservice.selectPago.Correocliente = this.correoclient;
             this.pagoservice.selectPago.Articulo = this.listaArticulos2;
@@ -625,6 +626,7 @@ export class PagoComponent implements OnInit {
       console.log(Culqi.token);
       this.pagoservice.procesarPago(Culqi.token.id).subscribe( res => {
         console.log(res);
+        this.guardarventa();
       });
     } else {
       console.log(Culqi.error);

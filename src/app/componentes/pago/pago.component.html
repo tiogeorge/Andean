@@ -250,7 +250,7 @@
                       </mat-form-field>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;">PAGAR S/ {{preciototal}}.00</button>
+                        <button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>
                     </mat-card-actions>
                   </mat-card>
                 </form>
@@ -260,7 +260,7 @@
                   <div class="col-lg-5"></div>
                   <div class="col-lg-2">
                     <div class="example-button-row">
-                      <button id="btnsig2" mat-stroked-button color="warn" matStepperNext (click)="guardarventa()">Siguiente</button>
+                     <!-- <button id="btnsig2" mat-stroked-button color="warn" >Siguiente</button>-->
                     </div>
                   </div>
                   <div class="col-lg-5"></div>
@@ -351,7 +351,7 @@
                     </mat-accordion>
                     <!--tabla material-->
                   </div>
-                  <button class="btn btn-success" style="background-color: orange">Finalizar Compra</button>
+                  <button class="btn btn-success" style="background-color: orange" routerLink="/home">Regresar al Inicio</button>
                 </div>
               </form>
             </div>
