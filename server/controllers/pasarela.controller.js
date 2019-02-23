@@ -5,10 +5,10 @@ pasarelaController.crearCargo = async (req, res) => {
         "amount" : 100,
         "capture" : true,
         "currency_code": "PEN",
-        "description" : "Prueba",
-        "email": "gabriel12_10_95@hotmail.com",
+        "description" : req.body.descripcion,
+        "email": req.body.email,
         "installments" : 0,
-        "metadata" : {"dni" : "71052032"},
+        "metadata" : {"dni" : "00112233"},
         "source_id": req.body.tokenId,
         "antifraud_details" : {
             "address" : "Avenida Lima 213",
@@ -30,6 +30,7 @@ pasarelaController.crearCargo = async (req, res) => {
     })
     const myJson = await response.json();
     console.log(myJson);
+    res.json(myJson);
 }
 
 module.exports = pasarelaController;
