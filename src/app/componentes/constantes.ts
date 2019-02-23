@@ -21,6 +21,7 @@ export class Constantes {
     public static URL_API_PLANES    = URL_API + 'precio';
     public static URL_API_PAGO      = URL_API + 'pago';
     public static URL_API_VALORACION= URL_API + 'valoracion';
+    public static URL_PASARELA      = URL_API + 'pasarela';
     public static URL_IMAGEN_LG     =URL+'/imagenes/lg';// 'https://www.smarket.com.pe:3000/imagenes/lg';
     public static URL_IMAGEN_MD     =URL+'/imagenes/md';// 'https://www.smarket.com.pe:3000/imagenes/md';
     public static URL_IMAGEN_SM     =URL+'/imagenes/sm';// 'https://www.smarket.com.pe:3000/imagenes/sm';
