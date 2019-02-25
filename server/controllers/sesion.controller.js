@@ -25,7 +25,8 @@ sesionController.obtenerSesionAdmin = async(req, res, next) => {
   if(req.session.idEmpleado){
     res.json({
       status: true,
-      msg: 'La sesión ya está inicializada'
+      msg: 'La sesión ya está inicializada',
+      dato: req.session.idEmpleado,
     });
   } else {
     res.json({
