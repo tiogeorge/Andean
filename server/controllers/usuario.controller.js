@@ -100,7 +100,10 @@ usuarioController.agregarArticulo = async (req, res, next) => {
               tipoLinea: req.body.tipoLinea,
               tipoPlan: req.body.tipoPlan,
               nombrePlan: req.body.nombrePlan,
-              cuotas: req.body.cuotas
+              cuotas: req.body.cuotas,
+              idequipo: req.body.idequipo,
+              cantidad: req.body.cantidad,
+              imagen: req.body.imagen
             };
             carritoArticulo.push(articuloCarrito);
             Usuario.findOneAndUpdate({
@@ -137,7 +140,10 @@ usuarioController.agregarArticulo = async (req, res, next) => {
       tipoLinea: req.body.tipoLinea,
       tipoPlan: req.body.tipoPlan,
       nombrePlan: req.body.nombrePlan,
-      cuotas: req.body.cuotas
+      cuotas: req.body.cuotas,
+      idequipo: req.body.idequipo,
+      cantidad: req.body.cantidad,
+      imagen: req.body.imagen
     };
     if (req.session.articulos) {
       carritoArticulo = req.session.articulos;
@@ -442,6 +448,15 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
       var articulo = await Articulo.findOne({
         url: carrito[i].url
       });
+      var articulocompleto = {
+        idarticulo:carrito[i].idequipo,
+        titulo: articulo.titulo,
+        url:articulo.url,
+        categoria: articulo.categoria,
+        marca: articulo.marca,  
+        cantidad: carrito[i].cantidad,     
+        imagen:carrito[i].imagen
+      }
       var precio = await Precio.findOne({
         nombreequipo: articulo.idprecio
       });
@@ -456,8 +471,9 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
           }
         }
       }
-      carritoArticulos.push([articulo, precioArticulo]);
+      carritoArticulos.push([articulocompleto, precioArticulo]);
     }
+    console.log(carritoArticulos);
     res.json({
       status: true,
       msg: 'Se obtuvieron los artículos con éxito',
@@ -472,6 +488,15 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
         var articulo = await Articulo.findOne({
           url: carrito[i].url
         });
+        var articulocompleto = {
+          idarticulo:carrito[i].idequipo,
+          titulo: articulo.titulo,
+          url:articulo.url,
+          categoria: articulo.categoria,
+          marca: articulo.marca,      
+          cantidad: carrito[i].cantidad,    
+          imagen:carrito[i].imagen
+        }
         var precio = await Precio.findOne({
           nombreequipo: articulo.idprecio
         });
@@ -486,8 +511,9 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
             }
           }
         }
-        carritoArticulos.push([articulo, precioArticulo]);
+        carritoArticulos.push([articulocompleto, precioArticulo]);
       }
+      console.log(carritoArticulos);
       res.json({
         status: true,
         msg: 'Se obtuvieron los artículos con éxito',

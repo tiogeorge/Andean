@@ -106,10 +106,10 @@
                             </div>
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
-                                <mat-select [(value)]="localselec" name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
+                                <mat-select  name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
                                   placeholder="Tipo de Vivienda">
-                                  <mat-option *ngFor="let local of Local" value="local.value">
-                                    {{local.value}}
+                                  <mat-option *ngFor="let localitem of Local" value="{{localitem.value}}">
+                                    {{localitem.value}}
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field>
@@ -250,7 +250,7 @@
                       </mat-form-field>
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>
+                        <button mat-raised-button color="accent" (click)="guardarventa()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>
                     </mat-card-actions>
                   </mat-card>
                 </form>
@@ -316,7 +316,7 @@
                         <table class="table" *ngIf="artiped.tipolinea=='PREPAGO'">
                           <tr>
                             <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
-                                src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}" alt="{{artiped.imagenes[0]}}"> </td>
+                                src="{{url_imagenes_md}}/{{artiped.imagen}}" alt="{{artiped.imagen}}"> </td>
                             <td>Linea:</td>
                             <td>{{artiped.tipolinea}}</td>
                             <td>Plan:</td>

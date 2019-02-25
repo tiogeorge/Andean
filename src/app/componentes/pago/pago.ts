@@ -7,8 +7,6 @@ export interface temarti {
     categoria: String,
     marca: String,
     cantidad: String,
-    idprecio: String,
-    imagenes: any[],
     cuotainicial: String,
     cuotamensual: String,
     cuotas: String,

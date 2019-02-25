@@ -82,10 +82,11 @@ pagoController.recuperarseriedoc = async (req, res) => {
         var consulta = "SELECT NroSerie FROM `tadocumentosventa` WHERE idLocal=('609') AND idTipoDocumento=('BBV')";
         conn.query(consulta, function (err, results) {
             if (err) {
+                res.json(error);
                 console.log(err);
             }
             else {
-                res.json(results[0].SERIE);
+                res.json(results[0].NroSerie);
                 console.log(results[0]);
             }
         });

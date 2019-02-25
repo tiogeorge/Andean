@@ -185,7 +185,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
 
   agregarCarrito() {
-    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.url, this.planSeleccionado).subscribe(res => {
+    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.url, this.planSeleccionado, this.equipoSeleccionado.idequipo,this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
       this.openDialog(jres);
     });

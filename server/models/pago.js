@@ -13,11 +13,7 @@ const pagoSchema= new Schema({
         marca:{type: String},
         cantidad:{type: String},
         idprecio:{type: String},
-        especificaciones:{type: String},
-        caracteristicas:{type: String},
-        imagenes:{type: String},
-        descripcion:{type: String},
-        garantias:{type: String},
+        imagen:{type: String},
         cuotainicial:{type: String},
         cuotamensual:{type: String},
         cuotas:{type: String},
@@ -25,7 +21,8 @@ const pagoSchema= new Schema({
         nombreplan:{type: String},
         precio:{type: String},
         tipolinea:{type: String},
-        tipoplan:{type: String},
+        tipoplan:{type: String}
+        
     }],
   //  Articulo:{type: String, required:true},
     FechaCompra:{type:Date},

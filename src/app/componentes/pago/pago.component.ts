@@ -259,7 +259,7 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
-      console.log(this.listaPlanArticulo);
+      console.log(this.listaCarrito);
       this.sumarprecios();
       this.insertaraarregloart();
     });
@@ -398,11 +398,12 @@ export class PagoComponent implements OnInit {
     /*this.listdirecciones = JSON.parse(JSON.stringify(this.direccionService.selecDireccion));
     console.log('direccion:');
     console.log(this.listdirecciones);*/
+    console.log(this.direccionService.selecDireccion);
     var rres;
     // this.direccionService.selecDireccion.tipolocal=this.localselec;
-    this.direccionService.AgregarDireccion(this.direccionService.selecDireccion)
+    this.direccionService.AgregarDireccion(form.value)
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
         rres = JSON.parse(JSON.stringify(res));
         /* resumedir*/
         document.getElementById('lbdirec').innerHTML = this.direccionService.selecDireccion.direccion;
