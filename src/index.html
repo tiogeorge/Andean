@@ -18,17 +18,19 @@
   <link rel="stylesheet" href="./assets/css/quill.core.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133908626-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
+
     function gtag() {
       dataLayer.push(arguments);
     }
     gtag('js', new Date());
     gtag('config', 'UA-133908626-1');
+
   </script>
 </head>
 
@@ -42,21 +44,17 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-    <!-- Incluyendo .js de Culqi JS -->
-<script src="https://checkout.culqi.com/v2"></script>
-<script>
-  Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
-  Culqi.init();
-</script>
-<script>
-  $('#buyButton').on('click', function(e) {
-      // Crea el objeto Token con Culqi JS
-      Culqi.createToken();
-      e.preventDefault();
-      culqi();
-  });
+  <!-- Incluyendo .js de Culqi JS -->
+  <script src="https://checkout.culqi.com/v2"></script>
+  <script>
+    Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
+    Culqi.init();
 
-  function culqi() {
+  </script>
+  <script>
+    /*function pagar(){
+    console.log('Pagando');
+    Culqi.createToken();
     if (Culqi.token) { // ¡Objeto Token creado exitosamente!
         var token = Culqi.token.id;
         alert('Se ha creado un token:' + token);
@@ -65,8 +63,24 @@
         console.log(Culqi.error);
         alert(Culqi.error.user_message);
     }
-  };
-</script>
+  };*/
+
+    $(document).on('click', '#buyButton', function (e) {
+      // Crea el objeto Token con Culqi JS
+      Culqi.createToken();
+      e.preventDefault();
+      if (Culqi.token) { // ¡Objeto Token creado exitosamente!
+        var token = Culqi.token.id;
+        alert('Se ha creado un token:' + token);
+      } else { // ¡Hubo algún problema!
+        // Mostramos JSON de objeto error en consola
+        console.log(Culqi.error);
+        alert(Culqi.error.user_message);
+      }
+      console.log('Pagando');
+    });
+
+  </script>
 </body>
 
 </html>

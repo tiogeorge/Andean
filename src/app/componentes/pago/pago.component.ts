@@ -20,7 +20,7 @@ import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 const moment = _rollupMoment || _moment;
 
-declare const Culqi : any;
+//declare const Culqi : any;
 
 export interface NombreDirec {
   nombre: string;
@@ -239,8 +239,8 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
-    Culqi.init();
+    //Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
+    //Culqi.init();
     // Validar la fecha de expiración de la tarjeta como mínimo al mes siguiente
     if(this.mesHoy == 12){
       this.mesHoy = 1;
@@ -621,7 +621,7 @@ export class PagoComponent implements OnInit {
   }
 
   pagar(){
-    Culqi.createToken();
+    /*Culqi.createToken();
     if(Culqi.token){
       console.log('Procesando la compra');
       console.log(Culqi.token);
@@ -631,6 +631,6 @@ export class PagoComponent implements OnInit {
       });
     } else {
       console.log(Culqi.error);
-    }
+    }*/
   }
 }
