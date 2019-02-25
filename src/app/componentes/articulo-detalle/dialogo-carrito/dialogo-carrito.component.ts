@@ -22,7 +22,7 @@ export class DialogoCarritoComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DialogoCarritoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, router: Router) {
-      this.urlImg = data.urlImagen + '/tmp/' + data.articulo.imagenes[0];
+      this.urlImg = data.urlImagen + '/md/' + data.articulo.imagenes[0];
       this.router = router;
      }
 
