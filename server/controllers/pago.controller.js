@@ -188,8 +188,9 @@ pagoController.actualizarpedido = async (req, res) => {
     try {
         console.log('datos a actualizar');
         console.log(req.body);
+        console.log(req.body[0].EstadoEnvio);
         const art = {
-            //EstadoPago: req.body[0].EstadoPago,
+            EstadoPago: req.body[0].EstadoPago,
             EstadoEnvio: req.body[0].EstadoEnvio,
           //  Documento: req.body[0].Documento
         }
