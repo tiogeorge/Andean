@@ -5,11 +5,12 @@
     <div class="col-lg-3" style="background: white" id="contenedorfiltro">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
+          <!---->
+          <div class="col-lg-12" hidden>
             <hr>
             <h5>LO QUIERO EN:</h5>
           </div>
-          <div class="col-lg-12">
+          <div class="col-lg-12" hidden>
             <div>
               <mat-form-field id='selectlinea'>
                 <mat-select [(ngModel)]="linea" (selectionChange)="mostrartipoplan()">
@@ -50,11 +51,11 @@
             <div class="well" style="max-height: 300px;overflow: auto;">
               <div class="checkbox" *ngFor="let categoria of listacategorias">
                 <div>
-                    <label>
-                        <input type="checkbox" value="" id="{{categoria[0].padre}}">
-                        <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
-                        {{categoria[0].nombre}}
-                      </label>
+                  <label>
+                    <input type="checkbox" value="" id="{{categoria[0].padre}}">
+                    <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                    {{categoria[0].nombre}}
+                  </label>
                 </div>
               </div>
             </div>
@@ -70,7 +71,7 @@
               <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
                 <label style="cursor: pointer;" (click)="filtroMarca()">
                   <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}">
-                  <span class="cr" ><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                  <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>
               </div>
@@ -101,16 +102,17 @@
           </div>
           <div class="col-lg-12" id="divprecio">
             <!--inicio de slider de precio-->
-            <section class="example-section">
+            <!--  <section class="example-section">
               <mat-form-field class="example-margin">
                 <input matInput type="number" placeholder="Minimo" [(ngModel)]="minValue">
               </mat-form-field>
               <mat-form-field class="example-margin">
                 <input matInput type="number" placeholder="Maximo" [(ngModel)]="maxValue">
               </mat-form-field>
-            </section>
-            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeStart)="onUserChangeStart($event)"
-              (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
+            </section>-->
+            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+              (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
+              (userChangeEnd)="onUserChangeEnd($event)">
             </ng5-slider>
             <!--fin de slider-->
           </div>
@@ -193,40 +195,49 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i" id="contenedorarticulo{{articulo._id}}">
-                  <mat-card class="example-card " style="size: 100px;height: 380px;" *ngIf="articulo.precioplan != 'no tiene'">
-                    <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                      <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;" id="{{articulo._id}}"
-                        src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}">
+                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i"
+                  id="contenedorarticulo{{articulo._id}}">
+                  <mat-card class="example-card " style="size: 100px;height: 380px;"
+                    *ngIf="articulo.precioplan != 'no tiene'">
+                    <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}"
+                      matTooltipClass="colortooltip">
+                      <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
+                        id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
+                        alt="{{articulo.imagenes[0]}}">
                     </a>
                     <br>
                     <mat-card-title style="height: 20;">
                       <p class="card-text text-center">
-                        <a class="titulo-articulo .centrarletras" style="font-size: 14px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
+                        <a class="titulo-articulo .centrarletras" style="font-size: 14px"
+                          routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                       </p>
                     </mat-card-title>
                     <div id="precio1">
                       <p class="card-text text-center">
-                        <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
+                        <strong><a class="titulo-articulo" style="font-size: 18px;color: red"
+                            routerLink="/articulo/{{articulo.url}}">
                             S/. {{articulo.precioplan.precio}}</a></strong>
                       </p>
                     </div>
                     <div id="precio2" style="display: flex; align-items: flex-end; display: none">
                       <div>
                         <p class="card-text text-center">
-                          <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
+                          <strong><a class="titulo-articulo" style="font-size: 18px;color: red"
+                              routerLink="/articulo/{{articulo.url}}">
                               S/. {{articulo.precioplan.precio}}</a></strong>
                         </p>
                       </div>
                       <div>
                         <p class="card-text text-center">
-                          <strong><a class="titulo-articulo" style="font-size: 12px;color: red" routerLink="/articulo/{{articulo.url}}">
+                          <strong><a class="titulo-articulo" style="font-size: 12px;color: red"
+                              routerLink="/articulo/{{articulo.url}}">
                               x {{articulo.precioplan.cuotas}} meses</a></strong>
                         </p>
                       </div>
                     </div>
                     <p class="card-text text-center">
-                      <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
+                      <a class="titulo-articulo" style="font-size: 13px;color: red"
+                        routerLink="/articulo/{{articulo.url}}">
                         PLAN {{articulo.precioplan.nombreplan}}</a>
                     </p>
                   </mat-card>
@@ -385,7 +396,8 @@
                   </mat-form-field>
                 </section>
                 <ng5-slider style="size: 50%" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                  (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
+                  (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
+                  (userChangeEnd)="onUserChangeEnd($event)">
                 </ng5-slider>
                 <!--fin de slider-->
               </div>

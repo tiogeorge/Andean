@@ -28,10 +28,10 @@ import { Subscription } from 'rxjs';
 export class ArticulosbusquedaComponent implements OnInit {
   //range slider
   minValue: number = 0;
-  maxValue: number = 3000;
+  maxValue: number = 20000;
   options: Options = {
     floor: 0,
-    ceil: 3000
+    ceil: 20000
   };
   logText: string = '';
   //fin slider
