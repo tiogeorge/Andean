@@ -416,6 +416,17 @@ usuarioController.loginUsuario = async (req, res, next) => {
           res.json({
             status: true,
             msg: 'Iniciando sesión',
+            user:{
+              _id: usuario._id,
+              tipoDocumento : usuario.tipoDocumento,
+              numeroDocumento : usuario.numeroDocumento,
+              correo: usuario.correo,
+              nombres: usuario.nombres,
+              apellidos: usuario.apellidos
+              /*fecha_afiliacion: usuario.fecha_afiliacion,
+              fechaNacimiento: ususario.fechaNacimiento,
+              sexo: usuario.sexo*/
+            }
           });
         } else {
           res.json({

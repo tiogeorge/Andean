@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
 import { Constantes } from '../constantes';
-import { Router} from '@angular/router';
+import { Router, DefaultUrlSerializer} from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
 import { SesionService } from '../perfil-usuario/sesion.service';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { comunicacionService } from '../comunicacion.service';
 
 @Component({
   selector: 'app-menu',
@@ -30,8 +31,22 @@ export class MenuComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   listasubcategorias : Categoria[] = new Array();
   //fin auto completado
+  subscription: Subscription;
+  nombreusuario = "Identificate";
 
-  constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService) {}
+  constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService, public comService: comunicacionService) {
+    this.subscription = this.comService.inicioSesion()
+    .subscribe(user => {
+      if(user != "CERRAR"){
+        this.estaLogeado = true;
+        var nombre = user.nombres.split(" ")[0];
+        this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase();
+        console.log("LLEGO DEL LOGIN :" + user.nombres);
+        console.log(this.estaLogeado);
+      }
+      
+    })
+  }
 
   ngOnInit() {
   //  this.actualizarcomponente();
@@ -47,6 +62,9 @@ export class MenuComponent implements OnInit {
       map(value => this._filter(value))
     );
     //fin auto comple
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   //auto comple
@@ -70,8 +88,12 @@ export class MenuComponent implements OnInit {
   getSesion(){
     this.sesionService.obtenerSesion().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
-      if (jres.status){
+      if (jres.status){   
+        var nombre = jres.user.nombres.split(" ")[0];
+        this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase(); 
         this.estaLogeado = true;
+        console.log(jres.user);
+        this.comService.enviarUsuario(jres.user);
       } else {
         this.estaLogeado = false;
       }
@@ -82,8 +104,12 @@ export class MenuComponent implements OnInit {
     this.sesionService.cerrarSesion().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status){
-        this.estaLogeado = false;
+        
         this.router.navigate(['/']);
+        this.comService.enviarCerrarSesion();
+        this.nombreusuario="Identificate";
+        this.estaLogeado = false;
+        
       }
     })
   }

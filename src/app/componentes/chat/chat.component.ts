@@ -3,6 +3,8 @@ import { ChatService} from './chat.service'
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Usuario } from '../perfil-usuario/usuario';
 import { MensajeChat } from './mensaje-chat';
+import { comunicacionService } from '../comunicacion.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +21,7 @@ export class ChatComponent implements OnInit {
   ultimomensaje     : MensajeChat   = new MensajeChat();
   mostrarBotonChat  : boolean       = true;
   mostrarCampos     : boolean       = true;
-  mensajeFormulario : string        = '';
+  mensajeFormulario : string        = " Porfavor ingrese la siguiente informacion para poder ayudarle: ";;
   mostrarFooter     : boolean       = true;
   mostrarFormulario : boolean       = true;
   conversacionId    : string;
@@ -27,9 +29,23 @@ export class ChatComponent implements OnInit {
   nombreAsesor      : string;
   idUsuario         : string;
   tiempo            : number;
+  subscription: Subscription;
 
   constructor(public chatService: ChatService,
-              public usuarioService: UsuarioService ) { }
+              public usuarioService: UsuarioService, public comService: comunicacionService ) { 
+    this.subscription = this.comService.getUsuario()
+    .subscribe(user => {
+      if(user == "CERRAR"){
+        this.mensajeFormulario =  " Porfavor ingrese la siguiente informacion para poder ayudarle: ";
+      }else{
+        this.chatService.usuario =user;      
+        this.mostrarCampos = false;
+        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle.";
+      
+      }
+      
+    })
+              }
 
   ngOnInit() {    
   }
@@ -50,7 +66,7 @@ export class ChatComponent implements OnInit {
   }
 
   mostrarChat(){
-    this.verificarUsuario();
+    //this.verificarUsuario();
     this.mostrarBotonChat = false;
   }
 

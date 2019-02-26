@@ -1,14 +1,27 @@
 const Conversacion = require('../models/conversacion');
 const sesionController = {};
+const Usuario = require('../models/usuario');
 
 /**
  * Método que permite verificar si un usuario ha iniciado sesión
  */
 sesionController.obtenerSesion = async(req, res, next) => {
   if (req.session.token){
+    const usuario =   await Usuario.findOne({token:req.session.token});    
     res.json({
       status : true,
-      msg: 'La sesión ya está inicializada'
+      msg: 'La sesión ya está inicializada',
+      user:{
+        _id: usuario._id,
+        tipoDocumento : usuario.tipoDocumento,
+        numeroDocumento : usuario.numeroDocumento,
+        correo: usuario.correo,
+        nombres: usuario.nombres,
+        apellidos: usuario.apellidos
+        /*fecha_afiliacion: usuario.fecha_afiliacion,
+        fechaNacimiento: ususario.fechaNacimiento,
+        sexo: usuario.sexo*/
+      }
     });
   } else {
     res.json({
