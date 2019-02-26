@@ -106,7 +106,7 @@
                             </div>
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
-                                <mat-select  name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
+                                <mat-select name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
                                   placeholder="Tipo de Vivienda">
                                   <mat-option *ngFor="let localitem of Local" value="{{localitem.value}}">
                                     {{localitem.value}}
@@ -221,6 +221,79 @@
                       <mat-card-title>Pago con Tarjeta</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                            <img src="assets/tarjetas/visa2.png" height="75px" alt="">
+                          </div>
+                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                            <img src="assets/tarjetas/mastercard1.png" height="75px" alt="">
+                          </div>
+                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                            <img src="assets/tarjetas/amex2.png" height="75px" alt="">
+                          </div>
+                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                            <img src="assets/tarjetas/diners2.png" height="75px" alt="">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <mat-form-field appearance="outline" class="example-form-field" style="width: 100%">
+                              <mat-label>Número de la tarjeta</mat-label>
+                              <input matInput name="tarjeta" type="tel" placeholder="Número de la tarjeta" autocomplete="off"
+                                #tarjeta="ngModel" [(ngModel)]="pagoservice.tarjeta.number" minlength="13" maxlength="16"
+                                pattern="[0-9]{13,16}" required>
+                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.required">
+                                El número de tarjeta es un campo obligatorio.
+                              </mat-error>
+                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.minlength">
+                                La tarjeta debe contener como mínimo 13 carácteres.
+                              </mat-error>
+                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.maxlength">
+                                La tarjeta no debe contener más de 16 carácteres.
+                              </mat-error>
+                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.pattern">
+                                La tarjeta debe contener solo carácteres numéricos
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-lg-12">
+                            <mat-form-field appearance="outline" style="width: 100%">
+                              <mat-label>Nombre del titular</mat-label>
+                              <input #titular matInput placeholder="Nombre del titular" maxlength="15" pattern="[a-zA-Z]*"
+                                required>
+                              <mat-icon matSuffix>person</mat-icon>
+                              <mat-error *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.maxlength">
+                                Solo es necesario los primeros 15 carácteres
+                              </mat-error>
+                              <mat-error *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.pattern">
+                                No se permiten acentos ni otros signos
+                              </mat-error>
+                              <mat-error *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.required">
+                                El campo del titular de la tarjeta es obligatorio
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-lg-12">
+                            <div style="width: 100%">
+                              <mat-form-field>
+                                <input matInput [matDatepicker]="dp" [min]="minDate" [formControl]="date" autocomplete="off">
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp startView="multi-year" (yearSelected)="yearSelected($event)"
+                                  (monthSelected)="mesSelected($event,dp)"></mat-datepicker>                           
+                              </mat-form-field>
+                              <mat-form-field style="width: 60px;margin-left: 30px;">
+                                <input #cvv="ngModel" [(ngModel)]="pagoservice.tarjeta.cvv" matInput type="number" placeholder="CVV" autocomplete="off" min="000" maxlength="9999" required>
+                                <mat-error *ngIf="cvv.invalid && (cvv.dirty || cvv.touched) && cvv.errors.required">
+                                  El campo CVV es obligatorio
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--
                       <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-icon matPrefix>credit_card</mat-icon>
                         <mat-label>Número de Tarjeta</mat-label>
@@ -247,11 +320,11 @@
                         <mat-icon matPrefix>email</mat-icon>
                         <input matInput placeholder="Correo electrónico" type="text" size="50" data-culqi="card[email]"
                           id="card[email]">
-                      </mat-form-field>
+                      </mat-form-field>-->
                     </mat-card-content>
                     <mat-card-actions>
-                        <!--<button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
-                        <button id="buyButton" mat-raised-button color="accent" style="width: 100%;" onclick="pagar()" matStepperNext>PAGAR S/ {{preciototal}}.00</button>
+                      <!--<button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
+                      <!-- <button id="buyButton" mat-raised-button color="accent" style="width: 100%;" onclick="pagar()" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
                     </mat-card-actions>
                   </mat-card>
                 </form>
@@ -261,7 +334,7 @@
                   <div class="col-lg-5"></div>
                   <div class="col-lg-2">
                     <div class="example-button-row">
-                     <!-- <button id="btnsig2" mat-stroked-button color="warn" >Siguiente</button>-->
+                      <!-- <button id="btnsig2" mat-stroked-button color="warn" >Siguiente</button>-->
                     </div>
                   </div>
                   <div class="col-lg-5"></div>
@@ -352,7 +425,8 @@
                     </mat-accordion>
                     <!--tabla material-->
                   </div>
-                  <button class="btn btn-success" style="background-color: orange" routerLink="/home">Regresar al Inicio</button>
+                  <button class="btn btn-success" style="background-color: orange" routerLink="/home">Regresar al
+                    Inicio</button>
                 </div>
               </form>
             </div>

@@ -3,10 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Pago} from './pago';
 
+export class creditCard{
+  number: string;
+  securityCode: string;
+  expirationDate: string;
+  name: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PagoService {
+  tarjeta : creditCard = new creditCard();
   selectPago:Pago;
   pago:Pago[];
   readonly URL_API=Constantes.URL_API_PAGO;
