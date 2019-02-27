@@ -89,6 +89,8 @@ export const MY_FORMATS = {
 })
 
 export class PagoComponent implements OnInit {
+  isLinear = true;
+  dato1:string='';
   seriedoc: string = "";
   numerodoc: string = "";
   tipodoc: string = "BBV";
@@ -161,6 +163,8 @@ export class PagoComponent implements OnInit {
     this.pagoservice.selectPago.idDireccion = id;
     document.getElementsByClassName('matchips').item
     document.getElementById('Resumendir').hidden = false;
+    this.dato1='siguiente';
+   // this.isLinear=false;
     this.logocard = nombreicon;
     //   document.getElementById(id).style.background='#FFBF00';
     //   document.getElementById(id).style.color='white';
@@ -267,20 +271,22 @@ export class PagoComponent implements OnInit {
     //   
     //stepps
     this.firstFormGroup = this._formBuilder.group({
-      datD1: ['', Validators.required],
+     /* datD1: ['', Validators.required],
       datD2: ['', Validators.required],
       datD3: ['', Validators.required],
       datD4: ['', Validators.required],
       datD5: ['', Validators.required],
       datD6: ['', Validators.required],
-      datD7: ['', Validators.required],
+      datD7: ['', Validators.required],*/
+      firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      datoN1: ['', Validators.required],
+    /*  datoN1: ['', Validators.required],
       datoN2: ['', Validators.required],
       datoN3: ['', Validators.required],
       datoN4: ['', Validators.required],
-      datoN5: ['', Validators.required],
+      datoN5: ['', Validators.required],*/
+      secondCtrl: ['', Validators.required]
     });
     //fin stepps
     //recuperar usuario
@@ -423,6 +429,8 @@ export class PagoComponent implements OnInit {
       });
     document.getElementById('Agregardireccion').hidden = true;
     document.getElementById('Resumendir').hidden = false;
+    this.dato1='siguiente';
+    //this.isLinear=false;
   }
   nombreiconresdir(nombreicon: string) {
     if (nombreicon == 'Casa') {

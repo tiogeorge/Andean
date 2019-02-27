@@ -1,8 +1,11 @@
 <div>
-  <mat-horizontal-stepper labelPosition="bottom" #stepper>
-    <mat-step class="mat-step2" [stepControl]="firstFormGroup" state="direc">
-      <ng-template matStepLabel>Informacion de Envío</ng-template>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Informacion de Envío</ng-template>
+        <!--input de apoyo-->
+            <input hidden [(ngModel)]="dato1" matInput placeholder="Last name, First name"  formControlName="firstCtrl" required>
+            <!--fin-->
         <mat-card>
           <mat-card-title>
             <label for="">Hola, {{usuarioService.usuarioSeleccionado.nombres}}
@@ -12,16 +15,16 @@
             <p>Por favor, elija una dirección de envío o cree una nueva dirección</p>
           </mat-card-content>
           <!-- <mat-card-content *ngIf="usuarioService.usuarioSeleccionado.numeroDocumento">
-            <h5 style="font-size: 16px;">Ingrese su documento de identidad (DNI)</h5>
-            <mat-form-field>
-              <input matInput name="numeroDocumento" #numeroDocumento placeholder="Número de Documento" minlength="8" required>
-              <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">El
-                número de Documento es obligatorio</mat-error>
-              <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.minlength">El
-                documento debe tener mínimo 8 dígitos</mat-error>
-            </mat-form-field>
-            <button mat-icon-button color="primary"><mat-icon>done</mat-icon></button>
-          </mat-card-content>-->
+                  <h5 style="font-size: 16px;">Ingrese su documento de identidad (DNI)</h5>
+                  <mat-form-field>
+                    <input matInput name="numeroDocumento" #numeroDocumento placeholder="Número de Documento" minlength="8" required>
+                    <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">El
+                      número de Documento es obligatorio</mat-error>
+                    <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.minlength">El
+                      documento debe tener mínimo 8 dígitos</mat-error>
+                  </mat-form-field>
+                  <button mat-icon-button color="primary"><mat-icon>done</mat-icon></button>
+                </mat-card-content>-->
         </mat-card>
         <div class="container-fluid">
           <div class="row">
@@ -45,14 +48,16 @@
                           <mat-form-field class="example-chip-list">
                             <mat-chip-list #chipList>
                               <mat-chip *ngFor="let direc of direccionService.direccion" [selectable]="selectable"
-                                [removable]="removable" (removed)="remove(direc)" id="{{direc._id}}" (click)=" direccionselec(direc._id,direc.nombreicon)"
-                                matTooltip="{{direc.direccion}}" matTooltipClass="estilo-tooltip" class="matchips">
+                                [removable]="removable" (removed)="remove(direc)" id="{{direc._id}}"
+                                (click)=" direccionselec(direc._id,direc.nombreicon)" matTooltip="{{direc.direccion}}"
+                                matTooltipClass="estilo-tooltip" class="matchips">
                                 <mat-icon>{{direc.nombreicon}}</mat-icon>{{direc.distrito}}
                               </mat-chip>
                             </mat-chip-list>
                           </mat-form-field>
                         </div>
-                        <div class="col-lg-1"><button mat-mini-fab (click)="mostrarformdir()" style="background-color: orange">
+                        <div class="col-lg-1"><button mat-mini-fab (click)="mostrarformdir()"
+                            style="background-color: orange">
                             <mat-icon>{{nombreicondir}}</mat-icon>
                           </button>
                         </div>
@@ -62,22 +67,26 @@
                   <div id="Agregardireccion" hidden>
                     <form #fomrdireccionnueva="ngForm" (ngSubmit)="AgregarDireccion(fomrdireccionnueva)">
                       <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
-                      <input type="hidden" name="usuario" #usuario="ngModel" [(ngModel)]="direccionService.selecDireccion.usuario">
+                      <input type="hidden" name="usuario" #usuario="ngModel"
+                        [(ngModel)]="direccionService.selecDireccion.usuario">
                       <div class="card-header">Nueva dirección</div>
                       <div class="card-body">
                         <div class="container">
                           <div class="row">
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
-                                <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento"
+                                <mat-select name="departamento" #departamento="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.departamento"
                                   (selectionChange)="departamentoSelected($event.value)" placeholder="Departamento">
-                                  <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
+                                  <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">
+                                    {{dep.departamento}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </div>
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
-                                <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"
+                                <mat-select name="provincia" #provincia="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.provincia"
                                   (selectionChange)="provinciaSelected($event.value)" placeholder="Provincia">
                                   <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias"
                                     [value]="prov.provincia">{{prov.provincia}}</mat-option>
@@ -86,9 +95,10 @@
                             </div>
                             <div class="col-lg-4">
                               <mat-form-field appearance="outline" style="width: 100%">
-                                <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"
-                                  placeholder="Distrito">
-                                  <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
+                                <mat-select name="distrito" #distrito="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.distrito" placeholder="Distrito">
+                                  <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos"
+                                    [value]="dis">{{dis}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                             </div>
@@ -106,7 +116,8 @@
                             </div>
                             <div class="col lg 4">
                               <mat-form-field style="width: 100%">
-                                <mat-select name="tipolocal" #tipolocal="ngModel" [(ngModel)]="direccionService.selecDireccion.tipolocal"
+                                <mat-select name="tipolocal" #tipolocal="ngModel"
+                                  [(ngModel)]="direccionService.selecDireccion.tipolocal"
                                   placeholder="Tipo de Vivienda">
                                   <mat-option *ngFor="let localitem of Local" value="{{localitem.value}}">
                                     {{localitem.value}}
@@ -163,7 +174,8 @@
                             </mat-card-header>
                             <mat-card-content>
                               <p>
-                                <mat-icon matSuffix>local_library</mat-icon>&nbsp;Departamento:&nbsp;<label id="lbdepartamento"></label>
+                                <mat-icon matSuffix>local_library</mat-icon>&nbsp;Departamento:&nbsp;<label
+                                  id="lbdepartamento"></label>
                               </p>
                               <p>
                                 <mat-icon matSuffix>map</mat-icon>&nbsp;Provincia:&nbsp;<label id="lbprovincia"></label>
@@ -172,10 +184,12 @@
                                 <mat-icon matSuffix>place</mat-icon>&nbsp;Distrito:&nbsp;<label id="lbdistrito"></label>
                               </p>
                               <p>
-                                <mat-icon matSuffix>rate_review</mat-icon>&nbsp;Referencia:&nbsp;<label id="lbreferencia"></label>
+                                <mat-icon matSuffix>rate_review</mat-icon>&nbsp;Referencia:&nbsp;<label
+                                  id="lbreferencia"></label>
                               </p>
                               <p>
-                                <mat-icon matSuffix>local_phone</mat-icon>&nbsp;Telefono:&nbsp;<label id="lbtelefono"></label>
+                                <mat-icon matSuffix>local_phone</mat-icon>&nbsp;Telefono:&nbsp;<label
+                                  id="lbtelefono"></label>
                               </p>
                             </mat-card-content>
                           </mat-card>
@@ -190,7 +204,8 @@
                       <div class="col-lg-5"></div>
                       <div class="col-lg-2">
                         <div class="example-button-row">
-                          <button id="btnsig1" mat-stroked-button color="warn" style="display: none;" matStepperNext>Siguiente</button>
+                          <button id="btnsig1" mat-stroked-button color="warn" style="display: none;"
+                            matStepperNext>Siguiente</button>
                         </div>
                       </div>
                       <div class="col-lg-5"></div>
@@ -204,149 +219,161 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo" [optional]="false">
-      <ng-template matStepLabel>Informacion de Pago</ng-template>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-2"></div>
-          <div class="col-lg-8">
-            <div class="card">
-              <div class="card-header">
-                <label>Método de Pago</label>
-              </div>
-              <div class="card-body">
-                <form>
-                  <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>Pago con Tarjeta</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
-                            <img src="assets/tarjetas/visa2.png" height="75px" alt="">
+    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Informacion de Pago</ng-template>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+              <div class="card">
+                <div class="card-header">
+                  <label>Método de Pago</label>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <mat-card>
+                      <mat-card-header>
+                        <mat-card-title>Pago con Tarjeta</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                              <img src="assets/tarjetas/visa2.png" height="75px" alt="">
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                              <img src="assets/tarjetas/mastercard1.png" height="75px" alt="">
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                              <img src="assets/tarjetas/amex2.png" height="75px" alt="">
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
+                              <img src="assets/tarjetas/diners2.png" height="75px" alt="">
+                            </div>
                           </div>
-                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
-                            <img src="assets/tarjetas/mastercard1.png" height="75px" alt="">
-                          </div>
-                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
-                            <img src="assets/tarjetas/amex2.png" height="75px" alt="">
-                          </div>
-                          <div class="col-sm-3 col-md-3 col-lg-3" style="text-align:center; opacity: 0.5;">
-                            <img src="assets/tarjetas/diners2.png" height="75px" alt="">
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <mat-form-field appearance="outline" class="example-form-field" style="width: 100%">
-                              <mat-label>Número de la tarjeta</mat-label>
-                              <input matInput name="tarjeta" type="tel" placeholder="Número de la tarjeta" autocomplete="off"
-                                #tarjeta="ngModel" [(ngModel)]="pagoservice.tarjeta.number" minlength="13" maxlength="16"
-                                pattern="[0-9]{13,16}" required>
-                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.required">
-                                El número de tarjeta es un campo obligatorio.
-                              </mat-error>
-                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.minlength">
-                                La tarjeta debe contener como mínimo 13 carácteres.
-                              </mat-error>
-                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.maxlength">
-                                La tarjeta no debe contener más de 16 carácteres.
-                              </mat-error>
-                              <mat-error *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.pattern">
-                                La tarjeta debe contener solo carácteres numéricos
-                              </mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-lg-12">
-                            <mat-form-field appearance="outline" style="width: 100%">
-                              <mat-label>Nombre del titular</mat-label>
-                              <input #titular matInput placeholder="Nombre del titular" maxlength="15" pattern="[a-zA-Z]*"
-                                required>
-                              <mat-icon matSuffix>person</mat-icon>
-                              <mat-error *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.maxlength">
-                                Solo es necesario los primeros 15 carácteres
-                              </mat-error>
-                              <mat-error *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.pattern">
-                                No se permiten acentos ni otros signos
-                              </mat-error>
-                              <mat-error *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.required">
-                                El campo del titular de la tarjeta es obligatorio
-                              </mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-lg-12">
-                            <div style="width: 100%">
-                              <mat-form-field>
-                                <input matInput [matDatepicker]="dp" [min]="minDate" [formControl]="date" autocomplete="off">
-                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                                <mat-datepicker #dp startView="multi-year" (yearSelected)="yearSelected($event)"
-                                  (monthSelected)="mesSelected($event,dp)"></mat-datepicker>                           
-                              </mat-form-field>
-                              <mat-form-field style="width: 60px;margin-left: 30px;">
-                                <input #cvv="ngModel" [(ngModel)]="pagoservice.tarjeta.cvv" matInput type="number" placeholder="CVV" autocomplete="off" min="000" maxlength="9999" required>
-                                <mat-error *ngIf="cvv.invalid && (cvv.dirty || cvv.touched) && cvv.errors.required">
-                                  El campo CVV es obligatorio
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <mat-form-field appearance="outline" class="example-form-field" style="width: 100%">
+                                <mat-label>Número de la tarjeta</mat-label>
+                                <input matInput name="tarjeta" type="tel" placeholder="Número de la tarjeta"
+                                  autocomplete="off" #tarjeta="ngModel" [(ngModel)]="pagoservice.tarjeta.number"
+                                  minlength="13" maxlength="16" pattern="[0-9]{13,16}" required>
+                                <mat-error
+                                  *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.required">
+                                  El número de tarjeta es un campo obligatorio.
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.minlength">
+                                  La tarjeta debe contener como mínimo 13 carácteres.
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.maxlength">
+                                  La tarjeta no debe contener más de 16 carácteres.
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="tarjeta.invalid && (tarjeta.dirty || tarjeta.touched) && tarjeta.errors.pattern">
+                                  La tarjeta debe contener solo carácteres numéricos
                                 </mat-error>
                               </mat-form-field>
                             </div>
+                            <div class="col-lg-12">
+                              <mat-form-field appearance="outline" style="width: 100%">
+                                <mat-label>Nombre del titular</mat-label>
+                                <input #titular matInput placeholder="Nombre del titular" maxlength="15"
+                                  pattern="[a-zA-Z]*" required>
+                                <mat-icon matSuffix>person</mat-icon>
+                                <mat-error
+                                  *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.maxlength">
+                                  Solo es necesario los primeros 15 carácteres
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.pattern">
+                                  No se permiten acentos ni otros signos
+                                </mat-error>
+                                <mat-error
+                                  *ngIf="titular.invalid && (titular.dirty || titular.touched) && titular.errors.required">
+                                  El campo del titular de la tarjeta es obligatorio
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-lg-12">
+                              <div style="width: 100%">
+                                <mat-form-field>
+                                  <input matInput [matDatepicker]="dp" [min]="minDate" [formControl]="date"
+                                    autocomplete="off">
+                                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                  <mat-datepicker #dp startView="multi-year" (yearSelected)="yearSelected($event)"
+                                    (monthSelected)="mesSelected($event,dp)"></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field style="width: 60px;margin-left: 30px;">
+                                  <input #cvv="ngModel" name="cvv" [(ngModel)]="pagoservice.tarjeta.cvv" matInput type="number"
+                                    placeholder="CVV" autocomplete="off" min="000" maxlength="9999" required>
+                                  <mat-error *ngIf="cvv.invalid && (cvv.dirty || cvv.touched) && cvv.errors.required">
+                                    El campo CVV es obligatorio
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <!--
-                      <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-icon matPrefix>credit_card</mat-icon>
-                        <mat-label>Número de Tarjeta</mat-label>
-                        <input matInput placeholder="Número de tarjeta" type="text" size="20" data-culqi="card[number]"
-                          id="card[number]">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline" style="width: 30%;">
-                        <mat-icon matPrefix>calendar_today</mat-icon>
-                        <mat-label>Fecha expiración (MM)</mat-label>
-                        <input matInput placeholder="MM" size="2" data-culqi="card[exp_month]" id="card[exp_month]">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline" style="width: 30%">
-                        <mat-icon matPrefix>calendar_today</mat-icon>
-                        <mat-label>Fecha expiración (YYYY)</mat-label>
-                        <input matInput placeholder="YYYY" size="4" data-culqi="card[exp_year]" id="card[exp_year]">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline" style="width: 40%">
-                        <mat-label>CVV</mat-label>
-                        <mat-icon matPrefix>lock</mat-icon>
-                        <input matInput placeholder="CVV" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline" style="width: 100%">
-                        <mat-label>Correo Electrónico</mat-label>
-                        <mat-icon matPrefix>email</mat-icon>
-                        <input matInput placeholder="Correo electrónico" type="text" size="50" data-culqi="card[email]"
-                          id="card[email]">
-                      </mat-form-field>-->
-                    </mat-card-content>
-                    <mat-card-actions>
-                      <!--<button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
-                      <!-- <button id="buyButton" mat-raised-button color="accent" style="width: 100%;" onclick="pagar()" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
-                    </mat-card-actions>
-                  </mat-card>
-                </form>
-              </div>
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-5"></div>
-                  <div class="col-lg-2">
-                    <div class="example-button-row">
-                      <!-- <button id="btnsig2" mat-stroked-button color="warn" >Siguiente</button>-->
+                        <!--
+                              <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-icon matPrefix>credit_card</mat-icon>
+                                <mat-label>Número de Tarjeta</mat-label>
+                                <input matInput placeholder="Número de tarjeta" type="text" size="20" data-culqi="card[number]"
+                                  id="card[number]">
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" style="width: 30%;">
+                                <mat-icon matPrefix>calendar_today</mat-icon>
+                                <mat-label>Fecha expiración (MM)</mat-label>
+                                <input matInput placeholder="MM" size="2" data-culqi="card[exp_month]" id="card[exp_month]">
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" style="width: 30%">
+                                <mat-icon matPrefix>calendar_today</mat-icon>
+                                <mat-label>Fecha expiración (YYYY)</mat-label>
+                                <input matInput placeholder="YYYY" size="4" data-culqi="card[exp_year]" id="card[exp_year]">
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" style="width: 40%">
+                                <mat-label>CVV</mat-label>
+                                <mat-icon matPrefix>lock</mat-icon>
+                                <input matInput placeholder="CVV" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]">
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" style="width: 100%">
+                                <mat-label>Correo Electrónico</mat-label>
+                                <mat-icon matPrefix>email</mat-icon>
+                                <input matInput placeholder="Correo electrónico" type="text" size="50" data-culqi="card[email]"
+                                  id="card[email]">
+                              </mat-form-field>-->
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <!--<button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
+                        <!-- <button id="buyButton" mat-raised-button color="accent" style="width: 100%;" onclick="pagar()" matStepperNext>PAGAR S/ {{preciototal}}.00</button>-->
+                      </mat-card-actions>
+                    </mat-card>
+                  </form>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-2">
+                      <div class="example-button-row">
+                        <!-- <button id="btnsig2" mat-stroked-button color="warn" >Siguiente</button>-->
+                      </div>
                     </div>
+                    <div class="col-lg-5"></div>
                   </div>
-                  <div class="col-lg-5"></div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col-lg-2"></div>
         </div>
-        <div class="col-lg-2"></div>
-      </div>
+      </form>
     </mat-step>
     <mat-step state="res">
+      <ng-template matStepLabel>Resumen del Pedido</ng-template>
       <form>
         <ng-template matStepLabel>Resumen del Pedido</ng-template>
         <div class="container-fluid">
@@ -363,13 +390,13 @@
                     <p>Total a pagar: s/.{{preciototal}}</p>
                   </div>
                   <!--   <div class="card-header">
-                    <p>Fecha de entrega</p>
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                  </div>-->
+                          <p>Fecha de entrega</p>
+                          <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>-->
                   <div class="card-body">
                     <p>Dirección</p>
                     <p>{{direccionsel}}</p>
@@ -384,13 +411,14 @@
                             {{artiped.titulo}}
                           </mat-panel-title>
                           <!-- <mat-panel-description>
-                            {{artiped.precio}}
-                          </mat-panel-description>-->
+                                  {{artiped.precio}}
+                                </mat-panel-description>-->
                         </mat-expansion-panel-header>
                         <table class="table" *ngIf="artiped.tipolinea=='PREPAGO'">
                           <tr>
-                            <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
-                                src="{{url_imagenes_md}}/{{artiped.imagen}}" alt="{{artiped.imagen}}"> </td>
+                            <td rowspan=3> <img class="img-fluid card-img-top centrarimg"
+                                style="height: 180px; width: auto;" src="{{url_imagenes_md}}/{{artiped.imagen}}"
+                                alt="{{artiped.imagen}}"> </td>
                             <td>Linea:</td>
                             <td>{{artiped.tipolinea}}</td>
                             <td>Plan:</td>
@@ -403,8 +431,9 @@
                         </table>
                         <table class="table" *ngIf="artiped.tipolinea=='POSTPAGO'">
                           <tr>
-                            <td rowspan=3> <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
-                                src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}" alt="{{artiped.imagenes[0]}}"> </td>
+                            <td rowspan=3> <img class="img-fluid card-img-top centrarimg"
+                                style="height: 180px; width: auto;" src="{{url_imagenes_md}}/{{artiped.imagenes[0]}}"
+                                alt="{{artiped.imagenes[0]}}"> </td>
                             <td>Linea:</td>
                             <td>{{artiped.tipolinea}}</td>
                             <td>Plan:</td>
@@ -447,5 +476,5 @@
     </ng-template>
     <!--fin-->
   </mat-horizontal-stepper>
-  <!--fin stepps-->
+
 </div>
