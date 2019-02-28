@@ -532,7 +532,7 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
             this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.EstadoPago = 'Pagado';
-            this.pagoservice.selectPago.Mensaje = 'mensaje ejemplo';
+            this.pagoservice.selectPago.NroPedido = 'mensaje ejemplo';
             this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
             this.pagoservice.selectPago.FechaEnvio = new Date();
             this.pagoservice.selectPago.FechaEntrega = new Date();
@@ -641,4 +641,13 @@ export class PagoComponent implements OnInit {
       console.log(Culqi.error);
     }*/
   }
+  generarnumerodepedido(){
+    var pedidogenerado=rand(12,12);
+
+  }
+}
+
+function rand(length, current) {
+  current = current ? current : '';
+  return length ? rand(--length, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz".charAt(Math.floor(Math.random() * 60)) + current) : current;
 }
