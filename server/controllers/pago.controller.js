@@ -205,7 +205,10 @@ pagoController.actualizarpedido = async (req, res) => {
     }
 }
 
-
+pagoController.consultarnropedido=async (req,res)=>{
+    var msn=Pago.find({NroPedido:req.params.num})
+    res.json(msn);
+}
 
 pagoController.eliminarpedido = async (req, res) => {
     await Pago.findByIdAndRemove(req, params.id);
