@@ -29,6 +29,11 @@
             <a href="{{url}}#datosPersonales" mat-line>Datos Personales</a>
           </mat-list-item>
           <mat-divider></mat-divider>
+          <mat-list-item>
+            <mat-icon mat-list-icon>local_mall</mat-icon>
+            <a href="{{url}}#seguimiento-de-compra" mat-line>Seguimiento de compras</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
         </mat-list>
       </mat-card-content>
     </mat-card>
@@ -117,29 +122,35 @@
         <mat-card-content>
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
           <mat-form-field id="tipoDocumento" class="campo-form">
-            <mat-select name="tipoDocumento" #tipoDocumento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.tipoDocumento"
-              placeholder="Tipo Documento">
+            <mat-select name="tipoDocumento" #tipoDocumento="ngModel"
+              [(ngModel)]="usuarioService.usuarioSeleccionado.tipoDocumento" placeholder="Tipo Documento">
               <mat-option *ngFor="let tipodoc of tiposDocumento" [value]="tipodoc">{{tipodoc}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field id="numeroDocumento" class="campo-form">
-            <input matInput name="numeroDocumento" #numeroDocumento="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.numeroDocumento"
-              placeholder="Número de Documento" minlength="8" required>
-            <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">El
+            <input matInput name="numeroDocumento" #numeroDocumento="ngModel"
+              [(ngModel)]="usuarioService.usuarioSeleccionado.numeroDocumento" placeholder="Número de Documento"
+              minlength="8" required>
+            <mat-error
+              *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.required">
+              El
               número de Documento es obligatorio</mat-error>
-            <mat-error *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.minlength">El
+            <mat-error
+              *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched) && numeroDocumento.errors.minlength">
+              El
               documento debe tener mínimo 8 dígitos</mat-error>
           </mat-form-field>
           <mat-form-field id="nombres" class="campo-form">
-            <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.nombres"
-              required>
+            <input matInput placeholder="Nombres" name="nombres" #nombres="ngModel"
+              [(ngModel)]="usuarioService.usuarioSeleccionado.nombres" required>
             <mat-error *ngIf="nombres.invalid && (nombres.dirty || nombres.touched) && nombres.errors.required">El
               campo nombres es requerido</mat-error>
           </mat-form-field>
           <mat-form-field id="apellidos" class="campo-form">
-            <input matInput name="apellidos" #apellidos="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos"
-              placeholder="Apellidos" required>
-            <mat-error *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched) && apellidos.errors.required">El
+            <input matInput name="apellidos" #apellidos="ngModel"
+              [(ngModel)]="usuarioService.usuarioSeleccionado.apellidos" placeholder="Apellidos" required>
+            <mat-error *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched) && apellidos.errors.required">
+              El
               campo apellidos es requerido</mat-error>
           </mat-form-field>
           <mat-form-field id="correo" class="campo-form">
@@ -163,7 +174,8 @@
             <mat-datepicker-toggle matSuffix [for]="fechaAfiliacion"></mat-datepicker-toggle>
             <mat-datepicker #fechaAfiliacion></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en mi correo.
+          <mat-checkbox id="promociones" name="promociones" #promociones="ngModel"
+            [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en mi correo.
           </mat-checkbox>
         </mat-card-content>
         <mat-card-actions>
@@ -175,7 +187,8 @@
       <mat-card-title>Mis Direcciones de Envío</mat-card-title>
       <mat-card-content>
         <mat-list>
-          <mat-list-item class="itemDireccion" *ngFor="let direccion of direccionService.direccion" (click)="mostrarDireccion(direccion)">
+          <mat-list-item class="itemDireccion" *ngFor="let direccion of direccionService.direccion"
+            (click)="mostrarDireccion(direccion)">
             <mat-icon mat-list-icon>home</mat-icon>
             <h4 mat-line>{{direccion.direccion}}</h4>
           </mat-list-item>
@@ -187,27 +200,32 @@
         <form #nuevaDireccion="ngForm" [hidden]="!mostrarFormularioDireccion">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="direccionService.selecDireccion._id">
           <mat-form-field id="departamento" class="campo-form">
-            <mat-select name="departamento" #departamento="ngModel" [(ngModel)]="direccionService.selecDireccion.departamento"
+            <mat-select name="departamento" #departamento="ngModel"
+              [(ngModel)]="direccionService.selecDireccion.departamento"
               (selectionChange)="regionService.setDepartamentoSelected($event.value)" placeholder="Departamento">
-              <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}</mat-option>
+              <mat-option *ngFor="let dep of regionService.regiones" [value]="dep.departamento">{{dep.departamento}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field id="provincia" class="campo-form">
             <mat-select name="provincia" #provincia="ngModel" [(ngModel)]="direccionService.selecDireccion.provincia"
               (selectionChange)="regionService.setProvinciaSelected($event.value)" placeholder="Provincia">
-              <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">{{prov.provincia}}</mat-option>
+              <mat-option *ngFor="let prov of regionService.departamentoSelected.provincias" [value]="prov.provincia">
+                {{prov.provincia}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field id="distrito" class="campo-form">
             <mat-select name="distrito" #distrito="ngModel" [(ngModel)]="direccionService.selecDireccion.distrito"
               placeholder="Distrito">
-              <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}</mat-option>
+              <mat-option *ngFor="let dis of regionService.provinciaSelected.distritos" [value]="dis">{{dis}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field id="direccion">
-            <input matInput name="direccion" #direccion="ngModel" [(ngModel)]="direccionService.selecDireccion.direccion"
-              placeholder="Dirección" required>
-            <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched) && direccion.errors.required">La
+            <input matInput name="direccion" #direccion="ngModel"
+              [(ngModel)]="direccionService.selecDireccion.direccion" placeholder="Dirección" required>
+            <mat-error *ngIf="direccion.invalid && (direccion.dirty || direccion.touched) && direccion.errors.required">
+              La
               dirección es un campo requerido</mat-error>
           </mat-form-field>
           <mat-form-field id="tipolocal" class="campo-form">
@@ -217,10 +235,11 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field id="referencia">
-            <input matInput name="referencia" #referencia="ngModel" [(ngModel)]="direccionService.selecDireccion.referencia"
-              placeholder="Referencia" required>
+            <input matInput name="referencia" #referencia="ngModel"
+              [(ngModel)]="direccionService.selecDireccion.referencia" placeholder="Referencia" required>
           </mat-form-field>
-          <mat-error *ngIf="referencia.invalid && (referencia.dirty || referencia.touched) && referencia.errors.required">La
+          <mat-error
+            *ngIf="referencia.invalid && (referencia.dirty || referencia.touched) && referencia.errors.required">La
             referencia es un campo obligatorio</mat-error>
           <mat-form-field id="telefono">
             <input matInput name="telefono" #telefono="ngModel" [(ngModel)]="direccionService.selecDireccion.telefono"
@@ -230,8 +249,28 @@
             <mat-error *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.minlength">El
               telefono debe tener una longitud mínima de 6 digitos</mat-error>
           </mat-form-field>
-          <button id="botonActualizar" mat-raised-button color="primary" (click)="nuevadireccion(nuevaDireccion)">{{botonActualizar}}</button>
+          <button id="botonActualizar" mat-raised-button color="primary"
+            (click)="nuevadireccion(nuevaDireccion)">{{botonActualizar}}</button>
         </form>
+      </mat-card-content>
+    </mat-card>
+    <mat-card id="seguimiento-de-compra" class="card-perfil">
+      <mat-card-title>Ordenes de Compra</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <h4 mat-line>Articulo</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line>Pedido</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line>Precio</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line>Estado</h4>
+          </mat-list-item>
+        </mat-list>
       </mat-card-content>
     </mat-card>
   </mat-sidenav-content>

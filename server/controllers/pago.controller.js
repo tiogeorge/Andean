@@ -31,9 +31,9 @@ pagoController.GuardarPago = async (req, res) => {
     }
 }
 pagoController.guardarpagomysql = async (req, res) => {
-    const pag2=JSON.parse(JSON.stringify(req.body))
+    const pag2 = JSON.parse(JSON.stringify(req.body))
     req.getConnection(function (error, conn) {
-        var consulta = "CALL spuVen_RegistrarComprobantePago('"+ pag2[0].tipocomprobante +"','"+ pag2[0].seriecomprobante +"','"+ pag2[0].pNroComprobante +"','"+ pag2[0].pFechaVenta +"','"+ pag2[0].pFechaRegistro +"','"+ pag2[0].pEsVentaAlContad +"','"+ pag2[0].pIdEmpleado +"','"+ pag2[0].pIdLocal +"','"+ pag2[0].pIdCliente +"','"+ pag2[0].pEsCancelad +"','"+ pag2[0].pImprimirGui +"','"+ pag2[0].pMontoPagado +"','"+ pag2[0].pPrecioVentaTotal +"','"+ pag2[0].pIGVTotal +"','"+ pag2[0].pRedondeo +"','"+ pag2[0].pIdNivelCliente +"','"+ pag2[0].pIdLineaProducto +"','"+ pag2[0].pUsarNivel +"','"+ pag2[0].pObservacion +"','"+ pag2[0].pMontoPagadoReal +"')";
+        var consulta = "CALL spuVen_RegistrarComprobantePago('" + pag2[0].tipocomprobante + "','" + pag2[0].seriecomprobante + "','" + pag2[0].pNroComprobante + "','" + pag2[0].pFechaVenta + "','" + pag2[0].pFechaRegistro + "','" + pag2[0].pEsVentaAlContad + "','" + pag2[0].pIdEmpleado + "','" + pag2[0].pIdLocal + "','" + pag2[0].pIdCliente + "','" + pag2[0].pEsCancelad + "','" + pag2[0].pImprimirGui + "','" + pag2[0].pMontoPagado + "','" + pag2[0].pPrecioVentaTotal + "','" + pag2[0].pIGVTotal + "','" + pag2[0].pRedondeo + "','" + pag2[0].pIdNivelCliente + "','" + pag2[0].pIdLineaProducto + "','" + pag2[0].pUsarNivel + "','" + pag2[0].pObservacion + "','" + pag2[0].pMontoPagadoReal + "')";
         console.log(consulta);
         conn.query(consulta, function (err, results) {
             if (err) {
@@ -46,11 +46,11 @@ pagoController.guardarpagomysql = async (req, res) => {
     });
 }
 
-pagoController.guardardetallemysql=async (req,res)=>{
-    const detall=JSON.parse(JSON.stringify(req.body))
+pagoController.guardardetallemysql = async (req, res) => {
+    const detall = JSON.parse(JSON.stringify(req.body))
     console.log(req.body);
     req.getConnection(function (error, conn) {
-        var consulta = "CALL spuVen_RegistrarDetalleVenta('"+ detall[0].pIdLocal +"','"+ detall[0].pTipoComprobante +"','"+ detall[0].pSerieComprobante +"','"+ detall[0].pNroComprobante +"','"+ detall[0].pIdArticulo +"','"+ detall[0].pIdNroSerieArticulo +"','"+ detall[0].pCantidad +"','"+ detall[0].pPrecioVenta +"','"+ detall[0].pDsctoCliente +"','"+ detall[0].pIdDsctoEspecial +"','"+ detall[0].pDsctoEspecial +"','"+ detall[0].pDsctoNivel4 +"','"+ detall[0].pIdTipoPlan +"')";
+        var consulta = "CALL spuVen_RegistrarDetalleVenta('" + detall[0].pIdLocal + "','" + detall[0].pTipoComprobante + "','" + detall[0].pSerieComprobante + "','" + detall[0].pNroComprobante + "','" + detall[0].pIdArticulo + "','" + detall[0].pIdNroSerieArticulo + "','" + detall[0].pCantidad + "','" + detall[0].pPrecioVenta + "','" + detall[0].pDsctoCliente + "','" + detall[0].pIdDsctoEspecial + "','" + detall[0].pDsctoEspecial + "','" + detall[0].pDsctoNivel4 + "','" + detall[0].pIdTipoPlan + "')";
         console.log(consulta);
         conn.query(consulta, function (err, results) {
             if (err) {
@@ -100,6 +100,12 @@ pagoController.ultimonumeroemitido = async (req, res) => {
 
 pagoController.listarpedidos = async (req, res) => {
     const pedidos = await Pago.find();
+    res.json(pedidos);
+}
+
+pagoController.listarpedidosUsuario = async (req, res) => {
+    const pedidos = await Pago.find({ Correocliente: req.params.correo });
+    console.log('entra');
     res.json(pedidos);
 }
 
@@ -192,7 +198,7 @@ pagoController.actualizarpedido = async (req, res) => {
         const art = {
             EstadoPago: req.body[0].EstadoPago,
             EstadoEnvio: req.body[0].EstadoEnvio,
-          //  Documento: req.body[0].Documento
+            //  Documento: req.body[0].Documento
         }
         const pedido = await Pago.findByIdAndUpdate({ _id: req.params.id }, { $set: art }, { new: true });
         res.json({
@@ -205,8 +211,8 @@ pagoController.actualizarpedido = async (req, res) => {
     }
 }
 
-pagoController.consultarnropedido=async (req,res)=>{
-    var msn=Pago.find({NroPedido:req.params.num})
+pagoController.consultarnropedido = async (req, res) => {
+    var msn = Pago.find({ NroPedido: req.params.num })
     res.json(msn);
 }
 

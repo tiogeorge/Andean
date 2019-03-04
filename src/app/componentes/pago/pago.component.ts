@@ -89,6 +89,7 @@ export const MY_FORMATS = {
 })
 
 export class PagoComponent implements OnInit {
+  pedidogenerado:string='';
   isLinear = true;
   dato1:string='';
   seriedoc: string = "";
@@ -307,6 +308,7 @@ export class PagoComponent implements OnInit {
       }
     });
     //fin recuperar
+    this.generarnumerodepedido();
   }
 
   mostrarform(value: string) {
@@ -508,6 +510,7 @@ export class PagoComponent implements OnInit {
   }
 
   guardarventa() {
+
     /*recuperar datos doc */
     this.DocumentoT[0].Tipo = this.tipodoc;
     console.log('serie');
@@ -532,7 +535,7 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
             this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.EstadoPago = 'Pagado';
-            this.pagoservice.selectPago.NroPedido = 'mensaje ejemplo';
+            this.pagoservice.selectPago.NroPedido = this.pedidogenerado;
             this.pagoservice.selectPago.EstadoEnvio = 'Proceso';
             this.pagoservice.selectPago.FechaEnvio = new Date();
             this.pagoservice.selectPago.FechaEntrega = new Date();
@@ -642,8 +645,8 @@ export class PagoComponent implements OnInit {
     }*/
   }
   generarnumerodepedido(){
-    var pedidogenerado=rand(12,12);
-
+    var pedidogen=rand(12,12);
+    this.pedidogenerado=pedidogen.toUpperCase();
   }
 }
 
