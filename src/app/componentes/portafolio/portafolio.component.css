@@ -28,3 +28,25 @@
 .noseleccionable:hover{
   cursor: pointer;
 }
+.carusel-grande{
+  width: 60%;
+}
+.articulo-principal{
+  width: 30%;
+  justify-content: center;
+}
+@media (min-width: 320px) {
+  .carusel-grande{
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .carusel-grande{
+    width: 70%;
+  }
+}
+@media (min-width: 992px) {
+  .carusel-grande{
+    width: 70%;
+  }
+}

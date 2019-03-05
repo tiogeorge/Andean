@@ -33,6 +33,7 @@ export class MenuComponent implements OnInit {
   //fin auto completado
   subscription: Subscription;
   nombreusuario = "Identificate";
+  nomostrarbusquedap = true;
 
   constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService, public comService: comunicacionService) {
     this.subscription = this.comService.inicioSesion()
@@ -65,6 +66,24 @@ export class MenuComponent implements OnInit {
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+  
+  /* Set the width of the sidebar to 250px (show it) */
+  openNav() {
+    document.getElementById("mySidepanel").style.width = "100%";
+    document.getElementById("mySidepanel").style.height = screen.height+"px";
+  }
+
+  /* Set the width of the sidebar to 0 (hide it) */
+  closeNav() {
+    document.getElementById("mySidepanel").style.width = "0";
+  }
+
+  mostrarMenu(opcion){
+    if(this.nomostrarbusquedap)
+    this.nomostrarbusquedap = false;
+    else
+    this.nomostrarbusquedap = true;
   }
 
   //auto comple

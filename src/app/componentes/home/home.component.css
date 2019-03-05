@@ -14,3 +14,8 @@
   .portfolio-item {
     margin-bottom: 30px;
   }
+  .categoriahome{
+    min-width: 260px; 
+    position: relative !important;
+  }
+  

@@ -1,11 +1,12 @@
 import { CardService } from './card.service';
 import { Component, OnInit } from '@angular/core';
 import { Constantes } from '../constantes';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-portafolio',
   templateUrl: './portafolio.component.html',
-  styleUrls: ['./portafolio.component.css']
+  styleUrls: ['./portafolio.component.css','./carouselmultiple.css']
 })
 export class PortafolioComponent implements OnInit {
   listarcardtipo1: any;
@@ -13,9 +14,10 @@ export class PortafolioComponent implements OnInit {
   listarcardtipo3: any;
   constructor(public cardservice: CardService) { }
   URL_IMAGENES = Constantes.URL_IMAGEN_MD;
+  URL_IMAGEN = Constantes.URL_IMAGEN;
 
   ngOnInit() {
-    this.obtenercard();
+    this.obtenercard();   
   }
 
   obtenercard() {

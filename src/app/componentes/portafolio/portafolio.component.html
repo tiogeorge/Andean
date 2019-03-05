@@ -1,18 +1,124 @@
-<div class="container-fluid" >
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+  <div class="carusel-grande">
+    <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2500">
+    
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-2" data-slide-to="1"></li>
+        <li data-target="#carousel-example-2" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <div class="view">
+            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/imagen1.png.webp" alt="First slide">
+            <div class="mask rgba-black-light"></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="view">
+            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/imagen2.png.webp" alt="Second slide">
+            <div class="mask rgba-black-strong"></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="view">
+            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/imagen3.png.webp" alt="Third slide">
+            <div class="mask rgba-black-slight"></div>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: rgb(255, 167, 25);"></span>
+        <span class="sr-only" style="color: rgb(255, 167, 25);">Previous</span>        
+      </a>
+      <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  <div class="articulo-principal">
+      <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%;">
+        <img
+          mat-card-image src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
+        <mat-card-content>
+          <p class="text-center" style="text-transform: uppercase;">
+            {{grandecard.titulo}}
+          </p>
+        </mat-card-content>
+        <mat-card-content>
+          <p class="text-center" style="text-transform: uppercase;">
+            s./ {{grandecard.precioplan.precio}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+  </div>
+  <div style="width: 100%">
+  </div>
+</div>
+
+<!--
+
+<div class="container-fluid" style="padding: 0px;" >
   <div  style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <div class="carusel-grande">
+      <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+      
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-2" data-slide-to="1"></li>
+          <li data-target="#carousel-example-2" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="carousel-item active">
+            <div class="view">
+              <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide">
+              <div class="mask rgba-black-light"></div>
+            </div>
+            <div class="carousel-caption">
+              <h3 class="h3-responsive">Light mask</h3>
+              <p>First text</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="view">
+              <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide">
+              <div class="mask rgba-black-strong"></div>
+            </div>
+            <div class="carousel-caption">
+              <h3 class="h3-responsive">Strong mask</h3>
+              <p>Secondary text</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="view">
+              <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">
+              <div class="mask rgba-black-slight"></div>
+            </div>
+            <div class="carousel-caption">
+              <h3 class="h3-responsive">Slight mask</h3>
+              <p>Third text</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+    </div>
     <div style="background-color: rgb(240, 240, 240); margin-left: 5px; width: 65%;">
       <br>
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-4 col-md-6 mb-4 " *ngFor="let cardsimple of listarcardtipo1">
             <mat-card class="simple-card noseleccionable" style="border-radius: 5px 5px ;">
-              <!--
-              <img  style="border-radius: 30px 30px 50px 50px;
-              -moz-border-radius: 30px 30px 50px 50px;
-              -webkit-border-radius: 30px 30px 50px 50px;
-              border: 0px solid #000000;"
-                mat-card-image src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
-              -->
+              
               <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
               <mat-card-content>
                 <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
@@ -52,12 +158,6 @@
             <div class="card grande-card mat-elevation-z2" style="border-radius: 5px 5px;" *ngFor="let largocard of listarcardtipo3">
               <div class="row ">
                 <div class="col-md-8">
-                 <!--
-<img src="{{URL_IMAGENES}}/{{largocard.urlImagen}}" class="w-100" style="border-radius: 30px 50px 50px 30px;
-                  -moz-border-radius: 30px 50px 50px 30px;
-                  -webkit-border-radius: 30px 50px 50px 30px;
-                  border: 0px solid #000000;">
-                 --> 
                  <img src="{{URL_IMAGENES}}/{{largocard.urlImagen}}" class="w-100">
                 </div>
                 <div class="col-md-4">
@@ -81,3 +181,5 @@
     <div class="col-lg-6"></div>
   </div>
 </div>
+
+-->

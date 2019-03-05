@@ -1,7 +1,47 @@
 /* Extra small devices (portrait phones, less than 576px)
 No media query since this is the default in Bootstrap*/
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:black;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active-menu) {
+  background-color: #1B2437;
+  color: whitesmoke;
+  cursor:pointer;
+}
+
+.active-menu {
+  background-color: #1b2437;
+}
+.active-menu-cont {
+ width: 240px;
+ font-weight: 500;
+}
+.active-menu-cont:hover{
+  cursor: pointer;
+  color: white; 
+}
 a {
   color: whitesmoke;
+  
 }
 button:focus{
   outline: 0px;
@@ -18,6 +58,15 @@ button:focus{
   padding: 3px;
 
 }
+.itemmenu-menu{
+  height: 50px; background-color: white; 
+  width:260px; 
+  display: flex;
+  justify-content: center;
+}
+#busquedapeque{
+  transition: visibility 0s linear 0.33s, opacity 0.33s linear;
+}
 .campo-opciones-usuario{
   width: 30%;
   display: flex;
@@ -32,9 +81,10 @@ button:focus{
   padding-left: 5px;
   border: 0px;
 }
-.campo-busqueda select{
-  
-}
+
+ #logosmarket{
+  content: url("/assets/images/logoS.png");;
+ }
 .item-menu-opciones{
   margin-left: 10px; 
   margin-right: 10px;
@@ -111,6 +161,14 @@ select:hover{
   display: none;
 }
 
+#menu-todas-opciones{
+  display: flex;
+  width: 100% ;
+  height: auto; 
+  display: flex; 
+  flex-direction: row; 
+  border-bottom: 1px solid rgb(192, 188, 188);
+}
 #categorias {
   padding: .5rem 0rem;
   background: #1b2437;
@@ -166,15 +224,107 @@ select:hover{
   height: 150px;
 }
 
+
+/* MENU PARA CELULARES*/
+/* The sidepanel menu */
+.sidepanel {
+  height: 100%; /* Specify a height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: rgba(17, 17, 17, 0.37); /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  display: flex;
+  flex-direction: row;
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+}
+
+/* The sidepanel links */
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {}
+@media (min-width: 320px) {
+  .campo-busqueda{
+    display: none;
+  }
+  #menu-iconos{
+    right: 4rem;
+  }
+  .campo-opciones-usuario{
+    width: 100%;
+  }
+  #logosmarket{
+    content: url("/assets/images/logoS.png");
+    height: 26px;
+   }
+   #labelnombreusuario{
+     display: none;
+   }
+   .item-menu-opciones{
+     margin-right: 0px;
+   }
+   #btnbusquedap{
+     display: flex;
+   }
+   #categorias{
+     padding: 0px;
+   }
+   #menu-todas-opciones{
+     display: none;
+   }
+}
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-
+  #menu-todas-opciones{
+    display: flex;
+  }
+  #logosmarket{
+    content: url("/assets/images/logoS.png");;
+    height: 36px;
+   }
+   #labelnombreusuario{
+    display: none;
+  }
+  #menu-iconos{
+    right: 2rem;
+  }
+  .campo-opciones-usuario{
+    width: 30%;
+    justify-content: center;
+  }
+  .campo-busqueda{
+    display: flex;
+  }
   .form-control {
     border-radius: 0%;
     height: 2.1rem;
+  }
+  #btnbusquedap{
+    display: none;
   }
 
   .icono {
@@ -212,13 +362,32 @@ select:hover{
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
-
+  #menu-todas-opciones{
+    display: flex;
+  }
+  #logosmarket{
+    content: url("/assets/images/logoS.png");
+   }
+   #labelnombreusuario{
+    display: flex;
+  }
+  
+  .campo-busqueda{
+    display: flex;
+  }
+  .campo-opciones-usuario{
+    width: 30%;
+    justify-content: flex-end;
+  }
   .dropdown {
     position: static;
   }
 
   .dropdown-divider {
     visibility: visible;
+  }
+  #btnbusquedap{
+    display: none;
   }
 
   .icono {

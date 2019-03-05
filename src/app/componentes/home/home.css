@@ -1,0 +1,19 @@
+.categoriahome{    
+    min-width: 240px; 
+    position: relative !important;
+}
+@media (min-width: 320px) {
+    .categoriahome{    
+        display: none;
+    }
+}
+@media (min-width: 768px) {
+    .categoriahome{    
+        display: flex;
+    }
+}
+@media (min-width: 992px) {
+    .categoriahome{    
+        display: flex;
+    }
+}

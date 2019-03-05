@@ -1,9 +1,11 @@
 <nav class="navbar navbar-expand-lg " id="menu-principal">
-  <a class="navbar-brand" routerLink="/home"><img src="assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto" height="40px"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navegacion"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <mat-icon id="menu-icon">menu</mat-icon>
+  <a class="navbar-brand" routerLink="/home"style="width: auto; height: 40px; display: flex; align-items: center;"><img id="logosmarket" src="/assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto" height="40px"></a>
+  <button class="navbar-toggler" type="button"(click)="openNav()">
+    <i class="material-icons">
+      menu
+      </i>
   </button>
+
   <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 70%;">
     <!--
     <form id="buscar-form" class="form-inline my-2 my-lg-0">
@@ -27,19 +29,22 @@
     <i class="material-icons btn-busqueda" id="btnbusqueda2" (click)="buscarArti()">search</i>
   </div>
   <div class="campo-opciones-usuario">   
-      <div class="item-menu-opciones">
+      <div class="item-menu-opciones" style="display: none;">
         <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
       
-      </div>   
+      </div> 
+         
+
       <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
           <i class="material-icons" style="font-size:30px; margin-right: 5px;"> account_circle</i>
-          {{nombreusuario}}
+          <div id="labelnombreusuario">{{nombreusuario}} </div>
       </div>
+      
       <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px;" xPosition="before">
 
         <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">person</i> <div style="margin-left: 10px;">Perfil de Usuario</div></button>
         <hr style="margin: 0px;">
-        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_mall</i> <div style="margin-left: 10px;">Ordenes de Compra</div></button>
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_shipping</i> <div style="margin-left: 10px;">Pedidos</div></button>
         <hr *ngIf="estaLogeado" style="margin: 0px;">
         <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_play</i> <div style="margin-left: 10px;">Lista de Deseos</div></button>
         <hr *ngIf="estaLogeado" style="margin: 0px;">
@@ -54,6 +59,10 @@
       <div class="item-menu-opciones">
           <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>        
       </div>  
+      <div class="item-menu-opciones" id="btnbusquedap">
+        <i class="material-icons" style="font-size:30px; margin-right: 5px;"  (click)="mostrarMenu('B')">search</i>
+      
+      </div> 
   </div>
   <!--
 <button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda/smartphone">
@@ -89,57 +98,39 @@
     
   </div>
 </nav>
-<nav class="navbar navbar-expand-lg navbar-dark" id="categorias">
-  <a class="navbar-brand" href="#" hidden="true"></a>
-  <div class="collapse navbar-collapse" id="navegacion">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown dropdown-slide active">
-        <a class="nav-link dropdown-toggle" href="#" id="menu-categorias" role="button" data-toggle="dropdown"
-          aria-haspopup="false" aria-expanded="false">Categorias</a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="menu-categorias" id="nav-categorias" style="padding-top: 0px;padding-bottom: 0px;">
-          <div id="lista-categorias">
-            <div *ngFor="let categoria of categoriaService.categorias">
-              <a class="dropdown-item text-white" href="#"(mouseover)="categoriaSelected(categoria._id)">{{categoria.nombre}}</a>
-              <div class="dropdown-divider" style="margin: 0px; padding: 0px;"></div>
-            </div>
-          </div>
-          <div id="descripcion-categoria">
-            
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Ofertas del dia</a>
-      </li>
-      <li class="nav-item dropdown dropdown-slide">
-        <a class="nav-link dropdown-toggle" href="#" id="menu-tablets" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Tiendas
-        </a>
-        <div id="nav-menu" class="dropdown-menu bg-dark" aria-labelledby="menu-tablets">
-          <a class="dropdown-item text-white" href="#">HUAWEI P20</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-white" href="#">LG K10</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-white" href="#">NOKIA 2.1</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown dropdown-slide">
-        <a class="nav-link dropdown-toggle" href="#" id="menu-tablets" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Soporte 24/7
-        </a>
-        <div id="nav-menu" class="dropdown-menu bg-dark" aria-labelledby="menu-tablets">
-          <a class="dropdown-item text-white" href="#">Audifonos</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-white" href="#">Smartwatch</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-white" href="#">Parlantes</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Otros</a>
-      </li>
-    </ul>
+
+
+<div  id="menu-todas-opciones">
+  <ul>
+    <li class="active-menu-cont"><a class="active-menu">CATEGORIAS</a></li>
+    <li><a>Ofertas del día</a></li>
+    <li><a>Tiendas</a></li>
+    <li><a>Ayuda</a></li>
+  </ul>
+</div>
+  <!--
+    <div class="itemmenu-menu">
+    <h5 style="color: rgb(56, 55, 55);">Categorías</h5>
   </div>
-</nav>
+  <div class="itemmenu-menu">
+    <h5 style="color: rgb(56, 55, 55); ">Ofertas del día</h5>
+  </div>
+  <div class="itemmenu-menu">
+    <h5 style="color: rgb(56, 55, 55);">Soporte 24/7</h5>
+  </div>
+  <div class="itemmenu-menu">
+    <h5 style="color: rgb(56, 55, 55);"  >Tiendas</h5>
+  </div>
+</div>
+  -->
+
+<!-- MENU EN CELULARES-->
+<div id="mySidepanel" class="sidepanel" style="z-index: 1600;" >
+ <div style="width: 70%; height: 100%; background-color: white; z-index: 1000;transition: 0.5s;">
+  
+ </div>
+ <div style="width: 30%; height: 100%" (click)="closeNav()">
+
+ </div>
+</div>
+
