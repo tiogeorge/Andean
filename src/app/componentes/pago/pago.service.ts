@@ -33,8 +33,10 @@ export class PagoService {
   recuperarnumerodoc(){
     return this.http.get(this.URL_API+'/numerodoc/numero')
   }
-
   procesarPago(token: string){
     return this.http.post(Constantes.URL_PASARELA + '/crearCargo', {tokenId: token}, {withCredentials: true});
+  }
+  recuperarpedidocorreo(correo:string){
+    return this.http.get(this.URL_API+'/pedidos/cliente/'+correo);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Direccion } from '../pago/direccion';
 import { DireccionService } from '../pago/direccion.service';
 import { MatSnackBar } from '@angular/material';
@@ -11,37 +11,42 @@ import { Respuesta } from './respuesta';
 import { Router } from '@angular/router';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { UsuarioService } from './usuario.service';
+import { PagoService } from '../pago/pago.service';
 
 @Component({
   selector: 'app-perfil-usuario',
   templateUrl: './perfil-usuario.component.html',
   styleUrls: ['./perfil-usuario.component.css'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'es-PE'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}
+    { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
   ]
 })
 
 export class PerfilUsuarioComponent implements OnInit {
-  botonActualizar             : string;
-  mostrarFormularioDireccion  : boolean = false;
-  tiposDocumento              : string[];
-  tiposVivienda               : string[] = [ 'Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
-  url                         : string;
+  botonActualizar: string;
+  mostrarFormularioDireccion: boolean = false;
+  tiposDocumento: string[];
+  tiposVivienda: string[] = ['Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
+  url: string;
+  arreglopedidos:any;
 
-  constructor(public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar) {
-    this.adapter.setLocale('es'); 
-    this.tiposDocumento       = ['DNI'];
+  constructor(public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar,public pagoservice: PagoService) {
+    this.adapter.setLocale('es');
+    this.tiposDocumento = ['DNI'];
   }
 
   ngOnInit() {
-    this.usuarioService.getUsuarioLogeado().subscribe( res => {
+    this.usuarioService.getUsuarioLogeado().subscribe(res => {
       const respuesta = res as Respuesta;
-      if(respuesta.status){      
+      if (respuesta.status) {
         this.usuarioService.usuarioSeleccionado = respuesta.data;
         this.getDirecciones(respuesta.data._id);
-      }else{
+        //recuperar pedidos
+        this.recuperarpedidoscorreo(respuesta.data.correo);
+        //
+      } else {
         this.router.navigate(['/']);
       }
     });
@@ -51,8 +56,8 @@ export class PerfilUsuarioComponent implements OnInit {
   /**
    * Método que actualiza los datos de un usuario
    */
-  actualizar(): void{
-    if(this.usuarioService.usuarioSeleccionado.numeroDocumento.length != 8){
+  actualizar(): void {
+    if (this.usuarioService.usuarioSeleccionado.numeroDocumento.length != 8) {
       this.openSnackBar(false, 'El documento debe tener una longitud de 8 dígitos');
     } else {
       this.usuarioService.putUsuario(this.usuarioService.usuarioSeleccionado).subscribe(res => {
@@ -66,25 +71,25 @@ export class PerfilUsuarioComponent implements OnInit {
    * Método que permite añadir una nueva dirección al cliente
    * @param direccion : datos de la dirección
    */
-  agregarDireccion(direccion: Direccion){
-    if(direccion._id){
+  agregarDireccion(direccion: Direccion) {
+    if (direccion._id) {
       this.direccionService.actualizarDireccion(direccion).subscribe(res => {
         const respuesta = res as Respuesta;
-        if (respuesta.status){
+        if (respuesta.status) {
           this.mostrarFormularioDireccion = false;
           this.openSnackBar(respuesta.status, respuesta.msg);
-        }else {
+        } else {
           this.openSnackBar(respuesta.status, respuesta.error);
         }
       })
     } else {
       this.direccionService.AgregarDireccion(direccion).subscribe(res => {
         const respuesta = res as Respuesta;
-        if( respuesta.status) {
+        if (respuesta.status) {
           this.mostrarFormularioDireccion = false;
           this.openSnackBar(respuesta.status, respuesta.msg);
           this.direccionService.direccion.push(respuesta.data as Direccion);
-        }else{
+        } else {
           this.openSnackBar(respuesta.status, respuesta.error);
         }
       })
@@ -95,8 +100,8 @@ export class PerfilUsuarioComponent implements OnInit {
    * Método que muestra las direcciones que tiene un cliente
    * @param _id 
    */
-  getDirecciones(_id: string){
-    this.direccionService.ListarDireccion(_id).subscribe( res => {
+  getDirecciones(_id: string) {
+    this.direccionService.ListarDireccion(_id).subscribe(res => {
       this.direccionService.direccion = res as Direccion[];
       this.getRegiones();
     })
@@ -105,7 +110,7 @@ export class PerfilUsuarioComponent implements OnInit {
   /**
    * Método que muestra las regiones existentes
    */
-  getRegiones(){
+  getRegiones() {
     this.regionService.getRegiones().subscribe(res => {
       this.regionService.regiones = res as Region[];
     })
@@ -115,14 +120,14 @@ export class PerfilUsuarioComponent implements OnInit {
    * Método que muestra los campos para modificar una dirección existente
    * @param direccion 
    */
-  mostrarDireccion(direccion: Direccion){
+  mostrarDireccion(direccion: Direccion) {
     this.botonActualizar = "ACTUALIZAR MI DIRECCIÓN";
     this.direccionService.selecDireccion = direccion;
     var i = 0;
-    while(this.regionService.regiones[i].departamento != this.direccionService.selecDireccion.departamento){ i ++}
+    while (this.regionService.regiones[i].departamento != this.direccionService.selecDireccion.departamento) { i++ }
     this.regionService.departamentoSelected = this.regionService.regiones[i];
     i = 0;
-    while(this.regionService.departamentoSelected.provincias[i].provincia != this.direccionService.selecDireccion.provincia) { i++}
+    while (this.regionService.departamentoSelected.provincias[i].provincia != this.direccionService.selecDireccion.provincia) { i++ }
     this.regionService.provinciaSelected = this.regionService.departamentoSelected.provincias[i];
     this.mostrarFormularioDireccion = true;
   }
@@ -130,7 +135,7 @@ export class PerfilUsuarioComponent implements OnInit {
   /**
    * Métod que muestra el formulario para agregar una dirección
    */
-  mostrarFormulario(){
+  mostrarFormulario() {
     this.botonActualizar = "AGREGAR UNA NUEVA DIRECCIÓN";
     this.direccionService.selecDireccion = new Direccion();
     this.mostrarFormularioDireccion = this.mostrarFormularioDireccion ? false : true;
@@ -140,7 +145,7 @@ export class PerfilUsuarioComponent implements OnInit {
    * Método que guarda la nueva dirección del cliente
    * @param form : datos de la nueva dirección
    */
-  nuevadireccion(form?: NgForm){
+  nuevadireccion(form?: NgForm) {
     this.direccionService.selecDireccion.usuario = this.usuarioService.usuarioSeleccionado._id;
     this.agregarDireccion(this.direccionService.selecDireccion);
     this.direccionService.selecDireccion = new Direccion();
@@ -155,6 +160,14 @@ export class PerfilUsuarioComponent implements OnInit {
       duration: 3000,
       panelClass: [clase],
       data: mensaje
+    });
+  }
+
+  recuperarpedidoscorreo(correo:string){
+    this.pagoservice.recuperarpedidocorreo(correo)
+    .subscribe(res=>{
+      this.arreglopedidos=JSON.parse(JSON.stringify(res));
+      console.log(this.arreglopedidos);
     });
   }
 
