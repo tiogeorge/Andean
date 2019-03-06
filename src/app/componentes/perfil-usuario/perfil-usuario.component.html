@@ -257,9 +257,33 @@
     <mat-card id="seguimiento-de-compra" class="card-perfil">
       <mat-card-title>Seguimiento de Compra</mat-card-title>
       <mat-card-content>
-        <mat-list>
-          
-        </mat-list>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha Compra</th>
+              <th>Nro Pedido</th>
+              <th>Detalle</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let pedidos of arreglopedidos">
+            <tr>
+              <td>{{pedidos.FechaCompra}}</td>
+              <td>{{pedidos.NroPedido}}</td>
+              <td><button class="btn"
+                  (click)="detallepedido(pedidos.FechaCompra,pedidos.FechaEnvio,pedidos.EstadoEnvio,pedidos.PrecioTotal,pedidos.Articulo)">VER</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-card hidden id="detalle" class="card-perfil">
+      <button class="btn" (click)="regresarped()" >Regresar</button>
+      <mat-card-title>Detalle de Pedido</mat-card-title>
+      <mat-card-content>
+        <p><label>Fecha de Compra:</label>{{fechacompraP}}</p>
+        <p><label>Fecha de Envio:</label>{{fechaenvioP}}</p>
+        <p><label>Estado de pedido:</label>{{estadoenvioP}}</p>
       </mat-card-content>
     </mat-card>
   </mat-sidenav-content>

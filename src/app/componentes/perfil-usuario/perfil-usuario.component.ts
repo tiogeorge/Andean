@@ -31,6 +31,11 @@ export class PerfilUsuarioComponent implements OnInit {
   tiposVivienda: string[] = ['Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
   url: string;
   arreglopedidos:any;
+  fechacompraP:Date=new Date();
+  fechaenvioP:Date=new Date();
+  estadoenvioP:string='';
+  preciototalP:number=0;
+  articulosP:any='';
 
   constructor(public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar,public pagoservice: PagoService) {
     this.adapter.setLocale('es');
@@ -167,8 +172,21 @@ export class PerfilUsuarioComponent implements OnInit {
     this.pagoservice.recuperarpedidocorreo(correo)
     .subscribe(res=>{
       this.arreglopedidos=JSON.parse(JSON.stringify(res));
-      console.log(this.arreglopedidos);
+      //console.log(this.arreglopedidos);
     });
+  }
+  detallepedido(fechacompra:Date,fechaenvio:Date,estadoenvio:string,preciototal:number,articulos:any){
+    document.getElementById('seguimiento-de-compra').hidden=true;
+    document.getElementById('detalle').hidden=false;
+    this.fechacompraP=fechacompra;
+    this.fechaenvioP=fechaenvio;
+    this.estadoenvioP=estadoenvio;
+    this.preciototalP=preciototal;
+    this.articulosP=articulos;
+  }
+  regresarped(){
+    document.getElementById('seguimiento-de-compra').hidden=false;
+    document.getElementById('detalle').hidden=true;
   }
 
 }
