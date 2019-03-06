@@ -31,11 +31,12 @@ export class PerfilUsuarioComponent implements OnInit {
   tiposVivienda: string[] = ['Casa', 'Oficina', 'Departamento', 'Edificio', 'Condominio', 'Otro'];
   url: string;
   arreglopedidos:any;
-  fechacompraP:Date=new Date();
-  fechaenvioP:Date=new Date();
+  fechacompraP:string='';
+  fechaenvioP:string='';
   estadoenvioP:string='';
   preciototalP:number=0;
   articulosP:any='';
+  valuePedido=0;
 
   constructor(public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar,public pagoservice: PagoService) {
     this.adapter.setLocale('es');
@@ -178,8 +179,17 @@ export class PerfilUsuarioComponent implements OnInit {
   detallepedido(fechacompra:Date,fechaenvio:Date,estadoenvio:string,preciototal:number,articulos:any){
     document.getElementById('seguimiento-de-compra').hidden=true;
     document.getElementById('detalle').hidden=false;
-    this.fechacompraP=fechacompra;
-    this.fechaenvioP=fechaenvio;
+
+    var fechacom = new Date(fechacompra);
+    var fechaenv=new Date(fechaenvio)
+    var compradia = fechacom.getDate();
+    var ventadia=fechaenv.getDate();
+    var comprames = fechacom.getMonth() + 1;
+    var ventames=fechaenv.getMonth()+1;
+    var compraanio = fechacom.getFullYear();
+    var ventaanio=fechaenv.getFullYear();
+    this.fechacompraP = String(compraanio + "-" + comprames + "-" + compradia);
+    this.fechaenvioP=String(ventaanio + "-" + ventames + "-" + ventadia);
     this.estadoenvioP=estadoenvio;
     this.preciototalP=preciototal;
     this.articulosP=articulos;
