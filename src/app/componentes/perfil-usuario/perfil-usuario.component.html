@@ -269,7 +269,7 @@
             <tr>
               <td>{{pedidos.FechaCompra}}</td>
               <td>{{pedidos.NroPedido}}</td>
-              <td><button class="btn"
+              <td><button mat-raised-button color="primary"
                   (click)="detallepedido(pedidos.FechaCompra,pedidos.FechaEnvio,pedidos.EstadoEnvio,pedidos.PrecioTotal,pedidos.Articulo)">VER</button>
               </td>
             </tr>
@@ -278,8 +278,8 @@
       </mat-card-content>
     </mat-card>
     <mat-card hidden id="detalle" class="card-perfil">
-      <button class="btn" (click)="regresarped()">Regresar</button>
-      <mat-card-title>Detalle de Pedido</mat-card-title>
+      <button mat-raised-button color="primary" (click)="regresarped()">Regresar</button>
+      <mat-card-title>Seguimiento de Pedido</mat-card-title>
       <mat-card-content>
         <p><label>Fecha de Compra: </label>{{fechacompraP}}</p>
         <div class="container">
@@ -289,7 +289,8 @@
             <div class="col-md-6">
               <!--  <h3 class="progress-title">Estado de pedido</h3>-->
               <div *ngIf="estadoenvioP=='Proceso'">
-                  <h3 class="progress-title"><i class="material-icons">business</i><span class="progress-subtitle"><i class="material-icons">home</i></span></h3>
+                <h3 class="progress-title"><i class="material-icons">business</i><span class="progress-subtitle"><i
+                      class="material-icons">home</i></span></h3>
                 <div class="progress">
                   <div class="progress-bar" style="width:0%; background:#ff0000; color:#ff0000;">
                     <!-- <div class="progress-value">{{estadoenvioP}}: {{fechaenvioP}}</div> -->
@@ -297,7 +298,8 @@
                 </div>
               </div>
               <div *ngIf="estadoenvioP=='Enviado'">
-                <h3 class="progress-title"><i class="material-icons">business</i><span class="progress-subtitle"><i class="material-icons">home</i></span></h3>
+                <h3 class="progress-title"><i class="material-icons">business</i><span class="progress-subtitle"><i
+                      class="material-icons">home</i></span></h3>
                 <div class="progress">
                   <div class="progress-bar" style="width:50%; background:#fbff00; color:#fbff00;">
                     <div class="progress-value">{{estadoenvioP}}: {{fechaenvioP}}</div>
@@ -305,7 +307,9 @@
                 </div>
               </div>
               <div *ngIf="estadoenvioP=='Entregado'">
-                  <h3 class="progress-title"><i class="material-icons">business</i><span class="progress-subtitle">{{estadoenvioP}}: {{fechaenvioP}}<i class="material-icons">home</i></span></h3>
+                <h3 class="progress-title"><i class="material-icons">business</i><span
+                    class="progress-subtitle">{{estadoenvioP}}: {{fechaenvioP}}<i class="material-icons">home</i></span>
+                </h3>
                 <div class="progress">
                   <div class="progress-bar" style="width:100%; background:#00d30b; color:#00d30b;">
                     <!-- <div class="progress-value" style="right: 120px;">{{estadoenvioP}}: {{fechaenvioP}}</div> -->
