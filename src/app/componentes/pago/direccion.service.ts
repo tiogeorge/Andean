@@ -11,7 +11,7 @@ export class DireccionService {
   direccion:Direccion[];
   readonly URL_API =  Constantes.URL_API_DIRECCION;
 
-  constructor(private http: HttpClient) {
+  constructor(public http: HttpClient) {
     this.selecDireccion=new Direccion();
    }
 

@@ -3,6 +3,6 @@ const router = express.Router();
 
 const pasarela = require('../controllers/pasarela.controller')
 
-router.post('/crearCargo', pasarela.crearCargo);
+router.post('/crearPago', pasarela.crearPago);
 
 module.exports = router;

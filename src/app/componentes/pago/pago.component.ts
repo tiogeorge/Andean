@@ -20,8 +20,6 @@ import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 const moment = _rollupMoment || _moment;
 
-//declare const Culqi : any;
-
 export interface NombreDirec {
   nombre: string;
 }
@@ -214,38 +212,12 @@ export class PagoComponent implements OnInit {
     { value: 'Edificio' },
     { value: 'Condominio' },
     { value: 'Otro' }
-
-  ];
-  Anhos: Años[] = [
-    { value: '2018', viewValue: '2018' },
-    { value: '2019', viewValue: '2019' },
-    { value: '2020', viewValue: '2020' },
-    { value: '2021', viewValue: '2021' },
-    { value: '2022', viewValue: '2022' },
-    { value: '2023', viewValue: '2023' },
-    { value: '2024', viewValue: '2023' }
-  ];
-  mes: Mes[] = [
-    { value: '1', viewValue: '1' },
-    { value: '2', viewValue: '2' },
-    { value: '3', viewValue: '3' },
-    { value: '4', viewValue: '4' },
-    { value: '5', viewValue: '5' },
-    { value: '6', viewValue: '6' },
-    { value: '7', viewValue: '7' },
-    { value: '8', viewValue: '8' },
-    { value: '9', viewValue: '9' },
-    { value: '10', viewValue: '10' },
-    { value: '11', viewValue: '11' },
-    { value: '12', viewValue: '12' }
   ];
 
   constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService,public usuarioService: UsuarioService,public router: Router,public regionService: RegionService, public articuloDetalleService: ArticuloDetalleService) {
   }
 
   ngOnInit() {
-    //Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
-    //Culqi.init();
     // Validar la fecha de expiración de la tarjeta como mínimo al mes siguiente
     if(this.mesHoy == 12){
       this.mesHoy = 1;
@@ -264,7 +236,7 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
-      console.log(this.listaCarrito);
+      //console.log(this.listaCarrito);
       this.sumarprecios();
       this.insertaraarregloart();
     });
@@ -616,6 +588,7 @@ export class PagoComponent implements OnInit {
   yearSelected(yearNormalizado: Moment){
     const ctrlValue = this.date.value;
     ctrlValue.year(yearNormalizado.year());
+    this.pagoservice.tarjeta.yearExp = yearNormalizado.year().toString();
     this.date.setValue(ctrlValue);
   }
 
@@ -628,10 +601,15 @@ export class PagoComponent implements OnInit {
     const ctrlValue = this.date.value;
     ctrlValue.month(mesNormalizado.month());
     this.date.setValue(ctrlValue);
+    const mes = (mesNormalizado.month() + 1).toString().length == 2 ? (mesNormalizado.month() + 1).toString() : '0' + (mesNormalizado.month() + 1).toString();
+    this.pagoservice.tarjeta.mesExp = mes;
     datepicker.close();
   }
 
   pagar(){
+    this.pagoservice.procesarPago(this.direccionService.selecDireccion).subscribe( res => {
+      console.log(res);
+    });
     /*Culqi.createToken();
     if(Culqi.token){
       console.log('Procesando la compra');
@@ -644,6 +622,7 @@ export class PagoComponent implements OnInit {
       console.log(Culqi.error);
     }*/
   }
+
   generarnumerodepedido(){
     var pedidogen=rand(12,12);
     this.pedidogenerado=pedidogen.toUpperCase();
