@@ -9,6 +9,7 @@ export class Direccion {
         this.tipolocal=tipolocal;
         this.referencia=referencia;
         this.telefono=telefono;
+        
     }
 
     _id:string;
@@ -20,4 +21,5 @@ export class Direccion {
     tipolocal:string;
     referencia: string;
     telefono:string;
+    nombreicon: string;
 }

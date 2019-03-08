@@ -169,6 +169,7 @@ export class PagoComponent implements OnInit {
     //   document.getElementById(id).style.color='white';
     for (var i = 0; i < Object.keys(this.RespuestaDir).length; i++) {
       if (this.RespuestaDir[i]._id == id) {
+        this.direccionService.selecDireccion = this.RespuestaDir[i];
         //color
         document.getElementById(this.RespuestaDir[i]._id).style.background = '#FFBF00';
         document.getElementById(this.RespuestaDir[i]._id).style.color = 'white';
