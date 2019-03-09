@@ -14,6 +14,17 @@ li {
   float: left;
 }
 
+.cont-busqueda-peque{
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: #1B2437;
+  align-items: center;
+
+}
+
 li a {
   display: block;
   color: white;
@@ -228,6 +239,7 @@ select:hover{
 /* MENU PARA CELULARES*/
 /* The sidepanel menu */
 .sidepanel {
+  display: none;
   height: 100%; /* Specify a height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
@@ -238,7 +250,13 @@ select:hover{
   overflow-x: hidden; /* Disable horizontal scroll */
   display: flex;
   flex-direction: row;
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+  /* 0.5 second transition effect to slide in the sidepanel */
+}
+.cont-menu-peque{
+  width: 0; 
+  height: 100%; 
+  background-color:white; 
+  z-index: 1000;transition: 0.5s;
 }
 
 /* The sidepanel links */
@@ -249,6 +267,19 @@ select:hover{
   color: #818181;
   display: block;
   transition: 0.3s;
+}
+.btncerrar-menu:hover{
+  cursor: pointer;
+}
+
+.header-menu-peque{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #1B2437;
+  align-items: center;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -295,10 +326,16 @@ select:hover{
    #menu-todas-opciones{
      display: none;
    }
+   .cont-busqueda-peque{
+     display: flex;
+   }
 }
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
+  .cont-busqueda-peque{
+    display: none;
+  }
   #menu-todas-opciones{
     display: flex;
   }
@@ -362,6 +399,12 @@ select:hover{
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
+  .cont-busqueda-peque{
+    display: none;
+  }
+  .sidepanel{
+    display:none;
+  }
   #menu-todas-opciones{
     display: flex;
   }

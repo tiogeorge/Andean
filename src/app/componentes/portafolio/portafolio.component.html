@@ -36,70 +36,34 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-  </div>
-  <div class="articulo-principal" style="padding: 5px;">
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 10px;">
-        <h4>Oferta del Día</h4>
-    </div>
+
+
+    <div  class="cont-carouseles">
+      <h5 style="margin-bottom: 5px; margin-left: 5px;  ">Ofertas Relampago</h5>
+      <div class="carousel-ofertas-grande" >
+        <div id="carousel-example-3" class="carousel slide" data-ride="carousel" data-interval="2500">
       
-      <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%;">
-        <img
-          mat-card-image src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
-        <mat-card-content>
-          <p class="text-center" style="text-transform: uppercase;">
-            {{grandecard.titulo}}
-          </p>
-        </mat-card-content>
-        <mat-card-content>
-          <p class="text-center" style="text-transform: uppercase;">
-            s./ {{grandecard.precioplan.precio}}
-          </p>
-        </mat-card-content>
-      </mat-card>
-  </div>
-  <div  class="cont-carouseles">
-    <h5 style="margin-bottom: 5px; margin-left: 5px;  ">Ofertas Relampago</h5>
-    <div class="carousel-ofertas-grande" >
-      <div id="carousel-example-3" class="carousel slide" data-ride="carousel" data-interval="2500">
-    
-        <div class="carousel-inner" role="listbox" style="position: relative">
-          <div style="position: absolute; left: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-3" role="button" data-slide="prev" >
-            <div class="btn-cardsimple noseleccionable">
-              <i class="material-icons"style="color: white;">
-                arrow_back_ios
-                </i>
+          <div class="carousel-inner" role="listbox" style="position: relative">
+            <div style="position: absolute; left: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-3" role="button" data-slide="prev" >
+              <div class="btn-cardsimple noseleccionable">
+                <i class="material-icons"style="color: white;">
+                  arrow_back_ios
+                  </i>
+              </div>
             </div>
-          </div>
-          <div style="position: absolute; right: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-3" role="button" data-slide="next">
-            <div class="btn-cardsimple noseleccionable">
-              <i class="material-icons" style="color: white;">
-                arrow_forward_ios
-                </i>
+            <div style="position: absolute; right: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-3" role="button" data-slide="next">
+              <div class="btn-cardsimple noseleccionable">
+                <i class="material-icons" style="color: white;">
+                  arrow_forward_ios
+                  </i>
+              </div>
             </div>
-          </div>
-          <div class="carousel-item active">
-            <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-              <mat-card class="simple-card noseleccionable" *ngFor="let cardsimple of listarcardtipo1 | slice:0:3; let i = index" >
-                <div class="img-card">
-                  <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
-                </div>   
-                <mat-card-content>
-                  <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
-                    {{cardsimple.titulo}}
-                  </p>
-                  <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
-                    s/. {{cardsimple.precioplan.precio}}
-                  </p>
-                </mat-card-content>                
-              </mat-card>            
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div style="display: flex; flex-direction: row;width: 100%; justify-content: stretch;">
-                <mat-card class="simple-card noseleccionable"  *ngFor="let cardsimple of listarcardtipo1 | slice:3:6; let i = index">
+            <div class="carousel-item active">
+              <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
+                <mat-card class="simple-card noseleccionable" *ngFor="let cardsimple of listarcardtipo1 | slice:0:3; let i = index" >
                   <div class="img-card">
                     <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
-                  </div>                 
+                  </div>   
                   <mat-card-content>
                     <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
                       {{cardsimple.titulo}}
@@ -108,82 +72,127 @@
                       s/. {{cardsimple.precioplan.precio}}
                     </p>
                   </mat-card-content>                
-                </mat-card>
-              
+                </mat-card>            
+              </div>
             </div>
-          </div>        
+            <div class="carousel-item">
+              <div style="display: flex; flex-direction: row;width: 100%; justify-content: stretch;">
+                  <mat-card class="simple-card noseleccionable"  *ngFor="let cardsimple of listarcardtipo1 | slice:3:6; let i = index">
+                    <div class="img-card">
+                      <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
+                    </div>                 
+                    <mat-card-content>
+                      <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
+                        {{cardsimple.titulo}}
+                      </p>
+                      <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
+                        s/. {{cardsimple.precioplan.precio}}
+                      </p>
+                    </mat-card-content>                
+                  </mat-card>
+                
+              </div>
+            </div>        
+          </div>
+        </div>
+      </div>
+      <div class="carousel-ofertas-peque">
+        <div id="carousel-example-4" class="carousel slide" data-ride="carousel" data-interval="2500">   
+          
+          <div class="carousel-inner" role="listbox" style="position: relative">
+            <div style="position: absolute; left: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-4" role="button" data-slide="prev" >
+              <div class="btn-cardsimple noseleccionable">
+                <i class="material-icons"style="color: white;">
+                  arrow_back_ios
+                  </i>
+              </div>
+            </div>
+            <div style="position: absolute; right: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-4" role="button" data-slide="next">
+              <div class="btn-cardsimple noseleccionable">
+                <i class="material-icons" style="color: white;">
+                  arrow_forward_ios
+                  </i>
+              </div>
+            </div>
+            <div class="carousel-item active" *ngFor="let cardsimple of listarcardtipo1 | slice:0:1; let i = index" >
+              <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
+                <mat-card class="simple-card noseleccionable">              
+                  <div class="img-card">
+                    <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
+                  </div>                   <mat-card-content>
+                    <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
+                      {{cardsimple.titulo}}
+                    </p>
+                    <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
+                      s/. {{cardsimple.precioplan.precio}}
+                    </p>
+                  </mat-card-content>                
+                </mat-card>            
+              </div>
+            </div> 
+            <div class="carousel-item"  *ngFor="let cardsimple of listarcardtipo1 | slice:2:6; let i = index" >
+              <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
+                <mat-card class="simple-card noseleccionable">              
+                  <div class="img-card">
+                    <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
+                  </div>   
+                  <mat-card-content>
+                    <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
+                      {{cardsimple.titulo}}
+                    </p>
+                    <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
+                      s/. {{cardsimple.precioplan.precio}}
+                    </p>
+                  </mat-card-content>                
+                </mat-card>            
+              </div>
+            </div>       
+          </div>
         </div>
       </div>
     </div>
-    <div class="carousel-ofertas-peque">
-      <div id="carousel-example-4" class="carousel slide" data-ride="carousel" data-interval="2500">   
-        
-        <div class="carousel-inner" role="listbox" style="position: relative">
-          <div style="position: absolute; left: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-4" role="button" data-slide="prev" >
-            <div class="btn-cardsimple noseleccionable">
-              <i class="material-icons"style="color: white;">
-                arrow_back_ios
-                </i>
-            </div>
-          </div>
-          <div style="position: absolute; right: 0;top: 0; z-index: 1000; height: 100%; display: flex; align-items: center;" href="#carousel-example-4" role="button" data-slide="next">
-            <div class="btn-cardsimple noseleccionable">
-              <i class="material-icons" style="color: white;">
-                arrow_forward_ios
-                </i>
-            </div>
-          </div>
-          <div class="carousel-item active" *ngFor="let cardsimple of listarcardtipo1 | slice:0:1; let i = index" >
-            <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-              <mat-card class="simple-card noseleccionable">              
-                <div class="img-card">
-                  <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
-                </div>                   <mat-card-content>
-                  <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
-                    {{cardsimple.titulo}}
-                  </p>
-                  <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
-                    s/. {{cardsimple.precioplan.precio}}
-                  </p>
-                </mat-card-content>                
-              </mat-card>            
-            </div>
-          </div> 
-          <div class="carousel-item"  *ngFor="let cardsimple of listarcardtipo1 | slice:2:6; let i = index" >
-            <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-              <mat-card class="simple-card noseleccionable">              
-                <div class="img-card">
-                  <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
-                </div>   
-                <mat-card-content>
-                  <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
-                    {{cardsimple.titulo}}
-                  </p>
-                  <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
-                    s/. {{cardsimple.precioplan.precio}}
-                  </p>
-                </mat-card-content>                
-              </mat-card>            
-            </div>
-          </div>       
-        </div>
-      </div>
-    </div>
-
-    
-    <!--  <mat-card class="simple-card noseleccionable"  *ngFor="let cardsimple of listarcardtipo1"style="border-radius: 5px 5px ;">
-        
-        <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
-        <mat-card-content>
-          <p class="text-center" style="text-transform: uppercase; margin-top: 5px; color: rgb(0, 0, 0)">
-            {{cardsimple.titulo}}
-          </p>
-          <p class="text-center" style="text-transform: uppercase; font-weight: 650; font-size: 16px; color: #3863A7;">
-            s/. {{cardsimple.precioplan.precio}}
-          </p>
-        </mat-card-content>
-      </mat-card>-->
   </div>
+  <div class="articulo-principal" style="padding: 5px; height: 100%; ">
+    <div style="margin: 5px; height: 100%; padding: 5px; border-radius: 10px;  background-color: #F9F9F9;">
+        <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 5px;">
+            <h4>Oferta del Día</h4>
+        </div>
+        <div style="padding: 5px; width: 100%; height: auto;">
+          <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%;">
+            <img
+              mat-card-image src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
+            <mat-card-content>
+              <p class="text-center" style="text-transform: uppercase;">
+                {{grandecard.titulo}}
+              </p>
+            </mat-card-content>
+            <mat-card-content>
+              <p class="text-center" style="text-transform: uppercase;">
+                s./ {{grandecard.precioplan.precio}}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div> 
+        <div>
+    
+          <h6>Accesorios</h6>
+          <div class="card grande-card mat-elevation-z2" style="border-radius: 5px 5px;" *ngFor="let largocard of listarcardtipo3">
+            <div class="row ">
+              <div class="col-md-8">
+               <img src="{{URL_IMAGENES}}/{{largocard.urlImagen}}" class="w-100">
+              </div>
+              <div class="col-md-4">
+                <div class="card-block">
+                  <p class="card-title text-center" style="text-transform: uppercase;font-size: 11px;margin-right: 35px" >{{largocard.titulo}}</p>
+                  <p class="card-text text-center" style="text-transform: uppercase;margin-right: 35px">s/. {{largocard.precioplan.precio}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+    </div>
+          
+  </div>  
 </div>
 
 <!--
