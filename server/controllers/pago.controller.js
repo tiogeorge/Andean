@@ -210,6 +210,26 @@ pagoController.actualizarpedido = async (req, res) => {
         });
     }
 }
+pagoController.actualizarpedido2 = async (req, res) => {
+    try {
+        console.log('datos a actualizar');
+        console.log(req.body);
+        console.log(req.body[0].EstadoEnvio);
+        const art = {
+            //EstadoPago: req.body[0].EstadoPago,
+            EstadoEnvio: req.body.EstadoEnvio,
+            //  Documento: req.body[0].Documento
+        }
+        const pedido = await Pago.findByIdAndUpdate({ _id: req.params.id }, { $set: art }, { new: true });
+        res.json({
+            mensaje: "Se actualizo los datos"
+        });
+    } catch (err) {
+        res.json({
+            mensaje: " No se pudo actulizar los datos : ERROR:" + err
+        });
+    }
+}
 
 pagoController.consultarnropedido = async (req, res) => {
     var msn = Pago.find({ NroPedido: req.params.num })
