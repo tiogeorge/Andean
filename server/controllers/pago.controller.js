@@ -218,6 +218,7 @@ pagoController.actualizarpedido2 = async (req, res) => {
         const art = {
             //EstadoPago: req.body[0].EstadoPago,
             EstadoEnvio: req.body.EstadoEnvio,
+            FechaEntrega:req.body.FechaEntrega,
             //  Documento: req.body[0].Documento
         }
         const pedido = await Pago.findByIdAndUpdate({ _id: req.params.id }, { $set: art }, { new: true });
@@ -232,7 +233,7 @@ pagoController.actualizarpedido2 = async (req, res) => {
 }
 
 pagoController.consultarnropedido = async (req, res) => {
-    var msn = Pago.find({ NroPedido: req.params.num })
+    var msn = Pago.find({ NroPedido: req.params.num });
     res.json(msn);
 }
 
