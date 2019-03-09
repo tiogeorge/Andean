@@ -2,7 +2,7 @@
 <div class="container-fluid" id="contenedorbusqueda">
   <div class="row">
     <!--filtro-->
-    <div class="col-lg-3" style="background: white" id="contenedorfiltro">
+    <div class="col-sm-3 col-md-3 col-lg-3" style="background: white" id="contenedorfiltro">
       <div class="container">
         <div class="row">
           <!---->
@@ -42,9 +42,12 @@
             <hr>
             <h5>FILTROS</h5>
           </div>
-          <div class="col-lg-12" (click)="mostrarcategoria()">
+          <div class="col-lg-12" (click)="mostrarcategoria()" style="cursor: pointer; position: relative;">
             <hr>
-            <p>Categorias<i id="icondown1" class="material-icons">keyboard_arrow_{{nombreicon1}}</i></p>
+            <div class="row">
+              <p style="width: 80%; padding-left: 14px;">Categorias</p>
+              <i id="icondown1" class="material-icons" style="width: 20%;">keyboard_arrow_{{nombreicon1}}</i>
+            </div>
           </div>
           <div id="categoriafiltro" class="col-lg-12" style="display: none">
             <hr>
@@ -63,7 +66,10 @@
           <!--<div><button (click)="prueba()">prueba</button></div>-->
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
-            <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
+            <div class="row">
+              <p style="width: 80%; padding-left: 14px;">Marca</p>
+              <i id="icondown2" class="material-icons" style="width: 20%;">keyboard_arrow_{{nombreicon2}}</i>
+            </div>
           </div>
           <div id="marcafiltro" class="col-lg-12" style="display: none">
             <hr>
@@ -110,9 +116,8 @@
                 <input matInput type="number" placeholder="Maximo" [(ngModel)]="maxValue">
               </mat-form-field>
             </section>-->
-            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-              (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
-              (userChangeEnd)="onUserChangeEnd($event)">
+            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeStart)="onUserChangeStart($event)"
+              (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
             </ng5-slider>
             <!--fin de slider-->
           </div>
@@ -120,23 +125,21 @@
       </div>
     </div>
     <!--finfiltro-->
-    <div class="col-lg-9">
+    <div class="col-sm-9 col-md-9 col-lg-9">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <h3 id="titulo1">RESULTADOS DE LA BÚSQUEDA
-              <!-- <small>Articulo de referencia</small>-->
-            </h3>
+            <h4 id="titulo1" style="text-align: center;">RESULTADOS DE LA BÚSQUEDA</h4>
             <hr>
             <ol class="breadcrumb">
               <table id="tbvista" class="table table-responsive">
                 <thead>
                   <tr>
-                    <th id="tbordenar" width="17%">
+                    <th id="tbordenar" width="27%">
                       <p>Ordenar por:</p>
                     </th>
-                    <th id="tbselecC" width="33%">
-                      <mat-form-field id="tbselect">
+                    <th id="tbselecC" width="43%">
+                      <mat-form-field id="tbselect" style="border: 0px;">
                         <mat-select [(ngModel)]="tipordenado" (selectionChange)="ordenarlista()">
                           <mat-option value="orden1">Populares</mat-option>
                           <mat-option value="orden2">Mayor precio</mat-option>
@@ -195,51 +198,42 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i"
-                  id="contenedorarticulo{{articulo._id}}">
-                  <mat-card class="example-card " style="size: 100px;height: 380px;"
-                    *ngIf="articulo.precioplan != 'no tiene'">
-                    <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}"
-                      matTooltipClass="colortooltip">
-                      <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto;"
-                        id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
-                        alt="{{articulo.imagenes[0]}}">
+                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i" id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;">
+                  <mat-card class="example-card" style="size: 100px;height: 300px; padding: 8px;" *ngIf="articulo.precioplan != 'no tiene'">
+                    <a routerLink="/articulo/{{articulo.url}}" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
+                      <img class="img-fluid card-img-top centrarimg" style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;" id="{{articulo._id}}"
+                        src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}">
                     </a>
                     <br>
                     <mat-card-title style="height: 20;">
                       <p class="card-text text-center">
-                        <a class="titulo-articulo .centrarletras" style="font-size: 14px"
-                          routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
+                        <a class="titulo-articulo .centrarletras" style="font-size: 14px" routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                       </p>
                     </mat-card-title>
                     <div id="precio1">
                       <p class="card-text text-center">
-                        <strong><a class="titulo-articulo" style="font-size: 18px;color: red"
-                            routerLink="/articulo/{{articulo.url}}">
-                            S/. {{articulo.precioplan.precio}}</a></strong>
+                        <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
+                            S/ {{articulo.precioplan.precio}}</a></strong>
                       </p>
                     </div>
                     <div id="precio2" style="display: flex; align-items: flex-end; display: none">
                       <div>
                         <p class="card-text text-center">
-                          <strong><a class="titulo-articulo" style="font-size: 18px;color: red"
-                              routerLink="/articulo/{{articulo.url}}">
-                              S/. {{articulo.precioplan.precio}}</a></strong>
+                          <strong><a class="titulo-articulo" style="font-size: 18px;color: red" routerLink="/articulo/{{articulo.url}}">
+                              S/ {{articulo.precioplan.precio}}</a></strong>
                         </p>
                       </div>
                       <div>
                         <p class="card-text text-center">
-                          <strong><a class="titulo-articulo" style="font-size: 12px;color: red"
-                              routerLink="/articulo/{{articulo.url}}">
+                          <strong><a class="titulo-articulo" style="font-size: 12px;color: red" routerLink="/articulo/{{articulo.url}}">
                               x {{articulo.precioplan.cuotas}} meses</a></strong>
                         </p>
                       </div>
                     </div>
-                    <p class="card-text text-center">
-                      <a class="titulo-articulo" style="font-size: 13px;color: red"
-                        routerLink="/articulo/{{articulo.url}}">
+                    <!--<p class="card-text text-center">
+                      <a class="titulo-articulo" style="font-size: 13px;color: red" routerLink="/articulo/{{articulo.url}}">
                         PLAN {{articulo.precioplan.nombreplan}}</a>
-                    </p>
+                    </p>-->
                   </mat-card>
                   <hr>
                 </div>
@@ -396,8 +390,7 @@
                   </mat-form-field>
                 </section>
                 <ng5-slider style="size: 50%" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                  (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
-                  (userChangeEnd)="onUserChangeEnd($event)">
+                  (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
                 </ng5-slider>
                 <!--fin de slider-->
               </div>

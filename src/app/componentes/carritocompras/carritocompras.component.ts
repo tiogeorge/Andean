@@ -34,14 +34,11 @@ export class CarritocomprasComponent implements OnInit {
     this.articuloDetalleService.getCarrito().subscribe(res => {
       const respuesta = res as Respuesta;
       if (respuesta.status) {
-        console.log("CARRITO:");
-        console.log(res);
         for (var i = 0; i < respuesta.data.length; i++) {
           this.listaArticulos.push(respuesta.data[i][0]);
           this.listaPlanArticulo.push(respuesta.data[i][1]);
           this.mostrarArticulos = true;
         }
-        console.log(this.listaPlanArticulo);
         this.subtotal = this.calcularSubTotal();
       }
     });

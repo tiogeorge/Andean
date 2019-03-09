@@ -13,11 +13,10 @@ pasarelaController.crearPago = async(req, res) => {
         "transaction": {
            "order": {
               "accountId": "512323",
-              "referenceCode": "payment_test_00000001",
-              "description": "payment test",
+              "referenceCode": "payment_test_00000001", //codigo que usa nuestro sitio
+              "description": "payment test", // descripcion de la compra
               "language": "es",
               "signature": "cfddea273ca17d7e2ce3eed8e939f5a2",
-              "notifyUrl": "http://www.tes.com/confirmation",
               "additionalValues": {
                  "TX_VALUE": {
                     "value": 100,
@@ -25,7 +24,6 @@ pasarelaController.crearPago = async(req, res) => {
                  }
               },
               "buyer": {
-                 "merchantBuyerId": "1",
                  "fullName": "First name and second buyer  name",
                  "emailAddress": "buyer_test@test.com",
                  "contactPhone": "7563126",
@@ -34,24 +32,12 @@ pasarelaController.crearPago = async(req, res) => {
                     "street1": "Avenida de la poesia",
                     "street2": "106",
                     "city": "Cuzco",
-                    "state": "CU",
                     "country": "PE",
-                    "postalCode": "000000",
                     "phone": "7563126"
                  }
-              },
-              "shippingAddress": {
-                 "street1": "Avenida de la poesia",
-                 "street2": "106",
-                 "city": "Cuzco",
-                 "state": "CU",
-                 "country": "PE",
-                 "postalCode": "0000000",
-                 "phone": "7563126"
               }
            },
            "payer": {
-              "merchantPayerId": "1",
               "fullName": "First name and second payer name",
               "emailAddress": "payer_test@test.com",
               "contactPhone": "7563126",
@@ -60,9 +46,7 @@ pasarelaController.crearPago = async(req, res) => {
                  "street1": "av abancay",
                  "street2": "cra 4",
                  "city": "Iquitos",
-                 "state": "LO",
                  "country": "PE",
-                 "postalCode": "64000",
                  "phone": "7563126"
               }
            },
@@ -71,6 +55,12 @@ pasarelaController.crearPago = async(req, res) => {
               "securityCode": req.body.tarjeta.securityCode,
               "expirationDate": dateExp,
               "name": "REJECTED"
+           },
+           "debitCard": {
+            "number": req.body.tarjeta.number,
+            "securityCode": req.body.tarjeta.securityCode,
+            "expirationDate": dateExp,
+            "name": "REJECTED"
            },
            "extraParameters": {
               "INSTALLMENTS_NUMBER": 1

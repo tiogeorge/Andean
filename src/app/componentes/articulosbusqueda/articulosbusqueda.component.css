@@ -1,3 +1,15 @@
+hr {
+  margin-top: 0px;
+}
+
+.table td, .table th {
+  padding: .15rem;
+}
+
+.breadcrumb, .table {
+  margin-bottom: 0px;
+}
+
 .example-panel-red .mat-select-panel {
   background: rgba(255, 0, 0, 0.5);
 }
@@ -144,7 +156,7 @@ mat-slider {
   text-decoration: none;
   font-size: 18px;
   color: black;
-  
+
 }
 
 a :hover {
@@ -153,7 +165,7 @@ a :hover {
   color: red;
 }
 
-#articulo{
+#articulo {
   height: 240px;
   width: auto;
 }
@@ -259,46 +271,51 @@ a :hover {
 }
 
 /**/
-.imagar{
+.imagar {
   width: 160px;
   height: 160px;
- background:;
   overflow: hidden;
 }
-.imagar img{
-  width:auto;
-  height:100%;
+
+.imagar img {
+  width: auto;
+  height: 100%;
 }
-@supports(object-fit: cover){
-    .imagar img{
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-    }
+
+@supports(object-fit: cover) {
+  .imagar img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
 }
+
 .centrarimg {
   margin-left: auto;
   margin-right: auto;
   display: block;
 }
-.centrarletras{
+
+.centrarletras {
   margin-left: auto;
   margin-right: auto;
   display: block;
 }
+
 .example-card {
   max-width: 400px;
 }
+
 .example-card {
   max-width: 1000px;
 }
 
 
-.text{
-  margin:20px 0px;
-}
-.box-part{
-  padding:60px 10px;
-  margin:30px 0px;
+.text {
+  margin: 20px 0px;
 }
 
+.box-part {
+  padding: 60px 10px;
+  margin: 30px 0px;
+}
