@@ -10,6 +10,7 @@ export class creditCard{
   mesExp: string;
   yearExp: string;
   name: string;
+  cvv: string;
 }
 
 @Injectable({
