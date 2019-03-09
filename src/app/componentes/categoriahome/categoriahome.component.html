@@ -1,5 +1,5 @@
 
-    <mat-card style="width: 100%; padding:0; padding: 0; height: 100%;;">
+    <mat-card style="width: 100%; padding:0; padding: 0; height: auto; padding-bottom: 8px;">
       
         <hr style="margin: 0px; padding: 0px;">
         <!--<mat-accordion *ngFor="let categoriap of listacategoriaspadre; index as i">
@@ -20,6 +20,7 @@
           <div *ngFor="let categoriap of listacategoriaspadre; index as i"  class="item-list-categoria" (mouseover)="mostrarDetalle(categoriap)" (mouseout)="ocultarDetalle()">
               <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i><div>{{categoriap.nombre}}</div>      
           </div>
+          
         </div>  
         <!--<div>
             <ul id="treeview" *ngFor="let categoriap of listacategoriaspadre; index as i" style="margin-right: 105px">

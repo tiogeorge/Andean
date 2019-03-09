@@ -1,5 +1,22 @@
 .simple-card {
-  max-width: 400px;
+  width: 32%;
+  margin: 5px;
+}
+.btn-cardsimple{
+  width: 30px;height: 60px; 
+  background-color: rgba(95, 95, 95, 0.418); 
+  display: flex; 
+  align-items: center;
+  justify-content: flex-end;
+}
+.btn-cardsimple:hover{
+  cursor: pointer;
+  background-color: rgba(100, 99, 99, 0.589);
+}
+.img-card{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .grande-card{
   max-width: 400px;
@@ -39,14 +56,67 @@
   .carusel-grande{
     width: 100%;
   }
+  .carousel-ofertas-peque{
+    display: flex;
+    width: 100%;
+  }
+  .carousel-ofertas-grande{
+    display: none;
+  }
+  .simple-card {
+    width: 100%;
+    margin: 1px;
+  }
+  .articulo-principal{
+    width: 100%;
+  }
+  .cont-carouseles{
+    width: 100%; 
+    display:flex; 
+    flex-direction: row; 
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
 }
 @media (min-width: 768px) {
   .carusel-grande{
     width: 70%;
   }
+  .carousel-ofertas-peque{
+    display: flex;
+    width: 100%;
+  }
+  .carousel-ofertas-grande{
+    display: none;
+  }
+  .articulo-principal{
+    width: 30%;
+  }
+  .cont-carouseles{
+    width: 70%; 
+    display:flex; 
+    flex-direction: row; 
+    flex-wrap: wrap;
+  }
 }
 @media (min-width: 992px) {
   .carusel-grande{
     width: 70%;
+  }
+  .carousel-ofertas-peque{
+    display: none;
+  }
+  .carousel-ofertas-grande{
+    display: flex;
+    width: 100%;
+  }
+  .articulo-principal{
+    width: 30%;
+  }
+  .cont-carouseles{
+    width: 70%; 
+    display:flex; 
+    flex-direction: row; 
+    flex-wrap: wrap;
   }
 }
