@@ -233,7 +233,9 @@ pagoController.actualizarpedido2 = async (req, res) => {
 }
 
 pagoController.consultarnropedido = async (req, res) => {
-    var msn = Pago.find({ NroPedido: req.params.num });
+    console.log('entra');
+    const msn = await Pago.find({ NroPedido: req.params.num });
+    console.log(msn);
     res.json(msn);
 }
 
