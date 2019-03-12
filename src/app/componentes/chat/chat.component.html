@@ -1,5 +1,5 @@
 
-<div class="card shadow-lg bg-light" style="position: fixed; right: 0; bottom: 0;margin: 5px !important; z-index: 100;width: 290px; height: 450px;border:1px solid #6e6f70;" [hidden]="mostrarBotonChat">
+<div class="card shadow-lg bg-light contenedor-chat-prin"  [hidden]="mostrarBotonChat">
   <div class="card-header" style="background-color: #212529; color: white; padding-top: 8px; padding-bottom: 8px;" >
     <div style="display: flex; flex-direction: row; align-items: center;">
       <div style="flex-grow:0; width: 80%;">
@@ -90,7 +90,7 @@
   </div>
 </div>
 
-<div style="position: fixed; right: 0; bottom: 0;margin: 5px; z-index: 100;" [hidden]="!mostrarBotonChat"> 
+<div class="btn-chat-prin" [hidden]="!mostrarBotonChat"> 
   <button mat-fab color="primary"  (click)="mostrarChat()"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
 </div>
 

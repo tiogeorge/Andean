@@ -91,6 +91,7 @@ button:focus{
   width: 35%;
   padding-left: 5px;
   border: 0px;
+  background-color: white;
 }
 
  #logosmarket{
@@ -329,6 +330,27 @@ select:hover{
    .cont-busqueda-peque{
      display: flex;
    }
+}
+.item-menu-peque{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+}
+.item-cat-menu-peque{
+  display: flex; 
+  flex-direction: row; 
+  margin-top: 3px;
+  margin-bottom: 3px; 
+  margin-left: 5px;
+}
+.item-cat-menu-peque:hover{
+  cursor: pointer;
+  background-color:rgb(233, 233, 233); 
+}
+.item-menu-peque:hover{
+  background-color: rgb(226, 226, 226);
+  cursor: pointer;
 }
 
 /* Medium devices (tablets, 768px and up)*/

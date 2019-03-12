@@ -106,7 +106,7 @@
 </div>
 <div class="cont-busqueda-peque">
   <div style="width: 100%; ">
-      <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;" placeholder="Busca productos" >
+      <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;" placeholder="Busca productos"  id="buscarartpal2" name="buscarartpal2">
   </div>
   <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: white; padding-left: 5px;" (click)="buscarArti()">search</i>
 
@@ -142,13 +142,24 @@
    <div style="width: 100%; padding: 5px; padding-top: 15px; display: flex; flex-direction: column;">
     <h5>Categorias</h5>
     <hr style="margin: 0px; padding: 0px;">
-    <div style="display: flex; width: 100%;flex-direction: row;">
+    <div style="width: 100%; display:flex; flex-direction: column">
+      <div *ngFor="let categoriap of categorias; index as i"   class="item-cat-menu-peque" >
+        <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i><div>{{categoriap.nombre}}</div>      
+    </div>
+
+    </div>
+
+    <hr style="margin: 0px; padding: 0px; margin-top: 10px;">
+    <div class="item-menu-peque" (click)="abrirChat()">
         <i class="material-icons">
             chat_bubble_outline
             </i>
             <h5>Chat</h5>
-    </div>
-    
+    </div>    
+    <hr style="margin: 0px; padding: 0px;">
+    <div class="item-menu-peque">
+            <h5>Terminos y condiciones</h5>
+    </div>    
     <hr style="margin: 0px; padding: 0px;">
    </div>
 

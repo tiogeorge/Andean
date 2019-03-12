@@ -158,9 +158,13 @@
             <h4>Oferta del Día</h4>
         </div>
         <div style="padding: 5px; width: 100%; height: auto;">
-          <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%;">
-            <img
-              mat-card-image src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
+          <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%; ">
+            <div style="width: 100%;
+            display: flex;
+            justify-content: center;">
+              <img class="imagen-card" src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
+            </div>
+            
             <mat-card-content>
               <p class="text-center" style="text-transform: uppercase;">
                 {{grandecard.titulo}}

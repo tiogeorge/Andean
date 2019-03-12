@@ -23,7 +23,7 @@ export class CategoriaService {
   }
   listarcategoriaspadres(){
     const padre='root';
-    return this.http.get(Constantes.URL_API_CATEGORIA+/categoriapadre/+padre, {withCredentials: true});
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriapadre/'+padre, {withCredentials: true});
   }
   listarcategoriashijos(id:string){
     return this.http.get(Constantes.URL_API_CATEGORIA+'/subcategorias/'+id, {withCredentials: true});

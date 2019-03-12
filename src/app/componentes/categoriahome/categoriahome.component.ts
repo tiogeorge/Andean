@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoriaService} from '../categoria/categoria.service';
+import { comunicacionService } from '../comunicacion.service';
 
 @Component({
   selector: 'app-categoriahome',
@@ -13,7 +14,7 @@ export class CategoriahomeComponent implements OnInit {
   mostrarDetalleCategoria : boolean = false;
   listahijos:any[];
 
-  constructor(public categoriaservice:CategoriaService) { }
+  constructor(public categoriaservice:CategoriaService, public comService: comunicacionService) { }
 
   ngOnInit() {
     this.listarcategoriasP();
@@ -26,6 +27,7 @@ export class CategoriahomeComponent implements OnInit {
       var Respuesta = JSON.parse(JSON.stringify(res));
       this.listacategoriaspadre=Respuesta;
       console.log(this.listacategoriaspadre[1].hijos)
+      this.comService.enviarCategorias(this.listacategoriaspadre);
     });
   }
   listarcategoriashijos(id:string){

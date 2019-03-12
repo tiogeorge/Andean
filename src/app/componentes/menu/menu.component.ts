@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { comunicacionService } from '../comunicacion.service';
+//import {CategoriaService} from '../categoria/categoria.service';
 
 @Component({
   selector: 'app-menu',
@@ -32,13 +33,15 @@ export class MenuComponent implements OnInit {
   listasubcategorias : Categoria[] = new Array();
   //fin auto completado
   subscription: Subscription;
+  catsubscription : Subscription;
   nombreusuario = "Identificate";
   nomostrarbusquedap = true;
+  categorias = new Array();
 
   constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService, public comService: comunicacionService) {
     this.subscription = this.comService.inicioSesion()
     .subscribe(user => {
-      if(user != "CERRAR"){
+      if(user.nombres){
         this.estaLogeado = true;
         var nombre = user.nombres.split(" ")[0];
         this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase();
@@ -46,7 +49,13 @@ export class MenuComponent implements OnInit {
         console.log(this.estaLogeado);
       }
       
-    })
+    });
+    this.catsubscription = this.comService.getCategorias()
+    .subscribe(cat =>{
+      console.log("LLEGO CATEGORIAS");
+      this.categorias = cat as any[];
+    });
+
   }
 
   ngOnInit() {
@@ -74,8 +83,18 @@ export class MenuComponent implements OnInit {
     document.getElementById("mySidepanel").style.height = screen.height+"px";
     document.getElementById("mySidepanel2").style.width = "100%";
     document.getElementById("mySidepanel2").style.height = screen.height+"px";
+    if(this.categorias.length==0){
+      console.log("BUSCANDO CATEFRIAS EN MENU");
+      this.categoriaService.listarcategoriaspadres()
+      .subscribe(res =>{
+        this.categorias = res as any[];
+      });
+    }
   }
-
+  abrirChat(){
+    this.comService.abrirChat();
+    this.closeNav();
+  }
   /* Set the width of the sidebar to 0 (hide it) */
   closeNav() {
     document.getElementById("mySidepanel").style.width = "0";
@@ -162,6 +181,7 @@ export class MenuComponent implements OnInit {
     var cuotas='0'; 
 
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
+     var clave3 = (<HTMLInputElement>document.getElementById("buscarartpal2")).value;
    // alert(this.pclave2);
   // this.actualizarcomponente();
     if(this.pclave2!=""){
@@ -176,7 +196,11 @@ export class MenuComponent implements OnInit {
 //      this.router.navigateByUrl('busqueda/'+this.pclave2);
     }
     else{
-      this.router.navigate(['busqueda/celulares']);
+      if(clave3 != ""){
+        this.router.navigate(['busqueda/'+clave3]);
+      }else{
+        this.router.navigate(['busqueda/celulares']);
+      }
     }
   }
   public actualizarcomponente(dat:string){

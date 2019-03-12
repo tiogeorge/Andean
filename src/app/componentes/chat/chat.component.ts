@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit {
   idUsuario         : string;
   tiempo            : number;
   subscription: Subscription;
+  subscriptionChat: Subscription;
 
   constructor(public chatService: ChatService,
               public usuarioService: UsuarioService, public comService: comunicacionService ) { 
@@ -44,7 +45,11 @@ export class ChatComponent implements OnInit {
       
       }
       
-    })
+    });
+    this.subscriptionChat = this.comService.getAccionChat()
+    .subscribe(res=>{
+      this.mostrarChat();
+    });
               }
 
   ngOnInit() {    

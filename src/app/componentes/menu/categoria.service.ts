@@ -28,6 +28,10 @@ export class CategoriaService {
     return this.http.get(this.URL_API+'/subcategorias/'+id, {withCredentials: true})
   }
 
+  listarcategoriaspadres(){
+    const padre='root';
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriapadre/'+padre, {withCredentials: true});
+  }
   postCategoria(Categoria: Categoria){
     return this.http.post(this.URL_API,Categoria, {withCredentials: true});
   }

@@ -15,3 +15,22 @@ body{
 .ql-video{
     width: 50%;
 }
+@media (min-width: 320px) {
+    .ql-video{
+        width: 100% !important;
+        height: 180px!important;
+    }
+}
+@media (min-width: 768px) {
+    .ql-video{
+        width: 60%!important;
+        height: 400px!important;
+    }
+}
+@media (min-width: 992px) {
+    .ql-video{
+        width: 50%!important;
+        height: 400px!important;
+
+    }
+}
