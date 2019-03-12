@@ -45,12 +45,12 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
 
 }
 
-articuloController.ObtenerEquiposArticulo = async (req, res)=>{
+articuloController.ObtenerEquiposArticulo = async (req, res) => {
     console.log("ONTENIENDO EQUIPOS DE LOS ARTICULOS..");
     jsonEquipos = new Array();
     try {
         req.getConnection(function (error, conn) {
-            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'609')as Cantidad FROM taarticulo WHERE idArticuloGlobal = '"+req.params.idglobal+"'";
+            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'609')as Cantidad FROM taarticulo WHERE idArticuloGlobal = '" + req.params.idglobal + "'";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
                     console.log(err);
@@ -61,7 +61,7 @@ articuloController.ObtenerEquiposArticulo = async (req, res)=>{
                 } else {
                     var jsoneq = JSON.parse(JSON.stringify(results));
                     for (var i = 0; i < jsoneq.length; i++) {
-                        await verificarEquipoArticuloMongo(req.params.idglobal,jsoneq[i].idArticulo, jsoneq[i].Descripcion, jsoneq[i].Cantidad);
+                        await verificarEquipoArticuloMongo(req.params.idglobal, jsoneq[i].idArticulo, jsoneq[i].Descripcion, jsoneq[i].Cantidad);
                     }
                     console.log("termino verificar equipos");
                     res.json(jsonEquipos);
@@ -85,7 +85,7 @@ articuloController.ObtenerEquiposArticulo = async (req, res)=>{
 
 verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad) => {
     try {
-        const articulomongo = await Articulo.find({idarticulo: idGlobal},{equipos: {$elemMatch: {idequipo: idequipo}}});
+        const articulomongo = await Articulo.find({ idarticulo: idGlobal }, { equipos: { $elemMatch: { idequipo: idequipo } } });
         if (articulomongo.length > 0) {
             /*const categoriamongo = await Categoria.findById(articulomongo[0].categoria);
             jsonArticulos[i].Categoria = categoriamongo.nombre;
@@ -94,25 +94,25 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad)
             console.log(articulomongo[0].equipos);
             console.log("=================================");
             jsonEquipos.push({
-                idequipo:idequipo,
+                idequipo: idequipo,
                 descripcion: descripcion,
-                cantidad:cantidad,
-                color:articulomongo[0].equipos[0].color,
-                detalle:articulomongo[0].equipos[0].detalle,
-                imagen:articulomongo[0].equipos[0].imagen,
-                codigocolor:articulomongo[0].equipos[0].codigocolor
+                cantidad: cantidad,
+                color: articulomongo[0].equipos[0].color,
+                detalle: articulomongo[0].equipos[0].detalle,
+                imagen: articulomongo[0].equipos[0].imagen,
+                codigocolor: articulomongo[0].equipos[0].codigocolor
             });
         } else {
-           /* jsonArticulos[i].Categoria = "SIN CATEGORIA";
-            jsonArticulos[i].Estado = "0";*/
+            /* jsonArticulos[i].Categoria = "SIN CATEGORIA";
+             jsonArticulos[i].Estado = "0";*/
             jsonEquipos.push({
-                idequipo:idequipo,
+                idequipo: idequipo,
                 descripcion: descripcion,
-                cantidad:cantidad,
-                color:"",
-                detalle:"",
-                imagen:"",
-                codigocolor:"#000000"
+                cantidad: cantidad,
+                color: "",
+                detalle: "",
+                imagen: "",
+                codigocolor: "#000000"
             });
         }
     } catch (e) {
@@ -234,7 +234,7 @@ articuloController.buscararti = async (req, res) => {
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
         console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        var id=articulosB[i].idprecio;
+        var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
         var planesfiltrados = new Array();
@@ -243,13 +243,13 @@ articuloController.buscararti = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-        
-        jsonarticulos[i].precioplan=planesfiltrados[0];
+
+        jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion="";
-        jsonarticulos[i].garantias=[];
-        
-        
+        jsonarticulos[i].descripcion = "";
+        jsonarticulos[i].garantias = [];
+
+
     }
     res.json(jsonarticulos);
 }
@@ -261,7 +261,7 @@ articuloController.buscararti2 = async (req, res) => {
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
         console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        var id=articulosB[i].idprecio;
+        var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
         var planesfiltrados = new Array();
@@ -270,11 +270,11 @@ articuloController.buscararti2 = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-        
-        jsonarticulos[i].precioplan=planesfiltrados[0];
+
+        jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion="";
-        jsonarticulos[i].garantias=[];
+        jsonarticulos[i].descripcion = "";
+        jsonarticulos[i].garantias = [];
     }
     res.json(jsonarticulos);
 }
@@ -286,7 +286,7 @@ articuloController.buscararti3 = async (req, res) => {
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
         console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        var id=articulosB[i].idprecio;
+        var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
         var planesfiltrados = new Array();
@@ -295,18 +295,27 @@ articuloController.buscararti3 = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-        if(planesfiltrados.length>0){
-            jsonarticulos[i].precioplan=planesfiltrados[0];
+        if (planesfiltrados.length > 0) {
+            jsonarticulos[i].precioplan = planesfiltrados[0];
         }
-        else{
-            jsonarticulos[i].precioplan="no tiene";
+        else {
+            jsonarticulos[i].precioplan = "no tiene";
         }
         jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion="";
-        jsonarticulos[i].garantias=[];
+        jsonarticulos[i].descripcion = "";
+        jsonarticulos[i].garantias = [];
     }
     res.json(jsonarticulos);
 }
+
+/*busqueda segun categoria */
+articuloController.busquedaGeneral = async (req, res) => {
+    var categoriapadre = req.params.categoria;
+    var palabraclave = req.params.palabra;
+    const cathijos=await Categoria.find({padre:categoriapadre},'_id');
+    res.json(cathijos);
+}
+/*fin*/
 
 var JSONPrecios = {
     caracterisca: {},
@@ -356,14 +365,14 @@ articuloController.obtenerPreciosMysql = async (req, res) => {
 
 }
 
-articuloController.guardarCards = async(req, res) => {
-    try{
-        await Card.update({},{$set: {activo: false}});
+articuloController.guardarCards = async (req, res) => {
+    try {
+        await Card.update({}, { $set: { activo: false } });
         var carteles = req.body.cards;
-        for(var i = 0; i < carteles.length; i++){
-            if(carteles[i]._id){
-                await Card.findOneAndUpdate({_id: carteles[i]._id}, {$set : carteles[i]});
-            }else{
+        for (var i = 0; i < carteles.length; i++) {
+            if (carteles[i]._id) {
+                await Card.findOneAndUpdate({ _id: carteles[i]._id }, { $set: carteles[i] });
+            } else {
                 var cartel = new Card(carteles[i]);
                 await cartel.save();
             }
@@ -372,7 +381,7 @@ articuloController.guardarCards = async(req, res) => {
             status: true,
             msg: 'Los carteles han sigo registrados con éxito'
         })
-    }catch(err){
+    } catch (err) {
         res.json({
             status: false,
             error: err
@@ -380,9 +389,9 @@ articuloController.guardarCards = async(req, res) => {
     }
 }
 
-articuloController.obtenerCards = async(req, res) => {
-    Card.find({activo: true}, function(err, cards) {
-        if(err){
+articuloController.obtenerCards = async (req, res) => {
+    Card.find({ activo: true }, function (err, cards) {
+        if (err) {
             res.json({
                 status: false,
                 error: err
@@ -396,30 +405,30 @@ articuloController.obtenerCards = async(req, res) => {
         }
     })
 }
-articuloController.obtenerCardsTipo=async(req,res)=>{
-    var tiplinea='PREPAGO';
-    var tipplan='ALTA';
-    var cuota='0';
-    var plan='Plan';
-    const card=await Card.find({tipo:req.params.tipo,activo:true});
-    var jsoncard=JSON.parse(JSON.stringify(card));
-    for(var i=0;i<card.length;i++){
+articuloController.obtenerCardsTipo = async (req, res) => {
+    var tiplinea = 'PREPAGO';
+    var tipplan = 'ALTA';
+    var cuota = '0';
+    var plan = 'Plan';
+    const card = await Card.find({ tipo: req.params.tipo, activo: true });
+    var jsoncard = JSON.parse(JSON.stringify(card));
+    for (var i = 0; i < card.length; i++) {
         console.log(card[i].tipo);
-        var id=card[i].idPrecio;
+        var id = card[i].idPrecio;
         const precios = await Equipo.find({ nombreequipo: id });
-        var planesfiltrados=new Array();
-        for(var j=0;j<precios[0].planes.length;j++){
-            if (card[i].tipo!= plan && precios[0].planes[j].tipolinea == tiplinea && precios[0].planes[j].tipoplan == tipplan && precios[0].planes[j].cuotas == cuota) {
+        var planesfiltrados = new Array();
+        for (var j = 0; j < precios[0].planes.length; j++) {
+            if (card[i].tipo != plan && precios[0].planes[j].tipolinea == tiplinea && precios[0].planes[j].tipoplan == tipplan && precios[0].planes[j].cuotas == cuota) {
                 planesfiltrados.push(precios[0].planes[j]);
             }
-            else{
+            else {
                 if (card[i].tipo == plan && precios[0].planes[j].tipolinea == card[i].linea && precios[0].planes[j].tipoplan == card[i].tipoPlan && precios[0].planes[j].nombreplan == card[i].plan && precios[0].planes[j].cuotas == card[i].cuotas) {
                     planesfiltrados.push(precios[0].planes[j]);
                 }
             }
         }
-        if(planesfiltrados.length>0){
-            jsoncard[i].precioplan=planesfiltrados[0];
+        if (planesfiltrados.length > 0) {
+            jsoncard[i].precioplan = planesfiltrados[0];
         }
     }
     res.json(jsoncard);
