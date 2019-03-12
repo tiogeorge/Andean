@@ -7,7 +7,7 @@ router.get('/', articulo.obtenerArticulosMysql);
 router.get('/mongo/', articulo.listararticulos);
 router.get('/cartel', articulo.obtenerCards);
 router.get('/marcaart/:marca/:linea/:tipoplan/:cuotas',articulo.buscararti2);
-router.get('/mn/:titulo/:linea/:tipoplan/:cuotas',articulo.buscararti);
+router.get('/mn/:palabrasclaves/:linea/:tipoplan/:cuotas',articulo.buscararti);
 router.get('/categoriaart/:categoria/:linea/:tipoplan/:cuotas',articulo.buscararti3);
 router.get('/:id', articulo.obtenerArticulo);
 router.get('/url/:id', articulo.obtenerArticuloURL);

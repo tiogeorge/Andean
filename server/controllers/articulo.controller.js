@@ -230,7 +230,7 @@ articuloController.buscararti = async (req, res) => {
     var tipoLinea = req.params.linea;
     var tipoPlan = req.params.tipoplan;
     var cuotas = req.params.cuotas;
-    const articulosB = await Articulo.find({ "titulo": { $regex: '.*' + req.params.titulo + '.*', $options: 'i' } });
+    const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
         console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
