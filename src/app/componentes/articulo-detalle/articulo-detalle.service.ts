@@ -46,5 +46,8 @@ export class ArticuloDetalleService {
  listarArticulo3(palabraclave:string,linea:string,tipo:string,cuota:string){
    return this.http.get(Constantes.URL_API_ARTICULO + `/categoriaart/`+ palabraclave+'/'+linea+'/'+tipo+'/'+cuota, {withCredentials: true})
  }
+ listarArticulo4(categoriapadre:string,linea:string,tipo:string,cuota:string){
+  return this.http.get(Constantes.URL_API_ARTICULO + `/bus/`+ categoriapadre+'/'+linea+'/'+tipo+'/'+cuota, {withCredentials: true})
+}
 
 }

@@ -46,5 +46,9 @@ export class CategoriahomeComponent implements OnInit {
   ocultarDetalle(){
     this.mostrarDetalleCategoria = false;
   }
+  
+  buscararti(id:string){
+    console.log(id);
+  }
 
 }

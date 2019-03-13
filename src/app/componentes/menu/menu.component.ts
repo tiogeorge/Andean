@@ -162,7 +162,7 @@ export class MenuComponent implements OnInit {
     if(event.key=="Enter"){
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
-     this.router.navigateByUrl('busqueda/'+this.pclave2);
+     this.router.navigateByUrl('busqueda/palclav/'+this.pclave2);
      this.enviarPalabraClave();
      //this.actualizarcomponente(this.pclave2);
      
@@ -173,7 +173,7 @@ export class MenuComponent implements OnInit {
     }
   }
   bus(p:string){
-    this.router.navigateByUrl('busqueda/'+p);
+    this.router.navigateByUrl('busqueda/palclav/'+p);
   }
   buscarArti(){
     var linea='PREPAGO';
@@ -191,17 +191,22 @@ export class MenuComponent implements OnInit {
       
       // this.actualizarcomponente(this.pclave2);
       
-      this.router.navigate(['busqueda/'+this.pclave2]);
+      this.router.navigate(['busqueda/palclav/'+this.pclave2]);
       //alert('busqueda/'+this.pclave2);
 //      this.router.navigateByUrl('busqueda/'+this.pclave2);
     }
     else{
       if(clave3 != ""){
-        this.router.navigate(['busqueda/'+clave3]);
+        this.router.navigate(['busqueda/palclav/'+clave3]);
       }else{
-        this.router.navigate(['busqueda/celulares']);
+        this.router.navigate(['busqueda/palclav/celulares']);
       }
     }
+  }
+  busquedacat(id:string){
+    var valor="cat/"+id;
+    console.log(valor);
+    this.router.navigate(['busqueda/palclav/'+valor]);
   }
   public actualizarcomponente(dat:string){
     this.servicioapoyo.actualizarpag(dat);

@@ -43,6 +43,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   // selected2 = 'alta';
   // selected3 = '0';
   palabrabusq: string;
+  categoriabus:string;
   numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
@@ -175,8 +176,14 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.tipo = 'ALTA';
     this.cuota = '0';
     this.tipordenado = 'orden1';
+    var urlcat=this.route.snapshot.paramMap.get("tipobus");
     var url = this.route.snapshot.paramMap.get("pclave");
-    this.listaraarticulos(url);
+    if(urlcat=='Cat'){
+      this.listararticate(url);
+    }
+    else{
+      this.listaraarticulos(url);
+    }
     this.palabrabusq = url;
     this.palabraClave = url;
     //this. vistanoencontrado();
@@ -332,7 +339,21 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   //fin
 
-
+  listararticate(id:string){
+    document.getElementById('contenedorbusqueda').hidden = false;
+    document.getElementById('noencontrado').hidden = true;
+    this.articuloslista = new Array();
+    this.articulodetalleService.listarArticulo4(id, this.linea, this.tipo, this.cuota)
+    .subscribe(res => {
+      this.articulodetalleService.Articulo = res as Articulo[];
+      var Respuesta = JSON.parse(JSON.stringify(res));
+        this.articuloslista = Respuesta;
+        this.numeroencontrados = Object.keys(res).length;
+        this.temporallistaarti = Respuesta;
+        this.temporallistaarti2 = Respuesta;
+        this.listcategoraisfil();
+    });
+  }
   listaraarticulos(pclave: string) {
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
