@@ -366,33 +366,40 @@ usuarioController.listarUsuarios = async (req, res, next) => {
  */
 usuarioController.loginAdmin = async (req, res, next) => {
   req.getConnection(function (error, conn) {
-    var consulta = "call spuPrin_IniciarSesionUsuario(?,?,?)";
-    var valores = [req.body.usuario.toUpperCase(), req.body.password, 'web'];
-    conn.query(consulta, valores, function (err, results) {
-      if (err) {
-        res.json({
-          status: false,
-          error: 'El usuario y/o contraseña son incorrectos'
-        })
-      } else {
-        // if user not found
-        // Se obtiene mensaje, idEmpleado, Nombres, idTipoUusario
-        if (results[0][0].Mensaje == 'HECHO') {
-          req.session.idEmpleado = req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado;
-          req.session.usuario = req.session.usuario ? req.session.usuario : results[0][0].Nombres;
-          req.session.idTipoUsuario = req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario;
-          res.json({
-            status: true,
-            msg: 'Iniciando sesión'
-          });
-        } else {
+    if (error) {
+      res.json({
+        status: false,
+        error: 'Error al conectar con la base de datos'
+      });
+    } else {
+      var consulta = "call spuPrin_IniciarSesionUsuario(?,?,?)";
+      var valores = [req.body.usuario.toUpperCase(), req.body.password, 'web'];
+      conn.query(consulta, valores, function (err, results) {
+        if (err) {
           res.json({
             status: false,
-            errror: 'El usuario y/o contraseña son incorrectas.'
-          });
+            error: 'El usuario y/o contraseña son incorrectos'
+          })
+        } else {
+          // if user not found
+          // Se obtiene mensaje, idEmpleado, Nombres, idTipoUusario
+          if (results[0][0].Mensaje == 'HECHO') {
+            req.session.idEmpleado = req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado;
+            req.session.usuario = req.session.usuario ? req.session.usuario : results[0][0].Nombres;
+            req.session.idTipoUsuario = req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario;
+            res.json({
+              status: true,
+              msg: 'Iniciando sesión'
+            });
+          } else {
+            res.json({
+              status: false,
+              errror: 'El usuario y/o contraseña son incorrectas.'
+            });
+          }
         }
-      }
-    })
+      })
+    }
   });
 };
 
