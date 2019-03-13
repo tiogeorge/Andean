@@ -6,7 +6,7 @@ const articulo = require('../controllers/articulo.controller');
 router.get('/', articulo.obtenerArticulosMysql);
 router.get('/mongo/', articulo.listararticulos);
 router.get('/cartel', articulo.obtenerCards);
-router.get('/bus/:categoria/:palabra',articulo.busquedaGeneral);
+router.get('/bus/:categoriapadre/:linea/:tipoplan/:cuotas',articulo.busquedaGeneral);
 router.get('/marcaart/:marca/:linea/:tipoplan/:cuotas',articulo.buscararti2);
 router.get('/mn/:palabrasclaves/:linea/:tipoplan/:cuotas',articulo.buscararti);
 router.get('/categoriaart/:categoria/:linea/:tipoplan/:cuotas',articulo.buscararti3);

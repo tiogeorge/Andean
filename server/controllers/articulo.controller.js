@@ -312,15 +312,17 @@ articuloController.buscararti3 = async (req, res) => {
 
 /*busqueda segun categoria */
 articuloController.busquedaGeneral = async (req, res) => {
+    var categoriapadre=req.params.categoriapadre;
     var tipoLinea = req.params.linea;
     var tipoPlan = req.params.tipoplan;
     var cuotas = req.params.cuotas;
-    var categoriapadre = req.params.categoria;
-    var palabraclave = req.params.palabra;
     const cathijos=await Categoria.find({padre:categoriapadre},'_id');
+    console.log(cathijos);
    // const articulos=await Articulo.find().or([{categoria:cathijos[0]._id},{categoria:cathijos[1]._id}]);
-    
-    const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
+   //busqueda
+   var arreglofinal=new Array();
+   for(var q=0;q<cathijos.length;q++){
+    const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + cathijos[q]._id + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
         console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
@@ -333,28 +335,20 @@ articuloController.busquedaGeneral = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-
-        jsonarticulos[i].precioplan = planesfiltrados[0];
+        if (planesfiltrados.length > 0) {
+            jsonarticulos[i].precioplan = planesfiltrados[0];
+        }
+        else {
+            jsonarticulos[i].precioplan = "no tiene";
+        }
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
-
-
+        arreglofinal.push(jsonarticulos);
     }
-    var arreglofinal=new Array();
-    for(var t=0;t<cathijos.length;t++){
-        console.log('entra');
-        for(var x=0;x<articulosB.length;x++){
-            console.log('entra2');
-           /*  if(jsonarticulos[t2].categoria==cathijos[t]._id){
-                console.log('entra3');
-                console.log(jsonarticulos[t2]);
-                arreglofinal.push(jsonarticulos[t2]);
-            } */
-        }
-
-    }
-    res.json(arreglofinal);
+   }
+   //fin
+   res.json(arreglofinal);
 }
 /*fin*/
 
