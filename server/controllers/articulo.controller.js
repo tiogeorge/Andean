@@ -252,6 +252,7 @@ articuloController.buscararti = async (req, res) => {
 
     }
     res.json(jsonarticulos);
+    
 }
 articuloController.buscararti2 = async (req, res) => {
     var tipoLinea = req.params.linea;
@@ -305,15 +306,55 @@ articuloController.buscararti3 = async (req, res) => {
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
     }
+  
     res.json(jsonarticulos);
 }
 
 /*busqueda segun categoria */
 articuloController.busquedaGeneral = async (req, res) => {
+    var tipoLinea = req.params.linea;
+    var tipoPlan = req.params.tipoplan;
+    var cuotas = req.params.cuotas;
     var categoriapadre = req.params.categoria;
     var palabraclave = req.params.palabra;
     const cathijos=await Categoria.find({padre:categoriapadre},'_id');
-    res.json(cathijos);
+   // const articulos=await Articulo.find().or([{categoria:cathijos[0]._id},{categoria:cathijos[1]._id}]);
+    
+    const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
+    var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
+    for (var i = 0; i < articulosB.length; i++) {
+        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+        var id = articulosB[i].idprecio;
+        const precios = await Equipo.find({ nombreequipo: id });
+
+        var planesfiltrados = new Array();
+        for (var j = 0; j < precios[0].planes.length; j++) {
+            if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                planesfiltrados.push(precios[0].planes[j]);
+            }
+        }
+
+        jsonarticulos[i].precioplan = planesfiltrados[0];
+        jsonarticulos[i].caracteristicas = [];
+        jsonarticulos[i].descripcion = "";
+        jsonarticulos[i].garantias = [];
+
+
+    }
+    var arreglofinal=new Array();
+    for(var t=0;t<cathijos.length;t++){
+        console.log('entra');
+        for(var x=0;x<articulosB.length;x++){
+            console.log('entra2');
+           /*  if(jsonarticulos[t2].categoria==cathijos[t]._id){
+                console.log('entra3');
+                console.log(jsonarticulos[t2]);
+                arreglofinal.push(jsonarticulos[t2]);
+            } */
+        }
+
+    }
+    res.json(arreglofinal);
 }
 /*fin*/
 
