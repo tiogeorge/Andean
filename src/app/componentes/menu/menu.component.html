@@ -21,12 +21,14 @@
       </mat-autocomplete>
     </form>  -->
   <div class="campo-busqueda">
-    <select class="categorias-busqueda">
+    <!--
+<select class="categorias-busqueda">
       <option value="todo">Todas las Categorias</option>
       <option  *ngFor="let categoria of categoriaService.categorias" value="categoria._id">{{categoria.nombre}}</option>
     </select>
+    -->
     <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
-    <i class="material-icons btn-busqueda" id="btnbusqueda2" (click)="buscarArti()">search</i>
+    <i class="material-icons btn-busqueda" style="margin-right: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
   </div>
   <div class="campo-opciones-usuario">   
       <div class="item-menu-opciones" style="display: none;">

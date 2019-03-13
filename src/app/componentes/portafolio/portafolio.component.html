@@ -60,7 +60,7 @@
             </div>
             <div class="carousel-item active">
               <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-                <mat-card class="simple-card noseleccionable" *ngFor="let cardsimple of listarcardtipo1 | slice:0:3; let i = index" >
+                <mat-card class="simple-card noseleccionable" *ngFor="let cardsimple of listarcardtipo1 | slice:0:3; let i = index" routerLink="/articulo/{{cardsimple.link}}">
                   <div class="img-card">
                     <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
                   </div>   
@@ -77,7 +77,7 @@
             </div>
             <div class="carousel-item">
               <div style="display: flex; flex-direction: row;width: 100%; justify-content: stretch;">
-                  <mat-card class="simple-card noseleccionable"  *ngFor="let cardsimple of listarcardtipo1 | slice:3:6; let i = index">
+                  <mat-card class="simple-card noseleccionable"  *ngFor="let cardsimple of listarcardtipo1 | slice:3:6; let i = index" routerLink="/articulo/{{cardsimple.link}}">
                     <div class="img-card">
                       <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
                     </div>                 
@@ -114,7 +114,7 @@
                   </i>
               </div>
             </div>
-            <div class="carousel-item active" *ngFor="let cardsimple of listarcardtipo1 | slice:0:1; let i = index" >
+            <div class="carousel-item active" *ngFor="let cardsimple of listarcardtipo1 | slice:0:1; let i = index" routerLink="/articulo/{{cardsimple.link}}" >
               <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
                 <mat-card class="simple-card noseleccionable">              
                   <div class="img-card">
@@ -158,7 +158,7 @@
             <h4>Oferta del Día</h4>
         </div>
         <div style="padding: 5px; width: 100%; height: auto;">
-          <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%; ">
+          <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%; " routerLink="/articulo/{{grandecard.link}}">
             <div style="width: 100%;
             display: flex;
             justify-content: center;">
@@ -180,7 +180,7 @@
         <div>
     
           <h6>Accesorios</h6>
-          <div class="card grande-card mat-elevation-z2" style="border-radius: 5px 5px;" *ngFor="let largocard of listarcardtipo3">
+          <div class="card grande-card mat-elevation-z2" style="border-radius: 5px 5px;" *ngFor="let largocard of listarcardtipo3" routerLink="/articulo/{{largocard.link}}">
             <div class="row ">
               <div class="col-md-8">
                <img src="{{URL_IMAGENES}}/{{largocard.urlImagen}}" class="w-100">
