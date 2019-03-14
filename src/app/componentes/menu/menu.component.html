@@ -1,172 +1,109 @@
 <nav class="navbar navbar-expand-lg " id="menu-principal">
-  <a class="navbar-brand" routerLink="/home"style="width: auto; height: 40px; display: flex; align-items: center;"><img id="logosmarket" src="/assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto" height="40px"></a>
-  <button class="navbar-toggler" type="button"(click)="openNav()">
+  <a class="navbar-brand" routerLink="/home" style="width: auto; height: 40px; display: flex; align-items: center;"><img
+      id="logosmarket" src="/assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
+      height="40px"></a>
+  <button class="navbar-toggler" type="button" (click)="openNav()">
     <i class="material-icons">
       menu
-      </i>
+    </i>
   </button>
-
   <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 70%;">
-    <!--
-    <form id="buscar-form" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" id="buscarartpal" name="buscarartpal" type="search" placeholder="Buscar"
-        aria-label="Search" (keypress)="buscarpa($event)" [formControl]="myControl" [matAutocomplete]="auto">
-      <button class="btn btn-link my-2 my-sm-0" id="btnbusqueda2" (click)="buscarArti()">
-        <mat-icon id="icono-buscar2">search</mat-icon>
-      </button>
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="buscarArti()">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </form>  -->
-  <div class="campo-busqueda">
-    <!--
-<select class="categorias-busqueda">
-      <option value="todo">Todas las Categorias</option>
-      <option  *ngFor="let categoria of categoriaService.categorias" value="categoria._id">{{categoria.nombre}}</option>
-    </select>
-    -->
-    <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
-    <i class="material-icons btn-busqueda" style="margin-right: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
-  </div>
-  <div class="campo-opciones-usuario">   
+    <div class="campo-busqueda">
+      <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
+      <i class="material-icons btn-busqueda" style="margin-right: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
+    </div>
+    <div class="campo-opciones-usuario">
       <div class="item-menu-opciones" style="display: none;">
         <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
-      
-      </div> 
-         
-
-      <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
-          <i class="material-icons" style="font-size:30px; margin-right: 5px;"> account_circle</i>
-          <div id="labelnombreusuario">{{nombreusuario}} </div>
       </div>
-      
+      <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
+        <i class="material-icons" style="font-size:30px; margin-right: 5px;"> account_circle</i>
+        <div id="labelnombreusuario">{{nombreusuario}} </div>
+      </div>
       <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px;" xPosition="before">
-
-        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">person</i> <div style="margin-left: 10px;">Perfil de Usuario</div></button>
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
+            class="material-icons" style="font-size: large;margin-left: 14px; ">person</i>
+          <div style="margin-left: 10px;">Perfil de Usuario</div>
+        </button>
         <hr style="margin: 0px;">
-        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_shipping</i> <div style="margin-left: 10px;">Pedidos</div></button>
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
+            class="material-icons" style="font-size: large;margin-left: 14px; ">local_shipping</i>
+          <div style="margin-left: 10px;">Pedidos</div>
+        </button>
         <hr *ngIf="estaLogeado" style="margin: 0px;">
-        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">local_play</i> <div style="margin-left: 10px;">Lista de Deseos</div></button>
+        <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
+            class="material-icons" style="font-size: large;margin-left: 14px; ">local_play</i>
+          <div style="margin-left: 10px;">Lista de Deseos</div>
+        </button>
         <hr *ngIf="estaLogeado" style="margin: 0px;">
-        <button *ngIf="estaLogeado"(click)="logout()" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center; background-color: rgb(230, 223, 223);"><i class="material-icons" style="font-size: large;margin-left: 14px; ">close</i> <div style="margin-left: 10px;">Cerrar Sesion</div></button>
+        <button *ngIf="estaLogeado" (click)="logout()" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center; background-color: rgb(230, 223, 223);"><i
+            class="material-icons" style="font-size: large;margin-left: 14px; ">close</i>
+          <div style="margin-left: 10px;">Cerrar Sesion</div>
+        </button>
         <hr *ngIf="estaLogeado" style="margin: 0px;">
-
-        <button *ngIf="!estaLogeado"  routerLink="/login" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">vpn_key</i> <div style="margin-left: 10px;">Iniciar Sesion</div></button>
+        <button *ngIf="!estaLogeado" routerLink="/login" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
+            class="material-icons" style="font-size: large;margin-left: 14px; ">vpn_key</i>
+          <div style="margin-left: 10px;">Iniciar Sesion</div>
+        </button>
         <hr *ngIf="!estaLogeado" style="margin: 0px;">
-        <button *ngIf="!estaLogeado" routerLink="/registro" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i class="material-icons" style="font-size: large;margin-left: 14px; ">person_add</i> <div style="margin-left: 10px;">Nuevo Usuario</div></button>
+        <button *ngIf="!estaLogeado" routerLink="/registro" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
+            class="material-icons" style="font-size: large;margin-left: 14px; ">person_add</i>
+          <div style="margin-left: 10px;">Nuevo Usuario</div>
+        </button>
         <hr *ngIf="!estaLogeado" style="margin: 0px;">
-      </mat-menu>        
+      </mat-menu>
       <div class="item-menu-opciones">
-          <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>        
-      </div>  
-  </div>
-  <!--
-<button id="buscar-icon" type="button" class="btn btn-link" routerLink="/busqueda/smartphone">
-      <mat-icon id="icono-buscar" class="icono">search</mat-icon>
-    </button>
-    <button type="button" class="btn btn-link" [matMenuTriggerFor]="usermenu">
-      <mat-icon class="icono" (click)="getSesion()">account_circle</mat-icon>
-    </button>
-    <mat-menu #usermenu="matMenu" class="menu-login">
-      <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
-        <mat-icon class="icono">person</mat-icon> Perfil
-      </button>
-      <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
-        <mat-icon class="icono">local_mall</mat-icon> Ordenes de Compra
-      </button>
-      <button *ngIf="estaLogeado" mat-menu-item routerLink="/perfil-usuario">
-        <mat-icon class="icono">local_play</mat-icon> Lista de Deseos
-      </button>
-      <button *ngIf="estaLogeado" mat-menu-item (click)="logout()">
-        <mat-icon class="icono">arrow_forward</mat-icon> Cerrar Sesión
-      </button>
-      <button *ngIf="!estaLogeado" mat-menu-item routerLink="/login">
-        <mat-icon class="icono">vpn_key</mat-icon> Iniciar Sesión
-      </button>
-      <button *ngIf="!estaLogeado" mat-menu-item routerLink="/registro">
-        <mat-icon class="icono">person_add</mat-icon> Nuevo Usuario
-      </button>
-    </mat-menu>
-    <button type="button" class="btn btn-link" routerLink="/cart">
-      <mat-icon class="icono">shopping_cart</mat-icon>
-    </button>
-  -->
-    
+        <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>
+      </div>
+    </div>
   </div>
 </nav>
 
-
-<div  id="menu-todas-opciones">
+<div id="menu-todas-opciones">
   <ul>
     <li class="active-menu-cont"><a class="active-menu">CATEGORIAS</a></li>
-    <li><a>Ofertas del día</a></li>
-    <li><a>Tiendas</a></li>
-    <li><a>Ayuda</a></li>
   </ul>
 </div>
 <div class="cont-busqueda-peque">
   <div style="width: 100%; ">
-      <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;" placeholder="Busca productos"  id="buscarartpal2" name="buscarartpal2">
+    <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;" placeholder="Busca productos"
+      id="buscarartpal2" name="buscarartpal2">
   </div>
-  <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: white; padding-left: 5px;" (click)="buscarArti()">search</i>
-
-  
+  <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: white; padding-left: 5px;"
+    (click)="buscarArti()">search</i>
 </div>
-  <!--
-    <div class="itemmenu-menu">
-    <h5 style="color: rgb(56, 55, 55);">Categorías</h5>
-  </div>
-  <div class="itemmenu-menu">
-    <h5 style="color: rgb(56, 55, 55); ">Ofertas del día</h5>
-  </div>
-  <div class="itemmenu-menu">
-    <h5 style="color: rgb(56, 55, 55);">Soporte 24/7</h5>
-  </div>
-  <div class="itemmenu-menu">
-    <h5 style="color: rgb(56, 55, 55);"  >Tiendas</h5>
-  </div>
-</div>
-  -->
-
 <!-- MENU EN CELULARES-->
-<div id="mySidepanel2" class="sidepanel" style="z-index: 1600;" >
- <div id="mySidepanel" class="cont-menu-peque">
-   <div class="header-menu-peque">
-     <div style="width: 40%; height: auto; padding-left: 15px;">
+<div id="mySidepanel2" class="sidepanel" style="z-index: 1600;">
+  <div id="mySidepanel" class="cont-menu-peque">
+    <div class="header-menu-peque">
+      <div style="width: 40%; height: auto; padding-left: 15px;">
         <img src="/assets/images/logoS.png" alt="" style="width: 100%;">
-     </div>
-     <div style="width: 60%; display: flex; justify-content: flex-end; margin: 0px;padding-right: 15px;">
+      </div>
+      <div style="width: 60%; display: flex; justify-content: flex-end; margin: 0px;padding-right: 15px;">
         <i class="material-icons btncerrar-menu" style="color: white; font-size: x-large;" (click)="closeNav()">close</i>
-     </div>
+      </div>
     </div>
-   <div style="width: 100%; padding: 5px; padding-top: 15px; display: flex; flex-direction: column;">
-    <h5>Categorias</h5>
-    <hr style="margin: 0px; padding: 0px;">
-    <div style="width: 100%; display:flex; flex-direction: column">
-      <div *ngFor="let categoriap of categorias; index as i"   class="item-cat-menu-peque" (click)="busquedacat(categoriap._id)">
-        <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i><div>{{categoriap.nombre}}</div>      
-    </div>
-
-    </div>
-
-    <hr style="margin: 0px; padding: 0px; margin-top: 10px;">
-    <div class="item-menu-peque" (click)="abrirChat()">
+    <div style="width: 100%; padding: 5px; padding-top: 15px; display: flex; flex-direction: column;">
+      <h5>Categorias</h5>
+      <hr style="margin: 0px; padding: 0px;">
+      <div style="width: 100%; display:flex; flex-direction: column">
+        <div *ngFor="let categoriap of categorias; index as i" class="item-cat-menu-peque" (click)="busquedacat(categoriap._id)">
+          <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i>
+          <div>{{categoriap.nombre}}</div>
+        </div>
+      </div>
+      <hr style="margin: 0px; padding: 0px; margin-top: 10px;">
+      <div class="item-menu-peque" (click)="abrirChat()">
         <i class="material-icons">
-            chat_bubble_outline
-            </i>
-            <h5>Chat</h5>
-    </div>    
-    <hr style="margin: 0px; padding: 0px;">
-    <div class="item-menu-peque">
-            <h5>Terminos y condiciones</h5>
-    </div>    
-    <hr style="margin: 0px; padding: 0px;">
-   </div>
-
-
-  
- </div>
+          chat_bubble_outline
+        </i>
+        <h5>Chat</h5>
+      </div>
+      <hr style="margin: 0px; padding: 0px;">
+      <div class="item-menu-peque">
+        <h5>Terminos y condiciones</h5>
+      </div>
+      <hr style="margin: 0px; padding: 0px;">
+    </div>
+  </div>
 </div>
-
