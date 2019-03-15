@@ -15,6 +15,9 @@ router.get('/url/:id', articulo.obtenerArticuloURL);
 router.get('/equipos/:idglobal', articulo.ObtenerEquiposArticulo);
 router.get('/mysql/precios/:id', articulo.obtenerPreciosMysql);
 router.get('/card/card/card/:tipo',articulo.obtenerCardsTipo);
+router.get('/banners/banner', articulo.obtenerBanners);
+router.get('/banners/banner/:id', articulo.obtenerArticulosBanner);
+
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
 router.post('/', articulo.crearArticulo);
 router.post('/cartel', articulo.guardarCards);

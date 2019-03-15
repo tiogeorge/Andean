@@ -5,6 +5,7 @@ const MarcaArt = require('../models/marca');
 var jsonArticulos;
 const Equipo = require('../models/equipos');
 const Card = require('../models/card');
+const Banner = require('../models/banner');
 var jsonEquipos = new Array();
 
 articuloController.obtenerArticulosMysql = async (req, res) => {
@@ -465,6 +466,27 @@ articuloController.guardarBanners= async(req, res)=>{
             error: err
         })
     }
+
+}
+articuloController.obtenerBanners = async (req, res)=>{
+    try{
+        console.log("INGRESANDO A BANNERS");
+        const banners = await Banner.find({}).select('imagen');
+        res.json({
+            status: true,
+            msg: 'Los datos se obtuvieron con éxito',
+            data: banners
+        })
+
+    }catch(err){
+        console.log(err);
+        res.json({
+            status: false,
+            error: err
+        });
+    }
+}
+articuloController.obtenerArticulosBanner = async(req,res)=>{
 
 }
 
