@@ -487,7 +487,21 @@ articuloController.obtenerBanners = async (req, res)=>{
     }
 }
 articuloController.obtenerArticulosBanner = async(req,res)=>{
+    try{
+        const banners = await Banner.find({_id: req.params.id});
+        res.json({
+            status: true,
+            msg: 'Los datos se obtuvieron con éxito',
+            data: banners
+        })
 
+    }catch(err){
+        console.log(err);
+        res.json({
+            status: false,
+            error: err
+        });
+    }
 }
 
 articuloController.guardarCards = async (req, res) => {
