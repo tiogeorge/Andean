@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   ultimomensaje     : MensajeChat   = new MensajeChat();
   mostrarBotonChat  : boolean       = true;
   mostrarCampos     : boolean       = true;
-  mensajeFormulario : string        = " Porfavor ingrese la siguiente informacion para poder ayudarle: ";;
+  mensajeFormulario : string        = " Por favor ingrese la siguiente información para poder ayudarle: ";;
   mostrarFooter     : boolean       = true;
   mostrarFormulario : boolean       = true;
   conversacionId    : string;
@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
     this.subscription = this.comService.getUsuario()
     .subscribe(user => {
       if(user == "CERRAR"){
-        this.mensajeFormulario =  " Porfavor ingrese la siguiente informacion para poder ayudarle: ";
+        this.mensajeFormulario =  " Por favor ingrese la siguiente información para poder ayudarle: ";
       }else{
         this.chatService.usuario =user;      
         this.mostrarCampos = false;

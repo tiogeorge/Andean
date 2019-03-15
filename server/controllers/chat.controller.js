@@ -14,7 +14,7 @@ exports.getMensajes = async(req, res, next) =>{
     } else {
       res.json({
         status: true,
-        msg: 'Mensajes obtnidos',
+        msg: 'Mensajes obtenidos',
         data: mensajes
       })
     }
