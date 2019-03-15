@@ -327,6 +327,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.recuperarpadres(norepetidos);
   }
   recuperarpadres(tem: any[]) {
+    console.log(tem);
     var padres = [];
     for (var i = 0; i < tem.length; i++) {
       this.categoriaservice.listarpadressegunhijo(tem[i])
@@ -374,6 +375,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {
           this.articuloslista = Respuesta;
+          console.log(this.articuloslista);
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta;
           this.temporallistaarti2 = Respuesta;

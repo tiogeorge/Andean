@@ -234,6 +234,7 @@ articuloController.buscararti = async (req, res) => {
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
         console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+        //precios
         var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
@@ -243,7 +244,14 @@ articuloController.buscararti = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-
+        //fin
+        //categoria padre
+        var idhijo=articulosB[i].categoria;
+        const catepadre=await Categoria.find({_id:idhijo},'padre');
+        console.log('PADRE');
+        console.log(catepadre[0].padre);
+        //fin
+        jsonarticulos[i].categoriapadre=catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
@@ -271,7 +279,13 @@ articuloController.buscararti2 = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-
+         //categoria padre
+         var idhijo=articulosB[i].categoria;
+         const catepadre=await Categoria.find({_id:idhijo},'padre');
+         console.log('PADRE');
+         console.log(catepadre[0].padre);
+         //fin
+         jsonarticulos[i].categoriapadre=catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
@@ -302,6 +316,13 @@ articuloController.buscararti3 = async (req, res) => {
         else {
             jsonarticulos[i].precioplan = "no tiene";
         }
+         //categoria padre
+         var idhijo=articulosB[i].categoria;
+         const catepadre=await Categoria.find({_id:idhijo},'padre');
+         console.log('PADRE');
+         console.log(catepadre[0].padre);
+         //fin
+         jsonarticulos[i].categoriapadre=catepadre[0].padre;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
@@ -341,6 +362,13 @@ articuloController.busquedaGeneral = async (req, res) => {
         else {
             jsonarticulos[i].precioplan = "no tiene";
         }
+         //categoria padre
+         var idhijo=articulosB[i].categoria;
+         const catepadre=await Categoria.find({_id:idhijo},'padre');
+         console.log('PADRE');
+         console.log(catepadre[0].padre);
+         //fin
+         jsonarticulos[i].categoriapadre=catepadre[0].padre;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
