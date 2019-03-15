@@ -1,3 +1,4 @@
+import { Constantes } from './../constantes';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { Constantes} from '../constantes'
@@ -32,7 +33,10 @@ export class CategoriaService {
     return this.http.get(Constantes.URL_API_CATEGORIA+'/subcategorias/'+id, {withCredentials: true});
   }
   listarpadressegunhijo(id:string){
-    return this.http.get(Constantes.URL_API_CATEGORIA+'/padre/padre/'+id, {withCredentials: true})
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/padre/padre/'+id, {withCredentials: true});
+  }
+  listarhijossegunpadre(id:string){
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/catpadre/'+id, {withCredentials: true});
   }
   
 }

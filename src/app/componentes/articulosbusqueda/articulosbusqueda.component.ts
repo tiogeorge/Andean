@@ -324,6 +324,14 @@ export class ArticulosbusquedaComponent implements OnInit {
       norepetidos[i] = ArrOrdenado[i];
     }
     console.log(norepetidos);
+    this.recuperarcat(norepetidos[0]);
+  }
+  recuperarcat(id:string){
+    console.log('entra'+id);
+    this.categoriaservice.listarhijossegunpadre(id)
+    .subscribe(res=>{
+      console.log(res);
+    });
   }
   //fin
 

@@ -50,10 +50,10 @@ categoriaController.obtenerCategoriapadre=async(req,res)=>{
 }
 categoriaController.obtenerpadreehijos=async(req,res)=>{
     var idpadre=req.params.id;
-    const cateroipa=await Categoria.find({_id:idpadre},'_id','nombre');
+    const cateroipa=await Categoria.find({_id:idpadre},'nombre');
     var jsoncat=JSON.parse(JSON.stringify(cateroipa));
     for(var i=0;i<cateroipa.length;i++){
-        const hijos=await Categoria.find({padre:idpadre},'_id','nombre');
+        const hijos=await Categoria.find({padre:idpadre},'nombre');
         var arreglohijos=new Array();
         arreglohijos.push(hijos);
         jsoncat[i].hijos=arreglohijos;
