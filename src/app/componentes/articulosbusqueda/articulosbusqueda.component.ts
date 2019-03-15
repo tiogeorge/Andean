@@ -178,10 +178,12 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.tipordenado = 'orden1';
     var urlcat=this.route.snapshot.paramMap.get("tipobus");
     var url = this.route.snapshot.paramMap.get("pclave");
-    if(urlcat=='Cat'){
+    if(urlcat=='cat'){
+      console.log('busqueda por categoria:'+urlcat)
       this.listararticate(url);
     }
     else{
+      console.log('busqueda por palabra:'+urlcat)
       this.listaraarticulos(url);
     }
     this.palabrabusq = url;
@@ -340,6 +342,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   //fin
 
   listararticate(id:string){
+    console.log(id);
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
@@ -347,7 +350,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     .subscribe(res => {
       this.articulodetalleService.Articulo = res as Articulo[];
       var Respuesta = JSON.parse(JSON.stringify(res));
-        this.articuloslista = Respuesta;
+      console.log(Respuesta[0]);
+        this.articuloslista = Respuesta[0];
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
         this.temporallistaarti2 = Respuesta;
