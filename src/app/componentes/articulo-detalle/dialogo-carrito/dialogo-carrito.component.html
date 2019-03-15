@@ -1,41 +1,17 @@
-<h5 mat-dialog-title [style.color]="data.status ? '#1E8449' : '#E74C3C'">{{data.mensaje}}</h5>
+<h5 mat-dialog-title [style.color]="data.status ? '#1E8449' : '#E74C3C'" style="font-size: 16px;">{{data.mensaje}}</h5>
 <div mat-dialog-content>
   <mat-grid-list cols="10" rowHeight="30px">
-    <mat-grid-tile [colspan]="10" [rowspan]="1">
-      <h5 [style.font-family]="'Verdana'" >{{data.articulo.titulo}}</h5>
+    <mat-grid-tile [colspan]="4" [rowspan]="4">
+      <img [src]="urlImg" [alt]="data.articulo.titulo" [style.height]="'120px'" [style.width]="'auto'">
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="4" [rowspan]="6">
-      <img [src]="urlImg" [alt]="data.articulo.titulo" [style.height]="'180px'" [style.width]="'auto'">
+    <mat-grid-tile [colspan]="6" [rowspan]="2">
+      <h5 [style.font-family]="'Verdana'">{{data.articulo.titulo}}</h5>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="1">
-      <h5 [style.font-family]="'Tahoma'" [style.font-size]="'1rem'">PLAN</h5>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="1">
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
       <h5 [style.font-family]="'Tahoma'" [style.font-size]="'1rem'">PRECIO</h5>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="3" [rowspan]="2">
-        <h6 [style.font-family]="'Georgia'" [style.text-align]="'center'">{{data.plan.nombreplan}}</h6>
-      </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="2">
-      <h6 [style.font-family]="'Georgia'" [style.font-size]="'1.25rem'">S/ {{data.plan.precio}}</h6>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <h5 [style.font-family]="'Tahoma'" [style.font-size]="'.75rem'">Cuotas</h5>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <h5 [style.font-family]="'Tahoma'" [style.font-size]="'.75rem'">Cuota Inicial</h5>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <h5 [style.font-family]="'Tahoma'" [style.font-size]="'.75rem'">Monto Mes</h5>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <h6 [style.font-family]="'Times'" [style.font-size]="'.75rem'">{{data.plan.cuotas}} cuotas</h6>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <h6 [style.font-family]="'Times'" [style.font-size]="'.75rem'">S/ {{data.plan.cuotainicial}}</h6>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <h6 [style.font-family]="'Times'" [style.font-size]="'.75rem'">S/ {{data.plan.montomes}} /mes</h6>
+      <h6 [style.font-family]="'Georgia'" [style.font-size]="'1.5rem'">S/ {{data.plan.precio}}</h6>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

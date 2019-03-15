@@ -384,7 +384,7 @@ export class ArticuloDetalleComponent implements OnInit {
 
   openDialog(res: any): void {
     const dialogRef = this.dialog.open(DialogoCarritoComponent, {
-      width: '600px',
+      width: '480px',
       data: {
         status: res.status,
         mensaje: res.msg ? res.msg : res.error,
