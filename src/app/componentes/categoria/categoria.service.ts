@@ -18,6 +18,9 @@ export class CategoriaService {
     return this.http.get(Constantes.URL_API_CATEGORIA+'/', {withCredentials: true});
   }
 
+  listarcat(id:string){
+    return this.http.get(Constantes.URL_API_CATEGORIA+'/'+id, {withCredentials: true});
+  }
   listarcategoria(id:string){
     return this.http.get(Constantes.URL_API_CATEGORIA+'/categoriaart/'+id, {withCredentials: true});
   }

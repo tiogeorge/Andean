@@ -297,7 +297,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     var temp: any[] = new Array();
     for (var i = 0; i < Object.keys(tem).length; i++) {
       //temp.push(tem[i].categoria);
-      temp[i] = tem[i].categoria;
+      temp[i] = tem[i].categoriapadre;
     }
     console.log(temp);
     this.funcionrepetir(temp);
@@ -324,21 +324,6 @@ export class ArticulosbusquedaComponent implements OnInit {
       norepetidos[i] = ArrOrdenado[i];
     }
     console.log(norepetidos);
-    this.recuperarpadres(norepetidos);
-  }
-  recuperarpadres(tem: any[]) {
-    console.log(tem);
-    var padres = [];
-    for (var i = 0; i < tem.length; i++) {
-      this.categoriaservice.listarpadressegunhijo(tem[i])
-        .subscribe(res => {
-          padres.push(JSON.parse(JSON.stringify(res)));
-        });
-    }
-    console.log('los padres son');
-    console.log(padres);
-    this.listacategorias = padres;
-    console.log(this.listacategorias);
   }
   //fin
 

@@ -7,6 +7,7 @@ router.get('/', categoria.obtenerCategorias);
 router.get('/:id', categoria.obtenerCategoria);
 router.get('/padre/padre/:id',categoria.obtenerCategoriapadresegunhijo);
 router.get('/categoriapadre/:padre',categoria.obtenerCategoriapadre);
+router.get('/catpadre/:id',categoria.obtenerpadreehijos);
 router.get('/subcategorias/:id', categoria.obtenerSubCategorias);
 router.get('/categoriaart/:descripcion',categoria.listarcategoria);
 router.post('/', categoria.crearCategoria);
