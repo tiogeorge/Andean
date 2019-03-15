@@ -503,6 +503,14 @@ articuloController.obtenerArticulosBanner = async(req,res)=>{
         });
     }
 }
+articuloController.obtenerTodoBanners = async (req,res)=>{
+    try{
+        const banners = await Banner.find({});
+        res.json(banners);
+    }catch(err){
+        res.json(err);
+    }
+}
 
 articuloController.guardarCards = async (req, res) => {
     try {
