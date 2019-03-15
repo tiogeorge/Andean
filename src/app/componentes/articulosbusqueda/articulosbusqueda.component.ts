@@ -350,12 +350,18 @@ export class ArticulosbusquedaComponent implements OnInit {
     .subscribe(res => {
       this.articulodetalleService.Articulo = res as Articulo[];
       var Respuesta = JSON.parse(JSON.stringify(res));
-      console.log(Respuesta[0]);
+      if(Object.keys(res).length > 0){
+        console.log(Respuesta[0]);
         this.articuloslista = Respuesta[0];
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta[0];
         this.temporallistaarti2 = Respuesta[0];
         this.listcategoraisfil();
+      }
+      else{
+        this.palabraClave='';
+        this.vistanoencontrado();
+      }
     });
   }
   listaraarticulos(pclave: string) {
