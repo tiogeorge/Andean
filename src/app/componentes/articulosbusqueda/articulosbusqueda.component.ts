@@ -353,8 +353,8 @@ export class ArticulosbusquedaComponent implements OnInit {
       console.log(Respuesta[0]);
         this.articuloslista = Respuesta[0];
         this.numeroencontrados = Object.keys(res).length;
-        this.temporallistaarti = Respuesta;
-        this.temporallistaarti2 = Respuesta;
+        this.temporallistaarti = Respuesta[0];
+        this.temporallistaarti2 = Respuesta[0];
         this.listcategoraisfil();
     });
   }
