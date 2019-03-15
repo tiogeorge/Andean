@@ -18,6 +18,7 @@ router.get('/card/card/card/:tipo',articulo.obtenerCardsTipo);
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
 router.post('/', articulo.crearArticulo);
 router.post('/cartel', articulo.guardarCards);
+router.post('/banner', articulo.guardarBanners);
 router.put('/:id', articulo.actualizarArticulo);
 //router.delete('/:id', articulo.eliminarCategoria);
 
