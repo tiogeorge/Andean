@@ -1,4 +1,3 @@
-import { Constantes } from './../constantes';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { Constantes} from '../constantes'
