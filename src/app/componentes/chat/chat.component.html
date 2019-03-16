@@ -1,96 +1,97 @@
-
-<div class="card shadow-lg bg-light contenedor-chat-prin"  [hidden]="mostrarBotonChat">
-  <div class="card-header" style="background-color: #212529; color: white; padding-top: 8px; padding-bottom: 8px;" >
-    <div style="display: flex; flex-direction: row; align-items: center;">
-      <div style="flex-grow:0; width: 80%;">
-        <label style="margin: 0px; padding: 0px;">Chat</label>
-      </div> 
-      <div style="flex-grow:0; width: 10%; margin-bottom: 5px; cursor: pointer; text-align: center;">
+<div class="card shadow-lg bg-light contenedor-chat-prin" [hidden]="mostrarBotonChat">
+  <div class="card-header">
+    <div>
+      <div>
+        <label>CHAT ONLINE</label>
+      </div>
+      <div>
         <i class="fa fa-window-minimize" (click)="minimizar()"></i>
       </div>
-      <div style="flex-grow:0; width: 10%; margin-bottom: 5px; cursor: pointer; text-align: center;">
+      <div>
         <i class="fa fa-times" (click)="cerrarChat()"></i>
       </div>
     </div>
   </div>
-  <div class="card-body" style="padding: 5px!important;">
+  <div class="card-body">
     <div class="contenido-chat" [hidden]="!mostrarFormulario">
       <label [innerHTML]="mensajeFormulario"></label>
-      <form  class="example-form">
-          <mat-form-field  style="width: 100%;" [hidden]="!mostrarCampos">
-            <input matInput placeholder="Ingrese su nombre" #nombre="ngModel" [(ngModel)]="chatService.usuario.nombres" [ngModelOptions]="{standalone: true}" >
-          </mat-form-field>
-          <mat-form-field  style="width: 100%;" [hidden]="!mostrarCampos">
-            <input matInput placeholder="Ingrese su Email" #correo="ngModel" [(ngModel)]="chatService.usuario.correo" [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
-          <mat-form-field style="width: 100%;">
-              <mat-select #tipoConsulta placeholder="Seleccione un tipo de consulta" disableRipple>
-                <mat-option value="Reembolsos">Reembolsos</mat-option>
-                <mat-option value="Cambio de artículos">Cambio de Artículo</mat-option>
-                <mat-option value="Información">Información </mat-option>
-              </mat-select>
-          </mat-form-field>
-          <mat-form-field style="width: 100%;" >
-              <textarea matInput #consulta placeholder="Ingrese su consulta" rows="4"></textarea>
-          </mat-form-field>
-      </form> 
+      <form class="example-form">
+        <mat-form-field [hidden]="!mostrarCampos">
+          <input matInput placeholder="Ingrese su nombre" #nombre="ngModel" [(ngModel)]="chatService.usuario.nombres"
+            [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <mat-form-field [hidden]="!mostrarCampos">
+          <input matInput placeholder="Ingrese su Email" #correo="ngModel" [(ngModel)]="chatService.usuario.correo"
+            [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select #tipoConsulta placeholder="Seleccione un tipo de consulta" disableRipple>
+            <mat-option value="Información">Información</mat-option>
+            <mat-option value="Ayuda para comprar">Ayuda para comprar</mat-option>
+            <mat-option value="Informe de error">Informe de error </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput #consulta placeholder="Especifique la consulta" rows="6"></textarea>
+        </mat-form-field>
+      </form>
     </div>
     <div #chatPrincipal class="contenido-chat" [hidden]="mostrarFormulario" [style.opacity]="habilitarEnvio ? '1': '0.25'">
-      <div  *ngFor="let mensaje of listaMensajesChat">
-          <div *ngIf="mensaje.autor == 'admin'" class="mensaje-admin">
-              <div class="info-mensaje">
-                <div style="width: 70%; flex-grow: 0;">
-                    <label  style="margin:0px; ">{{nombreAsesor}}</label>
-                </div>
-                <div style="width: 20%; flex-grow: 0;">
-                </div>
-                <div style="width: 50%;  flex-grow: 0; text-align: right;" >
-                    <label  style="margin:0px;" > {{mensaje.tiempo | date: 'h:mma' }}</label>
-                </div>        
-              </div>
-              <img src="./assets/images/andeano.png" alt="Andeano" style="border-radius: 50%; width: 40px; height: 40px;">
-              <div class="item-mensaje-admin">{{mensaje.cuerpo}}</div>
-          </div>
-          <div *ngIf="mensaje.autor != 'admin' && mensaje.autor != '$unirChat'" class="mensaje-user">
-            <div class="info-mensaje">
-              <div style="width: 50%;  flex-grow: 0;">
-                  <label  style="margin:0px;"> {{mensaje.tiempo | date: 'h:mma' }}</label>
-              </div>         
-              <div style="width: 20%; flex-grow: 0;">
-              </div>
-              <div style="width: 30%; flex-grow: 0; text-align: right;">
-                  <label  style="margin:0px; ">{{mensaje.autor}} </label>
-              </div>
+      <div *ngFor="let mensaje of listaMensajesChat">
+        <div *ngIf="mensaje.autor == 'admin'" class="mensaje-admin">
+          <div class="info-mensaje">
+            <div>
+              <label>{{nombreAsesor}}</label>
             </div>
-            <div class="item-mensaje-user">{{mensaje.cuerpo}} </div>
-            <img src="./assets/images/cliente-icon.png" alt="Andeano" style="border-radius: 50%; width: 40px; height: 40px;">
-          </div>   
-          <div *ngIf="mensaje.autor == '$unirChat'" class="mensaje-admin">
-            <div class="eventoChat">{{mensaje.cuerpo}}</div>
+            <div>
+            </div>
+            <div>
+              <label> {{mensaje.tiempo | date: 'h:mma' }}</label>
+            </div>
           </div>
-          <div *ngIf="true">
-            {{MoverScroll(chatPrincipal)}}
+          <img class="imagen-chat" src="./assets/images/andeano.png" alt="andeano smarket">
+          <div class="item-mensaje-admin">{{mensaje.cuerpo}}</div>
+        </div>
+        <div *ngIf="mensaje.autor != 'admin' && mensaje.autor != '$unirChat'" class="mensaje-user">
+          <div class="info-mensaje">
+            <div>
+              <label> {{mensaje.tiempo | date: 'h:mma' }}</label>
+            </div>
+            <div>
+            </div>
+            <div>
+              <label>{{mensaje.autor}} </label>
+            </div>
           </div>
+          <div class="item-mensaje-user">{{mensaje.cuerpo}} </div>
+          <img class="imagen-chat" src="./assets/images/cliente-icon.png" alt="andeano smarket">
+        </div>
+        <div *ngIf="mensaje.autor == '$unirChat'" class="mensaje-admin">
+          <div class="eventoChat">{{mensaje.cuerpo}}</div>
+        </div>
+        <div *ngIf="true">
+          {{MoverScroll(chatPrincipal)}}
+        </div>
       </div>
       <span id="final" style="width: 50px;"></span>
     </div>
-    <div class="footer-chat" [hidden]="!mostrarFooter">
-      <div style="flex-grow: 0;width: 100%;">
-          <button mat-raised-button style="width: 100%;" color="primary" (click)="iniciarChat(tipoConsulta.value, consulta.value)">Conectarse al Chat</button>
+    <div id="conectarChat" class="footer-chat" [hidden]="!mostrarFooter">
+      <div>
+        <button mat-raised-button color="primary" (click)="iniciarChat(tipoConsulta.value, consulta.value)">Conectarse
+          al Chat</button>
       </div>
     </div>
-    <div class="footer-chat" style="border: 1px solid rgb(155, 153, 153); " [hidden]="mostrarFooter"> 
-        <div style="flex-grow: 0;width: 85%;" >
-          <input #inputMensaje type="text" style="width: 100%; border: 1px solid rgb(255, 252, 252); height:40px ;padding-left: 8px;" placeholder="Escriba su mensaje" (keypress)="enviarMensajeChat($event, inputMensaje)" [hidden]="!habilitarEnvio" >
-        </div>
-        <div style="flex-grow: 0;width: 15%;">
-            <button style="height: 40px; width: 100%;border: 0px solid white;background-color: white; cursor: pointer; "><i class="fa fa-send"></i></button>
-        </div>           
+    <div id="enviarMensaje" class="footer-chat" [hidden]="mostrarFooter">
+      <div>
+        <input #inputMensaje type="text" placeholder="Escriba su mensaje" (keypress)="enviarMensajeChat($event, inputMensaje)"
+          [hidden]="!habilitarEnvio">
+      </div>
+      <div>
+        <button><i class="fa fa-send"></i></button>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="btn-chat-prin" [hidden]="!mostrarBotonChat"> 
-  <button mat-fab color="primary"  (click)="mostrarChat()"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
+<div class="btn-chat-prin" [hidden]="!mostrarBotonChat">
+  <button mat-fab color="primary" (click)="mostrarChat()"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
 </div>
-
