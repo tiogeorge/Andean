@@ -306,15 +306,15 @@ export class ArticulosbusquedaComponent implements OnInit {
 
   //contar repetidos
   funcionrepetir(tem: any[]) {
-    console.log(tem)
+  //  console.log(tem)
     var ArrOrdenado = [],
       norepetidos = [],
       count = 1;
     ArrOrdenado = tem.sort(function (a, b) {
       return a - b
     });
-    console.log('ordenado');
-    console.log(ArrOrdenado);
+ //   console.log('ordenado');
+ //   console.log(ArrOrdenado);
     for (var i = 0; i < ArrOrdenado.length; i = i + count) {
       count = 1;
       for (var j = i + 1; j < ArrOrdenado.length; j++) {
@@ -324,16 +324,16 @@ export class ArticulosbusquedaComponent implements OnInit {
       console.log(ArrOrdenado[i] + " = " + count);
       norepetidos[i] = ArrOrdenado[i];
     }
-    console.log(norepetidos);
+  //  console.log(norepetidos);
     this.recuperarcat(norepetidos[0]);
   }
   recuperarcat(id:string){
-    console.log('entra'+id);
+ //   console.log('entra'+id);
     this.categoriaservice.listarhijossegunpadre(id)
     .subscribe(res=>{
       var Respuesta=JSON.parse(JSON.stringify(res));
       this.listacategorias.push(Respuesta[0]);
-      console.log(this.listacategorias);
+    //  console.log(this.listacategorias[0].hijos[0][0]);
     });
   }
   //fin
@@ -463,6 +463,22 @@ export class ArticulosbusquedaComponent implements OnInit {
      }
    }*/
   //filtro marca
+  filtroCategoria(){
+    console.log('entra filtro categoria');
+    var arrcat=[];
+    $("input:checkbox[name=check]:checked").each(function () {
+      arrcat.push($(this).val());
+    });
+    console.log(arrcat);
+  }
+  filtroCategoriaH(){
+    console.log('entra filtro categoria hijos');
+    var arrcatH=[];
+    $("input:checkbox[name=check]:checked").each(function () {
+      arrcatH.push($(this).val());
+    });
+    console.log(arrcatH);
+  }
   filtroMarca() {
     console.log('entra filtro marca');
     var arr = [];
