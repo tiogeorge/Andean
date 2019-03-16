@@ -33,48 +33,55 @@ export class ChatComponent implements OnInit {
   subscriptionChat: Subscription;
 
   constructor(public chatService: ChatService,
-              public usuarioService: UsuarioService, public comService: comunicacionService ) { 
+              public usuarioService: UsuarioService, 
+              public comService: comunicacionService ) { 
     this.subscription = this.comService.getUsuario()
     .subscribe(user => {
       if(user == "CERRAR"){
-        this.mensajeFormulario =  " Por favor ingrese la siguiente información para poder ayudarle: ";
+        this.mensajeFormulario =  " Por favor especifique su consulta para ayudarle: ";
       }else{
         this.chatService.usuario =user;      
         this.mostrarCampos = false;
-        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle.";
-      
+        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte.";
       }
-      
     });
     this.subscriptionChat = this.comService.getAccionChat()
     .subscribe(res=>{
       this.mostrarChat();
     });
-              }
+  }
 
   ngOnInit() {    
   }
  
+  /**
+   * Método que verifica si el usuario ya ha iniciado sesión y muestra un mensaje con su nombre para pedir su consulta.
+   */
   verificarUsuario(){
     this.usuarioService.getUsuarioLogeado().subscribe( res => {
       var respuesta = JSON.parse(JSON.stringify(res));
       if(respuesta.status){
         this.chatService.usuario = respuesta.data as Usuario;      
         this.mostrarCampos = false;
-        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", porfavor ingrese los datos solicitados para ayudarle.";
+        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte";
       }else {
         this.chatService.usuario = new Usuario();
-        this.mensajeFormulario = " Porfavor ingrese la siguiente informacion para poder ayudarle: ";
+        this.mensajeFormulario = " Por favor especifique su consulta para ayudarle: ";
         this.mostrarCampos = true;
       }   
     });
   }
 
+  /**
+   * Método que muestra u oculta el boton de chat
+   */
   mostrarChat(){
-    //this.verificarUsuario();
     this.mostrarBotonChat = false;
   }
 
+  /**
+   * Método que termina una conversación de chat
+   */
   cerrarChat(){
     this.listaMensajesChat = [];
     this.mostrarBotonChat = true;
@@ -84,6 +91,11 @@ export class ChatComponent implements OnInit {
     this.chatService.cerrarConversacion(mensaje);
   }
 
+  /**
+   * Método para iniciar una conversación de chat 
+   * @param tipoConsulta : tipo de consulta enviada
+   * @param consulta : detalles de la consulta del cliente
+   */
   iniciarChat(tipoConsulta: string, consulta: string){
     const esperaChat = new MensajeChat('', 'Esperando a nuestr@ asesor@ de ventas', '$unirChat','');
     this.agregarMensaje(esperaChat);
@@ -101,17 +113,18 @@ export class ChatComponent implements OnInit {
     this.mostrarFormulario = false;
   }
   
+  /**
+   * Método para iniciar una conversación
+   */
   iniciarConversacion(){
     this.habilitarEnvio = true;
   };
 
-  mostrarChatPrincipal(res){
-    if(res.estado == 1){
-      this.mostrarFooter = false;
-      this.mostrarFormulario = false;
-    }
-  }
-
+  /**
+   * Método para enviar un mensaje dentro de una conversación
+   * @param event : evento de presionar una tecla
+   * @param inputMensaje : mensaje que el usuario ingresó
+   */
   enviarMensajeChat(event, inputMensaje : HTMLInputElement){
     if(event.key== "Enter"){
       let valor = inputMensaje.value;
@@ -125,16 +138,27 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  /**
+   * Método para agregar un mensaje a el componente y así visualizarlo
+   * @param m : Mensaje a visualizar
+   */
   agregarMensaje(m: MensajeChat) { 
     this.tiempo = Date.now();
     m.tiempo = this.tiempo;
     this.listaMensajesChat.push(m);
   }
 
+  /**
+   * Método que ubica los mensajes al final del componente
+   * @param chatPrincipal : Elemento DOM del chat
+   */
   MoverScroll(chatPrincipal : HTMLDivElement) {
     chatPrincipal.scrollTop = chatPrincipal.scrollHeight;
   }
 
+  /**
+   * Minimizar el componente chat
+   */
   minimizar(){
     this.mostrarBotonChat = true;
   }
