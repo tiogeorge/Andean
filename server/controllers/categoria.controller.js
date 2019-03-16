@@ -55,7 +55,7 @@ categoriaController.obtenerpadreehijos=async(req,res)=>{
     for(var i=0;i<cateroipa.length;i++){
         const hijos=await Categoria.find({padre:idpadre},'nombre');
         var arreglohijos=new Array();
-        arreglohijos.push(hijos);
+        arreglohijos.push(hijos[0]);
         jsoncat[i].hijos=arreglohijos;
     }
     res.json(jsoncat);

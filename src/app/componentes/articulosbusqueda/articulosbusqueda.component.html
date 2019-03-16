@@ -55,10 +55,17 @@
               <div class="checkbox" *ngFor="let categoria of listacategorias">
                 <div>
                   <label>
-                    <input type="checkbox" value="" id="{{categoria[0].padre}}">
+                    <input type="checkbox" value="" id="{{categoria._id}}">
                     <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
-                    {{categoria[0].nombre}}
+                    {{categoria.nombre}}
                   </label>
+                  <div>
+                    <label>
+                      <input type="checkbox" value="" id="{{categoria.hijos[0]._id}}">
+                      <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
+                      {{categoria.hijos[0].nombre}}
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

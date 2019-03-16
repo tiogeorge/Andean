@@ -1,3 +1,4 @@
+import { Respuesta } from './../perfil-usuario/respuesta';
 import { Categoria } from './../menu/categoria';
 import { CategoriaService } from './../categoria/categoria.service';
 import { MarcaService } from './../marca/marca.service';
@@ -56,7 +57,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   arreglomarcas: string[]; //= new Array();
 
   selected = 'option1';
-  listacategorias: any;
+  listacategorias=new Array();
   listamarcas: any;
   listamarcas2: string[];//any = [{ id: any, nombre: string }];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
@@ -330,7 +331,9 @@ export class ArticulosbusquedaComponent implements OnInit {
     console.log('entra'+id);
     this.categoriaservice.listarhijossegunpadre(id)
     .subscribe(res=>{
-      console.log(res);
+      var Respuesta=JSON.parse(JSON.stringify(res));
+      this.listacategorias.push(Respuesta[0]);
+      console.log(this.listacategorias);
     });
   }
   //fin
