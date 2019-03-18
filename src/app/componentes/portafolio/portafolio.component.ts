@@ -15,11 +15,27 @@ export class PortafolioComponent implements OnInit {
   constructor(public cardservice: CardService) { }
   URL_IMAGENES = Constantes.URL_IMAGEN_MD;
   URL_IMAGEN = Constantes.URL_IMAGEN;
+  banners : any[] = new Array();
 
   ngOnInit() {
     this.obtenercard();   
+    this.obtenerBanner();
   }
 
+  bannerPrincipal: any;
+  obtenerBanner(){
+    this.cardservice.obtenerBanners().subscribe(res=>{
+      this.banners = res as any[];
+      this.bannerPrincipal = this.banners[0];
+      this.banners.splice(0,1);
+      var cont = document.getElementById("indicadores-carousel-grande");
+      cont.innerHTML = " <li data-target='#carousel-example-2' data-slide-to='0' class='active'></li>";
+      for(var i = 0;i<this.banners.length;i++){
+        cont.innerHTML = cont.innerHTML + "<li data-target='#carousel-example-2' data-slide-to='"+(i+1)+"'></li>"
+      }
+
+    });
+  }
   obtenercard() {
     var tipo1 = 'Equipo';
     var tipo2 = 'Plan';

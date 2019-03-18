@@ -1,29 +1,19 @@
 <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
   <div class="carusel-grande">
     <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2500">
-    
-      <ol class="carousel-indicators">
-        <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-2" data-slide-to="1"></li>
-        <li data-target="#carousel-example-2" data-slide-to="2"></li>
-      </ol>
+        <ul class="carousel-indicators" id="indicadores-carousel-grande">
+          </ul>
       <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-          <div class="view">
-            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/imagen1.png.webp" alt="First slide">
+          <div class="view" routerLink="/busqueda/ban/{{bannerPrincipal._id}}">
+            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/{{bannerPrincipal.imagen}}" >
             <div class="mask rgba-black-light"></div>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="view">
-            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/imagen2.png.webp" alt="Second slide">
-            <div class="mask rgba-black-strong"></div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="view">
-            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/imagen3.png.webp" alt="Third slide">
-            <div class="mask rgba-black-slight"></div>
+        <div class="carousel-item" *ngFor="let banner of banners; let i = index">
+          <div class="view"  routerLink="/busqueda/ban/{{bannerPrincipal._id}}">
+            <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/{{banner.imagen}}" >
+            <div class="mask rgba-black-light"></div>
           </div>
         </div>
       </div>

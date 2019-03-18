@@ -53,7 +53,7 @@
 }
 .carusel-grande{
   width: 70%;
-  display: flex;
+  /*display: flex;*/
    flex-direction: row;
    flex-wrap: wrap;
 }

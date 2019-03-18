@@ -472,11 +472,7 @@ articuloController.obtenerBanners = async (req, res)=>{
     try{
         console.log("INGRESANDO A BANNERS");
         const banners = await Banner.find({}).select('imagen');
-        res.json({
-            status: true,
-            msg: 'Los datos se obtuvieron con éxito',
-            data: banners
-        })
+        res.json(banners)
 
     }catch(err){
         console.log(err);
