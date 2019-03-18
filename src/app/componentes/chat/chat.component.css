@@ -13,8 +13,7 @@ mat-form-field {
 .card-header {
   background: linear-gradient(to right, #8700ff, #3863a7);
   color: white;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 4px 10px;
 }
 
 .card-header div {

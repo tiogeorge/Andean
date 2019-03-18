@@ -33,6 +33,15 @@
   margin: 3px;
 }
 
+.card-body button {
+  margin-top: -15px;
+}
+
+.card-body .row div:nth-child(2) label {
+  text-align: right;
+  margin-top: 5px;
+}
+
 .form-control:focus {
   border-color: orange !important;
   box-shadow: 0 0 5px rgb(235, 134, 41) !important;
