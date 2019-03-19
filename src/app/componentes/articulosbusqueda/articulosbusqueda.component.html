@@ -55,14 +55,14 @@
               <div class="checkbox" *ngFor="let categoria of listacategorias; let i=index">
                 <div>
                   <label style="cursor: pointer;" (click)="filtroCategoria()">
-                    <input type="checkbox" name="check" value="{{categoria._id}}" id="{{categoria._id}}">
+                    <input type="checkbox" name="checkPadre" value="{{categoria._id}}" id="{{categoria._id}}">
                     <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                     {{categoria.nombre}}
                   </label>
                   <div>
                     <div *ngFor="let Cathijos of categoria.hijos[0]">
-                      <label style="cursor: pointer;" (click)="filtroCategoriaH()">
-                        <input type="checkbox" name="check" value="{{Cathijos._id}}" id="{{Cathijos._id}}">
+                      <label style="cursor: pointer;" (click)="filtroCategoriaH(this)">
+                        <input type="checkbox" name="checkHijo" value="{{Cathijos._id}}" id="{{Cathijos._id}}">
                         <span class="cr"><i class="cr-icon material-icons"
                             style="color:rgb(255, 153, 0)">done</i></span>
                         {{Cathijos.nombre}}
@@ -86,7 +86,7 @@
             <div class="well" style="max-height: 300px;overflow: auto;">
               <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
                 <label style="cursor: pointer;" (click)="filtroMarca()">
-                  <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}">
+                  <input type="checkbox" name="checkMarca" value="{{marca._id}}" id="{{marca.nombremarca}}">
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
                 </label>

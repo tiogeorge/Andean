@@ -44,7 +44,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   // selected2 = 'alta';
   // selected3 = '0';
   palabrabusq: string;
-  categoriabus:string;
+  categoriabus: string;
   numeroencontrados: number = 0;
   articuloslista: any;
   temporallistaarti: any;
@@ -55,9 +55,10 @@ export class ArticulosbusquedaComponent implements OnInit {
   tempomarcas: any;
   tempocategoria: any;
   arreglomarcas: string[]; //= new Array();
+  arreglocategorias: string[];
 
   selected = 'option1';
-  listacategorias=new Array();
+  listacategorias = new Array();
   listamarcas: any;
   listamarcas2: string[];//any = [{ id: any, nombre: string }];
   listacolor: string[] = ['Blanco', 'Rojo', 'Azul', 'Negro'];
@@ -177,17 +178,17 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.tipo = 'ALTA';
     this.cuota = '0';
     this.tipordenado = 'orden1';
-    var urlcat=this.route.snapshot.paramMap.get("tipobus");
+    var urlcat = this.route.snapshot.paramMap.get("tipobus");
     var url = this.route.snapshot.paramMap.get("pclave");
-    if(urlcat=='cat'){
-      console.log('busqueda por categoria:'+urlcat)
+    if (urlcat == 'cat') {
+      console.log('busqueda por categoria:' + urlcat)
       this.listararticate(url);
     }
-    else{ 
-      if(urlcat == 'palclav'){     
-        console.log('busqueda por palabra:'+urlcat)
+    else {
+      if (urlcat == 'palclav') {
+        console.log('busqueda por palabra:' + urlcat)
         this.listaraarticulos(url);
-      }else{
+      } else {
         //busqueda por banner
         this.buscarporBanner(url);
       }
@@ -308,38 +309,40 @@ export class ArticulosbusquedaComponent implements OnInit {
     console.log(temp);
     this.funcionrepetir(temp);
   }
-  buscarporBanner(idbanner){
+  buscarporBanner(idbanner) {
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
-    this.articulodetalleService.getArticulosBanner(idbanner).subscribe(res=>{      
+    this.articulodetalleService.getArticulosBanner(idbanner).subscribe(res => {
       this.articulodetalleService.Articulo = res as Articulo[];
-        var Respuesta = JSON.parse(JSON.stringify(res));
-        if (Respuesta != "") {
-          this.articuloslista = Respuesta;
-          console.log(this.articuloslista);
-          this.numeroencontrados = Object.keys(res).length;
-          this.temporallistaarti = Respuesta;
-          this.temporallistaarti2 = Respuesta;
-          this.listcategoraisfil();
-        }else{
-          document.getElementById('noencontrado').hidden = false;
-          document.getElementById('contenedorbusqueda').hidden = true;
-        }
+      var Respuesta = JSON.parse(JSON.stringify(res));
+      if (Respuesta != "") {
+        console.log(Respuesta);
+        this.articuloslista = Respuesta;
+        console.log(this.articuloslista);
+        this.numeroencontrados = Object.keys(res).length;
+        this.temporallistaarti = Respuesta;
+        this.temporallistaarti2 = Respuesta;
+        this.listcategoraisfil();
+      } else {
+        document.getElementById('noencontrado').hidden = false;
+        document.getElementById('contenedorbusqueda').hidden = true;
+      }
     });
   }
 
   //contar repetidos
   funcionrepetir(tem: any[]) {
-  //  console.log(tem)
+    console.log(tem);
+    //  console.log(tem)
     var ArrOrdenado = [],
       norepetidos = [],
       count = 1;
     ArrOrdenado = tem.sort(function (a, b) {
       return a - b
     });
- //   console.log('ordenado');
- //   console.log(ArrOrdenado);
+    //   console.log('ordenado');
+    //   console.log(ArrOrdenado);
     for (var i = 0; i < ArrOrdenado.length; i = i + count) {
       count = 1;
       for (var j = i + 1; j < ArrOrdenado.length; j++) {
@@ -349,42 +352,44 @@ export class ArticulosbusquedaComponent implements OnInit {
       console.log(ArrOrdenado[i] + " = " + count);
       norepetidos[i] = ArrOrdenado[i];
     }
-  //  console.log(norepetidos);
-    this.recuperarcat(norepetidos[0]);
+    console.log(norepetidos);
+    for (var j = 0; j < norepetidos.length; j++) {
+      this.recuperarcat(norepetidos[j]);
+    }
   }
-  recuperarcat(id:string){
- //   console.log('entra'+id);
+  recuperarcat(id: string) {
+    //   console.log('entra'+id);
     this.categoriaservice.listarhijossegunpadre(id)
-    .subscribe(res=>{
-      var Respuesta=JSON.parse(JSON.stringify(res));
-      this.listacategorias.push(Respuesta[0]);
-    //  console.log(this.listacategorias[0].hijos[0][0]);
-    });
+      .subscribe(res => {
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        this.listacategorias.push(Respuesta[0]);
+        //  console.log(this.listacategorias[0].hijos[0][0]);
+      });
   }
   //fin
 
-  listararticate(id:string){
+  listararticate(id: string) {
     console.log(id);
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
     this.articulodetalleService.listarArticulo4(id, this.linea, this.tipo, this.cuota)
-    .subscribe(res => {
-      this.articulodetalleService.Articulo = res as Articulo[];
-      var Respuesta = JSON.parse(JSON.stringify(res));
-      if(Object.keys(res).length > 0){
-        console.log(Respuesta[0]);
-        this.articuloslista = Respuesta[0];
-        this.numeroencontrados = Object.keys(res).length;
-        this.temporallistaarti = Respuesta[0];
-        this.temporallistaarti2 = Respuesta[0];
-        this.listcategoraisfil();
-      }
-      else{
-        this.palabraClave='';
-        this.vistanoencontrado();
-      }
-    });
+      .subscribe(res => {
+        this.articulodetalleService.Articulo = res as Articulo[];
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        if (Object.keys(res).length > 0) {
+          console.log(Respuesta[0]);
+          this.articuloslista = Respuesta[0];
+          this.numeroencontrados = Object.keys(res).length;
+          this.temporallistaarti = Respuesta[0];
+          this.temporallistaarti2 = Respuesta[0];
+          this.listcategoraisfil();
+        }
+        else {
+          this.palabraClave = '';
+          this.vistanoencontrado();
+        }
+      });
   }
   listaraarticulos(pclave: string) {
     document.getElementById('contenedorbusqueda').hidden = false;
@@ -488,35 +493,39 @@ export class ArticulosbusquedaComponent implements OnInit {
      }
    }*/
   //filtro marca
-  filtroCategoria(){
+  filtroCategoria() {
     console.log('entra filtro categoria');
-    var arrcat=[];
-    $("input:checkbox[name=check]:checked").each(function () {
+    var arrcat = [];
+    $("input:checkbox[name=checkPadre]:checked").each(function () {
       arrcat.push($(this).val());
     });
     console.log(arrcat);
   }
-  filtroCategoriaH(){
+  filtroCategoriaH() {
     console.log('entra filtro categoria hijos');
-    var arrcatH=[];
-    $("input:checkbox[name=check]:checked").each(function () {
+    var arrcatH = [];
+    $("input:checkbox[name=checkHijo]:checked").each(function () {
       arrcatH.push($(this).val());
     });
-    console.log(arrcatH);
+    this.agregararreglocat(arrcatH);
+    this.verarrCat()
   }
   filtroMarca() {
     console.log('entra filtro marca');
     var arr = [];
-    $("input:checkbox[name=check]:checked").each(function () {
+    $("input:checkbox[name=checkMarca]:checked").each(function () {
       arr.push($(this).val());
     });
     this.agregararreglo(arr);
-    this.verarr();
+    this.verarrMarca();
   }
   agregararreglo(dat: string[]) {
     this.arreglomarcas = dat;
   }
-  verarr() {
+  agregararreglocat(dat2: string[]) {
+    this.arreglocategorias = dat2;
+  }
+  verarrMarca() {
     if (this.arreglomarcas.length > 0) {
       var articuloslista2 = new Array();
       var tempArr = this.temporallistaarti as any[];
@@ -530,6 +539,29 @@ export class ArticulosbusquedaComponent implements OnInit {
         }
       }
       this.articuloslista = articuloslista2;
+      this.temporallistaarti2 = this.articuloslista;
+      this.numeroencontrados = Object.keys(this.articuloslista).length;
+    }
+    else {
+      this.articuloslista = this.temporallistaarti;
+      this.temporallistaarti2 = this.temporallistaarti;
+      this.numeroencontrados = Object.keys(this.articuloslista).length;
+    }
+  }
+  verarrCat() {
+    if (this.arreglocategorias.length > 0) {
+      var articuloslista3 = new Array();
+      var tempArr = this.temporallistaarti as any[];
+      for (var j = 0; j < this.arreglocategorias.length; j++) {
+        for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+          console.log(i);
+          if (tempArr[i].categoria == this.arreglocategorias[j]) {
+            console.log(tempArr[i].categoria == this.arreglocategorias[j]);
+            articuloslista3.push(tempArr[i]);
+          }
+        }
+      }
+      this.articuloslista = articuloslista3;
       this.temporallistaarti2 = this.articuloslista;
       this.numeroencontrados = Object.keys(this.articuloslista).length;
     }
