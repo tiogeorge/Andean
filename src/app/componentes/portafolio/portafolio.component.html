@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="carousel-item" *ngFor="let banner of banners; let i = index">
-          <div class="view"  routerLink="/busqueda/ban/{{bannerPrincipal._id}}">
+          <div class="view"  routerLink="/busqueda/ban/{{banner._id}}">
             <img class="d-block w-100" src="{{URL_IMAGEN}}/lg/{{banner.imagen}}" >
             <div class="mask rgba-black-light"></div>
           </div>
@@ -106,7 +106,7 @@
             </div>
             <div class="carousel-item active" *ngFor="let cardsimple of listarcardtipo1 | slice:0:1; let i = index" routerLink="/articulo/{{cardsimple.link}}" >
               <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-                <mat-card class="simple-card noseleccionable">              
+                <mat-card class="simple-card noseleccionable" routerLink="/articulo/{{cardsimple.link}}">              
                   <div class="img-card">
                     <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
                   </div>                   <mat-card-content>

@@ -183,9 +183,14 @@ export class ArticulosbusquedaComponent implements OnInit {
       console.log('busqueda por categoria:'+urlcat)
       this.listararticate(url);
     }
-    else{
-      console.log('busqueda por palabra:'+urlcat)
-      this.listaraarticulos(url);
+    else{ 
+      if(urlcat == 'palclav'){     
+        console.log('busqueda por palabra:'+urlcat)
+        this.listaraarticulos(url);
+      }else{
+        //busqueda por banner
+        this.buscarporBanner(url);
+      }
     }
     this.palabrabusq = url;
     this.palabraClave = url;
@@ -302,6 +307,26 @@ export class ArticulosbusquedaComponent implements OnInit {
     }
     console.log(temp);
     this.funcionrepetir(temp);
+  }
+  buscarporBanner(idbanner){
+    document.getElementById('contenedorbusqueda').hidden = false;
+    document.getElementById('noencontrado').hidden = true;
+    this.articuloslista = new Array();
+    this.articulodetalleService.getArticulosBanner(idbanner).subscribe(res=>{      
+      this.articulodetalleService.Articulo = res as Articulo[];
+        var Respuesta = JSON.parse(JSON.stringify(res));
+        if (Respuesta != "") {
+          this.articuloslista = Respuesta;
+          console.log(this.articuloslista);
+          this.numeroencontrados = Object.keys(res).length;
+          this.temporallistaarti = Respuesta;
+          this.temporallistaarti2 = Respuesta;
+          this.listcategoraisfil();
+        }else{
+          document.getElementById('noencontrado').hidden = false;
+          document.getElementById('contenedorbusqueda').hidden = true;
+        }
+    });
   }
 
   //contar repetidos

@@ -433,24 +433,8 @@ articuloController.guardarBanners= async(req, res)=>{
         await Banner.remove({});
         console.log(banners)
         var banners = req.body.banners;
-        var tipoLinea = req.body.linea;
-        var tipoPlan = req.body.tipoplan;
-        var cuotas = req.body.cuotas;
         for(var i=0;i<banners.length;i++){
-
-            for(var k = 0;k<banners[i].articulos.length;k++){
-                const precios = await Equipo.find({ nombreequipo: banners[i].articulos[k].idprecio });
-                var planesfiltrados = new Array();
-                for (var j = 0; j < precios[0].planes.length; j++) {
-                    if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                        planesfiltrados.push(precios[0].planes[j]);
-                    }
-                }
-                
-                banners[i].articulos[k].precioplan = planesfiltrados[0];   
-            }
-            console.log(banners[i]); 
-            var banner = new Banner(banners[i]);
+            var banner  = new Banner(banners[i]);
             await banner.save();
         }
         res.json({
@@ -460,7 +444,7 @@ articuloController.guardarBanners= async(req, res)=>{
 
 
     }catch(err){
-        //console.log(err);
+        console.log(err);
         res.json({
             status: false,
             error: err
@@ -484,12 +468,32 @@ articuloController.obtenerBanners = async (req, res)=>{
 }
 articuloController.obtenerArticulosBanner = async(req,res)=>{
     try{
-        const banners = await Banner.find({_id: req.params.id});
-        res.json({
-            status: true,
-            msg: 'Los datos se obtuvieron con éxito',
-            data: banners
-        })
+        const banner = await Banner.find({_id: req.params.id});
+        var tipoLinea = req.params.linea;
+        var tipoPlan = req.params.tipoplan;
+        var cuotas = req.params.cuotas;
+        //res.json(banner[0].articulos);
+        var jsonarticulos = JSON.parse(JSON.stringify(banner[0].articulos));
+
+        for(var k = 0;k<banner[0].articulos.length;k++){
+            const precios = await Equipo.find({ nombreequipo: banner[0].articulos[k].idprecio });
+            var planesfiltrados = new Array();
+            for (var j = 0; j < precios[0].planes.length; j++) {
+                if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                    planesfiltrados.push(precios[0].planes[j]);
+                }
+            }
+            //categoria padre
+            var idhijo=banner[0].articulos[k].categoria;
+            const catepadre=await Categoria.find({_id:idhijo},'padre');
+            console.log('PADRE');
+            console.log(catepadre[0].padre);
+            //fin
+            jsonarticulos[k].categoriapadre=catepadre[0].padre;
+            jsonarticulos[k].precioplan = planesfiltrados[0];   
+        }
+        
+        res.json(jsonarticulos);
 
     }catch(err){
         console.log(err);

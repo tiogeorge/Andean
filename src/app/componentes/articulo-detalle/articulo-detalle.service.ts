@@ -50,4 +50,8 @@ export class ArticuloDetalleService {
   return this.http.get(Constantes.URL_API_ARTICULO + `/bus/`+ categoriapadre+'/'+linea+'/'+tipo+'/'+cuota, {withCredentials: true})
 }
 
+  getArticulosBanner(idbanner: string){
+    return this.http.get(Constantes.URL_API_ARTICULO+`/banners/banner/`+idbanner+`/PREPAGO/ALTA/0`, {withCredentials: true});
+  }
+
 }

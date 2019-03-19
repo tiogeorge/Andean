@@ -17,9 +17,15 @@
           </mat-expansion-panel>
         </mat-accordion>-->
         <div class="lista-categorias">
-          <div *ngFor="let categoriap of listacategoriaspadre; index as i"  class="item-list-categoria" (mouseover)="mostrarDetalle(categoriap)" (mouseout)="ocultarDetalle()" routerLink="/busqueda/cat/{{categoriap._id}}"  >
+          <div *ngFor="let categoriap of listacategoriaspadre; index as i"  class="item-list-categoria" routerLink="/busqueda/cat/{{categoriap._id}}"  >
               <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i><div>{{categoriap.nombre}}</div>      
           </div>
+
+          <!--
+<div *ngFor="let categoriap of listacategoriaspadre; index as i"  class="item-list-categoria" (mouseover)="mostrarDetalle(categoriap)" (mouseout)="ocultarDetalle()" routerLink="/busqueda/cat/{{categoriap._id}}"  >
+            <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i><div>{{categoriap.nombre}}</div>      
+        </div>
+          -->
           
         </div>  
         <!--<div>

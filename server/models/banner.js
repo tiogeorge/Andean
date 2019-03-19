@@ -10,17 +10,7 @@ const BannerSchema = new Schema({
             categoria:{type: String, required:true},
             idprecio:{type:String, required:true},
             cantidad:{type:Number, required:true},
-            imagenes: [String],
-            precioplan:{
-                tipolinea:{type:String, required: true},//PREPAGO O POSPAGO
-                tipoplan:{type:String, required: true},// LINEA NUEVA PORTABILIDAD O RENOVACION/ESPECIAL
-                nombreplan:{type: String, required: true},
-                precio:{type:Number, required: true},// PRECIO DEL PLAN
-                cuotas:{type: Number, required: true}, //0, 12 o 18
-                cuotainicial:{type:Number, required: false},// EN CASO DE CUOTAS            
-                montomes:{type: Number, required: false},
-                cuotamensual:{type:Number, required: false}
-            }
+            imagenes: [String]
 
 
         }
