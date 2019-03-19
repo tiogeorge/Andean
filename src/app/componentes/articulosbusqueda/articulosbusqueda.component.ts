@@ -29,10 +29,10 @@ import { Subscription } from 'rxjs';
 export class ArticulosbusquedaComponent implements OnInit {
   //range slider
   minValue: number = 0;
-  maxValue: number = 20000;
+  maxValue: number = 5000;
   options: Options = {
     floor: 0,
-    ceil: 20000
+    ceil: 5000
   };
   logText: string = '';
   //fin slider
@@ -56,6 +56,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   tempocategoria: any;
   arreglomarcas: string[]; //= new Array();
   arreglocategorias: string[];
+  arreglocategoriasP: string[];
 
   selected = 'option1';
   listacategorias = new Array();
@@ -499,7 +500,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     $("input:checkbox[name=checkPadre]:checked").each(function () {
       arrcat.push($(this).val());
     });
-    console.log(arrcat);
+    this.agregararreglocatP(arrcat);
+    this.verarrCatP();
   }
   filtroCategoriaH() {
     console.log('entra filtro categoria hijos');
@@ -508,7 +510,7 @@ export class ArticulosbusquedaComponent implements OnInit {
       arrcatH.push($(this).val());
     });
     this.agregararreglocat(arrcatH);
-    this.verarrCat()
+    this.verarrCatH();
   }
   filtroMarca() {
     console.log('entra filtro marca');
@@ -521,6 +523,15 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   agregararreglo(dat: string[]) {
     this.arreglomarcas = dat;
+  }
+  agregararreglocatP(dat2: string[]) {
+    this.arreglocategoriasP = dat2;
+    if(dat2!=[]){
+      $("#catehijos input[type=checkbox]").prop('checked', true);
+    }
+    else{
+      $("#catehijos input[type=checkbox]").prop('checked', false);
+    }
   }
   agregararreglocat(dat2: string[]) {
     this.arreglocategorias = dat2;
@@ -548,7 +559,30 @@ export class ArticulosbusquedaComponent implements OnInit {
       this.numeroencontrados = Object.keys(this.articuloslista).length;
     }
   }
-  verarrCat() {
+  verarrCatP() {
+    if (this.arreglocategoriasP.length > 0) {
+      var articuloslista3 = new Array();
+      var tempArr = this.temporallistaarti as any[];
+      for (var j = 0; j < this.arreglocategoriasP.length; j++) {
+        for (var i = 0; i < Object.keys(this.temporallistaarti).length; i++) {
+          console.log(i);
+          if (tempArr[i].categoriapadre == this.arreglocategoriasP[j]) {
+            console.log(tempArr[i].categoriapadre == this.arreglocategoriasP[j]);
+            articuloslista3.push(tempArr[i]);
+          }
+        }
+      }
+      this.articuloslista = articuloslista3;
+      this.temporallistaarti2 = this.articuloslista;
+      this.numeroencontrados = Object.keys(this.articuloslista).length;
+    }
+    else {
+      this.articuloslista = this.temporallistaarti;
+      this.temporallistaarti2 = this.temporallistaarti;
+      this.numeroencontrados = Object.keys(this.articuloslista).length;
+    }
+  }
+  verarrCatH() {
     if (this.arreglocategorias.length > 0) {
       var articuloslista3 = new Array();
       var tempArr = this.temporallistaarti as any[];
