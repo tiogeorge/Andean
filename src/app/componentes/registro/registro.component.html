@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
       <div class="card card-signin my-5">
         <form #usuarioForm="ngForm" class="form-signin" (ngSubmit)="registrar(usuarioForm)" autocomplete="off">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado._id">
@@ -41,7 +41,7 @@
                 Su contraseña debe tener al menos 6 caracteres
               </mat-error>
             </mat-form-field>
-            <mat-checkbox  name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones en tu correo electrónico
+            <mat-checkbox  name="promociones" #promociones="ngModel" [(ngModel)]="usuarioService.usuarioSeleccionado.promociones">Recibir promociones
               </mat-checkbox>
             <div class="form-label-group">
               <label id="condiciones">Al registrarse acepta nuestros <a href="/terminosycondiciones" style="color: orange;">términos y condiciones</a> y nuestras <a href="/politicas">politicas de privacidad</a>.</label>
@@ -54,8 +54,8 @@
           <div class="card-body" id="footer-login">
             <div class="form-label-group">
               <div class="row">
-                <div class="col col-lg-6 col-md-12 col-sm-12">
-                  <label> Registrate con :</label>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <!--<label> Registrate con :</label>
                   <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i
                       class="fab fa-facebook-f"></i>
                   </button>
@@ -64,9 +64,9 @@
                   </button>
                   <button type="button" class="btn btn-success btn-circle" id="boton-twitter" placeholder="Twitter"><i
                       class="fab fa-twitter"></i>
-                  </button>
+                  </button>-->
                 </div>
-                <div class="col col-lg-6 col-md-12 col-sm-12">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                   <label style="text-align: right" style="margin-top: 5px;">¿Ya eres usuario? <a routerLink="/login">Inicia
                       Sesión</a></label>
                 </div>

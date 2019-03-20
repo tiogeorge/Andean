@@ -1,64 +1,103 @@
-#footer-login{
-    margin-top: -20px;
+#footer-login {
+  margin-top: -20px;
 }
-#boton-facebook{
-    align-items: center;
-    background-color:#4267b2;
-    color: white; 
+
+#boton-facebook {
+  align-items: center;
+  background-color: #4267b2;
+  color: white;
 }
-#boton-google{
-    background-color:#b1301f;
-    color: white; 
+
+#boton-google {
+  background-color: #b1301f;
+  color: white;
 }
-#boton-twitter{
-    background-color:#099bdf;
-    color: white; 
+
+#boton-twitter {
+  background-color: #099bdf;
+  color: white;
 }
-#btniniciosesion{
-    background: orange linear-gradient(orange,#ff8c00);
+
+#btniniciosesion {
+  background: orange linear-gradient(orange, #ff8c00);
 }
 
 .btn-circle {
-    width: 30px;
-    height: 30px;
-    padding: 6px 0px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-    margin: 3px;
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+  margin: 3px;
 }
+
 .form-control:focus {
-    border-color:orange !important;
-    box-shadow: 0 0 5px rgb(235, 134, 41) !important;
-  }
-  #btn-back:hover{
-    cursor: pointer;
-};
+  border-color: orange !important;
+  box-shadow: 0 0 5px rgb(235, 134, 41) !important;
+}
+
+#btn-back:hover {
+  cursor: pointer;
+}
+
+#apellidos,
+#nombres,
+#email,
+#password {
+  padding: 0px 5px;
+  width: 100%;
+}
+
+#apellidos input,
+#nombres input {
+  text-transform: capitalize !important;
+}
+
 
 /* Extra small devices (portrait phones, less than 576px) */
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {  }
+@media (min-width: 576px) {
+
+  #apellidos,
+  #nombres,
+  #email,
+  #password {
+    padding: 0px 5px;
+    width: 100%;
+  }
+}
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { }
+@media (min-width: 768px) {
+
+  #apellidos,
+  #nombres,
+  #email,
+  #password {
+    padding: 0px 10px;
+    width: 100%;
+  }
+}
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { }
+@media (min-width: 992px) {
+
+  #apellidos,
+  #nombres,
+  #email,
+  #password {
+    padding: 0px 5px;
+    width: 50%;
+  }
+}
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-    #apellidos, #nombres, #email, #password{
-        padding: 0px 5px;
-        width: 50%;
-    }
+@media (min-width: 1200px) {
 
-    #apellidos input, #nombres input {
-        text-transform: capitalize !important;
-    }
-    
-    #condiciones {
-        font-size: .75rem;
-    }
+  #condiciones {
+    font-size: .75rem;
+  }
 }
