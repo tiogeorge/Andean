@@ -290,6 +290,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.marcaservice.marca = res as Marca[];
         var resp = JSON.parse(JSON.stringify(res));
         this.tempomarcas = resp;
+        console.log(resp);
       });
   }
   listarcategoriafiltro() {

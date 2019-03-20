@@ -43,17 +43,18 @@
             <h5>FILTROS</h5>
           </div>
           <!-- <div class="col-lg-12" (click)="mostrarcategoria()" style="cursor: pointer; position: relative;"> -->
-          <div class="col-lg-12"  style="cursor: pointer; position: relative;">
+          <div class="col-lg-12" style="cursor: pointer; position: relative;">
             <hr>
             <div class="row">
               <p style="width: 80%; padding-left: 14px;">Categorias</p>
-              <i id="icondown1" class="material-icons" style="width: 20%;">keyboard_arrow_{{nombreicon1}}</i>
+              <!-- <i id="icondown1" class="material-icons" style="width: 20%;">keyboard_arrow_{{nombreicon1}}</i> -->
             </div>
           </div>
           <!-- <div id="categoriafiltro" class="col-lg-12" style="display: none"> -->
-          <div id="categoriafiltro" class="col-lg-12" >
+          <div id="categoriafiltro" class="col-lg-12">
             <hr>
-            <div class="well" style="max-height: 300px;overflow: auto;">
+            <!-- <div class="well" style="max-height: 300px;overflow: auto;"> -->
+            <div>
               <div class="checkbox" *ngFor="let categoria of listacategorias; let i=index">
                 <div>
                   <label style="cursor: pointer;" (click)="filtroCategoria()">
@@ -61,9 +62,9 @@
                     <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                     {{categoria.nombre}}
                   </label>
-                  <div>
+                  <div style="margin-left: 20px">
                     <div *ngFor="let Cathijos of categoria.hijos[0]">
-                      <label style="cursor: pointer;" (click)="filtroCategoriaH()">
+                      <label style="cursor: pointer; font-size: 14px" (click)="filtroCategoriaH()">
                         <input type="checkbox" name="checkHijo" value="{{Cathijos._id}}" id="{{Cathijos._id}}">
                         <span class="cr"><i class="cr-icon material-icons"
                             style="color:rgb(255, 153, 0)">done</i></span>
@@ -75,7 +76,6 @@
               </div>
             </div>
           </div>
-          <!--<div><button (click)="prueba()">prueba</button></div>-->
           <div class="col-lg-12" (click)=" mostrarmarca()" style="cursor: pointer;">
             <hr>
             <div class="row">
@@ -87,7 +87,7 @@
             <hr>
             <div class="well" style="max-height: 300px;overflow: auto;">
               <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
-                <label style="cursor: pointer;" (click)="filtroMarca()">
+                <label style="cursor: pointer;text-transform: capitalize" (click)="filtroMarca()">
                   <input type="checkbox" name="checkMarca" value="{{marca._id}}" id="{{marca.nombremarca}}">
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca}}
@@ -410,20 +410,21 @@
                   </div>
                 </div>
               </div>-->
+              <!-- <div class="col-lg-12" (click)="mostrarprecio()"> -->
               <div class="col-lg-12" (click)="mostrarprecio()">
                 <hr>
-                <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p>
+                <!-- <p>Precio<i id="icondown4" class="material-icons">keyboard_arrow_{{nombreicon4}}</i></p> -->
               </div>
               <div class="col-lg-12" id="divprecio2">
                 <!--inicio de slider de precio-->
-                <section class="example-section">
+                <!--   <section class="example-section">
                   <mat-form-field class="example-margin">
                     <input matInput type="number" placeholder="Minimo" [(ngModel)]="minValue">
                   </mat-form-field>
                   <mat-form-field class="example-margin">
                     <input matInput type="number" placeholder="Maximo" [(ngModel)]="maxValue">
                   </mat-form-field>
-                </section>
+                </section> -->
                 <ng5-slider style="size: 50%" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
                   (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
                   (userChangeEnd)="onUserChangeEnd($event)">
