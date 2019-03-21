@@ -57,13 +57,117 @@
    flex-direction: row;
    flex-wrap: wrap;
 }
-.articulo-principal{
-  width: 30%;
-  justify-content: center;
-  height: 100%;
+
+
+
+/* CARD OFERTA DEL DIA*/
+.oferta-dia{
+  width: 100%;  
+  padding-top: 85px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 35px;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  position: relative;
+  transition: 0.2s;
 }
-
-
+.oferta-dia:hover{
+  cursor: pointer;
+}
+.titulo-oferta{
+  position: absolute;
+    top: 27px;
+    left: 40px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+}
+.detalles-oferta1{
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+}
+.nombre-art-eferta-dia{
+  font-size: 20px;
+  font-weight: 410;
+  color: #000000;
+  width: 100%;
+  text-align: left;
+}
+.precio{
+  font-size: 24px;font-weight: 500;color: #df3b3b;
+  width: 100%;
+}
+.descuento{
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);  
+}
+.porcentaje{
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 36px;
+  font-size: 12px;
+  background-color: #df3b3b;
+}
+.accesorio{
+  position: relative;
+  background: #eff6fa;
+  border-radius: 8px;
+  width: 100%;  
+  padding-top: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 18px;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  margin-top: 10px;
+  
+}
+.titulo-accesorio{
+  position: absolute;
+    top: 10px;
+    left: 23px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+}
+.item-accesorios{
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  transition: 0.2s;
+  position: relative;
+}
+.item-img-accesorio{
+  height: 115px;
+  width: 115px;
+}
+.imagen-card-accesorio{
+  max-height: 115px;
+  height: auto;
+  width: auto;
+  max-width: 115px;
+}
+.detalles-item-accesorio{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 100%;
+}
+.item-accesorios:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
 @media (min-width: 320px) {
   .carusel-grande{
     width: 100%;
@@ -71,6 +175,7 @@
   .carousel-ofertas-peque{
     display: flex;
     width: 100%;
+    z-index: 1000;
   }
   .carousel-ofertas-grande{
     display: none;

@@ -106,7 +106,7 @@
             </div>
             <div class="carousel-item active" *ngFor="let cardsimple of listarcardtipo1 | slice:0:1; let i = index" routerLink="/articulo/{{cardsimple.link}}" >
               <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-                <mat-card class="simple-card noseleccionable" routerLink="/articulo/{{cardsimple.link}}">              
+                <mat-card class="simple-card noseleccionable" routerLink="/articulo/{{cardsimple.link}}" >              
                   <div class="img-card">
                     <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
                   </div>                   <mat-card-content>
@@ -120,9 +120,9 @@
                 </mat-card>            
               </div>
             </div> 
-            <div class="carousel-item"  *ngFor="let cardsimple of listarcardtipo1 | slice:2:6; let i = index" >
+            <div class="carousel-item"  *ngFor="let cardsimple of listarcardtipo1 | slice:1:6; let i = index" >
               <div style="display: flex; flex-direction: row; width: 100%; justify-content: center;">
-                <mat-card class="simple-card noseleccionable">              
+                <mat-card class="simple-card noseleccionable" routerLink="/articulo/{{cardsimple.link}}">              
                   <div class="img-card">
                     <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
                   </div>   
@@ -143,15 +143,53 @@
     </div>
   </div>
   <div class="articulo-principal" style="padding: 5px; height: 100%; ">
-    <div style="margin: 5px; height: 100%; padding: 5px; border-radius: 10px;  background-color: #F9F9F9;">
+
+    <div class="oferta-dia" *ngFor="let grandecard of listarcardtipo2" routerLink="/articulo/{{grandecard.link}}">
+      <div class="titulo-oferta">Oferta del Día</div>
+      <div class="descuento porcentaje">-10%</div>   
+      <div style="width: 100%;display: flex;justify-content: center;">
+        <img class="imagen-card" src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
+      </div>
+      <div class="detalles-oferta1">
+        <div>Categoria</div>
+
+      </div>
+      <div class="nombre-art-eferta-dia">{{grandecard.titulo}}</div>
+      <div style=" display:flex; flex-direction: row; flex-wrap: wrap;">
+        <div class="descuento"><del>S/ 4500.00</del></div>
+          
+        <div class="precio">S/ {{grandecard.precioplan.precio}}</div>
+      </div>
+    </div>
+    <div class="accesorio">
+      <div class="titulo-accesorio" >Accesorios</div>
+      <div class="item-accesorios" *ngFor="let largocard of listarcardtipo3" routerLink="/articulo/{{largocard.link}}">
+        <div class="descuento porcentaje">-10%</div>   
+        <div class="item-img-accesorio">
+            <img class="imagen-card-accesorio" src="{{URL_IMAGENES}}/{{largocard.urlImagen}}">
+            
+        </div>
+        <div class="detalles-item-accesorio">
+          <div style="font-size: 12px;color: rgba(0,0,0,0.5);">Categoria</div>
+          <div style="font-size: 16px;font-weight: 400;color: #000000;">{{largocard.titulo}}</div>
+          <div style="font-size: 12px;color: rgba(0,0,0,0.5);"><del>S/ 475.00</del></div>
+          <div style="font-size: 16px;color: #df3b3b;font-weight: 500;">S/ {{largocard.precioplan.precio}}</div>
+        </div>
+
+        
+      </div>
+
+    </div>
+
+    
+    <!--
+<div style="margin: 5px; height: 100%; padding: 5px; border-radius: 10px;  background-color: #F9F9F9;">
         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 5px;">
             <h4>Oferta del Día</h4>
         </div>
         <div style="padding: 5px; width: 100%; height: auto;">
           <mat-card class="grande-card" *ngFor="let grandecard of listarcardtipo2" style="border-radius: 5px 5px ; width: 100%; " routerLink="/articulo/{{grandecard.link}}">
-            <div style="width: 100%;
-            display: flex;
-            justify-content: center;">
+            <div >
               <img class="imagen-card" src="{{URL_IMAGENES}}/{{grandecard.urlImagen}}" alt="">
             </div>
             
@@ -185,6 +223,7 @@
           </div>
         </div> 
     </div>
+    -->
           
   </div>  
 </div>

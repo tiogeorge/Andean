@@ -24,7 +24,8 @@ const ArticuloSchema = new Schema({
         imagen:{type: String, required: false},
         codigocolor:{type: String, required: false}
     }],
-    palabrasclaves:{type: String, required: true}
+    palabrasclaves:{type: String, required: true},
+    descuento:{type: Number, required:true}
     
 });
 module.exports = mongoose.model('Articulo', ArticuloSchema);

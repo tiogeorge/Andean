@@ -2,6 +2,7 @@ import { CardService } from './card.service';
 import { Component, OnInit } from '@angular/core';
 import { Constantes } from '../constantes';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-portafolio',
@@ -12,17 +13,26 @@ export class PortafolioComponent implements OnInit {
   listarcardtipo1: any;
   listarcardtipo2: any;
   listarcardtipo3: any;
-  constructor(public cardservice: CardService) { }
+  constructor(public cardservice: CardService , public router: Router) { }
   URL_IMAGENES = Constantes.URL_IMAGEN_MD;
   URL_IMAGEN = Constantes.URL_IMAGEN;
   banners : any[] = new Array();
+  bannerPrincipal: any ;
 
   ngOnInit() {
+    this.bannerPrincipal =  {
+      _id:'0',
+      imagen:'sinimagen.webp'
+    };
     this.obtenercard();   
     this.obtenerBanner();
   }
 
-  bannerPrincipal: any;
+  abrirArticulo(url){
+    this.router.navigate(['/articulo/'+url])
+    console.log("IR A : "+url);
+  }
+  
   obtenerBanner(){
     this.cardservice.obtenerBanners().subscribe(res=>{
       this.banners = res as any[];
@@ -33,6 +43,7 @@ export class PortafolioComponent implements OnInit {
       for(var i = 0;i<this.banners.length;i++){
         cont.innerHTML = cont.innerHTML + "<li data-target='#carousel-example-2' data-slide-to='"+(i+1)+"'></li>"
       }
+      console.log(this.bannerPrincipal);
 
     });
   }

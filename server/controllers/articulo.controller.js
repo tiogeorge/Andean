@@ -189,18 +189,7 @@ articuloController.crearArticulo = async (req, res) => {
 
 articuloController.actualizarArticulo = async (req, res) => {
     try {
-        const art = {
-            idarticulo: req.body.idarticulo,
-            titulo: req.body.titulo,
-            categoria: req.body.categoria,
-            marca: req.body.marca,
-            cantidad: req.body.cantidad,
-            idprecio: req.body.idprecio,
-            caracteristicas: req.body.caracteristicas,
-            imagenes: req.body.imagenes,
-            descripcion: req.body.descripcion,
-            garantias: req.body.garantias
-        }
+        
         const articulo = await Articulo.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
         res.json({
             estado: 1,
