@@ -250,8 +250,8 @@
                       <div id="precio1" class="product_price">S/
                         {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span></div>
                     </div>
-                    <div class="product_marks">
-                      <li class="product_mark product_discount">-25%</li>
+                    <div class="product_marks" *ngIf="articulo.descuento > 0" >
+                      <li class="product_mark product_discount">-{{articulo.descuento}}%</li>
                     </div>
                   </div>
                   <!---->
