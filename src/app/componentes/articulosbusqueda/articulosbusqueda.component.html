@@ -231,33 +231,29 @@
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i"
                   id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;">
                   <!---->
-                  <mat-card class="example-card">
-                    <div class="product_item discount">
-                      <!-- <div class="product_border"></div> -->
-                      <div class="product_image d-flex flex-column align-items-center justify-content-center"
-                        matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
-                        <img style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;"
-                          id="{{articulo._id}}"
-                          src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
-                          alt="{{articulo.imagenes[0]}}">
-                      </div>
-                      <div class="product_content">
-                        <div class="product_name">
-                          <div><a routerLink="/articulo/{{articulo.url}}" tabindex="0">{{articulo.titulo}}</a></div>
-                          <!-- <p class="card-text text-center">
+                  <div class="product_item discount">
+                    <!-- <div class="product_border"></div> -->
+                    <div class="product_image d-flex flex-column align-items-center justify-content-center"
+                      style="position: relative;">
+                      <img style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;"
+                        id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
+                        alt="{{articulo.imagenes[0]}}">
+                    </div>
+                    <div class="product_content">
+                      <div class="product_name">
+                        <div><a routerLink="/articulo/{{articulo.url}}" tabindex="0">{{articulo.titulo}}</a></div>
+                        <!-- <p class="card-text text-center">
                           <a class="titulo-articulo .centrarletras" style="font-size: 14px"
                             routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                         </p> -->
-                        </div>
-                        <div id="precio1" class="product_price">S/
-                          {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span></div>
                       </div>
-                      <ul class="product_marks">
-                        <li class="product_mark product_discount">-25%</li>
-                        <li class="product_mark product_new">new</li>
-                      </ul>
+                      <div id="precio1" class="product_price">S/
+                        {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span></div>
                     </div>
-                  </mat-card>
+                    <div class="product_marks">
+                      <li class="product_mark product_discount">-25%</li>
+                    </div>
+                  </div>
                   <!---->
                   <hr>
                 </div>
