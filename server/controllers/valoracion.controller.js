@@ -34,7 +34,8 @@ valoracionController.promediovaloracion=async (req,res)=>{
         sumapuntuacion += valoraciones[i].puntuacion;
     }
     var promedioTotal=sumapuntuacion/cantidadcomen;
-    res.json(promedioTotal);
+    var promredondado=Math.round(promedioTotal);
+    res.json(promredondado);
 }
 
 /* Obtener comentario de un cliente respecto de un articulo */

@@ -251,8 +251,9 @@ articuloController.buscararti = async (req, res) => {
             sumapuntuacion += valoraciones[p].puntuacion;
         }
         var promedioTotal = sumapuntuacion / cantidadcomen;
+        var promredondado = Math.round(promedioTotal);
         //fin 
-        jsonarticulos[i].puntuacion = promedioTotal;
+        jsonarticulos[i].puntuacion = promredondado;
         jsonarticulos[i].categoriapadre = catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
@@ -296,8 +297,9 @@ articuloController.buscararti2 = async (req, res) => {
             sumapuntuacion += valoraciones[p].puntuacion;
         }
         var promedioTotal = sumapuntuacion / cantidadcomen;
+        var promredondado = Math.round(promedioTotal);
         //fin 
-        jsonarticulos[i].puntuacion = promedioTotal;
+        jsonarticulos[i].puntuacion = promredondado;
         jsonarticulos[i].categoriapadre = catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
@@ -344,8 +346,9 @@ articuloController.buscararti3 = async (req, res) => {
             sumapuntuacion += valoraciones[p].puntuacion;
         }
         var promedioTotal = sumapuntuacion / cantidadcomen;
+        var promredondado = Math.round(promedioTotal);
         //fin 
-        jsonarticulos[i].puntuacion = promedioTotal;
+        jsonarticulos[i].puntuacion = promredondado;
         jsonarticulos[i].categoriapadre = catepadre[0].padre;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
@@ -401,8 +404,9 @@ articuloController.busquedaGeneral = async (req, res) => {
                 sumapuntuacion += valoraciones[p].puntuacion;
             }
             var promedioTotal = sumapuntuacion / cantidadcomen;
+            var promredondado = Math.round(promedioTotal);
             //fin 
-            jsonarticulos[i].puntuacion = promedioTotal;
+            jsonarticulos[i].puntuacion = promredondado;
             jsonarticulos[i].categoriapadre = catepadre[0].padre;
             jsonarticulos[i].caracteristicas = [];
             jsonarticulos[i].descripcion = "";
