@@ -393,7 +393,7 @@ a :hover {
 }
 .product_price
 {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 500;
 	margin-top: 25px;
 }
@@ -421,7 +421,7 @@ a :hover {
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
+  transition: all 200ms ease;
 }
 .product_name div a:hover
 {
@@ -456,7 +456,7 @@ a :hover {
 .product_price span
 {
 	position: relative;
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 400;
 	color: rgba(0,0,0,0.6);
 	margin-left: 10px;

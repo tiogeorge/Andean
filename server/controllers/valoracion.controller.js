@@ -25,6 +25,15 @@ valoracionController.obtenerValoracionArticuloSinCliente = async (req, res) => {
     res.json(valoraciones);
 }
 
+/* obtener promedio de valoracion */
+valoracionController.promediovaloracion=async (req,res,next)=>{
+    const valoraciones=await Valoracion.find({idarticulo:req.params.idarticulo},'puntuacion')
+    console.log(valoraciones);
+    console.log(valoraciones[0]);
+    var cantidadcomen=valoraciones.length;
+    console.log(cantidadcomen);
+}
+
 /* Obtener comentario de un cliente respecto de un articulo */
 valoracionController.obtenerValoracionArticuloCliente = async (req, res) => {
     const valoraciones = await Valoracion.find({
@@ -125,5 +134,6 @@ valoracionController.eliminarValoracionArticuloCliente = async (req, res, next) 
             }
         })
 };
+
 
 module.exports = valoracionController;
