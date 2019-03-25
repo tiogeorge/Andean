@@ -243,7 +243,7 @@
                       <div class="product_name">
                         <div class="text-center"><a routerLink="/articulo/{{articulo.url}}"
                             tabindex="0">{{articulo.titulo}}</a></div>
-                        <!-- <p class="card-text text-center">
+                       <!--  <p class="card-text text-center">
                           <a class="titulo-articulo .centrarletras" style="font-size: 14px"
                             routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                         </p> -->
@@ -251,13 +251,13 @@
                       <div id="precio1" class="product_price">S/
                         {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span>
                       </div>
-                        <div class="valoracionPromedio">
-                          <img class="estrella1" alt="{{articulo.puntuacion}}" src="assets/images/star.png">
-                          <img class="estrella2" alt="{{articulo.puntuacion}}" src="assets/images/star.png">
-                          <img class="estrella3" alt="{{articulo.puntuacion}}" src="assets/images/star.png">
-                          <img class="estrella4" alt="{{articulo.puntuacion}}" src="assets/images/star.png">
-                          <img class="estrella5" alt="{{articulo.puntuacion}}" src="assets/images/star.png">
-                        </div>
+                      <div class="valoracionPromedio">
+                        <img class="estrella1" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                        <img class="estrella2" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                        <img class="estrella3" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                        <img class="estrella4" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                        <img class="estrella5" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                      </div>
                     </div>
                     <div class="product_marks" *ngIf="articulo.descuento > 0">
                       <li class="product_mark product_discount">-{{articulo.descuento}}%</li>

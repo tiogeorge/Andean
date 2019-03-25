@@ -393,9 +393,9 @@ a :hover {
 }
 .product_price
 {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 500;
-	margin-top: 25px;
+	margin-top: 15px;
 }
 .product_item.discount
 {
@@ -501,30 +501,32 @@ a :hover {
 .valoracion{
   display: flex;
 }
-
+.valoracionPromedio{
+  margin-top: 15px;
+}
 .estrella1,.estrella2,.estrella3,.estrella4,.estrella5
 {
-    width: 13%;
+    width: 8%;
 }
 .estrella1[alt="5"],.estrella1[alt="4"],.estrella1[alt="3"],.estrella1[alt="2"],.estrella1[alt="1"]{
     content: url("/assets/images/star2.png");
-    width: 13%;
+    width: 8%;
 }
 .estrella2[alt="5"],.estrella2[alt="4"],.estrella2[alt="3"],.estrella2[alt="2"]{
     content: url("/assets/images/star2.png");
-    width: 13%;
+    width: 8%;
 }
 .estrella3[alt="5"],.estrella3[alt="4"],.estrella3[alt="3"]{
     content: url("/assets/images/star2.png");
-    width: 13%;
+    width: 8%;
 }
 .estrella4[alt="5"],.estrella4[alt="4"]{
     content: url("/assets/images/star2.png");
-    width: 13%;
+    width: 8%;
 }
 .estrella5[alt="5"]{
     content: url("/assets/images/star2.png");
-    width: 13%;
+    width: 8%;
 }
 
 .numeroComentarios{
