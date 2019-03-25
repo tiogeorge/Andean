@@ -1,5 +1,6 @@
 const Articulo = require('../models/articulo');
 const Categoria = require('../models/categoria');
+const Valoracion= require('../models/valoracion');
 const articuloController = {};
 const MarcaArt = require('../models/marca');
 var jsonArticulos;
@@ -241,11 +242,22 @@ articuloController.buscararti = async (req, res) => {
         console.log('PADRE');
         console.log(catepadre[0].padre);
         //fin
+        //puntuacion
+        var idarti=articulosB[i].idarticulo;
+        const valoraciones=await Valoracion.find({idarticulo:idarti},'puntuacion')
+        var cantidadcomen=valoraciones.length;
+        var sumapuntuacion=0;
+        for(var i=0;i<cantidadcomen;i++){
+            sumapuntuacion += valoraciones[i].puntuacion;
+        }
+        var promedioTotal=sumapuntuacion/cantidadcomen;
+        //fin 
         jsonarticulos[i].categoriapadre=catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
+        jsonarticulos[i].puntuacion=promedioTotal;
 
 
     }
