@@ -1,6 +1,6 @@
 const Articulo = require('../models/articulo');
 const Categoria = require('../models/categoria');
-const Valoracion= require('../models/valoracion');
+const Valoracion = require('../models/valoracion');
 const articuloController = {};
 const MarcaArt = require('../models/marca');
 var jsonArticulos;
@@ -190,7 +190,7 @@ articuloController.crearArticulo = async (req, res) => {
 
 articuloController.actualizarArticulo = async (req, res) => {
     try {
-        
+
         const articulo = await Articulo.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
         res.json({
             estado: 1,
@@ -237,32 +237,32 @@ articuloController.buscararti = async (req, res) => {
         }
         //fin
         //categoria padre
-        var idhijo=articulosB[i].categoria;
-        const catepadre=await Categoria.find({_id:idhijo},'padre');
+        var idhijo = articulosB[i].categoria;
+        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
         console.log('PADRE');
         console.log(catepadre[0].padre);
         //fin
         //puntuacion
-        var idarti=articulosB[i].idarticulo;
-        const valoraciones=await Valoracion.find({idarticulo:idarti},'puntuacion')
-        var cantidadcomen=valoraciones.length;
-        var sumapuntuacion=0;
-        for(var i=0;i<cantidadcomen;i++){
-            sumapuntuacion += valoraciones[i].puntuacion;
+        var idarti = articulosB[i].idarticulo;
+        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+        var cantidadcomen = valoraciones.length;
+        var sumapuntuacion = 0;
+        for (var p = 0; p < cantidadcomen; p++) {
+            sumapuntuacion += valoraciones[p].puntuacion;
         }
-        var promedioTotal=sumapuntuacion/cantidadcomen;
+        var promedioTotal = sumapuntuacion / cantidadcomen;
         //fin 
-        jsonarticulos[i].categoriapadre=catepadre[0].padre;
+        jsonarticulos[i].puntuacion = promedioTotal;
+        jsonarticulos[i].categoriapadre = catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
-        jsonarticulos[i].puntuacion=promedioTotal;
 
 
     }
     res.json(jsonarticulos);
-    
+
 }
 articuloController.buscararti2 = async (req, res) => {
     var tipoLinea = req.params.linea;
@@ -281,13 +281,24 @@ articuloController.buscararti2 = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         }
-         //categoria padre
-         var idhijo=articulosB[i].categoria;
-         const catepadre=await Categoria.find({_id:idhijo},'padre');
-         console.log('PADRE');
-         console.log(catepadre[0].padre);
-         //fin
-         jsonarticulos[i].categoriapadre=catepadre[0].padre;
+        //categoria padre
+        var idhijo = articulosB[i].categoria;
+        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+        console.log('PADRE');
+        console.log(catepadre[0].padre);
+        //fin
+        //puntuacion
+        var idarti = articulosB[i].idarticulo;
+        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+        var cantidadcomen = valoraciones.length;
+        var sumapuntuacion = 0;
+        for (var p = 0; p < cantidadcomen; p++) {
+            sumapuntuacion += valoraciones[p].puntuacion;
+        }
+        var promedioTotal = sumapuntuacion / cantidadcomen;
+        //fin 
+        jsonarticulos[i].puntuacion = promedioTotal;
+        jsonarticulos[i].categoriapadre = catepadre[0].padre;
         jsonarticulos[i].precioplan = planesfiltrados[0];
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
@@ -318,67 +329,89 @@ articuloController.buscararti3 = async (req, res) => {
         else {
             jsonarticulos[i].precioplan = "no tiene";
         }
-         //categoria padre
-         var idhijo=articulosB[i].categoria;
-         const catepadre=await Categoria.find({_id:idhijo},'padre');
-         console.log('PADRE');
-         console.log(catepadre[0].padre);
-         //fin
-         jsonarticulos[i].categoriapadre=catepadre[0].padre;
+        //categoria padre
+        var idhijo = articulosB[i].categoria;
+        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+        console.log('PADRE');
+        console.log(catepadre[0].padre);
+        //fin
+        //puntuacion
+        var idarti = articulosB[i].idarticulo;
+        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+        var cantidadcomen = valoraciones.length;
+        var sumapuntuacion = 0;
+        for (var p = 0; p < cantidadcomen; p++) {
+            sumapuntuacion += valoraciones[p].puntuacion;
+        }
+        var promedioTotal = sumapuntuacion / cantidadcomen;
+        //fin 
+        jsonarticulos[i].puntuacion = promedioTotal;
+        jsonarticulos[i].categoriapadre = catepadre[0].padre;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
     }
-  
+
     res.json(jsonarticulos);
 }
 
 /*busqueda segun categoria */
 articuloController.busquedaGeneral = async (req, res) => {
-    var categoriapadre=req.params.categoriapadre;
+    var categoriapadre = req.params.categoriapadre;
     var tipoLinea = req.params.linea;
     var tipoPlan = req.params.tipoplan;
     var cuotas = req.params.cuotas;
-    const cathijos=await Categoria.find({padre:categoriapadre},'_id');
+    const cathijos = await Categoria.find({ padre: categoriapadre }, '_id');
     console.log(cathijos);
-   // const articulos=await Articulo.find().or([{categoria:cathijos[0]._id},{categoria:cathijos[1]._id}]);
-   //busqueda
-   var arreglofinal=new Array();
-   for(var q=0;q<cathijos.length;q++){
-    const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + cathijos[q]._id + '.*', $options: 'i' } });
-    var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
-    for (var i = 0; i < articulosB.length; i++) {
-        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        var id = articulosB[i].idprecio;
-        const precios = await Equipo.find({ nombreequipo: id });
+    // const articulos=await Articulo.find().or([{categoria:cathijos[0]._id},{categoria:cathijos[1]._id}]);
+    //busqueda
+    var arreglofinal = new Array();
+    for (var q = 0; q < cathijos.length; q++) {
+        const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + cathijos[q]._id + '.*', $options: 'i' } });
+        var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
+        for (var i = 0; i < articulosB.length; i++) {
+            console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+            var id = articulosB[i].idprecio;
+            const precios = await Equipo.find({ nombreequipo: id });
 
-        var planesfiltrados = new Array();
-        for (var j = 0; j < precios[0].planes.length; j++) {
-            if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                planesfiltrados.push(precios[0].planes[j]);
+            var planesfiltrados = new Array();
+            for (var j = 0; j < precios[0].planes.length; j++) {
+                if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                    planesfiltrados.push(precios[0].planes[j]);
+                }
             }
+            if (planesfiltrados.length > 0) {
+                jsonarticulos[i].precioplan = planesfiltrados[0];
+            }
+            else {
+                jsonarticulos[i].precioplan = "no tiene";
+            }
+            //categoria padre
+            var idhijo = articulosB[i].categoria;
+            const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+            console.log('PADRE');
+            console.log(catepadre[0].padre);
+            //fin
+            //puntuacion
+            var idarti = articulosB[i].idarticulo;
+            const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+            var cantidadcomen = valoraciones.length;
+            var sumapuntuacion = 0;
+            for (var p = 0; p < cantidadcomen; p++) {
+                sumapuntuacion += valoraciones[p].puntuacion;
+            }
+            var promedioTotal = sumapuntuacion / cantidadcomen;
+            //fin 
+            jsonarticulos[i].puntuacion = promedioTotal;
+            jsonarticulos[i].categoriapadre = catepadre[0].padre;
+            jsonarticulos[i].caracteristicas = [];
+            jsonarticulos[i].descripcion = "";
+            jsonarticulos[i].garantias = [];
+            arreglofinal.push(jsonarticulos);
         }
-        if (planesfiltrados.length > 0) {
-            jsonarticulos[i].precioplan = planesfiltrados[0];
-        }
-        else {
-            jsonarticulos[i].precioplan = "no tiene";
-        }
-         //categoria padre
-         var idhijo=articulosB[i].categoria;
-         const catepadre=await Categoria.find({_id:idhijo},'padre');
-         console.log('PADRE');
-         console.log(catepadre[0].padre);
-         //fin
-         jsonarticulos[i].categoriapadre=catepadre[0].padre;
-        jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion = "";
-        jsonarticulos[i].garantias = [];
-        arreglofinal.push(jsonarticulos);
     }
-   }
-   //fin
-   res.json(arreglofinal);
+    //fin
+    res.json(arreglofinal);
 }
 /*fin*/
 
@@ -429,13 +462,13 @@ articuloController.obtenerPreciosMysql = async (req, res) => {
     }
 
 }
-articuloController.guardarBanners= async(req, res)=>{
-    try{
+articuloController.guardarBanners = async (req, res) => {
+    try {
         await Banner.remove({});
         console.log(banners)
         var banners = req.body.banners;
-        for(var i=0;i<banners.length;i++){
-            var banner  = new Banner(banners[i]);
+        for (var i = 0; i < banners.length; i++) {
+            var banner = new Banner(banners[i]);
             await banner.save();
         }
         res.json({
@@ -444,7 +477,7 @@ articuloController.guardarBanners= async(req, res)=>{
         })
 
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
         res.json({
             status: false,
@@ -453,13 +486,13 @@ articuloController.guardarBanners= async(req, res)=>{
     }
 
 }
-articuloController.obtenerBanners = async (req, res)=>{
-    try{
+articuloController.obtenerBanners = async (req, res) => {
+    try {
         console.log("INGRESANDO A BANNERS");
         const banners = await Banner.find({}).select('imagen');
         res.json(banners)
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
         res.json({
             status: false,
@@ -467,16 +500,16 @@ articuloController.obtenerBanners = async (req, res)=>{
         });
     }
 }
-articuloController.obtenerArticulosBanner = async(req,res)=>{
-    try{
-        const banner = await Banner.find({_id: req.params.id});
+articuloController.obtenerArticulosBanner = async (req, res) => {
+    try {
+        const banner = await Banner.find({ _id: req.params.id });
         var tipoLinea = req.params.linea;
         var tipoPlan = req.params.tipoplan;
         var cuotas = req.params.cuotas;
         //res.json(banner[0].articulos);
         var jsonarticulos = JSON.parse(JSON.stringify(banner[0].articulos));
 
-        for(var k = 0;k<banner[0].articulos.length;k++){
+        for (var k = 0; k < banner[0].articulos.length; k++) {
             const precios = await Equipo.find({ nombreequipo: banner[0].articulos[k].idprecio });
             var planesfiltrados = new Array();
             for (var j = 0; j < precios[0].planes.length; j++) {
@@ -485,18 +518,18 @@ articuloController.obtenerArticulosBanner = async(req,res)=>{
                 }
             }
             //categoria padre
-            var idhijo=banner[0].articulos[k].categoria;
-            const catepadre=await Categoria.find({_id:idhijo},'padre');
+            var idhijo = banner[0].articulos[k].categoria;
+            const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
             console.log('PADRE');
             console.log(catepadre[0].padre);
             //fin
-            jsonarticulos[k].categoriapadre=catepadre[0].padre;
-            jsonarticulos[k].precioplan = planesfiltrados[0];   
+            jsonarticulos[k].categoriapadre = catepadre[0].padre;
+            jsonarticulos[k].precioplan = planesfiltrados[0];
         }
-        
+
         res.json(jsonarticulos);
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
         res.json({
             status: false,
@@ -504,11 +537,11 @@ articuloController.obtenerArticulosBanner = async(req,res)=>{
         });
     }
 }
-articuloController.obtenerTodoBanners = async (req,res)=>{
-    try{
+articuloController.obtenerTodoBanners = async (req, res) => {
+    try {
         const banners = await Banner.find({});
         res.json(banners);
-    }catch(err){
+    } catch (err) {
         res.json(err);
     }
 }
