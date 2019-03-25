@@ -26,12 +26,13 @@ valoracionController.obtenerValoracionArticuloSinCliente = async (req, res) => {
 }
 
 /* obtener promedio de valoracion */
-valoracionController.promediovaloracion=async (req,res,next)=>{
+valoracionController.promediovaloracion=async (req,res)=>{
     const valoraciones=await Valoracion.find({idarticulo:req.params.idarticulo},'puntuacion')
     console.log(valoraciones);
     console.log(valoraciones[0]);
     var cantidadcomen=valoraciones.length;
     console.log(cantidadcomen);
+    res.json(valoraciones);
 }
 
 /* Obtener comentario de un cliente respecto de un articulo */
