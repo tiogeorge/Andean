@@ -41,7 +41,7 @@ body{
         width: 100%;
     }
     span{
-        font-size: large;
+        font-size: 14px;
     }
     
 @media (min-width: 320px) {
