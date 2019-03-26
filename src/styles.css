@@ -15,6 +15,35 @@ body{
 .ql-video{
     width: 50%;
 }
+.owl-carousel {
+    position: relative;
+    }
+    .owl-prev,
+    .owl-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    width: 30px;
+    height: 50px;
+    background-color: rgba(196, 192, 192, 0.61)!important;
+    }
+    .owl-prev {
+    left: 0;
+    }
+    .owl-next {
+    right: 0;
+    }
+    .owl-dots{
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: center!important;
+        width: 100%;
+    }
+    span{
+        font-size: large;
+    }
+    
 @media (min-width: 320px) {
     .ql-video{
         width: 100% !important;

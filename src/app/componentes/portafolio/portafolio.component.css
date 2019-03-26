@@ -1,7 +1,17 @@
 .simple-card {
-  width: 32%;
-  margin: 5px;
+  width: 180px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: solid 1px #e8e8e8;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+  transition: 0.2s;
+  min-height: 250px;
 }
+
 .btn-cardsimple{
   width: 30px;height: 60px; 
   background-color: rgba(95, 95, 95, 0.418); 
@@ -52,10 +62,8 @@
   cursor: pointer;
 }
 .carusel-grande{
-  width: 70%;
-  /*display: flex;*/
-   flex-direction: row;
-   flex-wrap: wrap;
+  width: 100%;
+  height: auto;
 }
 
 
@@ -168,10 +176,16 @@
   transform: scale(1.05);
   cursor: pointer;
 }
+.cont-carouseles{
+  width: 100%; 
+  display:flex; 
+  flex-direction: column; 
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 @media (min-width: 320px) {
-  .carusel-grande{
-    width: 100%;
-  }
+ 
   .carousel-ofertas-peque{
     display: flex;
     width: 100%;
@@ -180,25 +194,13 @@
   .carousel-ofertas-grande{
     display: none;
   }
-  .simple-card {
-    width: 100%;
-    margin: 1px;
-  }
   .articulo-principal{
     width: 100%;
   }
-  .cont-carouseles{
-    width: 100%; 
-    display:flex; 
-    flex-direction: column; 
-    flex-wrap: wrap;
-    margin-top: 5px;
-  }
+  
 }
 @media (min-width: 768px) {
-  .carusel-grande{
-    width: 70%;
-  }
+ 
   .carousel-ofertas-peque{
     display: flex;
     width: 100%;
@@ -209,17 +211,10 @@
   .articulo-principal{
     width: 30%;
   }
-  .cont-carouseles{
-    width: 100%; 
-    display:flex; 
-    flex-direction: column; 
-    flex-wrap: wrap;
-  }
+  
 }
 @media (min-width: 992px) {
-  .carusel-grande{
-    width: 70%;
-  }
+  
   .carousel-ofertas-peque{
     display: none;
   }
@@ -230,10 +225,5 @@
   .articulo-principal{
     width: 30%;
   }
-  .cont-carouseles{
-    width: 100%; 
-    display:flex; 
-    flex-direction: column; 
-    flex-wrap: wrap;
-  }
+  
 }
