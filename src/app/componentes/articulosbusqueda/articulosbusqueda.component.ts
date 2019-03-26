@@ -197,7 +197,6 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.palabrabusq = url;
     this.palabraClave = url;
     //this. vistanoencontrado();
-
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -381,6 +380,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Object.keys(res).length > 0) {
           console.log(Respuesta[0]);
+          Respuesta[0].sort(function (a, b) { return b.puntuacion - a.puntuacion });
           this.articuloslista = Respuesta[0];
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta[0];
@@ -402,6 +402,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {
+          Respuesta.sort(function (a, b) { return b.puntuacion - a.puntuacion });
           this.articuloslista = Respuesta;
           console.log(this.articuloslista);
           this.numeroencontrados = Object.keys(res).length;
@@ -422,6 +423,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         console.log(Respuesta);
+        Respuesta.sort(function (a, b) { return b.puntuacion - a.puntuacion });
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
@@ -442,6 +444,7 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         console.log('DATOSSSS');
         console.log(Respuesta);
+        Respuesta.sort(function (a, b) { return b.puntuacion - a.puntuacion });
         this.articuloslista = Respuesta;
         this.numeroencontrados = Object.keys(res).length;
         this.temporallistaarti = Respuesta;
@@ -656,7 +659,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   ordenarlista() {
     if (this.tipordenado == 'orden1') {
       console.log('entra1');
-      this.articuloslista.sort();
+      this.articuloslista.sort(function (a, b) { return b.puntuacion - a.puntuacion });
     }
     if (this.tipordenado == 'orden2') {
       this.articuloslista.sort(function (a, b) { return b.precioplan.precio - a.precioplan.precio });
