@@ -552,7 +552,6 @@ articuloController.obtenerTodoBanners = async (req, res) => {
 
 articuloController.guardarCards = async (req, res) => {
     try {
-        await Card.update({}, { $set: { activo: false } });
         var carteles = req.body.cards;
         for (var i = 0; i < carteles.length; i++) {
             if (carteles[i]._id) {
@@ -564,7 +563,7 @@ articuloController.guardarCards = async (req, res) => {
         }
         res.json({
             status: true,
-            msg: 'Los carteles han sigo registrados con éxito'
+            msg: 'Los carteles han sido modificados con éxito'
         })
     } catch (err) {
         res.json({
@@ -575,20 +574,21 @@ articuloController.guardarCards = async (req, res) => {
 }
 
 articuloController.obtenerCards = async (req, res) => {
-    Card.find({ activo: true }, function (err, cards) {
-        if (err) {
-            res.json({
-                status: false,
-                error: err
-            });
-        } else {
-            res.json({
-                status: true,
-                msg: 'Los datos se obtuvieron con éxito',
-                data: cards
-            })
-        }
-    })
+    try {
+        const articulosCard = await Card.find({ activo: true, tipo : 'ARTICULO'});
+        const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'});
+        res.json({
+            status: true,
+            msg: 'Los artículo y accesorio se han obtenido con éxito',
+            data: articulosCard,
+            data2: accesoriosCard
+        });
+    } catch (err) {
+        res.json({
+            status: false,
+            error: err
+        });
+    }
 }
 articuloController.obtenerCardsTipo = async (req, res) => {
     var tiplinea = 'PREPAGO';
@@ -617,6 +617,23 @@ articuloController.obtenerCardsTipo = async (req, res) => {
         }
     }
     res.json(jsoncard);
+}
+
+articuloController.eliminarCard = async(req, res) => {
+    Card.deleteOne({_id : req.params.id }, function(err){
+        if(err){
+            res.json({
+                status: false,
+                error: err
+            });
+        } else {
+            res.json({
+                status: true,
+                msg: 'El artículo se ha eliminado con éxito'
+            })
+        }
+    })
+
 }
 
 
