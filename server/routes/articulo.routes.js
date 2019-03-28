@@ -25,5 +25,6 @@ router.post('/cartel', articulo.guardarCards);
 router.post('/banner', articulo.guardarBanners);
 router.put('/:id', articulo.actualizarArticulo);
 //router.delete('/:id', articulo.eliminarCategoria);
+router.delete('/cartel/:id', articulo.eliminarCard);
 
 module.exports = router;
