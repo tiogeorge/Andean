@@ -253,7 +253,7 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i"
-                  id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;">
+                  id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;" routerLink="/articulo/{{articulo.url}}">
                   <!---->
                   <div class="product_item discount">
                     <!-- <div class="product_border"></div> -->
@@ -265,8 +265,7 @@
                     </div>
                     <div class="product_content">
                       <div class="product_name">
-                        <div class="text-center"><a routerLink="/articulo/{{articulo.url}}"
-                            tabindex="0">{{articulo.titulo}}</a></div>
+                        <div class="text-center"><a tabindex="0">{{articulo.titulo}}</a></div>
                         <!--  <p class="card-text text-center">
                           <a class="titulo-articulo .centrarletras" style="font-size: 14px"
                             routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
@@ -286,7 +285,6 @@
                     <div class="product_marks" *ngIf="articulo.descuento > 0">
                       <li class="product_mark product_discount">-{{articulo.descuento}}%</li>
                     </div>
-
                   </div>
                   <!---->
                   <hr>
