@@ -17,33 +17,46 @@ body{
 }
 .owl-carousel {
     position: relative;
-    }
-    .owl-prev,
-    .owl-next {
+}
+.owl-prev,
+.owl-next {
     position: absolute;
     top: 50%;
-    margin-top: -25px;
+    margin-top: -25px !important;
     width: 30px;
     height: 50px;
     background-color: rgba(196, 192, 192, 0.61)!important;
-    }
-    .owl-prev {
+    outline:0px !important;
+}
+.owl-prev {
     left: 0;
-    }
-    .owl-next {
+}
+.owl-next {
     right: 0;
-    }
-    .owl-dots{
-        position: absolute;
-        bottom: 0;
-        display: flex;
-        justify-content: center!important;
-        width: 100%;
-    }
-    span{
-        font-size: 14px;
-    }
-    
+}
+.owl-dots{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center!important;
+    width: 100%;
+}
+.owl-nav span{
+    font-size: 50px;
+    position: absolute;
+    top: -38%;
+    left: 25%;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline:0px !important;
+    color: white;
+}
+
+
 @media (min-width: 320px) {
     .ql-video{
         width: 100% !important;

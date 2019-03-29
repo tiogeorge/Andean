@@ -602,7 +602,7 @@ articuloController.obtenerCardsTipo = async (req, res) => {
         var id = card[i].idPrecio;
         const precios = await Equipo.find({ nombreequipo: id });
         var planesfiltrados = new Array();
-        for (var j = 0; j < precios[0].planes.length; j++) {
+        /*for (var j = 0; j < precios[0].planes.length; j++) {
             if (card[i].tipo != plan && precios[0].planes[j].tipolinea == tiplinea && precios[0].planes[j].tipoplan == tipplan && precios[0].planes[j].cuotas == cuota) {
                 planesfiltrados.push(precios[0].planes[j]);
             }
@@ -614,7 +614,7 @@ articuloController.obtenerCardsTipo = async (req, res) => {
         }
         if (planesfiltrados.length > 0) {
             jsoncard[i].precioplan = planesfiltrados[0];
-        }
+        }*/
     }
     res.json(jsoncard);
 }

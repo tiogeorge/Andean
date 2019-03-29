@@ -92,19 +92,16 @@ export class PortafolioComponent implements OnInit {
           0:{
               items:1,
               nav:true,
-              loop:false,
-              dots:false
+              dots:false,
           },
           600:{
               items:3,
               nav:false,
-              loop:false,
               dots:false
           },
           1000:{
               items:5,
               nav:true,
-              loop:false,
               dots:false
           }
       }
@@ -123,19 +120,6 @@ export class PortafolioComponent implements OnInit {
         console.log('entra');
         console.log(this.listarcardtipo1);
 
-        var content = "";
-        for(var i=0; i<this.listarcardtipo1.length;i++){
-          
-          var img = this.listarcardtipo1[i].urlImagen;
-          var alt = this.listarcardtipo1[i].urlImagen;
-          content += "<div class='item' <div class='simple-card noseleccionable'><div style=' width: 100%;display: flex;justify-content: center;'>"
-          +"<img  style='max-height: 160px;height: auto;width: auto;margin: 3px;' src='"+Constantes.URL_IMAGEN_MD+"/"+img+"'></div>"
-          +"<div style='font-size: 14px;font-weight: 430;color: #000000;'>"+this.listarcardtipo1[i].titulo
-          +"</div><div style='font-size: 12px;color: rgba(0,0,0,0.5);'><del>S/ 475.00</del></div>"
-          +"<div style='font-size: 16px;color: #df3b3b;font-weight: 500;'>"+this.listarcardtipo1[i].precioplan.precio+"</div></div></div>";
-        }
-        //console.log(content);
-        //$("#owl-demo").html(content);
       });
         
     this.cardservice.obtenercard(tipo2)

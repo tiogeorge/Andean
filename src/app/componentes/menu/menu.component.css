@@ -59,10 +59,10 @@ button:focus{
 }
 .campo-busqueda{
   width: 70%;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: white;
   color: black;
-  height: 70%;
+  height: 75%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -93,13 +93,27 @@ button:focus{
   border: 0px;
   background-color: white;
 }
+.menu-categorias{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 80%;
+  margin-right: 30px;
+  border: solid 1px #e8e8e8;
+  border-radius: 3px;
+}
+.menu-categorias:hover{
+  cursor: pointer;
+}
 
  #logosmarket{
   content: url("/assets/images/logoS.png");;
  }
 .item-menu-opciones{
-  margin-left: 10px; 
-  margin-right: 10px;
+  margin-left: 15px; 
+  margin-right: 15px;
   height: 100%; 
   display: flex; 
   flex-direction: row; 
@@ -125,7 +139,7 @@ select:hover{
   border: 0px;
   border-left: 1px solid rgba(199, 198, 198, 0);
   padding-left: 5px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .input-busqueda:focus{
   outline: 0px;
@@ -176,11 +190,13 @@ select:hover{
 
 #menu-todas-opciones{
   display: flex;
+  min-height: 5px;
   width: 100% ;
   height: auto; 
   display: flex; 
   flex-direction: row; 
   border-bottom: 1px solid rgb(192, 188, 188);
+  background-color: black;
 }
 #categorias {
   padding: .5rem 0rem;

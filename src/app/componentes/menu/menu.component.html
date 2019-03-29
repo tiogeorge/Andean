@@ -2,25 +2,29 @@
   <a class="navbar-brand" routerLink="/home" style="width: auto; height: 40px; display: flex; align-items: center;"><img
       id="logosmarket" src="/assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
       height="40px"></a>
-  <button class="navbar-toggler" type="button" (click)="openNav()">
+  <button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #8600fe;  color: white;">
     <i class="material-icons">
       menu
     </i>
   </button>
-  <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 70%;">
+  <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 80%;">
+    <div class="menu-categorias">
+      <i class="fas fa-bars"></i>
+      <p style="padding: 0px; margin:0px; margin-left: 5px;">CATEGORÍAS</p>
+    </div>
+    
     <div class="campo-busqueda">
+      <i class="material-icons btn-busqueda" style="margin-left: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
       <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
-      <i class="material-icons btn-busqueda" style="margin-right: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
+      
     </div>
     <div class="campo-opciones-usuario">
-      <div class="item-menu-opciones" style="display: none;">
-        <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
-      </div>
+      
       <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
-        <i class="material-icons" style="font-size:30px; margin-right: 5px;"> account_circle</i>
+        <i class="fa fa-user" style="font-size:30px; margin-right: 5px;"></i>
         <div id="labelnombreusuario">{{nombreusuario}} </div>
       </div>
-      <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px;" xPosition="before">
+      <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px; background-color: black !important" xPosition="before">
         <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
             class="material-icons" style="font-size: large;margin-left: 14px; ">person</i>
           <div style="margin-left: 10px;">Perfil de Usuario</div>
@@ -55,14 +59,19 @@
       <div class="item-menu-opciones">
         <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>
       </div>
+      <div class="item-menu-opciones" style="">
+        <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
+      </div>
     </div>
   </div>
 </nav>
 
 <div id="menu-todas-opciones">
-  <ul>
+ <!--
+<ul>
     <li class="active-menu-cont"><a class="active-menu">CATEGORIAS</a></li>
   </ul>
+ --> 
 </div>
 <div class="cont-busqueda-peque">
   <div style="width: 100%; ">

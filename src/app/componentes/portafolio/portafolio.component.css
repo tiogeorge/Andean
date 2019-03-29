@@ -57,6 +57,8 @@
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
+
+    outline:0px !important;
 }
 .noseleccionable:hover{
   cursor: pointer;
