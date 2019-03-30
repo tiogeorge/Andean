@@ -19,6 +19,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 const moment = _rollupMoment || _moment;
+declare var Culqi : any;
 
 export interface NombreDirec {
   nombre: string;
@@ -139,10 +140,10 @@ export class PagoComponent implements OnInit {
     { nombre: 'Direccion1' },
   ];
   tiposDocumento              : string[];
-  date = new FormControl(moment());
-  anioHoy = new Date().getFullYear();
-  mesHoy = new Date().getMonth();
-  minDate : Date;
+  //date = new FormControl(moment());
+  //anioHoy = new Date().getFullYear();
+  //mesHoy = new Date().getMonth();
+  //minDate : Date;
 
   //
   add(event: MatChipInputEvent): void {
@@ -219,12 +220,14 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit() {
+    Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
+    Culqi.init();
     // Validar la fecha de expiración de la tarjeta como mínimo al mes siguiente
-    if(this.mesHoy == 12){
+    /*if(this.mesHoy == 12){
       this.mesHoy = 1;
       this.anioHoy = this.anioHoy + 1;
     }
-    this.minDate = new Date(this.anioHoy, this.mesHoy + 1);
+    this.minDate = new Date(this.anioHoy, this.mesHoy + 1);*/
     this.tiposDocumento       = ['DNI'];
     this.localselec = 'Casa';
     //obtener carrito
@@ -586,42 +589,43 @@ export class PagoComponent implements OnInit {
    * Método que ocurre cuando el usuario selecciona el año de expiración de la tarjeta
    * @param yearNormalizado 
    */
-  yearSelected(yearNormalizado: Moment){
+  /*yearSelected(yearNormalizado: Moment){
     const ctrlValue = this.date.value;
     ctrlValue.year(yearNormalizado.year());
     this.pagoservice.tarjeta.yearExp = yearNormalizado.year().toString();
     this.date.setValue(ctrlValue);
-  }
+  }*/
 
   /**
    * Método que ocurre cuando el usuario selecciona el mes de expiración de su tarjeta
    * @param mesNormalizado : mes seleccionado
    * @param datepicker : objeto de datepicker
    */
-  mesSelected(mesNormalizado: Moment, datepicker: MatDatepicker<Moment>){
+  /*mesSelected(mesNormalizado: Moment, datepicker: MatDatepicker<Moment>){
     const ctrlValue = this.date.value;
     ctrlValue.month(mesNormalizado.month());
     this.date.setValue(ctrlValue);
     const mes = (mesNormalizado.month() + 1).toString().length == 2 ? (mesNormalizado.month() + 1).toString() : '0' + (mesNormalizado.month() + 1).toString();
     this.pagoservice.tarjeta.mesExp = mes;
     datepicker.close();
-  }
+  }*/
 
   pagar(){
+    console.log('Pagando');
     this.pagoservice.procesarPago(this.direccionService.selecDireccion).subscribe( res => {
       console.log(res);
     });
-    /*Culqi.createToken();
+    Culqi.createToken();
     if(Culqi.token){
       console.log('Procesando la compra');
       console.log(Culqi.token);
       this.pagoservice.procesarPago(Culqi.token.id).subscribe( res => {
         console.log(res);
-        this.guardarventa();
+        //this.guardarventa();
       });
     } else {
       console.log(Culqi.error);
-    }*/
+    }
   }
 
   generarnumerodepedido(){
