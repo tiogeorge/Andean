@@ -8,11 +8,24 @@
     </i>
   </button>
   <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 80%;">
+    
     <div class="menu-categorias">
-      <i class="fas fa-bars"></i>
-      <p style="padding: 0px; margin:0px; margin-left: 5px;">CATEGORÍAS</p>
+      <div class="btn-manu-categorias">
+          <i class="fas fa-bars"></i>
+          <p style="padding: 0px; margin:0px; margin-left: 5px;">CATEGORÍAS</p>
+      </div>
+      
+      <div class="dropdown-content-cat">
+        <div class="contenido-menu-cat">
+            <div class="item-categoria-menu" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}">
+                <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoria.icono}}</i><div>{{categoria.nombre}}</div>     
+            </div>
+        </div>
+        
+      </div>
     </div>
     
+   
     <div class="campo-busqueda">
       <i class="material-icons btn-busqueda" style="margin-left: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
       <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">

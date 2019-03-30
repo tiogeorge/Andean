@@ -94,13 +94,20 @@ button:focus{
   background-color: white;
 }
 .menu-categorias{
+  width: 180px;
+  height: 80%;
+  position: relative;
+  display: inline-block;
+  
+  margin-right: 30px;
+}
+.btn-manu-categorias{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 180px;
-  height: 80%;
-  margin-right: 30px;
+  height: 100%;
   border: solid 1px #e8e8e8;
   border-radius: 3px;
 }
@@ -369,6 +376,60 @@ select:hover{
   background-color: rgb(226, 226, 226);
   cursor: pointer;
 }
+
+/* DROPDOWN CATEGORIAS*/
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content-cat {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 50;
+  height: auto;
+  min-width: 100%;
+  
+}
+.contenido-menu-cat{
+  min-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  display: none;
+  height: auto;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+}
+.item-categoria-menu{
+  height: 46px;
+  border-bottom: solid 1px #f2f2f2;
+  padding-left: 25px;
+  padding-right: 30px;
+  white-space: nowrap;
+  width: 100%;
+  color:#3a3a3a;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-left: solid 3px #ffffff;
+  
+}
+.item-categoria-menu:hover{
+  color:blueviolet;
+  border-left: solid 3px blueviolet;
+}
+
+/* Show the dropdown menu on hover */
+.menu-categorias:hover .dropdown-content-cat{
+  display: block;
+}
+
+
+
+/*==============================================0*/
+
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
