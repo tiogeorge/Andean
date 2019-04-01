@@ -14,12 +14,12 @@ import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.ser
 import { Articulo } from '../articulo-detalle/articulo';
 import { Constantes } from './../constantes';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
-import {default as _rollupMoment, Moment} from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
-declare var Culqi : any;
+declare var Culqi: any;
 
 export interface NombreDirec {
   nombre: string;
@@ -81,16 +81,16 @@ export const MY_FORMATS = {
   styleUrls: ['./pago.component.css'],
   providers: [
     { provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false } },
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}, 
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     DireccionService, PagoService],
   encapsulation: ViewEncapsulation.None
 })
 
 export class PagoComponent implements OnInit {
-  pedidogenerado:string='';
+  pedidogenerado: string = '';
   isLinear = true;
-  dato1:string='';
+  dato1: string = '';
   seriedoc: string = "";
   numerodoc: string = "";
   tipodoc: string = "BBV";
@@ -139,7 +139,7 @@ export class PagoComponent implements OnInit {
   fruits: NombreDirec[] = [
     { nombre: 'Direccion1' },
   ];
-  tiposDocumento              : string[];
+  tiposDocumento: string[];
   //date = new FormControl(moment());
   //anioHoy = new Date().getFullYear();
   //mesHoy = new Date().getMonth();
@@ -163,8 +163,8 @@ export class PagoComponent implements OnInit {
     this.pagoservice.selectPago.idDireccion = id;
     document.getElementsByClassName('matchips').item
     document.getElementById('Resumendir').hidden = false;
-    this.dato1='siguiente';
-   // this.isLinear=false;
+    this.dato1 = 'siguiente';
+    // this.isLinear=false;
     this.logocard = nombreicon;
     //   document.getElementById(id).style.background='#FFBF00';
     //   document.getElementById(id).style.color='white';
@@ -189,6 +189,7 @@ export class PagoComponent implements OnInit {
         document.getElementById(this.RespuestaDir[i]._id).style.color = 'black';
       }
     }
+    this.firstFormGroup.get('firstCtrl').setValue('siguiente');//
     this.nombreiconselec = 'check';
     document.getElementById('btnsig1').style.display = 'block';
     document.getElementById('btnsig1').focus();
@@ -216,7 +217,7 @@ export class PagoComponent implements OnInit {
     { value: 'Otro' }
   ];
 
-  constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService,public usuarioService: UsuarioService,public router: Router,public regionService: RegionService, public articuloDetalleService: ArticuloDetalleService) {
+  constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, public usuarioService: UsuarioService, public router: Router, public regionService: RegionService, public articuloDetalleService: ArticuloDetalleService) {
   }
 
   ngOnInit() {
@@ -228,7 +229,7 @@ export class PagoComponent implements OnInit {
       this.anioHoy = this.anioHoy + 1;
     }
     this.minDate = new Date(this.anioHoy, this.mesHoy + 1);*/
-    this.tiposDocumento       = ['DNI'];
+    this.tiposDocumento = ['DNI'];
     this.localselec = 'Casa';
     //obtener carrito
     this.articuloDetalleService.getCarrito().subscribe(res => {
@@ -248,21 +249,21 @@ export class PagoComponent implements OnInit {
     //   
     //stepps
     this.firstFormGroup = this._formBuilder.group({
-     /* datD1: ['', Validators.required],
-      datD2: ['', Validators.required],
-      datD3: ['', Validators.required],
-      datD4: ['', Validators.required],
-      datD5: ['', Validators.required],
-      datD6: ['', Validators.required],
-      datD7: ['', Validators.required],*/
+      /* datD1: ['', Validators.required],
+       datD2: ['', Validators.required],
+       datD3: ['', Validators.required],
+       datD4: ['', Validators.required],
+       datD5: ['', Validators.required],
+       datD6: ['', Validators.required],
+       datD7: ['', Validators.required],*/
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-    /*  datoN1: ['', Validators.required],
-      datoN2: ['', Validators.required],
-      datoN3: ['', Validators.required],
-      datoN4: ['', Validators.required],
-      datoN5: ['', Validators.required],*/
+      /*  datoN1: ['', Validators.required],
+        datoN2: ['', Validators.required],
+        datoN3: ['', Validators.required],
+        datoN4: ['', Validators.required],
+        datoN5: ['', Validators.required],*/
       secondCtrl: ['', Validators.required]
     });
     //fin stepps
@@ -270,7 +271,7 @@ export class PagoComponent implements OnInit {
     this.usuarioService.getUsuarioLogeado().subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status) {
-        this.usuarioService.usuarioSeleccionado = jres.data  as Usuario;
+        this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
         this.usuario = jres.data as Usuario;
         this.user = this.usuario._id;
         this.correoclient = this.usuario.correo;
@@ -405,9 +406,11 @@ export class PagoComponent implements OnInit {
         console.log('Direccion Agregada')
         this.ListarDireccion(this.usuario._id);
       });
+    this.firstFormGroup.get('firstCtrl').setValue('siguiente');//
     document.getElementById('Agregardireccion').hidden = true;
     document.getElementById('Resumendir').hidden = false;
-    this.dato1='siguiente';
+    this.dato1 = 'siguiente';
+
     //this.isLinear=false;
   }
   nombreiconresdir(nombreicon: string) {
@@ -529,8 +532,8 @@ export class PagoComponent implements OnInit {
                   this.snackBar.open('Venta Realizada', '🧓🏻', {
                     duration: 2000,
                   });
-                 /* this.eliminarcarrito();
-                  this.router.navigateByUrl('home');*/
+                  /* this.eliminarcarrito();
+                   this.router.navigateByUrl('home');*/
                 }
                 else {
                   alert('Error!!!');
@@ -610,16 +613,16 @@ export class PagoComponent implements OnInit {
     datepicker.close();
   }*/
 
-  pagar(){
+  pagar() {
     console.log('Pagando');
-    this.pagoservice.procesarPago(this.direccionService.selecDireccion).subscribe( res => {
+    this.pagoservice.procesarPago(this.direccionService.selecDireccion).subscribe(res => {
       console.log(res);
     });
     Culqi.createToken();
-    if(Culqi.token){
+    if (Culqi.token) {
       console.log('Procesando la compra');
       console.log(Culqi.token);
-      this.pagoservice.procesarPago(Culqi.token.id).subscribe( res => {
+      this.pagoservice.procesarPago(Culqi.token.id).subscribe(res => {
         console.log(res);
         //this.guardarventa();
       });
@@ -628,9 +631,9 @@ export class PagoComponent implements OnInit {
     }
   }
 
-  generarnumerodepedido(){
-    var pedidogen=rand(12,12);
-    this.pedidogenerado=pedidogen.toUpperCase();
+  generarnumerodepedido() {
+    var pedidogen = rand(12, 12);
+    this.pedidogenerado = pedidogen.toUpperCase();
   }
 }
 
