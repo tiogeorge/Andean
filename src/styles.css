@@ -55,6 +55,7 @@ body{
     outline:0px !important;
     color: white;
 }
+.owl-nav { display: block !important; }
 
 
 @media (min-width: 320px) {

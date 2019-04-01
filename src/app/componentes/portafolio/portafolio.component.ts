@@ -18,15 +18,16 @@ export class PortafolioComponent implements OnInit {
   listarcardtipo1: any;
   listarcardtipo2: any;
   listarcardtipo3: any;
+
+  listaofertas:any;
+  listaaccesorios: any;
   constructor(public cardservice: CardService , public router: Router) { }
   URL_IMAGENES = Constantes.URL_IMAGEN_MD;
   URL_IMAGEN = Constantes.URL_IMAGEN;
   banners : any[] = new Array();
   bannerPrincipal: any ;
 
-  @ViewChildren('carousel2') carousel2: QueryList<any>;
-
-
+  @ViewChildren('carouselofertas') carouselofertas: QueryList<any>;
   ngOnInit() {
     this.bannerPrincipal =  {
       _id:'0',
@@ -37,9 +38,12 @@ export class PortafolioComponent implements OnInit {
     
   }
   ngAfterViewInit() {
-    this.carousel2.changes.subscribe(t => {
+    this.carouselofertas.changes.subscribe(t => {
+      this.iniciarCarouselAccesorios();
       this.iniciarCarousel();
+      
     });
+    
   }
   
 
@@ -79,8 +83,7 @@ export class PortafolioComponent implements OnInit {
     });
   }
   iniciarCarousel(){
-    console.log("INICIAR OWL CROSUEK");
-    $("#owl-demo").owlCarousel({
+    $("#owl-demo-ofertas").owlCarousel({
       loop:true,
       margin:10,
       autoplay:true,
@@ -106,12 +109,72 @@ export class PortafolioComponent implements OnInit {
           }
       }
     });
+    
   }
+
+  iniciarCarouselOfertas(){
+    $("#owl-demo-ofertas2").owlCarousel({
+      loop:true,
+      margin:10,
+      autoplay:true,
+      autoplayTimeout:3000,
+      autoplayHoverPause:true,
+      lazyLoad:true,
+      responsiveClass:true,
+      responsive:{
+          0:{
+              items:1,
+              nav:true,
+              dots:false,
+          },
+          600:{
+              items:3,
+              nav:false,
+              dots:false
+          },
+          1000:{
+              items:5,
+              nav:true,
+              dots:false
+          }
+      }
+    });
+    
+  }
+  iniciarCarouselAccesorios(){
+    $("#owl-demo-accesorios").owlCarousel({
+      loop:true,
+      margin:10,
+      autoplay:true,
+      autoplayTimeout:3000,
+      autoplayHoverPause:true,
+      lazyLoad:true,
+      responsiveClass:true,
+      nav:true,
+      responsive:{
+          0:{
+              items:1,
+              nav:true,
+              dots:true,
+          },
+          600:{
+              items:2,
+              nav:true,
+              dots:true
+          },
+          1000:{
+              items:4,
+              nav:true,
+              dots:true
+          }
+      }
+    });
+  }
+
   obtenercard() {
     var tipo1 = 'Equipo';
     var tipo2 = 'Plan';
     var tipo3 = 'Accesorio';
-    this.listarcardtipo1=new Array();
     this.cardservice.obtenercard(tipo1)
       .subscribe(res => {
         console.log(res);
@@ -119,22 +182,30 @@ export class PortafolioComponent implements OnInit {
         this.listarcardtipo1=resp;
         console.log('entra');
         console.log(this.listarcardtipo1);
+        this.cardservice.obtenercard(tipo3)
+        .subscribe(res => {
+          var resp3 = JSON.parse(JSON.stringify(res));
+          this.listarcardtipo3=resp3;
+          console.log('entra');
+          console.log(this.listarcardtipo3);
+
+          this.cardservice.obtenercard(tipo2)
+          .subscribe(res => {
+            var resp2 = JSON.parse(JSON.stringify(res));
+            this.listarcardtipo2=resp2;
+            console.log('entra');
+            console.log(this.listarcardtipo2);
+
+
+            this.listaofertas = this.listarcardtipo1;
+            this.listaaccesorios = this.listarcardtipo3;
+          });
+        });
+        
 
       });
         
-    this.cardservice.obtenercard(tipo2)
-      .subscribe(res => {
-        var resp2 = JSON.parse(JSON.stringify(res));
-        this.listarcardtipo2=resp2;
-        console.log('entra');
-        console.log(this.listarcardtipo2);
-      });
-    this.cardservice.obtenercard(tipo3)
-      .subscribe(res => {
-        var resp3 = JSON.parse(JSON.stringify(res));
-        this.listarcardtipo3=resp3;
-        console.log('entra');
-        console.log(this.listarcardtipo3);
-      });
+    /*
+    */
   }
 }

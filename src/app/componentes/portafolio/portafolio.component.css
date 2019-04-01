@@ -157,6 +157,7 @@
   margin-top: 10px;
   transition: 0.2s;
   position: relative;
+  border-right: 1px solid rgb(224, 224, 224);
 }
 .item-img-accesorio{
   height: 115px;
