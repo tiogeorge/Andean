@@ -614,10 +614,10 @@ export class PagoComponent implements OnInit {
   }*/
 
   pagar() {
-    console.log('Pagando');
+    /*console.log('Pagando');
     this.pagoservice.procesarPago(this.direccionService.selecDireccion).subscribe(res => {
       console.log(res);
-    });
+    });*/
     Culqi.createToken();
     if (Culqi.token) {
       console.log('Procesando la compra');
