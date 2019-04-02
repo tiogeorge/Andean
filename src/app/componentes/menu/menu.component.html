@@ -104,14 +104,49 @@
 <div id="mySidepanel2" class="sidepanel" style="z-index: 1600;">
   <div id="mySidepanel" class="cont-menu-peque">
     <div class="header-menu-peque">
-      <div style="width: 40%; height: auto; padding-left: 15px;">
-        <img src="/assets/images/logoS.png" alt="" style="width: 100%;">
+      <div style="width: 90%; height: auto; padding-left: 15px; display: flex; align-items:center; justify-content: center; ">
+        <button mat-raised-button color="primary" style="width: 80%;">Iniciar Sesión</button>      
+      </div>      
+      <div style="width: 20px; display: flex; justify-content: flex-end; margin: 0px;"  >
+        <i class="material-icons btncerrar-menu" style="color: black; font-size: x-large;" (click)="closeNav()">close</i>
       </div>
-      <div style="width: 60%; display: flex; justify-content: flex-end; margin: 0px;padding-right: 15px;">
-        <i class="material-icons btncerrar-menu" style="color: white; font-size: x-large;" (click)="closeNav()">close</i>
+      <div style="display:flex;flex-direction: row; width:100% ;  margin-top: 10px; justify-content: center;">
+        <h6>¿Eres nuevo? </h6> <h6 style="color:rgb(143, 6, 143); margin-left: 10px;">Registrate</h6>
       </div>
     </div>
-    <div style="width: 100%; padding: 5px; padding-top: 15px; display: flex; flex-direction: column;">
+    <div class="item-menu-movil" >
+        <i class="material-icons" style="margin-right: 10px;">person</i>Mi Cuenta
+    </div>
+    <div class="item-menu-movil">
+        <i class="material-icons" style="margin-right: 10px;">local_shipping</i>Mis Pedidos
+    </div>
+    <div class="item-menu-movil">
+        <i class="material-icons" style="margin-right: 10px;">help</i>Ayuda
+    </div>
+    <div class="item-menu-movil">
+      <i class="material-icons" style="margin-right: 10px;">chat</i>Chat
+    </div>
+    <div class="item-menu-movil" (click)="mostrarCategorias()">
+        Categorias
+        <div id="icono-categoria-movil" style="margin-left: 140px; margin-top:5px;">
+            <i class="material-icons" id="icon-categoria-expandido">
+                expand_more
+                </i>
+        </div>        
+    </div>
+    <div class="cont-categorias-menu-movil" id="cont-categorias-menu-movil">
+      <div class="cont-categorias-menu-movil-list" id="cont-categorias-menu-movil-list">
+          <div class="item-categoria-menu-movil" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}">
+            <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoria.icono}}</i><div>{{categoria.nombre}}</div>     
+          </div>
+      </div>
+        
+    </div>
+    <div class="item-menu-movil">
+      Terminos y Condiciones
+    </div>
+    <!--
+      <div style="width: 100%; padding: 5px; padding-top: 15px; display: flex; flex-direction: column;">
       <h5>Categorias</h5>
       <hr style="margin: 0px; padding: 0px;">
       <div style="width: 100%; display:flex; flex-direction: column">
@@ -120,18 +155,7 @@
           <div>{{categoriap.nombre}}</div>
         </div>
       </div>
-      <hr style="margin: 0px; padding: 0px; margin-top: 10px;">
-      <div class="item-menu-peque" (click)="abrirChat()">
-        <i class="material-icons">
-          chat_bubble_outline
-        </i>
-        <h5>Chat</h5>
-      </div>
-      <hr style="margin: 0px; padding: 0px;">
-      <div class="item-menu-peque">
-        <h5>Terminos y condiciones</h5>
-      </div>
-      <hr style="margin: 0px; padding: 0px;">
     </div>
+    --> 
   </div>
 </div>

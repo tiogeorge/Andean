@@ -12,7 +12,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { comunicacionService } from '../comunicacion.service';
 //import {CategoriaService} from '../categoria/categoria.service';
-
+declare var $: any;
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -72,6 +72,12 @@ export class MenuComponent implements OnInit {
       map(value => this._filter(value))
     );
     //fin auto comple
+
+    $(window).on("resize", this.resize);
+  }
+  resize() {
+    document.getElementById("mySidepanel").style.height = window.innerHeight+"px";
+    document.getElementById("mySidepanel2").style.height = window.innerHeight+"px";
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -79,16 +85,35 @@ export class MenuComponent implements OnInit {
   
   /* Set the width of the sidebar to 250px (show it) */
   openNav() {
-    document.getElementById("mySidepanel").style.width = "100%";
-    document.getElementById("mySidepanel").style.height = screen.height+"px";
+    
+    document.getElementById("mySidepanel").style.width = "280px";
+    document.getElementById("mySidepanel").style.height = window.innerHeight+"px";
     document.getElementById("mySidepanel2").style.width = "100%";
-    document.getElementById("mySidepanel2").style.height = screen.height+"px";
+    document.getElementById("mySidepanel2").style.height = window.innerHeight+"px";
+    document.getElementById("mySidepanel2").style.overflowY = "auto";
     if(this.categorias.length==0){
       console.log("BUSCANDO CATEFRIAS EN MENU");
       this.categoriaService.listarcategoriaspadres()
       .subscribe(res =>{
         this.categorias = res as any[];
       });
+    }
+  }
+  mostrocategorias= false;
+  mostrarCategorias(){
+    var campo = document.getElementById("cont-categorias-menu-movil");
+    var campobusqueda = document.getElementById("cont-categorias-menu-movil-list");
+    if(!this.mostrocategorias){
+      this.mostrocategorias = true;
+      
+      campo.style.height= "auto";
+      campobusqueda.style.display="flex";
+      document.getElementById("icon-categoria-expandido").innerHTML="expand_less";
+    }else{
+      this.mostrocategorias = false;
+      campo.style.height= "0px";
+      campobusqueda.style.display="none";
+      document.getElementById("icon-categoria-expandido").innerHTML="expand_more";
     }
   }
   mostrocaompobusqueda = false;
@@ -114,8 +139,8 @@ export class MenuComponent implements OnInit {
   }
   /* Set the width of the sidebar to 0 (hide it) */
   closeNav() {
-    document.getElementById("mySidepanel").style.width = "0";
-    document.getElementById("mySidepanel2").style.width = "0";
+    document.getElementById("mySidepanel").style.width = "0px";
+    document.getElementById("mySidepanel2").style.width = "0px";
   }
 
   mostrarMenu(opcion){

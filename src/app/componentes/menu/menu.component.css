@@ -154,6 +154,25 @@ select:hover{
   padding-left: 5px;
   margin-left: 5px;
 }
+.item-menu-movil{
+  height: 46px;
+  border-bottom: solid 1px #d8d8d8;
+  padding-left: 25px;
+  padding-right: 30px;
+  white-space: nowrap;
+  width: 100%;
+  color: #3a3a3a;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-left: solid 3px #ffffff;
+}
+.item-menu-movil:hover{
+  color:blueviolet;
+  border-left: solid 3px blueviolet;
+}
+
 .input-busqueda:focus{
   outline: 0px;
 }
@@ -288,6 +307,45 @@ select:hover{
   height: 100%; 
   background-color:white; 
   z-index: 1000;transition: 0.2s;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.164);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.cont-categorias-menu-movil{
+  transition: 0.2s;
+  height: 0px;
+  border-bottom: solid 1px #d8d8d8;
+  white-space: nowrap;
+  width: 100%;
+  color: #3a3a3a;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-left: solid 3px #ffffff;
+}
+.cont-categorias-menu-movil-list{
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+.item-categoria-menu-movil{
+  height: 46px;
+    border-bottom: solid 1px #f2f2f2;
+    padding-left: 25px;
+    padding-right: 30px;
+    white-space: nowrap;
+    width: 100%;
+    color: #3a3a3a;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-left: solid 3px #ffffff
+}
+.item-categoria-menu-movil:hover{
+  cursor:pointer;
+  color:blueviolet;
 }
 
 /* The sidepanel links */
@@ -309,8 +367,10 @@ select:hover{
   flex-direction: row;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #1B2437;
+  background-color: rgb(255, 255, 255);
+  border-bottom: solid 1px #d6d6d6;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -431,6 +491,7 @@ select:hover{
 .item-categoria-menu:hover{
   color:blueviolet;
   border-left: solid 3px blueviolet;
+  cursor: pointer;
 }
 
 /* Show the dropdown menu on hover */
