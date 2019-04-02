@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg " id="menu-principal">
-  <a class="navbar-brand" routerLink="/home" style="width: auto; height: 40px; display: flex; align-items: center;"><img
+  <a class="navbar-brand" routerLink="/home" style="width: auto; height: 40px; display: flex; align-items: center;z-index: 100;"><img
       id="logosmarket" src="/assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
       height="40px"></a>
-  <button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #8600fe;  color: white;">
+  <button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #8600fe;  color: white; z-index: 100;">
     <i class="material-icons">
       menu
     </i>
@@ -105,30 +105,30 @@
   <div id="mySidepanel" class="cont-menu-peque">
     <div class="header-menu-peque">
       <div style="width: 90%; height: auto; padding-left: 15px; display: flex; align-items:center; justify-content: center; ">
-        <button mat-raised-button color="primary" style="width: 80%;">Iniciar Sesión</button>      
+        <button mat-raised-button color="primary" style="width: 80%;" routerLink="/login" (click)="closeNav()">Iniciar Sesión</button>      
       </div>      
       <div style="width: 20px; display: flex; justify-content: flex-end; margin: 0px;"  >
         <i class="material-icons btncerrar-menu" style="color: black; font-size: x-large;" (click)="closeNav()">close</i>
       </div>
       <div style="display:flex;flex-direction: row; width:100% ;  margin-top: 10px; justify-content: center;">
-        <h6>¿Eres nuevo? </h6> <h6 style="color:rgb(143, 6, 143); margin-left: 10px;">Registrate</h6>
+        <h6>¿Eres nuevo? </h6> <h6 style="color:rgb(143, 6, 143); margin-left: 10px;" routerLink="/registro" (click)="closeNav()">Registrate</h6>
       </div>
     </div>
-    <div class="item-menu-movil" >
+    <div class="item-menu-movil"(click)="closeNav()" >
         <i class="material-icons" style="margin-right: 10px;">person</i>Mi Cuenta
     </div>
-    <div class="item-menu-movil">
+    <div class="item-menu-movil" (click)="closeNav()">
         <i class="material-icons" style="margin-right: 10px;">local_shipping</i>Mis Pedidos
     </div>
-    <div class="item-menu-movil">
+    <div class="item-menu-movil" (click)="closeNav()">
         <i class="material-icons" style="margin-right: 10px;">help</i>Ayuda
     </div>
-    <div class="item-menu-movil">
+    <div class="item-menu-movil" (click)="closeNav()">
       <i class="material-icons" style="margin-right: 10px;">chat</i>Chat
     </div>
     <div class="item-menu-movil" (click)="mostrarCategorias()">
         Categorias
-        <div id="icono-categoria-movil" style="margin-left: 140px; margin-top:5px;">
+        <div id="icono-categoria-movil" style="margin-left: 140px; margin-top:5px;" >
             <i class="material-icons" id="icon-categoria-expandido">
                 expand_more
                 </i>
@@ -136,7 +136,7 @@
     </div>
     <div class="cont-categorias-menu-movil" id="cont-categorias-menu-movil">
       <div class="cont-categorias-menu-movil-list" id="cont-categorias-menu-movil-list">
-          <div class="item-categoria-menu-movil" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}">
+          <div class="item-categoria-menu-movil" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}" (click)="closeNav()">
             <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoria.icono}}</i><div>{{categoria.nombre}}</div>     
           </div>
       </div>
