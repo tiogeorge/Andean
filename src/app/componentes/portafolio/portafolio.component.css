@@ -64,8 +64,11 @@
   cursor: pointer;
 }
 .carusel-grande{
-  width: 100%;
+  width: 90%;
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -157,7 +160,7 @@
   margin-top: 10px;
   transition: 0.2s;
   position: relative;
-  border-right: 1px solid rgb(224, 224, 224);
+  border: 1px solid rgb(224, 224, 224);
 }
 .item-img-accesorio{
   height: 115px;
@@ -178,6 +181,7 @@
 .item-accesorios:hover{
   transform: scale(1.05);
   cursor: pointer;
+  z-index: 2000;
 }
 .cont-carouseles{
   width: 100%; 

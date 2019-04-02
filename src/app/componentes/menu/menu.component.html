@@ -7,7 +7,7 @@
       menu
     </i>
   </button>
-  <div class="navbar navbar-expand-lg" id="menu-iconos" style="height: 100%;top: 0; width: 80%;">
+  <div class="navbar navbar-expand-lg contendor-menu-principal" id="menu-iconos" >
     
     <div class="menu-categorias">
       <div class="btn-manu-categorias">
@@ -28,11 +28,13 @@
    
     <div class="campo-busqueda">
       <i class="material-icons btn-busqueda" style="margin-left: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
-      <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keypress)="buscarpa($event)">
+      <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
       
     </div>
     <div class="campo-opciones-usuario">
-      
+      <div class="item-menu-opciones opcion-busqueda-movil" (click) = "mostrarCampoBusqueda()">
+        <i class="material-icons" style="font-size:30px; margin-right: 10px;">search</i>
+      </div>
       <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
         <i class="fa fa-user" style="font-size:30px; margin-right: 5px;"></i>
         <div id="labelnombreusuario">{{nombreusuario}} </div>
@@ -72,7 +74,7 @@
       <div class="item-menu-opciones">
         <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>
       </div>
-      <div class="item-menu-opciones" style="">
+      <div class="item-menu-opciones opcion-pedidos" >
         <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
       </div>
     </div>
@@ -86,14 +88,18 @@
   </ul>
  --> 
 </div>
-<div class="cont-busqueda-peque">
-  <div style="width: 100%; ">
-    <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;" placeholder="Busca productos"
-      id="buscarartpal2" name="buscarartpal2">
-  </div>
-  <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: white; padding-left: 5px;"
-    (click)="buscarArti()">search</i>
+<div id="campo-busqueda-movil" class="cont-busqueda-peque">
+    <div  id="input-busqueda-movil" style="display: none; flex-direction: row; width: 100%;" >
+        <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: rgb(71, 71, 71); padding-left: 5px;"
+        (click)="buscarArti()">search</i>
+      <div style="width: 100%; ">
+        <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;background-color: rgb(255, 255, 255);outline:0px !important;" placeholder="Busca productos"
+          id="buscarartpal2" name="buscarartpal2" (keyup)="buscarpa2($event)">
+      </div>
+      
+    </div>
 </div>
+
 <!-- MENU EN CELULARES-->
 <div id="mySidepanel2" class="sidepanel" style="z-index: 1600;">
   <div id="mySidepanel" class="cont-menu-peque">

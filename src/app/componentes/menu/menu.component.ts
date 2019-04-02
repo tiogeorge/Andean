@@ -91,6 +91,23 @@ export class MenuComponent implements OnInit {
       });
     }
   }
+  mostrocaompobusqueda = false;
+  mostrarCampoBusqueda(){
+    var campo = document.getElementById("campo-busqueda-movil");
+      var campobusqueda = document.getElementById("input-busqueda-movil");
+    if(!this.mostrocaompobusqueda){
+      this.mostrocaompobusqueda = true;
+      
+      campo.style.height= "50px";
+      campobusqueda.style.display="flex";
+      document.getElementById("buscarartpal2").focus();
+    }else{
+      this.mostrocaompobusqueda = false;
+      campo.style.height= "0px";
+      campobusqueda.style.display="none";
+    }
+  }
+  
   abrirChat(){
     this.comService.abrirChat();
     this.closeNav();
@@ -158,6 +175,23 @@ export class MenuComponent implements OnInit {
   buscarpa(event:any){
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
+    console.log(this.pclave2);
+    if(event.key=="Enter"){
+    // this.router.navigate(['busqueda/'+this.pclave2]);
+    //this.bus(this.pclave2);
+     this.router.navigateByUrl('busqueda/palclav/'+this.pclave2);
+     this.enviarPalabraClave();
+     //this.actualizarcomponente(this.pclave2);
+     
+     //html routerLink="/busqueda/{{pclave2}}"
+     /* var input=document.getElementById('buscar2input') as HTMLInputElement;
+      this.actualizarcomponente();
+      document.getElementById('btnbusqueda2').click();*/
+    }
+  }
+  buscarpa2(event:any){
+    //this.actualizarcomponente();
+    this.pclave2=(document.getElementById('buscarartpal2') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
     console.log(this.pclave2);
     if(event.key=="Enter"){
     // this.router.navigate(['busqueda/'+this.pclave2]);

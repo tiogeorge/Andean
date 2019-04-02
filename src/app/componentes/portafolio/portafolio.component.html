@@ -1,20 +1,21 @@
-<div style="display: flex; flex-direction: column; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; flex-wrap: wrap;  margin-top: 15px; align-items: center;">
   <div class="carusel-grande">
     <div id="carousel-grande-owl" class="owl-carousel owl-theme">
 
     </div> 
   </div> 
   <div #carouselofertas  class="cont-carouseles">
-      <div style="width: 90%;display:flex; justify-content:flex-start;">
-          <h5 style="margin-bottom: 3px; margin-left: 5px;  margin-top: 10px; font-size: x-large; font-weight: 450;">Ofertas Relampago</h5>        
+      <div style="width: 90%;display:flex; justify-content:flex-start; border-bottom: 1px solid rgb(196, 194, 194); ">
+          <h5 style="margin-bottom: 3px; margin-left: 5px;  margin-top: 10px; font-size: x-large; font-weight: 450; margin-bottom: 10px;">Ofertas Relampago</h5>        
       </div>
     
      
-<div style="width: 90%; display:flex; justify-content: center;">
+<div style="width: 90%; display:flex; justify-content: center; margin-top: 15px;">
           <br>
         <div id="owl-demo-ofertas" class="owl-carousel owl-theme" >   
           <div   class="item noseleccionable"  *ngFor="let cardsimple of listaofertas;" style="width: 100%;display:flex; justify-content: center;" routerLink="/articulo/{{cardsimple.link}}">
               <div class="simple-card noseleccionable">
+                  <div class="descuento porcentaje">-10%</div>   
                 <div class="img-card">
                   <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
                 </div> 
@@ -28,10 +29,10 @@
         </div>          
       </div>
 
-      <div style="width: 90%;display:flex; justify-content:flex-start;">
-          <h5 style="margin-bottom: 3px; margin-left: 5px;  margin-top: 10px; font-size: x-large; font-weight: 450;">Accesorios</h5>        
+      <div style="width: 90%;display:flex; justify-content:flex-start; border-bottom: 1px solid rgb(196, 194, 194);">
+          <h5 style="margin-bottom: 3px; margin-left: 5px;  margin-top: 10px; font-size: x-large; font-weight: 450; margin-bottom: 10px;">Accesorios</h5>        
       </div>
-      <div style="width: 90%; display:flex; justify-content: center;">
+      <div style="width: 90%; display:flex; justify-content: center; margin-top: 15px;  ">
           <br>
         <div id="owl-demo-accesorios" class="owl-carousel owl-theme" >   
             <div #carousel3 class="item noseleccionable item-accesorios" *ngFor="let largocard of listaaccesorios" routerLink="/articulo/{{largocard.link}}">

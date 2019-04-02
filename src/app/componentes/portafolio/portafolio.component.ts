@@ -68,7 +68,6 @@ export class PortafolioComponent implements OnInit {
       $("#carousel-grande-owl").html(content);
       $("#carousel-grande-owl").owlCarousel({
         loop:true,
-        margin:10,
         autoplay:true,
         autoplayTimeout:2000,
         autoplayHoverPause:true,
@@ -79,6 +78,7 @@ export class PortafolioComponent implements OnInit {
         items : 1,
         nav:true,
         lazyLoad : true,
+        lazyLoadEager: 1
       });
     });
   }
@@ -90,12 +90,18 @@ export class PortafolioComponent implements OnInit {
       autoplayTimeout:3000,
       autoplayHoverPause:true,
       lazyLoad:true,
+      lazyLoadEager: 1,
       responsiveClass:true,
       responsive:{
           0:{
               items:1,
               nav:true,
               dots:false,
+          },
+          360:{
+            items:2,
+            nav:true,
+            dots:false,
           },
           600:{
               items:3,
@@ -151,6 +157,7 @@ export class PortafolioComponent implements OnInit {
       lazyLoad:true,
       responsiveClass:true,
       nav:true,
+      dots:true,
       responsive:{
           0:{
               items:1,
