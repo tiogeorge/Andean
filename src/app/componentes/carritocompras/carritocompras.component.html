@@ -1,6 +1,6 @@
-<div class="container-fluid" style="background-color: white; min-height: 330px;">
+<div class="container-fluid" id="contenedor">
   <div class="row">
-    <div class="col-md-8 col-lg-9" id="contenedorarticuloscart">
+    <div class="col-md-7 col-lg-8" id="contenedorarticuloscart">
       <hr>
       <div class="container">
         <div class="row">
@@ -23,15 +23,14 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-4" id="colart1{{articulo.titulo}}" style="text-align: center;">
-                  <a href="#" matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip">
+                  <a matTooltip="{{articulo.titulo}}" matTooltipClass="colortooltip" href="https://www.smarket.com.pe/articulo/{{articulo.url}}">
                     <img src="{{urlImagenes}}/md/{{articulo.imagen}}" alt="{{articulo.titulo}}" [style.height]="alturaImg"
                       width="auto">
                   </a>
                 </div>
                 <div class="col-6" id="colart2{{articulo.titulo}}">
                   <a class="card-title tituloPlan">{{ articulo.titulo }}</a>
-                  <p class="card-text nombrePlan">{{listaPlanArticulo[i].nombreplan}}</p>
-                  <p class="card-text precioPlan">S/ {{listaPlanArticulo[i].precio}}</p>
+                  <p class="card-text precioPlan">S/ {{listaPlanArticulo[i].precio | number:'1.2-2'}}</p>
                 </div>
                 <div class="col-2">
                   <button type="button" class="close" aria-label="Close" matTooltip="Eliminar" matTooltipClass="colortooltip"
@@ -47,19 +46,19 @@
       </div>
     </div>
     <!-- bloqueterminarcompras -->
-    <div class="col-md-4 col-lg-3" style="background-color: white" [hidden]="!mostrarArticulos">
+    <div class="col-md-5 col-lg-4" style="background-color: white" [hidden]="!mostrarArticulos">
       <hr>
-      <h5 class="titulo">RESUMEN DE PEDIDO</h5>
+      <h5 class="titulo">RESUMEN DE COMPRA</h5>
       <hr>
       <p class="subtitulo">Sub Total</p>
       <p class="sol">S/</p>
-      <p class="precioSubtitulo">{{subtotal}}</p>
+      <p class="precioSubtitulo">{{subtotal | number:'1.2-2'}}</p>
       <hr>
-      <p class="subtitulo">Envio</p>
+      <p class="subtitulo">Costo de Envío</p>
       <p class="sol">S/</p>
-      <p class="precioSubtitulo">{{envio}}</p>
-      <hr>
-      <b>
+      <p class="precioSubtitulo">{{envio | number:'1.2-2'}}</p>
+      <hr hidden>
+      <b hidden>
         <p (click)="mostrardivenvio()">Calcular Envio</p>
       </b>
       <div [style.display]="mostrarEnvio ? 'block' : 'none'">
@@ -89,7 +88,7 @@
       <hr>
       <p class="subtitulo">TOTAL</p>
       <p class="sol">S/</p>
-      <p class="precioSubtitulo">{{subtotal + envio}}</p>
+      <p class="precioSubtitulo">{{subtotal + envio | number:'1.2-2'}}</p>
       <hr>
       <button class="btn btn-warning btnandean" style="background-color: orangered; color:white" (click)="procesarCompra()">PROCESAR
         COMPRA</button>

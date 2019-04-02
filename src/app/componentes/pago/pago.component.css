@@ -1,54 +1,59 @@
-#contenido{
-    margin: 5px;
+#contenido {
+  margin: 5px;
 }
 
-.btn{
-    margin: 2px;
+.btn {
+  margin: 2px;
 }
+
 .btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
-    font-size: 24px;
-    line-height: 1.33;
-    border-radius: 35px;
-  }
-  .btn-circle.btn-lg {
-    width: 50px;
-    height: 50px;
-    padding: 10px 16px;
-    font-size: 18px;
-    line-height: 1.33;
-    border-radius: 25px;
-    margin-left: 115px;
-  }  
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
 
-  mat-form-field.mat-form-field {
-    font-size: 15px;
-  }
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+  margin-left: 115px;
+}
 
-  .estilo-tooltip{
-    background: orange;
-    font-size: 60%;
-  }
-  .example-chip-list {
-    width: 100%;
-  }
-  .example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-size: cover;
-  }
+mat-form-field.mat-form-field {
+  font-size: 15px;
+}
+
+.estilo-tooltip {
+  background: orange;
+  font-size: 60%;
+}
+
+.example-chip-list {
+  width: 100%;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
 /*card*/
 .wrapper {
-	background-color: black;
-	color: white;
-	display: flex;
-	flex-flow: row nowrap;
-	min-height: 100%;
-	width: 300px;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 100%;
+  width: 300px;
 }
 
 .centrarimg {
@@ -56,4 +61,19 @@
   margin-right: auto;
   display: block;
 }
-/*fin card*/
+
+#formulario-pago, #formulario-pago .row .col-lg-8 {
+  padding: 0px;
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {}

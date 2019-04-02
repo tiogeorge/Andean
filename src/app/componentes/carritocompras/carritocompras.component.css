@@ -1,3 +1,7 @@
+hr {
+  margin: .5rem 0rem;
+}
+
 .example-button-row button,
 .example-button-row a {
   margin-right: 8px;
@@ -6,6 +10,11 @@
 .btnandean {
   background: linear-gradient(orange, #ff8c00);
   width: 100%;
+}
+
+#contenedor {
+  background-color: white;
+  min-height: 520px;
 }
 
 .titulo {
@@ -59,12 +68,16 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  #contenedor {
+    min-height: 900px;
+  }
+
   .subtitulo {
     display: inline-block;
     font-size: 1rem;
     width: 60%;
   }
-  
+
   .precioSubtitulo {
     display: inline-block;
     width: 35%;
@@ -72,7 +85,7 @@
     font-size: 1.25rem;
     padding-right: 5px;
   }
-  
+
   .sol {
     display: inline-block;
     width: 5%;
@@ -80,24 +93,29 @@
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+  #contenedor {
+    min-height: 1200px;
+  }
+}
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+
   #contenedorarticuloscart {
     padding-left: 30px;
     padding-right: 30px;
   }
 
-  .tituloPlan{
-    font-size: 1.5rem;
+  #contenedor {
+    min-height: 520px;
   }
 
-  .nombrePlan {
-    font-size: 1rem;
+  .tituloPlan {
+    font-size: 1.25rem;
   }
 
   .precioPlan {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }

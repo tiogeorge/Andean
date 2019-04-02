@@ -1,6 +1,6 @@
 //const URL = 'https://latiendadeltiogeorge.herokuapp.com'
-//const URL = 'http://localhost:3000';
-const URL = 'https://www.smarket.com.pe:3000'
+const URL = 'http://localhost:3000';
+//const URL = 'https://www.smarket.com.pe:3000'
 const URL_API = URL + '/api/';
 export class Constantes {
 
@@ -10,8 +10,7 @@ export class Constantes {
     public static URL_API_CHAT      = URL_API + 'chat';
     public static URL_API_MARCA     = URL_API + 'marca';
     public static URL_API_IMAGEN    = URL_API + 'imagenes';
- //   public static URL_IMAGEN      = 'localhost:3000/imagenes';
-    public static URL_IMAGEN        =URL+'/imagenes';// 'https://www.smarket.com.pe:3000/imagenes';
+    public static URL_IMAGEN        =  'https://www.smarket.com.pe:3000/imagenes';
     public static URL_API_TIENDA    = URL_API + 'tienda';
     public static URL_API_CATEGORIA = URL_API + 'categorias';
     public static URL_API_DIRECCION = URL_API + 'dir';
@@ -23,8 +22,8 @@ export class Constantes {
     public static URL_API_VALORACION= URL_API + 'valoracion';
     public static URL_PASARELA      = URL_API + 'pasarela';
     //public static URL_PASARELA      = 'http://localhost:3000/api/pasarela';
-    public static URL_IMAGEN_LG     =URL+'/imagenes/lg';// 'https://www.smarket.com.pe:3000/imagenes/lg';
-    public static URL_IMAGEN_MD     =URL+'/imagenes/md';// 'https://www.smarket.com.pe:3000/imagenes/md';
-    public static URL_IMAGEN_SM     =URL+'/imagenes/sm';// 'https://www.smarket.com.pe:3000/imagenes/sm';
+    public static URL_IMAGEN_LG     = /*URL+'/imagenes/lg';*/ 'https://www.smarket.com.pe:3000/imagenes/lg';
+    public static URL_IMAGEN_MD     = /*URL+'/imagenes/md';*/ 'https://www.smarket.com.pe:3000/imagenes/md';
+    public static URL_IMAGEN_SM     = /*URL+'/imagenes/sm';*/ 'https://www.smarket.com.pe:3000/imagenes/sm';
 
 }

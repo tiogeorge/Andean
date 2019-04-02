@@ -9,13 +9,13 @@ pasarelaController.crearPago = async(req, res) => {
           'Authorization': 'Bearer << llave privada >>'
        },
        body : {
-          'amount' : '10000',
+          'amount' : req.body.precio,
           'currency_code': 'PEN',
-          'email' : 'gabriel@gmail.com',
+          'email' : req.body.email,
           'source_id': req.body.token
        }
     }
-    const response = await fetch(' https://api.culqi.com/v2/charges', settings);
+    const response = await fetch('https://api.culqi.com/v2/charges', settings);
     let data = await response.json();
     res.json({
        msg: data
