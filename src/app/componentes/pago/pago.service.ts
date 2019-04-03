@@ -37,8 +37,8 @@ export class PagoService {
     return this.http.get(Constantes.URL_API_PAGO + '/numerodoc/numero', {withCredentials: true})
   }
 
-  procesarPago(direccion : Direccion){
-    return this.http.post(Constantes.URL_PASARELA + '/crearPago', {tarjeta: this.tarjeta, direccion: direccion}, {withCredentials: true});
+  procesarPago(idToken: string, email : string, precioTotal: any){
+    return this.http.post(Constantes.URL_PASARELA + '/crearPago', {token: idToken, email: email, precio: precioTotal * 100}, {withCredentials: true});
   }
 
   recuperarpedidocorreo(correo:string){

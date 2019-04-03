@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Usuario } from './../perfil-usuario/usuario';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatChipInputEvent, MatSnackBar } from '@angular/material';
-import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { DireccionService } from './direccion.service';
 import { Direccion } from './direccion';
@@ -13,66 +13,22 @@ import { PagoService } from './pago.service';
 import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.service';
 import { Articulo } from '../articulo-detalle/articulo';
 import { Constantes } from './../constantes';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
-import * as _moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
-const moment = _rollupMoment || _moment;
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 declare var Culqi: any;
 
 export interface NombreDirec {
   nombre: string;
 }
 
-export interface Años {
-  value: string;
-  viewValue: string;
-}
-export interface Mes {
-  value: string;
-  viewValue: string;
-}
 export interface Tipolocalenvio {
   value: string;
 }
 
-export interface temarti {
-  _id: string,
-  idarticulo: string;
-  titulo: string,
-  url: string,
-  categoria: string,
-  marca: string,
-  cantidad: string,
-  idprecio: string,
-  imagenes: any[],
-  cuotainicial: string,
-  cuotamensual: string,
-  cuotas: string,
-  montomes: string,
-  nombreplan: string,
-  precio: string,
-  tipolinea: string,
-  tipoplan: string,
-}
 export interface temdoc {
   Tipo: String,
   Serie: String,
   Numero: String,
 }
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'YYYY/MM',
-  },
-  display: {
-    dateInput: 'YYYY/MM',
-    monthYearLabel: 'MMM YYYY',
-    dateAllyLabel: 'LL',
-    monthYearAllylabel: 'MMMM YYYY',
-  },
-};
 
 
 @Component({
@@ -81,8 +37,6 @@ export const MY_FORMATS = {
   styleUrls: ['./pago.component.css'],
   providers: [
     { provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false } },
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     DireccionService, PagoService],
   encapsulation: ViewEncapsulation.None
 })
@@ -104,7 +58,6 @@ export class PagoComponent implements OnInit {
   listaArticulos: Articulo[] = [];
   tempoarti: Articulo[] = [];
   listaPlanArticulo: any[] = [];
-  // listaArticulos2: temarti[] = [];
   listaArticulos2: any[] = [];
   mostrarArticulos: boolean = true;
   sinProductos: boolean = false;
@@ -140,74 +93,6 @@ export class PagoComponent implements OnInit {
     { nombre: 'Direccion1' },
   ];
   tiposDocumento: string[];
-  //date = new FormControl(moment());
-  //anioHoy = new Date().getFullYear();
-  //mesHoy = new Date().getMonth();
-  //minDate : Date;
-
-  //
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push({ nombre: value.trim() });
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  direccionselec(id: string, nombreicon: string) {
-    this.pagoservice.selectPago.idDireccion = id;
-    document.getElementsByClassName('matchips').item
-    document.getElementById('Resumendir').hidden = false;
-    this.dato1 = 'siguiente';
-    // this.isLinear=false;
-    this.logocard = nombreicon;
-    //   document.getElementById(id).style.background='#FFBF00';
-    //   document.getElementById(id).style.color='white';
-    for (var i = 0; i < Object.keys(this.RespuestaDir).length; i++) {
-      if (this.RespuestaDir[i]._id == id) {
-        this.direccionService.selecDireccion = this.RespuestaDir[i];
-        //color
-        document.getElementById(this.RespuestaDir[i]._id).style.background = '#FFBF00';
-        document.getElementById(this.RespuestaDir[i]._id).style.color = 'white';
-        //fin
-        this.direccionsel = this.RespuestaDir[i].direccion;
-        document.getElementById('lbdirec').innerHTML = this.RespuestaDir[i].direccion;
-        document.getElementById('lbtipolocal').innerHTML = this.RespuestaDir[i].tipolocal;
-        document.getElementById('lbdepartamento').innerHTML = this.RespuestaDir[i].departamento;
-        document.getElementById('lbprovincia').innerHTML = this.RespuestaDir[i].provincia;
-        document.getElementById('lbdistrito').innerHTML = this.RespuestaDir[i].distrito;
-        document.getElementById('lbreferencia').innerHTML = this.RespuestaDir[i].referencia;
-        document.getElementById('lbtelefono').innerHTML = this.RespuestaDir[i].telefono;
-      }
-      else {
-        document.getElementById(this.RespuestaDir[i]._id).style.background = '';
-        document.getElementById(this.RespuestaDir[i]._id).style.color = 'black';
-      }
-    }
-    this.firstFormGroup.get('firstCtrl').setValue('siguiente');//
-    this.nombreiconselec = 'check';
-    document.getElementById('btnsig1').style.display = 'block';
-    document.getElementById('btnsig1').focus();
-  }
-  remove(fruit: NombreDirec): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-  //fin chips
-  /* Arti: temarti[] = [
-     { idArticulo: '14545454545', PrecioUni: '200', idPlan: '32d3s23ds2d3s' },
-   ];*/
-
-
-
   Local: Tipolocalenvio[] = [
     { value: 'Casa' },
     { value: 'Oficina' },
@@ -223,12 +108,6 @@ export class PagoComponent implements OnInit {
   ngOnInit() {
     Culqi.publicKey = 'pk_test_VTysZ7uQfNqiFpwf';
     Culqi.init();
-    // Validar la fecha de expiración de la tarjeta como mínimo al mes siguiente
-    /*if(this.mesHoy == 12){
-      this.mesHoy = 1;
-      this.anioHoy = this.anioHoy + 1;
-    }
-    this.minDate = new Date(this.anioHoy, this.mesHoy + 1);*/
     this.tiposDocumento = ['DNI'];
     this.localselec = 'Casa';
     //obtener carrito
@@ -241,7 +120,6 @@ export class PagoComponent implements OnInit {
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
-      //console.log(this.listaCarrito);
       this.sumarprecios();
       this.insertaraarregloart();
     });
@@ -249,21 +127,9 @@ export class PagoComponent implements OnInit {
     //   
     //stepps
     this.firstFormGroup = this._formBuilder.group({
-      /* datD1: ['', Validators.required],
-       datD2: ['', Validators.required],
-       datD3: ['', Validators.required],
-       datD4: ['', Validators.required],
-       datD5: ['', Validators.required],
-       datD6: ['', Validators.required],
-       datD7: ['', Validators.required],*/
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      /*  datoN1: ['', Validators.required],
-        datoN2: ['', Validators.required],
-        datoN3: ['', Validators.required],
-        datoN4: ['', Validators.required],
-        datoN5: ['', Validators.required],*/
       secondCtrl: ['', Validators.required]
     });
     //fin stepps
@@ -288,15 +154,67 @@ export class PagoComponent implements OnInit {
     this.generarnumerodepedido();
   }
 
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({
+        nombre: value.trim()
+      });
+    }
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  direccionselec(id: string, nombreicon: string) {
+    this.pagoservice.selectPago.idDireccion = id;
+    document.getElementsByClassName('matchips').item
+    document.getElementById('Resumendir').hidden = false;
+    this.dato1 = 'siguiente';
+    this.logocard = nombreicon;
+    for (var i = 0; i < Object.keys(this.RespuestaDir).length; i++) {
+      if (this.RespuestaDir[i]._id == id) {
+        this.direccionService.selecDireccion = this.RespuestaDir[i];
+        //color
+        document.getElementById(this.RespuestaDir[i]._id).style.background = '#FFBF00';
+        document.getElementById(this.RespuestaDir[i]._id).style.color = 'white';
+        //fin
+        this.direccionsel = this.RespuestaDir[i].direccion;
+        document.getElementById('lbdirec').innerHTML = this.RespuestaDir[i].direccion;
+        document.getElementById('lbtipolocal').innerHTML = this.RespuestaDir[i].tipolocal;
+        document.getElementById('lbdepartamento').innerHTML = this.RespuestaDir[i].departamento;
+        document.getElementById('lbprovincia').innerHTML = this.RespuestaDir[i].provincia;
+        document.getElementById('lbdistrito').innerHTML = this.RespuestaDir[i].distrito;
+        document.getElementById('lbreferencia').innerHTML = this.RespuestaDir[i].referencia;
+        document.getElementById('lbtelefono').innerHTML = this.RespuestaDir[i].telefono;
+      } else {
+        document.getElementById(this.RespuestaDir[i]._id).style.background = '';
+        document.getElementById(this.RespuestaDir[i]._id).style.color = 'black';
+      }
+    }
+    this.firstFormGroup.get('firstCtrl').setValue('siguiente'); //
+    this.nombreiconselec = 'check';
+    document.getElementById('btnsig1').style.display = 'block';
+    document.getElementById('btnsig1').focus();
+  }
+
+  remove(fruit: NombreDirec): void {
+    const index = this.fruits.indexOf(fruit);
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
   mostrarform(value: string) {
-    console.log(value);
     if (value == '1') {
       if (document.getElementById('datostarjeta').hidden == true) {
         document.getElementById('datostarjeta').hidden = false;
         document.getElementById('btnsig2').style.display = 'block';
         this.pagoservice.selectPago.idTipoPago = 'tarjeta';
-      }
-      else {
+      } else {
         document.getElementById('datostarjeta').hidden = true;
       }
     }
@@ -310,14 +228,13 @@ export class PagoComponent implements OnInit {
       this.pagoservice.selectPago.idTipoPago = 'deposito';
       document.getElementById('btnsig2').style.display = 'block';
     }
-
   }
+
   mostrarformdir() {
     if (document.getElementById('Agregardireccion').hidden == true) {
       document.getElementById('Agregardireccion').hidden = false;
       this.nombreicondir = 'arrow_drop_down';
-    }
-    else {
+    } else {
       document.getElementById('Agregardireccion').hidden = true;
       this.nombreicondir = 'add';
     }
@@ -335,28 +252,10 @@ export class PagoComponent implements OnInit {
     this.montoenvio = '10';
     this.preciototal = (Number(this.subtotal) + Number(this.montoenvio)).toString();
   }
-  //insertar articulos en el export 
-  /*
-   Arti:  temarti[]=[
-    {idArticulo:'14545454545', PrecioUni:'200',idPlan:'32d3s23ds2d3s'},
-  ];
-  */
+
   insertaraarregloart() {
-    //   this.tempoarti=this.listaArticulos;
-    //   console.log('_id:'+this.tempoarti[0]._id);
     this.listaArticulos2 = this.listaArticulos;
     for (var i = 0; i < this.listaArticulos.length; i++) {
-      // this.listaArticulos2[i].push(this.listaPlanArticulo[i]);
-      /*   console.log(this.tempoarti[i]._id)
-         this.listaArticulos2[i]._id=this.tempoarti[i]._id;
-         this.listaArticulos2[i].imagenes=this.tempoarti[i].imagenes;
-         this.listaArticulos2[i].idarticulo=this.tempoarti[i].idarticulo;
-         this.listaArticulos2[i].titulo=this.tempoarti[i].titulo;
-         this.listaArticulos2[i].url=this.tempoarti[i].url;
-         this.listaArticulos2[i].categoria=this.tempoarti[i].categoria;
-         this.listaArticulos2[i].idprecio=this.tempoarti[i].idprecio;
-         this.listaArticulos2[i].marca=this.tempoarti[i].marca;
-         this.listaArticulos2[i].cantidad=this.tempoarti[i].cantidad.toString();*/
       this.listaArticulos2[i].cuotainicial = this.listaPlanArticulo[i].cuotainicial;
       this.listaArticulos2[i].cuotamensual = this.listaPlanArticulo[i].cuotamensual;
       this.listaArticulos2[i].cuotas = this.listaPlanArticulo[i].cuotas;
@@ -365,13 +264,9 @@ export class PagoComponent implements OnInit {
       this.listaArticulos2[i].precio = this.listaPlanArticulo[i].precio;
       this.listaArticulos2[i].tipolinea = this.listaPlanArticulo[i].tipolinea;
       this.listaArticulos2[i].tipoplan = this.listaPlanArticulo[i].tipoplan;
-
-
     }
-    /*  console.log('lista de articulo del carrito');
-      console.log(this.listaArticulos2);*/
   }
-  //
+  
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
@@ -380,17 +275,10 @@ export class PagoComponent implements OnInit {
   }
 
   AgregarDireccion(form: NgForm) {
-    /*this.listdirecciones = JSON.parse(JSON.stringify(this.direccionService.selecDireccion));
-    console.log('direccion:');
-    console.log(this.listdirecciones);*/
-    console.log(this.direccionService.selecDireccion);
     var rres;
-    // this.direccionService.selecDireccion.tipolocal=this.localselec;
     this.direccionService.AgregarDireccion(form.value)
       .subscribe(res => {
-        //console.log(res);
         rres = JSON.parse(JSON.stringify(res));
-        /* resumedir*/
         document.getElementById('lbdirec').innerHTML = this.direccionService.selecDireccion.direccion;
         document.getElementById('lbtipolocal').innerHTML = this.direccionService.selecDireccion.tipolocal;
         document.getElementById('lbdepartamento').innerHTML = this.direccionService.selecDireccion.departamento;
@@ -410,9 +298,8 @@ export class PagoComponent implements OnInit {
     document.getElementById('Agregardireccion').hidden = true;
     document.getElementById('Resumendir').hidden = false;
     this.dato1 = 'siguiente';
-
-    //this.isLinear=false;
   }
+
   nombreiconresdir(nombreicon: string) {
     if (nombreicon == 'Casa') {
       this.logocard = 'home';
@@ -433,19 +320,18 @@ export class PagoComponent implements OnInit {
       this.logocard = 'landscape';
     }
   }
+
   recuperariddirec(id: string, tiplocal: string) {
     //nombreiconresdir
     this.nombreiconresdir(tiplocal);
     this.direccionselec(id, this.logocard);
   }
+
   ListarDireccion(id: string) {
     this.direccionService.ListarDireccion(id)
       .subscribe(res => {
-        //
         var Respuesta = JSON.parse(JSON.stringify(res));
         for (var i = 0; i < Object.keys(res).length; i++) {
-          /* this.Fnombreicondirec(Respuesta[i].tipolocal);
-           console.log(Respuesta[i].tipolocal);*/
           if (Respuesta[i].tipolocal == 'Casa') {
             Respuesta[i].nombreicon = 'home';
           }
@@ -467,8 +353,7 @@ export class PagoComponent implements OnInit {
         }
         this.direccionService.direccion = Respuesta as Direccion[];
         this.RespuestaDir = Respuesta;
-        this.listtemporaldir = Respuesta// JSON.parse(JSON.stringify(res));
-        console.log(this.RespuestaDir);
+        this.listtemporaldir = Respuesta;
       });
   }
 
@@ -489,17 +374,13 @@ export class PagoComponent implements OnInit {
   }
 
   guardarventa() {
-
-    /*recuperar datos doc */
     this.DocumentoT[0].Tipo = this.tipodoc;
-    console.log('serie');
     this.pagoservice.recuperarserie()
       .subscribe(res => {
         console.log(res);
         this.seriedoc = JSON.parse(JSON.stringify(res));
         this.DocumentoT[0].Serie = this.seriedoc;
         console.log(this.seriedoc);
-        console.log('numero');
         this.pagoservice.recuperarnumerodoc()
           .subscribe(res => {
             console.log(res);
@@ -511,7 +392,7 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.idUsuario = this.user;
             this.pagoservice.selectPago.Correocliente = this.correoclient;
             this.pagoservice.selectPago.Articulo = this.listaArticulos2;
-            this.pagoservice.selectPago.FechaCompra = new Date();//new Date(2019, 1, 17);
+            this.pagoservice.selectPago.FechaCompra = new Date(); //new Date(2019, 1, 17);
             this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.EstadoPago = 'Pagado';
             this.pagoservice.selectPago.NroPedido = this.pedidogenerado;
@@ -524,7 +405,6 @@ export class PagoComponent implements OnInit {
             console.log('documento actua');
             console.log(this.pagoservice.selectPago.Documento);
             this.pagoservice.selectPago.idVendedor = 'ROOT';
-            //console.log(this.pagoservice.selectPago.FechaEntrega);
             this.pagoservice.GuardarPago(this.pagoservice.selectPago)
               .subscribe(res => {
                 console.log(res);
@@ -532,23 +412,14 @@ export class PagoComponent implements OnInit {
                   this.snackBar.open('Venta Realizada', '🧓🏻', {
                     duration: 2000,
                   });
-                  /* this.eliminarcarrito();
-                   this.router.navigateByUrl('home');*/
-                }
-                else {
+                } else {
                   alert('Error!!!');
                 }
               });
-            //
           });
-        // this.seriedoc=JSON.parse(JSON.stringify(res));
-
       });
-
-    // this.asignardocumentoventa();
-    /* fin */
-
   }
+
   eliminarcarrito() {
     this.usuarioService.eliminarArticulosCarrito()
       .subscribe(res => {
@@ -570,8 +441,6 @@ export class PagoComponent implements OnInit {
     console.log('serie');
     this.pagoservice.recuperarserie()
       .subscribe(res => {
-        // this.seriedoc=JSON.parse(JSON.stringify(res));
-        console.log(res);
         this.seriedoc = JSON.parse(JSON.stringify(res));
         this.DocumentoT[0].Serie = this.seriedoc;
         console.log(this.seriedoc);
@@ -589,51 +458,37 @@ export class PagoComponent implements OnInit {
   }
 
   /**
-   * Método que ocurre cuando el usuario selecciona el año de expiración de la tarjeta
-   * @param yearNormalizado 
+   * Método para realizar el pago de la compra por medio de la pasarela de Culqi
    */
-  /*yearSelected(yearNormalizado: Moment){
-    const ctrlValue = this.date.value;
-    ctrlValue.year(yearNormalizado.year());
-    this.pagoservice.tarjeta.yearExp = yearNormalizado.year().toString();
-    this.date.setValue(ctrlValue);
-  }*/
-
-  /**
-   * Método que ocurre cuando el usuario selecciona el mes de expiración de su tarjeta
-   * @param mesNormalizado : mes seleccionado
-   * @param datepicker : objeto de datepicker
-   */
-  /*mesSelected(mesNormalizado: Moment, datepicker: MatDatepicker<Moment>){
-    const ctrlValue = this.date.value;
-    ctrlValue.month(mesNormalizado.month());
-    this.date.setValue(ctrlValue);
-    const mes = (mesNormalizado.month() + 1).toString().length == 2 ? (mesNormalizado.month() + 1).toString() : '0' + (mesNormalizado.month() + 1).toString();
-    this.pagoservice.tarjeta.mesExp = mes;
-    datepicker.close();
-  }*/
-
   pagar() {
-    console.log('Pagando');
-    this.pagoservice.procesarPago(this.direccionService.selecDireccion).subscribe(res => {
-      console.log(res);
-    });
     Culqi.createToken();
     if (Culqi.token) {
-      console.log('Procesando la compra');
-      console.log(Culqi.token);
-      this.pagoservice.procesarPago(Culqi.token.id).subscribe(res => {
+      this.openSnackBar(true, 'Procesando la compra');
+      this.pagoservice.procesarPago(Culqi.token.id, Culqi.token.email, this.preciototal).subscribe(res => {
         console.log(res);
         //this.guardarventa();
       });
     } else {
-      console.log(Culqi.error);
+      this.openSnackBar(false, Culqi.error);
     }
   }
 
   generarnumerodepedido() {
     var pedidogen = rand(12, 12);
     this.pedidogenerado = pedidogen.toUpperCase();
+  }
+
+  /**
+   * Abre un menú en la parte inferior mostrando un mensaje 
+   * @param status : tipo de mensaje a mostrar
+   * @param mensaje : cuerpo del mensaje
+   */
+  openSnackBar(status: boolean, mensaje: string): void {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 3000,
+      panelClass: [status ? 'exito' : 'error'],
+      data: mensaje
+    });
   }
 }
 

@@ -17,15 +17,15 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 })
 export class CarritocomprasComponent implements OnInit {
   listaArticulos: Articulo[] = [];
+  urlImagenes : string = Constantes.URL_IMAGEN;
   listaPlanArticulo: any[] = [];
-  urlImagenes: string = Constantes.URL_IMAGEN;
   mostrarArticulos: boolean = true;
   mostrarEnvio: boolean = false;
   mostrarCupon: boolean = false;
   tituloEliminar: string = '';
   alturaImg: string;
   subtotal: number = 0;
-  envio: number = 0;
+  envio: number = 10;
 
   constructor(public usuarioService: UsuarioService, public articuloDetalleService: ArticuloDetalleService, public regionService: RegionService, public snackBar: MatSnackBar, public router: Router) {}
 
@@ -117,10 +117,9 @@ export class CarritocomprasComponent implements OnInit {
    * Método que muestra un Bar temporal para confirmar los mensajes de éxito y de error
    */
   openSnackBar(status: boolean, mensaje: string): void {
-    var clase = status ? 'exito' : 'error';
     this.snackBar.openFromComponent(SnackbarComponent, {
       duration: 3000,
-      panelClass: [clase],
+      panelClass: [status ? 'exito' : 'error'],
       data: mensaje
     });
   }
@@ -152,7 +151,7 @@ export class CarritocomprasComponent implements OnInit {
       this.alturaImg = "100px";
       this.tituloEliminar = 'ELIMINAR TODO';
     } else if (screen.width < 1200) {
-      this.alturaImg = "150px";
+      this.alturaImg = "125px";
       this.tituloEliminar = 'ELIMINAR TODO';
     } else {
       this.alturaImg = "150px";
