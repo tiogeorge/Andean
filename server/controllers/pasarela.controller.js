@@ -15,11 +15,19 @@ pasarelaController.crearPago = async(req, res) => {
           'source_id': req.body.token
        }
     }
-    const response = await fetch('https://api.culqi.com/v2/charges', settings);
-    let data = await response.json();
-    res.json({
-       msg: data
-    });
+    try {
+      const response = await fetch('https://api.culqi.com/v2/charges', settings);
+      let data = await response.json();
+      res.json({
+         msg: data
+      });
+    }catch(e){
+       res.json({
+          status: false,
+          error: e
+       })
+    }
+    
 }
 
 module.exports = pasarelaController;
