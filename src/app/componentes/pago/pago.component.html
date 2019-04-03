@@ -1,5 +1,5 @@
 <div>
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper >
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Informacion de Envío</ng-template>
@@ -220,7 +220,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo">
+    <mat-step [stepControl]="secondFormGroup" state="met" id="stepinfo" style="padding: 0px;">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Informacion de Pago</ng-template>
         <div id="formulario-pago" class="container-fluid">
@@ -238,28 +238,28 @@
                         <mat-card-title>Pago con Tarjeta</mat-card-title>
                       </mat-card-header>
                       <mat-card-content>
-                        <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-form-field id="tarjeta" appearance="outline">
                           <mat-icon matPrefix>credit_card</mat-icon>
                           <mat-label>Número de Tarjeta</mat-label>
                           <input matInput placeholder="Número de tarjeta" type="text" size="20"
                             data-culqi="card[number]" id="card[number]">
                         </mat-form-field>
-                        <mat-form-field appearance="outline" style="width: 30%;">
+                        <mat-form-field id="mes-tarjeta" appearance="outline">
                           <mat-icon matPrefix>calendar_today</mat-icon>
-                          <mat-label>Fecha expiración (MM)</mat-label>
+                          <mat-label>Mes expiración (MM)</mat-label>
                           <input matInput placeholder="MM" size="2" data-culqi="card[exp_month]" id="card[exp_month]">
                         </mat-form-field>
-                        <mat-form-field appearance="outline" style="width: 30%">
+                        <mat-form-field id="anio-tarjeta" appearance="outline">
                           <mat-icon matPrefix>calendar_today</mat-icon>
-                          <mat-label>Fecha expiración (YYYY)</mat-label>
+                          <mat-label>Año expiración (YYYY)</mat-label>
                           <input matInput placeholder="YYYY" size="4" data-culqi="card[exp_year]" id="card[exp_year]">
                         </mat-form-field>
-                        <mat-form-field appearance="outline" style="width: 40%">
+                        <mat-form-field id="cvv" appearance="outline">
                           <mat-label>CVV</mat-label>
                           <mat-icon matPrefix>lock</mat-icon>
                           <input matInput placeholder="CVV" type="text" size="4" data-culqi="card[cvv]" id="card[cvv]">
                         </mat-form-field>
-                        <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-form-field id="correo" appearance="outline">
                           <mat-label>Correo Electrónico</mat-label>
                           <mat-icon matPrefix>email</mat-icon>
                           <input matInput placeholder="Correo electrónico" type="text" size="50"

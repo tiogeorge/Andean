@@ -1,5 +1,9 @@
-#contenido {
-  margin: 5px;
+mat-card {
+  padding: 8px !important;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 15px;
 }
 
 .btn {
@@ -25,8 +29,10 @@
   margin-left: 115px;
 }
 
-mat-form-field.mat-form-field {
-  font-size: 15px;
+.centrarimg {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .estilo-tooltip {
@@ -46,6 +52,10 @@ mat-form-field.mat-form-field {
   background-size: cover;
 }
 
+.mat-horizontal-content-container {
+  padding: 0px 4px 4px 4px !important;
+}
+
 /*card*/
 .wrapper {
   background-color: black;
@@ -56,21 +66,49 @@ mat-form-field.mat-form-field {
   width: 300px;
 }
 
-.centrarimg {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+#contenido {
+  margin: 5px;
 }
 
-#formulario-pago, #formulario-pago .row .col-lg-8 {
+#formulario-pago,
+#formulario-pago .row .col-lg-8 {
   padding: 0px;
+}
+
+#tarjeta,
+#correo,
+#cvv {
+  width: 100%;
+}
+
+#mes-tarjeta,
+#anio-tarjeta {
+  width: 50%;
 }
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {}
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  mat-card {
+    padding: 16px !important;
+  }
+
+  .mat-horizontal-content-container {
+    padding: 0px 24px 24px 24px !important;
+  }
+
+  #mes-tarjeta,
+  #anio-tarjeta {
+    width: 30%;
+  }
+
+  #cvv {
+    width: 40%;
+  }
+  
+}
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {}
