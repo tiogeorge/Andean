@@ -253,7 +253,8 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i"
-                  id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;" routerLink="/articulo/{{articulo.url}}">
+                  id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;"
+                  routerLink="/articulo/{{articulo.url}}">
                   <!---->
                   <div class="product_item discount">
                     <!-- <div class="product_border"></div> -->
@@ -291,6 +292,43 @@
                 </div>
               </div>
             </div>
+          </div>
+          <!--fin-->
+          <!--vista mobil-->
+          <div class="col-lg-12" id="contenedorarticulosv" style="padding: 0px">
+            <!-- <div class="container-fluid">
+              <div class="row"> -->
+
+            <div class="col-lg-12" *ngFor="let articulo of articuloslista; index as i"
+              id="contenedorarticulov{{articulo._id}}" style="padding-top: 1rem;"
+              routerLink="/articulo/{{articulo.url}}">
+              <div class="bestsellers_item discount">
+                <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+                  <div class="bestsellers_image"> <img
+                      style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;"
+                      id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
+                      alt="{{articulo.imagenes[0]}}"></div>
+                  <div class="bestsellers_content">
+                    <div class="bestsellers_name"><a tabindex="0">{{articulo.titulo}}</a></div>
+                    <div id="precio1v" class="bestsellers_price">S/
+                      {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span>
+                    </div>
+                    <div class="valoracionPromedio">
+                      <img class="estrella1" style="width: 14%" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                      <img class="estrella2" style="width: 14%" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                      <img class="estrella3" style="width: 14%" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                      <img class="estrella4" style="width: 14%" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                      <img class="estrella5" style="width: 14%" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                    </div>
+                  </div>
+                </div>
+                <div class="bestsellers_marks" *ngIf="articulo.descuento > 0">
+                  <li class="bestsellers_mark bestsellers_discount">-{{articulo.descuento}}%</li>
+                </div>
+              </div>
+            </div>
+            <!-- </div>
+            </div> -->
           </div>
           <!--fin-->
         </div>
@@ -346,7 +384,8 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-12" (click)="mostrarcategoria()">
-                <p>Categorias<i id="icondown1" class="material-icons">keyboard_arrow_{{nombreicon1}}</i></p>
+                <!--   <p>Categorias<i id="icondown1" class="material-icons">keyboard_arrow_{{nombreicon1}}</i></p> -->
+                <p>Categorias</p>
               </div>
               <div id="categoriafiltro2" class="col-lg-12" style="display: none">
                 <hr>
@@ -357,7 +396,7 @@
                         <input type="checkbox" name="checkPadre" value="{{categoria._id}}" id="{{categoria._id}}">
                         <span class="cr"><i class="cr-icon material-icons"
                             style="color:rgb(255, 153, 0)">done</i></span>
-                        {{categoria.nombre}}
+                        {{categoria.nombre | uppercase}}
                       </label>
                       <div>
                         <div *ngFor="let Cathijos of categoria.hijos[0]">
@@ -375,14 +414,15 @@
               </div>
               <div class="col-lg-12" (click)=" mostrarmarca()">
                 <hr>
-                <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p>
+                <!-- <p>Marca<i id="icondown2" class="material-icons">keyboard_arrow_{{nombreicon2}}</i></p> -->
+                <p>Marca</p>
               </div>
               <div id="marcafiltro2" class="col-lg-12" style="display: none">
                 <hr>
                 <div class="well" style="max-height: 300px;overflow: auto;">
                   <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
                     <label style="cursor: pointer;" (click)="filtroMarca()">
-                      <input type="checkbox" name="check" value="{{marca._id}}" id="{{marca.nombremarca}}">
+                      <input type="checkbox" name="checkMarca" value="{{marca._id}}" id="{{marca.nombremarca}}">
                       <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                       {{marca.nombremarca}}
                     </label>
@@ -430,10 +470,10 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

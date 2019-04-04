@@ -556,6 +556,7 @@ export class ArticulosbusquedaComponent implements OnInit {
       this.articuloslista = articuloslista2;
       this.temporallistaarti2 = this.articuloslista;
       this.numeroencontrados = Object.keys(this.articuloslista).length;
+      console.log(this.articuloslista);
     }
     else {
       this.articuloslista = this.temporallistaarti;
