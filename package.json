@@ -52,6 +52,7 @@
     "mysql": "^2.16.0",
     "ng5-slider": "^1.1.12",
     "ngx-mat-select-search": "^1.5.2",
+    "node-fetch": "^2.3.0",
     "nodemailer": "^5.1.1",
     "rxjs": "~6.3.3",
     "script-loader": "^0.7.2",

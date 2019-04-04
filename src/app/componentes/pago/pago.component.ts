@@ -14,6 +14,7 @@ import { ArticuloDetalleService } from '../articulo-detalle/articulo-detalle.ser
 import { Articulo } from '../articulo-detalle/articulo';
 import { Constantes } from './../constantes';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { Respuesta } from '../perfil-usuario/respuesta';
 declare var Culqi: any;
 
 export interface NombreDirec {
@@ -465,8 +466,15 @@ export class PagoComponent implements OnInit {
     if (Culqi.token) {
       this.openSnackBar(true, 'Procesando la compra');
       this.pagoservice.procesarPago(Culqi.token.id, Culqi.token.email, this.preciototal).subscribe(res => {
-        console.log(res);
-        //this.guardarventa();
+        const rspta = res as Respuesta;
+        if(rspta.status) {
+          this.openSnackBar(rspta.status, rspta.msg);
+          console.log(rspta.data);
+          //this.guardarventa();
+        } else {
+          this.openSnackBar(rspta.status, rspta.error);
+          console.log(rspta.data);
+        }      
       });
     } else {
       this.openSnackBar(false, Culqi.error);
