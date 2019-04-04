@@ -272,8 +272,11 @@
                             routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                         </p> -->
                       </div>
-                      <div id="precio1" class="product_price">S/
+                      <div id="precio1" class="product_price" *ngIf="articulo.descuento > 0">S/
                         {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span>
+                      </div>
+                      <div class="product_price" *ngIf="articulo.descuento <= 0">S/
+                        {{articulo.precioplan.precio}}
                       </div>
                       <div class="valoracionPromedio">
                         <img class="estrella1" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
@@ -310,8 +313,11 @@
                       alt="{{articulo.imagenes[0]}}"></div>
                   <div class="bestsellers_content">
                     <div class="bestsellers_name"><a tabindex="0">{{articulo.titulo}}</a></div>
-                    <div id="precio1v" class="bestsellers_price">S/
+                    <div id="precio1v" class="bestsellers_price" *ngIf="articulo.descuento > 0">S/
                       {{articulo.precioplan.precio}}<span>S/{{articulo.precioplan.precio}}</span>
+                    </div>
+                    <div  class="bestsellers_price" *ngIf="articulo.descuento <= 0">S/
+                      {{articulo.precioplan.precio}}
                     </div>
                     <div class="valoracionPromedio">
                       <img class="estrella1" style="width: 14%" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
