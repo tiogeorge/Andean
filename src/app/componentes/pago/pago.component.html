@@ -289,6 +289,7 @@
           <div class="col-lg-2"></div>
         </div>
       </form>
+      <mat-progress-bar mode="indeterminate" [hidden]="!procesandoPago"></mat-progress-bar>
     </mat-step>
     <mat-step state="res">
       <ng-template matStepLabel>Resumen del Pedido</ng-template>
@@ -307,14 +308,6 @@
                     <p>Monto de envio: s/.{{montoenvio}}</p>
                     <p>Total a pagar: s/.{{preciototal}}</p>
                   </div>
-                  <!--   <div class="card-header">
-                          <p>Fecha de entrega</p>
-                          <mat-form-field>
-                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                          </mat-form-field>
-                        </div>-->
                   <div class="card-body">
                     <p>Dirección</p>
                     <p>{{direccionsel}}</p>
@@ -328,9 +321,6 @@
                           <mat-panel-title style="font-size: 10px;">
                             {{artiped.titulo}}
                           </mat-panel-title>
-                          <!-- <mat-panel-description>
-                                  {{artiped.precio}}
-                                </mat-panel-description>-->
                         </mat-expansion-panel-header>
                         <table class="table" *ngIf="artiped.tipolinea=='PREPAGO'">
                           <tr>
@@ -394,5 +384,4 @@
     </ng-template>
     <!--fin-->
   </mat-horizontal-stepper>
-
 </div>

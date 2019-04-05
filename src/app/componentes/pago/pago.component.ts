@@ -102,6 +102,7 @@ export class PagoComponent implements OnInit {
     { value: 'Condominio' },
     { value: 'Otro' }
   ];
+  procesandoPago : boolean = false;
 
   constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, public usuarioService: UsuarioService, public router: Router, public regionService: RegionService, public articuloDetalleService: ArticuloDetalleService) {
   }
@@ -462,22 +463,30 @@ export class PagoComponent implements OnInit {
    * Método para realizar el pago de la compra por medio de la pasarela de Culqi
    */
   pagar() {
+    this.procesandoPago = true;
     Culqi.createToken();
     if (Culqi.token) {
       this.openSnackBar(true, 'Procesando la compra');
       this.pagoservice.procesarPago(Culqi.token.id, Culqi.token.email, this.preciototal).subscribe(res => {
         const rspta = res as Respuesta;
-        if(rspta.status) {
-          this.openSnackBar(rspta.status, rspta.msg);
-          console.log(rspta.data);
-          //this.guardarventa();
-        } else {
-          this.openSnackBar(rspta.status, rspta.error);
-          console.log(rspta.data);
-        }      
+        this.terminarPago(rspta); 
       });
     } else {
       this.openSnackBar(false, Culqi.error);
+    }
+  }
+
+  /**
+   * Método que oculta el progress bar y muestra el mensaje de respuesta
+   * @param respuesta 
+   */
+  terminarPago(respuesta: Respuesta){
+    this.procesandoPago = false;
+    if(respuesta.status){
+      this.openSnackBar(respuesta.status, respuesta.msg);
+      //this.guardarventa();
+    } else {
+      this.openSnackBar(respuesta.status, respuesta.error);
     }
   }
 
