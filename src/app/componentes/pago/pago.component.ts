@@ -484,7 +484,7 @@ export class PagoComponent implements OnInit {
     this.procesandoPago = false;
     if(respuesta.status){
       this.openSnackBar(respuesta.status, respuesta.msg);
-      //this.guardarventa();
+      this.guardarventa();
     } else {
       this.openSnackBar(respuesta.status, respuesta.error);
     }
