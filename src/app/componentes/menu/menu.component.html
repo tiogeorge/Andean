@@ -103,7 +103,7 @@
 <!-- MENU EN CELULARES-->
 <div id="mySidepanel2" class="sidepanel" style="z-index: 1600;">
   <div id="mySidepanel" class="cont-menu-peque">
-    <div class="header-menu-peque">
+    <div class="header-menu-peque" *ngIf="!estaLogeado">
       <div style="width: 90%; height: auto; padding-left: 15px; display: flex; align-items:center; justify-content: center; ">
         <button mat-raised-button color="primary" style="width: 80%;" routerLink="/login" (click)="closeNav()">Iniciar Sesión</button>      
       </div>      
@@ -114,16 +114,25 @@
         <h6>¿Eres nuevo? </h6> <h6 style="color:rgb(143, 6, 143); margin-left: 10px;" routerLink="/registro" (click)="closeNav()">Registrate</h6>
       </div>
     </div>
-    <div class="item-menu-movil"(click)="closeNav()" >
+    <div class="header-menu-peque" *ngIf="estaLogeado">
+      <div style="width: 90%; padding-left: 10px;">
+          Bienvenido <strong>{{nombreusuario}}</strong> 
+      </div>
+      <div style="width: 20px; display: flex; justify-content: flex-end; margin: 0px;"  >
+        <i class="material-icons btncerrar-menu" style="color: black; font-size: x-large;" (click)="closeNav()">close</i>
+      </div>
+      
+    </div>
+    <div class="item-menu-movil"(click)="closeNav()"  routerLink="/perfil-usuario" >
         <i class="material-icons" style="margin-right: 10px;">person</i>Mi Cuenta
     </div>
-    <div class="item-menu-movil" (click)="closeNav()">
+    <div class="item-menu-movil" (click)="closeNav()" routerLink="/perfil-usuario">
         <i class="material-icons" style="margin-right: 10px;">local_shipping</i>Mis Pedidos
     </div>
-    <div class="item-menu-movil" (click)="closeNav()">
+    <div class="item-menu-movil" (click)="closeNav()"  routerLink="/perfil-usuario" >
         <i class="material-icons" style="margin-right: 10px;">help</i>Ayuda
     </div>
-    <div class="item-menu-movil" (click)="closeNav()">
+    <div class="item-menu-movil" (click)="closeNav()"   (click)="abrirChatMovil()"  routerLink="/chat">
       <i class="material-icons" style="margin-right: 10px;">chat</i>Chat
     </div>
     <div class="item-menu-movil" (click)="mostrarCategorias()">
@@ -142,7 +151,7 @@
       </div>
         
     </div>
-    <div class="item-menu-movil">
+    <div class="item-menu-movil" (click)="closeNav()"  routerLink="/terminos">
       Terminos y Condiciones
     </div>
     <!--

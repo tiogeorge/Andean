@@ -37,6 +37,7 @@ export class MenuComponent implements OnInit {
   nombreusuario = "Identificate";
   nomostrarbusquedap = true;
   categorias = new Array();
+  usuarioLogueado :any;
 
   constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService, public comService: comunicacionService) {
     this.subscription = this.comService.inicioSesion()
@@ -177,6 +178,7 @@ export class MenuComponent implements OnInit {
         this.estaLogeado = true;
         console.log(jres.user);
         this.comService.enviarUsuario(jres.user);
+        this.usuarioLogueado = jres.user;
       } else {
         this.estaLogeado = false;
       }
@@ -196,7 +198,11 @@ export class MenuComponent implements OnInit {
       }
     })
   }
-  
+  abrirChatMovil(){
+    this.comService.enviarUsuario(this.usuarioLogueado);
+    this.closeNav();
+  }
+
   buscarpa(event:any){
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
@@ -229,6 +235,7 @@ export class MenuComponent implements OnInit {
      /* var input=document.getElementById('buscar2input') as HTMLInputElement;
       this.actualizarcomponente();
       document.getElementById('btnbusqueda2').click();*/
+      document.getElementById("buscarartpal2").blur();
     }
   }
   bus(p:string){
@@ -238,6 +245,7 @@ export class MenuComponent implements OnInit {
     var linea='PREPAGO';
     var tipoplan='ALTA';
     var cuotas='0'; 
+    document.getElementById("buscarartpal2").blur();
 
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
      var clave3 = (<HTMLInputElement>document.getElementById("buscarartpal2")).value;

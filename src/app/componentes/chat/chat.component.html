@@ -1,14 +1,21 @@
 <div class="card shadow-lg bg-light contenedor-chat-prin" [hidden]="mostrarBotonChat">
   <div class="card-header">
     <div>
-      <div>
-        <label>CHAT ONLINE</label>
+      <div style="display: flex; flex-direction: row; align-items: center; width: 100%;">
+          <i class="material-icons" style="margin-right: 10px;">
+          chat
+          </i>
+         Chat Online
       </div>
       <div>
-        <i class="fa fa-minus-square" (click)="minimizar()"></i>
+        <i class="material-icons" (click)="minimizar()">
+            minimize
+            </i>
       </div>
       <div>
-        <i class="fa fa-window-close" (click)="cerrarChat()"></i>
+        <i class="material-icons"  (click)="cerrarChat()">
+            close
+            </i>
       </div>
     </div>
   </div>
@@ -83,7 +90,7 @@
     </div>
     <div id="enviarMensaje" class="footer-chat" [hidden]="mostrarFooter">
       <div>
-        <input #inputMensaje type="text" placeholder="Escriba su mensaje" (keypress)="enviarMensajeChat($event, inputMensaje)"
+        <input #inputMensaje id="inputMensaje" type="text" placeholder="Escriba su mensaje" (keypress)="enviarMensajeChat($event, inputMensaje)"
           [hidden]="!habilitarEnvio">
       </div>
       <div>
@@ -92,6 +99,6 @@
     </div>
   </div>
 </div>
-<div class="btn-chat-prin" [hidden]="!mostrarBotonChat">
+<div class="btn-chat-prin" [hidden]="!mostrarBotonChat" id="btnmostrarchat">
   <button mat-fab color="primary" (click)="mostrarChat()"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
 </div>

@@ -34,7 +34,10 @@ import { Usuario}  from '../componentes/perfil-usuario/usuario';
       this.subject.next("CERRAR");
     }
     abrirChat(){
-      this.subjectChat.next();
+      this.subjectChat.next("ABRIR");
+    }
+    cerrarChat(){
+      this.subjectChat.next("CERRAR");
     }
     getAccionChat(){
       return this.subjectChat.asObservable();
