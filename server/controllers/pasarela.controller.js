@@ -86,16 +86,16 @@ pasarelaController.obtenerCargo = async(req, res) => {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer llave privada'
+        'Authorization': 'Bearer <<llave privada>>'
       }
     })
     .then(res => res.json())
     .then(json => {
-      if(json.data){
+      if(json.object == 'charge'){
         res.json({
           status: true,
           msg: 'Se obtuvo el cargo con éxito',
-          data: json.data
+          data: json
         });
       } else {
         res.json({
@@ -119,7 +119,7 @@ pasarelaController.listarCargos = async(req, res) => {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer llave privada'
+        'Authorization': 'Bearer <<llave privada>>'
       }
     })
     .then(res => res.json())
