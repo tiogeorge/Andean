@@ -80,15 +80,46 @@ pasarelaController.devolverCargo = async(req, res) => {
       });
     });
 }
+pasarelaController.obtenerCargo = async(req, res) => {
+  // Método para crear el cargo con la pasarela Culqi
+  fetch('https://api.culqi.com/v2/charges/'+ req.params.id, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer llave privada'
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+      if(json.data){
+        res.json({
+          status: true,
+          msg: 'Se obtuvo el cargo con éxito',
+          data: json.data
+        });
+      } else {
+        res.json({
+          status: false,
+          error: 'Error desconocido de la pasarela de pago.'
+        });
+      }
+    })
+    .catch(err => {
+      res.json({
+        status: false,
+        error: 'Error al procesar el detalle del cargo.',
+        data: err
+      });
+    });
+}
 
 pasarelaController.listarCargos = async(req, res) => {
   // Método para crear el cargo con la pasarela Culqi
   fetch('https://api.culqi.com/v2/charges', {
-      method: 'get',
-      body: JSON.stringify({}),
+      method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer << llave privada >>'
+        'Authorization': 'Bearer llave privada'
       }
     })
     .then(res => res.json())
@@ -110,6 +141,7 @@ pasarelaController.listarCargos = async(req, res) => {
       res.json({
         status: false,
         error: 'Error al procesar la lista de cargos.',
+        data: err
       });
     });
 }
@@ -118,7 +150,6 @@ pasarelaController.listarDevoluciones = async(req, res) => {
   // Método para crear el cargo con la pasarela Culqi
   fetch('https://api.culqi.com/v2/refunds', {
       method: 'get',
-      body: JSON.stringify({}),
       headers: {
         'Content-type': 'application/json',
         'Authorization': 'Bearer << llave privada >>'
