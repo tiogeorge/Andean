@@ -10,7 +10,9 @@ const BannerSchema = new Schema({
             categoria:{type: String, required:true},
             idprecio:{type:String, required:true},
             cantidad:{type:Number, required:true},
-            imagenes: [String]
+            imagenes: [String],
+            marca:{type: String , required:true},
+            descuento:{type:Number,required:false}
 
 
         }

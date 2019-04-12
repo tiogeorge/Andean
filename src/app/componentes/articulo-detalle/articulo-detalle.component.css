@@ -404,7 +404,7 @@
 
 .contenedor-detalle-precio{
     width: 80%;
-    height:80% ;
+    height:auto ;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -465,6 +465,7 @@
 }
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 360px) {
+    
     .contenidor-imagenes{
         width: 100%;
     }
@@ -501,7 +502,7 @@
         max-width: 100%;
         width: auto;
         height: auto;
-        max-height: 345px;
+        max-height: 250px;
     }
     .detalle-planes{
         width: 100%;

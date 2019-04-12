@@ -69,6 +69,7 @@ export class PortafolioComponent implements OnInit {
       $("#carousel-grande-owl").owlCarousel({
         loop:true,
         autoplay:true,
+        margin:1,
         autoplayTimeout:2000,
         autoplayHoverPause:true,
         navigation : true, // Show next and prev buttons

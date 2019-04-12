@@ -35,6 +35,7 @@ import { CambiarPasswordComponent } from './componentes/restablecer/cambiar-pass
 import { CategoriahomeComponent } from './componentes/categoriahome/categoriahome.component';
 import { RedessocialesComponent } from './componentes/redessociales/redessociales.component';
 import { ValoracionComponent } from './componentes/valoracion/valoracion.component';
+import { ChatmovilComponent } from './componentes/chatmovil/chatmovil.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -51,7 +52,8 @@ const routes : Route[] = [
   {path: 'perfil-usuario', component: PerfilUsuarioComponent},
   {path: 'pago', component: PagoComponent},
   {path: 'compararEqui',component:CompararEquiposComponent},
-  {path: 'cambiarPassword/:token', component: CambiarPasswordComponent}
+  {path: 'cambiarPassword/:token', component: CambiarPasswordComponent},
+  {path: 'chat', component: ChatmovilComponent}
 ];
 
 @NgModule({
@@ -82,7 +84,8 @@ const routes : Route[] = [
     CambiarPasswordComponent,
     CategoriahomeComponent,
     RedessocialesComponent,
-    ValoracionComponent
+    ValoracionComponent,
+    ChatmovilComponent
   ],
   imports: [
     BrowserModule,

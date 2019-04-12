@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService} from './chat.service'
+import { ChatService} from '../chat/chat.service'
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Usuario } from '../perfil-usuario/usuario';
-import { MensajeChat } from './mensaje-chat';
+import { MensajeChat } from '../chat/mensaje-chat';
 import { comunicacionService } from '../comunicacion.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router, Event,NavigationEnd } from '@angular/router';
-
+declare var $: any;
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-chatmovil',
+  templateUrl: './chatmovil.component.html',
+  styleUrls: ['./chatmovil.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatmovilComponent implements OnInit {
 
   mensajeserver     : String        = "";
   usuario           : Usuario       = new Usuario();
@@ -22,7 +21,7 @@ export class ChatComponent implements OnInit {
   ultimomensaje     : MensajeChat   = new MensajeChat();
   mostrarBotonChat  : boolean       = true;
   mostrarCampos     : boolean       = true;
-  mensajeFormulario : string        = " Por favor ingrese la siguiente información para poder ayudarle: ";;
+  mensajeFormulariomovil : string        = " Por favor ingrese la siguiente información para poder ayudarle: ";;
   mostrarFooter     : boolean       = true;
   mostrarFormulario : boolean       = true;
   conversacionId    : string;
@@ -31,48 +30,24 @@ export class ChatComponent implements OnInit {
   idUsuario         : string;
   tiempo            : number;
   subscription: Subscription;
-  subscriptionChat: Subscription;
 
   constructor(public chatService: ChatService,
               public usuarioService: UsuarioService, 
-              public comService: comunicacionService,public  router: Router ) { 
-    this.subscription = this.comService.getUsuario()
-    .subscribe(user => {
-      if(user == "CERRAR"){
-        this.mensajeFormulario =  " Por favor especifique su consulta para ayudarle: ";
-      }else{
-        this.chatService.usuario =user;      
-        this.mostrarCampos = false;
-        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte.";
-      }
-    });
-    this.subscriptionChat = this.comService.getAccionChat()
-    .subscribe(res=>{
-      if(res == "CERRAR"){
-        console.log("Ocultar Chat Escritorio");
-      }
-    });
-    this.router.events.subscribe((event: Event)=>{
-      if (event instanceof NavigationEnd) {
-        if(event.url == "/chat"){
-          this.mostrarBotonChat = true;
-          console.log("OCULTAR CHAT variable : "+this.mostrarBotonChat);
-          document.getElementById("btnmostrarchat").style.display= "none";
-          
-        }else{
-          console.log("MOSTRAR CHAT");
-          this.mostrarBotonChat = true;
-          document.getElementById("btnmostrarchat").style.display= "flex";
-        }
-      }
-
-    })
-
+              public comService: comunicacionService ) { 
   }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.verificarUsuario();
+    $(window).on("resize", this.resize);
+    
+  }
+  ngAfterViewInit() {
+    this.resize();
   }
  
+  resize(){
+    document.getElementById("contenedor-principal-chat-movil").style.height = (window.innerHeight-150)+"px";
+  }
   /**
    * Método que verifica si el usuario ya ha iniciado sesión y muestra un mensaje con su nombre para pedir su consulta.
    */
@@ -82,28 +57,22 @@ export class ChatComponent implements OnInit {
       if(respuesta.status){
         this.chatService.usuario = respuesta.data as Usuario;      
         this.mostrarCampos = false;
-        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte";
+        this.mensajeFormulariomovil = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte";
       }else {
         this.chatService.usuario = new Usuario();
-        this.mensajeFormulario = " Por favor especifique su consulta para ayudarle: ";
+        this.mensajeFormulariomovil = " Por favor especifique su consulta para ayudarle: ";
         this.mostrarCampos = true;
       }   
     });
   }
 
-  /**
-   * Método que muestra u oculta el boton de chat
-   */
-  mostrarChat(){
-    this.mostrarBotonChat = false;
-  }
+ 
 
   /**
    * Método que termina una conversación de chat
    */
   cerrarChat(){
     this.listaMensajesChat = [];
-    this.mostrarBotonChat = true;
     this.mostrarFooter = true;
     this.mostrarFormulario = true;
     var mensaje = new MensajeChat(this.chatService.conversacionId, '$desconectar$', this.chatService.usuario.correo, 'admin')
@@ -175,10 +144,6 @@ export class ChatComponent implements OnInit {
     chatPrincipal.scrollTop = chatPrincipal.scrollHeight;
   }
 
-  /**
-   * Minimizar el componente chat
-   */
-  minimizar(){
-    this.mostrarBotonChat = true;
-  }
+  
+
 }

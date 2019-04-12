@@ -524,11 +524,23 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
             //categoria padre
             var idhijo = banner[0].articulos[k].categoria;
             const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-            console.log('PADRE');
-            console.log(catepadre[0].padre);
+            //console.log('PADRE');
+            //console.log(catepadre[0].padre);
+
+            //Puntuacion
+            const valoraciones = await Valoracion.find({ idarticulo: banner[0].articulos[k].idarticulo }, 'puntuacion');
+            console.log(banner[0].articulos[k].idarticulo);
+            var cantidadcomen = valoraciones.length;
+            var sumapuntuacion = 0;
+            for (var p = 0; p < cantidadcomen; p++) {
+                sumapuntuacion += valoraciones[p].puntuacion;
+            }
+            var promedioTotal = sumapuntuacion / cantidadcomen;
+            var promredondado = Math.round(promedioTotal);
             //fin
             jsonarticulos[k].categoriapadre = catepadre[0].padre;
             jsonarticulos[k].precioplan = planesfiltrados[0];
+            jsonarticulos[k].puntuacion = promredondado;
         }
 
         res.json(jsonarticulos);
