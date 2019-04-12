@@ -585,7 +585,7 @@ articuloController.guardarCards = async (req, res) => {
     }
 }
 
-articuloController.obtenerCards = async (res) => {
+articuloController.obtenerCards = async (req, res) => {
     try {
         const articulosCard = await Card.find({ activo: true, tipo : 'ARTICULO'});
         const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'});
@@ -603,17 +603,46 @@ articuloController.obtenerCards = async (res) => {
     }
 }
 
-articuloController.obtenerCarteles = async (res) => {
+articuloController.obtenerCarteles = async (req, res) => {
     try {
+        //  Proceso para obtener los datos de los ARTÍCULOS y sus precios
         const listaArticulos = [];
-        const articulosCard = await Card.find({ activo: true, tipo : 'ARTICULO'}, {idEquipo: 1, urlImagen: 1});
+        const articulosCard = await Card.find({ activo: true, tipo: 'ARTICULO'}, {idEquipo: 1, urlImagen: 1});
         for(var i=0; i < articulosCard.length; i++){
-            const articulo = await Articulo.find({_id: idEquipo}, {titulo: 1, url: 1, idprecio: 1, descuento: 1});
+            const articulo = await Articulo.findOne({_id: articulosCard[i].idEquipo}, {titulo: 1, url: 1, idprecio: 1, descuento: 1});
+            const precio = await Equipo.findOne({ nombreequipo: articulo.idprecio }, {planes: {$elemMatch: {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+            listaArticulos.push({
+                idEquipo: articulosCard[i].idEquipo,
+                urlImagen: articulosCard[i].urlImagen,
+                titulo: articulo.titulo,
+                url: articulo.url,
+                descuento: articulo.descuento,
+                precio: precio.planes[0].precio
+            });
         }
-
-        const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'});
-
+        // Proceso para obtener los datos de los ACCESORIOS y sus precios
+        const listaAccesorios = [];
+        const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'}, {idEquipo: 1, urlImagen: 1});
+        for(var j = 0; j < accesoriosCard.length; j++){
+            const accesorio = await Articulo.findOne({_id: accesoriosCard[j].idEquipo}, {titulo: 1, url: 1, idprecio: 1, descuento: 1});
+            const precio = await Equipo.findOne({ nombreequipo: accesorio.idprecio }, {planes: {$elemMatch: {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+            listaAccesorios.push({
+                idEquipo: accesoriosCard[j].idEquipo,
+                urlImagen: accesoriosCard[j].urlImagen,
+                titulo: accesorio.titulo,
+                url: accesorio.url,
+                descuento: accesorio.descuento,
+                precio: precio.planes[0].precio
+            });
+        }
+        res.json({
+            status: true,
+            msg: 'Los carteles han sido obtnidos con éxito',
+            data: listaArticulos,
+            data2: listaAccesorios
+        });
     } catch(err) {
+        console.error(err);
         res.json({
             status: false,
             error: err

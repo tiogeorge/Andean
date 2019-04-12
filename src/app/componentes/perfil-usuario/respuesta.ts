@@ -12,5 +12,6 @@ export class Respuesta {
   msg     : string;
   error   : string;
   data    : any;
+  data2   : any;
   user    : any;
 }

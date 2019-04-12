@@ -19,7 +19,7 @@ export class CardService {
   }
 
   obtenerCarteles() {
-    return this.http.get(Constantes.URL_API_ARTICULO + '/cartel', {withCredentials: true});
+    return this.http.get(Constantes.URL_API_ARTICULO + '/carteles', {withCredentials: true});
   }
 
   obtenercard(tipo: string) {

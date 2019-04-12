@@ -4,6 +4,7 @@ import { Constantes } from '../constantes';
 //import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import './owl.carousel.min.js';
+import { Respuesta } from '../perfil-usuario/respuesta';
 //import * as owlCarousel from './owl.carousel.min.js';
 declare var owlCarousel : any;
 declare var $: any;
@@ -184,34 +185,11 @@ export class PortafolioComponent implements OnInit {
    */
   obtenercard() {
     this.cardservice.obtenerCarteles().subscribe( res => {
-      console.log('obteniendo los carteles');
+      const rspta = res as Respuesta;
+      if(rspta.status){
+        this.listaofertas = rspta.data;
+        this.listaaccesorios = rspta.data2;
+      }
     });
-    /*var tipo1 = 'Equipo';
-    var tipo2 = 'Plan';
-    var tipo3 = 'Accesorio';
-    this.cardservice.obtenercard(tipo1)
-      .subscribe(res => {
-        console.log(res);
-        var resp = JSON.parse(JSON.stringify(res));
-        this.listarcardtipo1=resp;
-        console.log('entra');
-        console.log(this.listarcardtipo1);
-        this.cardservice.obtenercard(tipo3)
-        .subscribe(res => {
-          var resp3 = JSON.parse(JSON.stringify(res));
-          this.listarcardtipo3=resp3;
-          console.log('entra');
-          console.log(this.listarcardtipo3);
-          this.cardservice.obtenercard(tipo2)
-          .subscribe(res => {
-            var resp2 = JSON.parse(JSON.stringify(res));
-            this.listarcardtipo2=resp2;
-            console.log('entra');
-            console.log(this.listarcardtipo2);
-            this.listaofertas = this.listarcardtipo1;
-            this.listaaccesorios = this.listarcardtipo3;
-          });
-        });
-      });*/
   }
 }
