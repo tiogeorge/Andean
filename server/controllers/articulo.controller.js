@@ -585,7 +585,7 @@ articuloController.guardarCards = async (req, res) => {
     }
 }
 
-articuloController.obtenerCards = async (req, res) => {
+articuloController.obtenerCards = async (res) => {
     try {
         const articulosCard = await Card.find({ activo: true, tipo : 'ARTICULO'});
         const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'});
@@ -602,6 +602,25 @@ articuloController.obtenerCards = async (req, res) => {
         });
     }
 }
+
+articuloController.obtenerCarteles = async (res) => {
+    try {
+        const listaArticulos = [];
+        const articulosCard = await Card.find({ activo: true, tipo : 'ARTICULO'}, {idEquipo: 1, urlImagen: 1});
+        for(var i=0; i < articulosCard.length; i++){
+            const articulo = await Articulo.find({_id: idEquipo}, {titulo: 1, url: 1, idprecio: 1, descuento: 1});
+        }
+
+        const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'});
+
+    } catch(err) {
+        res.json({
+            status: false,
+            error: err
+        })
+    } 
+}
+
 articuloController.obtenerCardsTipo = async (req, res) => {
     var tiplinea = 'PREPAGO';
     var tipplan = 'ALTA';

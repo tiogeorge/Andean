@@ -179,8 +179,14 @@ export class PortafolioComponent implements OnInit {
     });
   }
 
+  /**
+   * Método que obtiene los carteles de equipos y de accesorios
+   */
   obtenercard() {
-    var tipo1 = 'Equipo';
+    this.cardservice.obtenerCarteles().subscribe( res => {
+      console.log('obteniendo los carteles');
+    });
+    /*var tipo1 = 'Equipo';
     var tipo2 = 'Plan';
     var tipo3 = 'Accesorio';
     this.cardservice.obtenercard(tipo1)
@@ -196,24 +202,16 @@ export class PortafolioComponent implements OnInit {
           this.listarcardtipo3=resp3;
           console.log('entra');
           console.log(this.listarcardtipo3);
-
           this.cardservice.obtenercard(tipo2)
           .subscribe(res => {
             var resp2 = JSON.parse(JSON.stringify(res));
             this.listarcardtipo2=resp2;
             console.log('entra');
             console.log(this.listarcardtipo2);
-
-
             this.listaofertas = this.listarcardtipo1;
             this.listaaccesorios = this.listarcardtipo3;
           });
         });
-        
-
-      });
-        
-    /*
-    */
+      });*/
   }
 }
