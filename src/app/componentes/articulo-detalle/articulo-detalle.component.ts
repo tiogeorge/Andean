@@ -16,6 +16,7 @@ import { Valoracion } from '../valoracion/valoracion';
 import { Usuario } from './../perfil-usuario/usuario';
 import { NgForm } from '@angular/forms';
 import { Equipo } from './equipo';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-articulo-detalle',
@@ -23,14 +24,9 @@ import { Equipo } from './equipo';
   styleUrls: ['./articulo-detalle.component.css']
 })
 export class ArticuloDetalleComponent implements OnInit {
-  articuloService: ArticuloDetalleService;
-  usuarioService: UsuarioService;
-  categoriaService: CategoriaService;
-  valoracionService: ValoracionService;
   URL_IMAGENES: string = Constantes.URL_API_IMAGEN;
   habilitarBotonCarrito: boolean = true;
   categoria: Categoria;
-  marcaService: MarcaService;
   marca: Marca = new Marca();
 
   //Precios
@@ -74,12 +70,15 @@ export class ArticuloDetalleComponent implements OnInit {
   };
   //Lista de precios segun el filtro seleccionado
   listPreciosFiltro: any[] = new Array();
-  constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, public dialog: MatDialog, categoriaService: CategoriaService, marcaService: MarcaService, valoracionService: ValoracionService) {
-    this.articuloService = articuloService;
-    this.categoriaService = categoriaService;
-    this.usuarioService = usuarioService;
-    this.marcaService = marcaService;
-    this.valoracionService = valoracionService;
+  constructor(public route: ActivatedRoute, 
+      public articuloService: ArticuloDetalleService, 
+      public usuarioService: UsuarioService, 
+      public dialog: MatDialog, 
+      public categoriaService: CategoriaService, 
+      public marcaService: MarcaService, 
+      public valoracionService: ValoracionService, 
+      public titleService: Title,
+      public metaService: Meta) {
   }
 
   //Actualizacion de numero de comentarios y promedio de puntaje
@@ -124,6 +123,8 @@ export class ArticuloDetalleComponent implements OnInit {
     var url = this.route.snapshot.paramMap.get("id");
     this.articuloService.getArticulo(url).subscribe(res => {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
+      this.titleService.setTitle('Comprar ' + this.articuloService.articuloSeleccionado.titulo + ' | Smarket');
+      this.metaService.updateTag({name: 'description', content: 'Compra el ' + this.articuloService.articuloSeleccionado.titulo + ' aquí en la tienda virtual SMARKET a un precio increible.'})
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
       this.infoComentarios();      
