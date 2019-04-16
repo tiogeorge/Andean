@@ -22,8 +22,8 @@
                 <div style="font-size: 14px;font-weight: 430;color: #000000;">
                   {{cardsimple.titulo}}
                 </div>
-                <div style="font-size: 12px;color: rgba(0,0,0,0.5);"><del>S/ {{cardsimple.precio * 100 / (100 - cardsimple.descuento) | number: '1.2-2'}}</del></div>
-                <div style="font-size: 16px;color: #df3b3b;font-weight: 500;">S/ {{cardsimple.precio | number:'1.2-2'}}</div>
+                <div style="font-size: 12px;color: rgba(0,0,0,0.5);"><del>S/ {{cardsimple.precio | number: '1.2-2'}}</del></div>
+                <div style="font-size: 16px;color: #df3b3b;font-weight: 500;">S/ {{cardsimple.precio - cardsimple.descuento * cardsimple.precio / 100 | number:'1.2-2'}}</div>
               </div>
           </div>   
         </div>          
@@ -43,8 +43,8 @@
               <div class="detalles-item-accesorio">
                 <div style="font-size: 12px;color: rgba(0,0,0,0.5);">Categoria</div>
                 <div style="font-size: 16px;font-weight: 400;color: #000000;">{{largocard.titulo}}</div>
-                <div style="font-size: 12px;color: rgba(0,0,0,0.5);"><del>S/ {{largocard.precio * 100 / (100 - largocard.descuento) | number: '1.2-2'}}</del></div>
-                <div style="font-size: 16px;color: #df3b3b;font-weight: 500;">S/ {{largocard.precio | number: '1.2-2'}}</div>
+                <div style="font-size: 12px;color: rgba(0,0,0,0.5);"><del>S/ {{largocard.precio | number: '1.2-2'}}</del></div>
+                <div style="font-size: 16px;color: #df3b3b;font-weight: 500;">S/ {{largocard.precio - largocard.descuento * largocard.precio / 100 | number: '1.2-2'}}</div>
               </div>        
             </div> 
         </div>          
