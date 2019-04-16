@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Title } from '@angular/platform-browser';
 import { Direccion } from '../pago/direccion';
 import { DireccionService } from '../pago/direccion.service';
 import { MatSnackBar } from '@angular/material';
@@ -38,12 +39,20 @@ export class PerfilUsuarioComponent implements OnInit {
   articulosP:any='';
   valuePedido=0;
 
-  constructor(public adapter: DateAdapter<any>, public direccionService: DireccionService, public regionService: RegionService, public router: Router, public usuarioService: UsuarioService, public snackBar: MatSnackBar,public pagoservice: PagoService) {
+  constructor(public adapter: DateAdapter<any>, 
+      public direccionService: DireccionService, 
+      public regionService: RegionService, 
+      public router: Router, 
+      public usuarioService: UsuarioService, 
+      public snackBar: MatSnackBar,
+      public pagoservice: PagoService,
+      public titleService: Title) {
     this.adapter.setLocale('es');
     this.tiposDocumento = ['DNI'];
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Perfil de Usuario | Smarket');
     this.usuarioService.getUsuarioLogeado().subscribe(res => {
       const respuesta = res as Respuesta;
       if (respuesta.status) {

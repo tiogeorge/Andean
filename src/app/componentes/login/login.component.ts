@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { Respuesta } from '../perfil-usuario/respuesta';
 import { Router } from '@angular/router';
 import { Usuario } from '../perfil-usuario/usuario';
@@ -16,9 +17,16 @@ import {comunicacionService} from '../comunicacion.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public usuarioService: UsuarioService, public router: Router, public snackBar: MatSnackBar, public comService: comunicacionService) { }
+  constructor(public usuarioService: UsuarioService, 
+              public router: Router, 
+              public snackBar: MatSnackBar, 
+              public comService: comunicacionService,
+              public titleService: Title,
+              public metaService: Meta) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Inicio de Sesión | Smarket');
+    this.metaService.updateTag({name: 'description', content: 'Inicia sesión en la tienda virtual SMARKET y accede a todos los beneficios que tiene para comprar.'})
     this.usuarioService.getUsuarioLogeado().subscribe( res => {
       const respuesta = res as Respuesta;
       if(respuesta.status){

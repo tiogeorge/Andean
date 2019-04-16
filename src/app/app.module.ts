@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title, Meta } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -16,7 +16,6 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { RestablecerComponent } from './componentes/restablecer/restablecer.component';
 import { PortafolioComponent } from './componentes/portafolio/portafolio.component';
 import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articulo-detalle.component';
-import { ArticuloComponent } from './componentes/articulo/articulo.component';
 import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarritocomprasComponent } from './componentes/carritocompras/carritocompras.component';
@@ -44,7 +43,6 @@ const routes : Route[] = [
   {path: 'registro', component: RegistroComponent},
   {path: 'restablecer', component: RestablecerComponent},
   {path: 'multicarro', component:CarouselmultipleComponent},
-  {path: 'articulo', component:ArticuloComponent},
   {path: 'busqueda/:tipobus/:pclave', component:ArticulosbusquedaComponent},
   {path: 'articulo/:id', component:ArticuloDetalleComponent},
   {path: 'cart', component:CarritocomprasComponent},
@@ -69,7 +67,6 @@ const routes : Route[] = [
     RestablecerComponent,
     PortafolioComponent,
     ArticuloDetalleComponent,
-    ArticuloComponent,
     ArticulosbusquedaComponent,
     CarritocomprasComponent,
     TerminosComponent,
@@ -106,7 +103,7 @@ const routes : Route[] = [
     DialogoCarritoComponent,
     SnackbarComponent
   ],
-  providers: [],
+  providers: [Title, Meta],
   bootstrap: [AppComponent]
 })
 
