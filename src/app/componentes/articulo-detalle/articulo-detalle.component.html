@@ -39,7 +39,8 @@
               </div>             
           </div>
           <div><hr style="margin: 0px; padding: 0px;"></div>
-          <div class="preciounitario" style="margin-top:10px; display: flex; flex-direction: row; align-items: flex-end; flex-wrap: wrap;">
+         <!--
+           <div class="preciounitario" style="margin-top:10px; display: flex; flex-direction: row; align-items: flex-end; flex-wrap: wrap;">
             <h6 style="width: 100%;">Precio: </h6>
             <div style="margin-left:10px; color: black; font-size: x-large; display: flex; flex-direction: row;align-items: flex-end; font-weight: 500;">
               <div>S/</div><div style="margin-left: 5px;"> {{planSeleccionado.precio.toFixed(2)}} </div><div style="color: rgb(132, 133, 136); font-size: medium; margin-bottom: 5px; margin-right: 3px;margin-left: 3px;"> / </div><div style="color: rgb(168, 168, 170); font-size: medium; margin-bottom: 4px;"> unidad</div>
@@ -47,6 +48,7 @@
             
 
           </div>
+         --> 
           <div class="colores" style="margin-top:10px;">
             <h6>Color: {{equipoSeleccionado.color}}</h6>
             <div class="item-colores" style="display: flex; flex-direction: row; margin: 10px">
@@ -68,13 +70,15 @@
               <i class="material-icons btn-cantidad noseleccionable" (click)="disminuirCantidad()">remove</i>
               <div style="width: 80px; text-align: center;">{{cantidadSeleccionada}}</div>
               
-              <i class="material-icons btn-cantidad noseleccionable" (click)="aumentarCantidad()">add</i>
+              <i class="material-icons btn-cantidad noseleccionable" (click)="aumentarCantidad()" >add</i>
             </div>
             <div *ngIf="equipoSeleccionado.cantidad==1" style="color: rgb(112, 113, 114)"> {{equipoSeleccionado.cantidad}} unidad disponible</div>
             <div *ngIf="equipoSeleccionado.cantidad>1" style="color: rgb(112, 113, 114)"> {{equipoSeleccionado.cantidad}} unidades disponibles</div>
           </div>
           
-          <div hidden="true" class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
+         <!--
+           
+         --> <div hidden="true" class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
               <div class="cont-selec" >
                   <h6 style="margin-bottom: 5px;">Tipo Linea:</h6>
                   <div class="input-select" >
@@ -167,13 +171,20 @@
       <div class="contenedor-precios">
         <div class="contenedor-detalle-precio">
           <div style="width: 100%; display: flex; flex-direction: column;">
-              <div>Para continuar la compra seleccione un color.</div>   
-              <div  style="margin-top:5px;">Costo del Articulo: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
+            <div  style="margin-top:0px; font-size: 25px;color: #7e8285; display:flex; flex-direction: row;"> <del>
+              S/ {{(planSeleccionado.precio).toFixed(2)}} 
+            </del> 
+            <div style="margin-left: 10px;">
+              -30%
+            </div>
+          </div>    
+              <div  style="margin-top:2px; font-size: 30px;color: #df3b3b;"> S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
               <div  style="margin-top:5px;">Costo de Envio: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
               <div  style="margin-top:5px;">Pago Total: S/ {{(planSeleccionado.precio).toFixed(2)}} </div>    
        
           </div>
-          <div [hidden]="nomostrarPlanesPostpago" class="detalle-precio-plan">
+          <!--
+<div [hidden]="nomostrarPlanesPostpago" class="detalle-precio-plan">
               <div class="item-precio-plan">
                   <div style="margin-right: 5px; font-size: 14px;">Plan: </div>     
                   <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 14px; width: auto; text-align: center;">{{planSeleccionado.nombreplan}}</div>
@@ -199,6 +210,7 @@
             </div>
               
           </div>
+          --> 
          
           <div class="botones-compra">
             <button class="btn-compra btn-procesar" routerLink="/pago"><i class="fa fa-credit-card"></i> Procesar Compra</button>
