@@ -17,6 +17,7 @@ import { Usuario } from './../perfil-usuario/usuario';
 import { NgForm } from '@angular/forms';
 import { Equipo } from './equipo';
 import { Title, Meta } from '@angular/platform-browser';
+import { Respuesta } from '../perfil-usuario/respuesta';
 
 @Component({
   selector: 'app-articulo-detalle',
@@ -186,9 +187,9 @@ export class ArticuloDetalleComponent implements OnInit {
 
 
   agregarCarrito() {
-    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.url, this.planSeleccionado, this.equipoSeleccionado.idequipo,this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe(res => {
-      var jres = JSON.parse(JSON.stringify(res));
-      this.openDialog(jres);
+    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado._id, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {
+      const rspta = res as Respuesta;
+      this.openDialog(rspta);
     });
   }
 
