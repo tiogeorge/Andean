@@ -16,9 +16,8 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
   styleUrls: ["./carritocompras.component.css"]
 })
 export class CarritocomprasComponent implements OnInit {
-  listaArticulos: Articulo[] = [];
+  listaArticulos: any[] = [];
   urlImagenes : string = Constantes.URL_IMAGEN;
-  listaPlanArticulo: any[] = [];
   mostrarArticulos: boolean = true;
   mostrarEnvio: boolean = false;
   mostrarCupon: boolean = false;
@@ -34,12 +33,8 @@ export class CarritocomprasComponent implements OnInit {
     this.articuloDetalleService.getCarrito().subscribe(res => {
       const respuesta = res as Respuesta;
       if (respuesta.status) {
-        console.log(respuesta.data);
-        for (var i = 0; i < respuesta.data.length; i++) {
-          this.listaArticulos.push(respuesta.data[i][0]);
-          this.listaPlanArticulo.push(respuesta.data[i][1]);
-          this.mostrarArticulos = true;
-        }
+        this.listaArticulos = respuesta.data as any[];
+        this.mostrarArticulos = true;
         this.subtotal = this.calcularSubTotal();
       }
     });
@@ -58,8 +53,8 @@ export class CarritocomprasComponent implements OnInit {
    */
   calcularSubTotal() :number{
     var sub = 0;
-    for(var i = 0; i < this.listaPlanArticulo.length; i++){
-      sub += this.listaPlanArticulo[i].precio;
+    for(var i = 0; i < this.listaArticulos.length; i++){
+      sub += (this.listaArticulos[i].precio - this.listaArticulos[i].precio * this.listaArticulos[i].descuento / 100);
     }
     return sub;
   }
@@ -68,14 +63,13 @@ export class CarritocomprasComponent implements OnInit {
    * Método que elimina un determinado artículo de un carrito
    * @param url identificador de un artículo
    */
-  eliminaritem(url: string): void {
-    this.usuarioService.eliminarArticuloCarrito(url).subscribe(res => {
+  eliminaritem(id: string): void {
+    this.usuarioService.eliminarArticuloCarrito(id).subscribe(res => {
       const respuesta = res as Respuesta;
       if (respuesta.status) {
         // Buscar la posición del artículo eliminado
         var i = 0; 
-        while(i < this.listaArticulos.length && this.listaArticulos[i].url != url){ i++; }
-        this.listaPlanArticulo.splice(i, 1);
+        while(i < this.listaArticulos.length && this.listaArticulos[i].id != id){ i++; }
         this.listaArticulos.splice(i, 1);
         this.openSnackBar(respuesta.status, respuesta.msg);
       } else {
@@ -94,7 +88,6 @@ export class CarritocomprasComponent implements OnInit {
       const respuesta = res as Respuesta;
       if (respuesta.status) {
         this.listaArticulos = [];
-        this.listaPlanArticulo = [];
         this.openSnackBar(respuesta.status, respuesta.msg);
       } else {
         this.openSnackBar(respuesta.status, respuesta.error);

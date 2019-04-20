@@ -17,6 +17,6 @@ router.put('/cambiar', usuario.cambiarPassword);
 router.put('/carrito/:id', usuario.agregarArticulo);
 router.put('/:id',usuario.actualizarUsuario);
 router.delete('/carrito', usuario.eliminarTodoArticulos);
-router.delete('/carrito/:url',usuario.eliminarArticulo);
+router.delete('/carrito/:id',usuario.eliminarArticulo);
 
 module.exports = router;

@@ -16,6 +16,7 @@
         </div>
       </div>
       <hr>
+      
       <h5 class="titulo" [style.display]="!mostrarArticulos ? 'block' : 'none'">NO TIENES PRODUCTOS EN TU CARRITO</h5>
       <div class="container" [hidden]="!mostrarArticulos">
         <div class="row" *ngFor="let articulo of listaArticulos; let i = index">
@@ -30,11 +31,11 @@
                 </div>
                 <div class="col-6" id="colart2{{articulo.titulo}}">
                   <a class="card-title tituloPlan">{{ articulo.titulo }}</a>
-                  <p class="card-text precioPlan">S/ {{listaPlanArticulo[i].precio | number:'1.2-2'}}</p>
+                  <p class="card-text precioPlan">S/ {{articulo.precio - articulo.precio * articulo.descuento / 100 | number:'1.2-2'}}</p>
                 </div>
                 <div class="col-2">
                   <button type="button" class="close" aria-label="Close" matTooltip="Eliminar" matTooltipClass="colortooltip"
-                    (click)="eliminaritem(articulo.url)">
+                    (click)="eliminaritem(articulo.id)">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
