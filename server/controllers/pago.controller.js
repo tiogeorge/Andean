@@ -62,6 +62,38 @@ pagoController.guardardetallemysql = async (req, res) => {
         });
     });
 }
+pagoController.corregirexistenciamysql=async (req,res)=>{
+    const detall = JSON.parse(JSON.stringify(req.body))
+    console.log(req.body);
+    req.getConnection(function (error, conn) {
+        var consulta = "spu_anuven_corregirExistencia('" + detall[0].pIdLocal + "','" + detall[0].pTipoComprobante + "','" + detall[0].pSerieComprobante + "','" + detall[0].pNroComprobante + "','" + detall[0].pIdArticulo + "','" + detall[0].pIdNroSerieArticulo + "','" + detall[0].pCantidad + "','" + detall[0].pPrecioVenta + "','" + detall[0].pDsctoCliente + "','" + detall[0].pIdDsctoEspecial + "','" + detall[0].pDsctoEspecial + "','" + detall[0].pDsctoNivel4 + "','" + detall[0].pIdTipoPlan + "')";
+        console.log(consulta);
+        conn.query(consulta, function (err, results) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json(results);
+            }
+        });
+    });
+}
+pagoController.anularventamysql=async (req,res)=>{
+    const detall = JSON.parse(JSON.stringify(req.body))
+    console.log(req.body);
+    req.getConnection(function (error, conn) {
+        var consulta = "spu_anuven_anular('" + detall[0].pIdLocal + "','" + detall[0].pTipoComprobante + "','" + detall[0].pSerieComprobante + "','" + detall[0].pNroComprobante + "','" + detall[0].pIdArticulo + "','" + detall[0].pIdNroSerieArticulo + "','" + detall[0].pCantidad + "','" + detall[0].pPrecioVenta + "','" + detall[0].pDsctoCliente + "','" + detall[0].pIdDsctoEspecial + "','" + detall[0].pDsctoEspecial + "','" + detall[0].pDsctoNivel4 + "','" + detall[0].pIdTipoPlan + "')";
+        console.log(consulta);
+        conn.query(consulta, function (err, results) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json(results);
+            }
+        });
+    });
+}
 /*funciones mysql */
 pagoController.recuperarseriesequipos = async (req, res) => {
 
