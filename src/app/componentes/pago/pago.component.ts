@@ -375,7 +375,8 @@ export class PagoComponent implements OnInit {
     //this.guardarventa();
   }
 
-  guardarventa() {
+  guardarventa(idpago:string) {
+    var idpagoculqi=idpago;
     this.DocumentoT[0].Tipo = this.tipodoc;
     this.pagoservice.recuperarserie()
       .subscribe(res => {
@@ -402,7 +403,7 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.FechaEnvio = new Date();
             this.pagoservice.selectPago.FechaEntrega = new Date();
             this.pagoservice.selectPago.PrecioTotal = this.preciototal;
-            this.pagoservice.selectPago.NroTransaccion = '2323232';
+            this.pagoservice.selectPago.NroTransaccion = idpagoculqi;
             this.pagoservice.selectPago.Documento = this.DocumentoT;
             console.log('documento actua');
             console.log(this.pagoservice.selectPago.Documento);
@@ -481,10 +482,11 @@ export class PagoComponent implements OnInit {
    * @param respuesta 
    */
   terminarPago(respuesta: Respuesta){
+    var idpago=respuesta.data.id;
     this.procesandoPago = false;
     if(respuesta.status){
       this.openSnackBar(respuesta.status, respuesta.msg);
-      this.guardarventa();
+      this.guardarventa(idpago);
     } else {
       this.openSnackBar(respuesta.status, respuesta.error);
     }
