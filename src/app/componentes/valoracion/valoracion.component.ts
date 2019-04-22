@@ -40,7 +40,6 @@ export class ValoracionComponent implements OnInit {
       this.usuarioService.getUsuarioLogeado().subscribe(res => {
         var jres = JSON.parse(JSON.stringify(res));
         if (jres.status) {
-          console.log(jres.status);
           this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
           this.sesionActiva = true;
           this.recuperarValoracionesLogeadoCliente();  
@@ -60,42 +59,31 @@ export class ValoracionComponent implements OnInit {
 
   recuperarValoraciones() {
     this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
-      console.log("Solo producto");
       this.valoracionService.valoraciones = res as Valoracion[];
-      console.log(this.valoracionService.valoraciones);
     });
   }
 
   recuperarValoracionesLogeadoCliente() {
     this.valoracionService.obtenerValoracionCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
-      console.log("Solo cliente");
       this.valoracionService.valoracionCliente = (res as Valoracion[])[0];
       if (this.valoracionService.valoracionCliente != undefined ) {
         this.clienteComento = true;
       }
-      console.log(this.valoracionService.valoracionCliente);
     });
   }
 
   recuperarValoracionesLogeadoSinCliente() {
       this.valoracionService.obtenerValoracionesSinCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
-        console.log("Todo menos cliente");
         this.valoracionService.valoracionSinCliente = res as Valoracion[];
-        console.log(this.valoracionService.valoracionSinCliente);
       })
   }
 
   comentar() {
-    console.log("Nuevo comentario");
-    console.log(this.usuarioService.usuarioSeleccionado._id);
-    console.log(this.articuloService.articuloSeleccionado.idarticulo);
-    console.log(this.usuarioService.usuarioSeleccionado.nombres);
     this.valoracionNueva.cliente = this.usuarioService.usuarioSeleccionado._id;
     this.valoracionNueva.idarticulo = this.articuloService.articuloSeleccionado.idarticulo;
     this.valoracionNueva.nombrecliente = this.usuarioService.usuarioSeleccionado.nombres;
     this.valoracionService.crearValoracion(this.valoracionNueva).subscribe(res => {
       var jres = JSON.parse(JSON.stringify(res));
-      console.log(jres);
       this.recuperarValoracionesLogeadoCliente();
       this.recuperarValoraciones();    
       this.sendMessage();

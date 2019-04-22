@@ -89,7 +89,6 @@ export class ArticuloDetalleComponent implements OnInit {
   receiveMessage($event) {
     this.infoComentarios();
     this.message = $event;
-    console.log(this.message);
   }
 
   //Valoraciones
@@ -129,7 +128,6 @@ export class ArticuloDetalleComponent implements OnInit {
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
       this.infoComentarios();      
       this.buscarPreciosFiltro();
-      console.log(this.articuloService.articuloSeleccionado);
       this.equipoSeleccionado = this.articuloService.articuloSeleccionado.equipos[0];
       this.cambiar_imagen(this.equipoSeleccionado.imagen);
       //  this.obtenerPreciosArticulo();     
@@ -143,7 +141,6 @@ export class ArticuloDetalleComponent implements OnInit {
   seleccionarEquipo(equipo){
     this.equipoSeleccionado = equipo;
     this.colorSeleccionado = this.equipoSeleccionado.color;
-    console.log(this.equipoSeleccionado);
     this.cambiar_imagen(this.equipoSeleccionado.imagen);
   }
 
@@ -182,8 +179,6 @@ export class ArticuloDetalleComponent implements OnInit {
         }
       }
     });
-    console.log(this.numeroComentarios);
-    console.log(this.puntuacionPromedio);
   }
 
 
@@ -197,13 +192,11 @@ export class ArticuloDetalleComponent implements OnInit {
   seleccionarPlan(plan) {
     this.planSeleccionado = plan;
     this.listaDetallePlan = new Array();
-    console.log(this.planSeleccionado)
   }
 
   buscarPreciosFiltro() {
     var contenedor = document.getElementById("contenido-planes-equipo");
     contenedor.style.transform = "translateX(-0px)";
-    console.log(contenedor.clientWidth);
     this.listacuotasSeleccionadas = new Array();
     if (this.tipoPlanSeleccionado == "ALTA") {
       for (var i = 0; i < this.listacuotas.length; i++) {
@@ -238,7 +231,6 @@ export class ArticuloDetalleComponent implements OnInit {
       this.controlCuotas = false;
       this.almes = " al mes";
     }
-    console.log(this.tipoLineaSeleccionada + " - " + this.tipoPlanSeleccionado + " - " + this.tipoCuotaSeleccionada);
     this.articuloService.getPreciosArticulo(this.articuloService.articuloSeleccionado.idprecio, this.tipoLineaSeleccionada, this.tipoPlanSeleccionado, this.tipoCuotaSeleccionada)
       .subscribe(res => {
 
@@ -253,8 +245,6 @@ export class ArticuloDetalleComponent implements OnInit {
           }
           this.planSeleccionado = this.listPreciosFiltro[0];
         }
-
-        //console.log(res);
       });
   }
   slide = 0;
@@ -285,18 +275,13 @@ export class ArticuloDetalleComponent implements OnInit {
       result.style.backgroundSize = (imagen.width * 2.5) + "px " + (imagen.height * 2.5) + "px";
 
 
-    } else {
-      console.log("no se permite el zoom de la imagen");
-    }
+    } 
   }
 
   mouse_out() {
     if (screen.width > 1024) {
       this.ocultarZoom = true;
-      // console.log("salio de la imagen");
-    } else {
-      console.log("no se permite el zoom de la imagen");
-    }
+    } 
   }
 
   mouse_move(evento) {
@@ -324,9 +309,7 @@ export class ArticuloDetalleComponent implements OnInit {
       lens.style.top = y + "px";
       /* Display what the lens "sees": */
       result.style.backgroundPosition = (-1 * x + 100) * cx + "px " + (-1 * y + 100) * cy + "px";
-    } else {
-      console.log("no se permite el zoom de la imagen");
-    }
+    } 
   }
   getCursorPos(e) {
     var img = document.getElementById("imagen-origen");
@@ -379,9 +362,7 @@ export class ArticuloDetalleComponent implements OnInit {
   abrirDetallesPlan() {
     this.articuloService.getDetallePlan(this.planSeleccionado.nombreplan)
       .subscribe(res => {
-        console.log(res);
         this.listaDetallePlan = res[0].detalle.split('\n');
-        console.log(this.listaDetallePlan);
       });
   }
 

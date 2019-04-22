@@ -50,7 +50,6 @@ export class PortafolioComponent implements OnInit {
 
   abrirArticulo(url){
     this.router.navigate(['/articulo/'+url])
-    console.log("IR A : "+url);
   }
   
   obtenerBanner(){
@@ -65,7 +64,6 @@ export class PortafolioComponent implements OnInit {
         
         content += " <div class='item' routerLink='/busqueda/ban/"+this.banners[i]._id+"'><a href='/busqueda/ban/"+this.banners[i]._id+"'> <img src='"+Constantes.URL_IMAGEN_LG+"/"+img+"'"+"></a></div>"
       }
-      console.log(content);
       $("#carousel-grande-owl").html(content);
       $("#carousel-grande-owl").owlCarousel({
         loop:true,

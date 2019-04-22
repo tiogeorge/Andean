@@ -46,14 +46,11 @@ export class MenuComponent implements OnInit {
         this.estaLogeado = true;
         var nombre = user.nombres.split(" ")[0];
         this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase();
-        console.log("LLEGO DEL LOGIN :" + user.nombres);
-        console.log(this.estaLogeado);
       }
       
     });
     this.catsubscription = this.comService.getCategorias()
     .subscribe(cat =>{
-      console.log("LLEGO CATEGORIAS");
       this.categorias = cat as any[];
     });
 
@@ -93,7 +90,6 @@ export class MenuComponent implements OnInit {
     document.getElementById("mySidepanel2").style.height = window.innerHeight+"px";
     document.getElementById("mySidepanel2").style.overflowY = "auto";
     if(this.categorias.length==0){
-      console.log("BUSCANDO CATEFRIAS EN MENU");
       this.categoriaService.listarcategoriaspadres()
       .subscribe(res =>{
         this.categorias = res as any[];
@@ -164,9 +160,7 @@ export class MenuComponent implements OnInit {
     //this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[i];
     //this.urlImagen = this.urlImg + '/tmp/'+this.categoriaService.categoriaSeleccionada.imagen;
     /*this.categoriaService.getSubCategorias(idcategoria).subscribe(res=>{
-      console.log(res);
     });*/
-    console.log(idcategoria);
   }
 
   getSesion(){
@@ -176,7 +170,6 @@ export class MenuComponent implements OnInit {
         var nombre = jres.user.nombres.split(" ")[0];
         this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase(); 
         this.estaLogeado = true;
-        console.log(jres.user);
         this.comService.enviarUsuario(jres.user);
         this.usuarioLogueado = jres.user;
       } else {
@@ -206,7 +199,6 @@ export class MenuComponent implements OnInit {
   buscarpa(event:any){
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
-    console.log(this.pclave2);
     if(event.key=="Enter"){
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
@@ -223,7 +215,6 @@ export class MenuComponent implements OnInit {
   buscarpa2(event:any){
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal2') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
-    console.log(this.pclave2);
     if(event.key=="Enter"){
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
@@ -272,7 +263,6 @@ export class MenuComponent implements OnInit {
   }
   busquedacat(id:string){
     var valor="cat/"+id;
-    console.log(valor);
     this.router.navigate(['busqueda/palclav/'+valor]);
   }
   public actualizarcomponente(dat:string){

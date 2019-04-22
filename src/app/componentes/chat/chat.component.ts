@@ -46,26 +46,16 @@ export class ChatComponent implements OnInit {
         this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte.";
       }
     });
-    this.subscriptionChat = this.comService.getAccionChat()
-    .subscribe(res=>{
-      if(res == "CERRAR"){
-        console.log("Ocultar Chat Escritorio");
-      }
-    });
     this.router.events.subscribe((event: Event)=>{
       if (event instanceof NavigationEnd) {
         if(event.url == "/chat"){
           this.mostrarBotonChat = true;
-          console.log("OCULTAR CHAT variable : "+this.mostrarBotonChat);
-          document.getElementById("btnmostrarchat").style.display= "none";
-          
+          document.getElementById("btnmostrarchat").style.display= "none";    
         }else{
-          console.log("MOSTRAR CHAT");
           this.mostrarBotonChat = true;
           document.getElementById("btnmostrarchat").style.display= "flex";
         }
       }
-
     })
 
   }
