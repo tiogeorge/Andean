@@ -23,19 +23,15 @@ export class UsuarioService {
    * @param urlArticulo : identificador de un artículo
    * @param plan : plan seleccionado del artículo
    */
-  agregarArticuloCarrito(urlArticulo: string, plan: any, idequipo:string, cantidad: number, imagen: string){
+  agregarArticuloCarrito(idArticulo: string, idequipo:string, cantidad: number, imagen: string){
     const articulo = {
-      url: urlArticulo,
-      tipoLinea: plan.tipolinea,
-      tipoPlan: plan.tipoplan,
-      nombrePlan: plan.nombreplan,
-      cuotas : plan.cuotas,
+      id: idArticulo,
       idequipo: idequipo,
       cantidad: cantidad,
       imagen: imagen
       
     };
-    return this.http.put(this.URL_API + `/carrito/${urlArticulo}`, articulo,{withCredentials: true}).pipe(
+    return this.http.put(this.URL_API + `/carrito/${idArticulo}`, articulo,{withCredentials: true}).pipe(
       catchError(this.handleError<any>('agregartArticulo'))
     );
   }

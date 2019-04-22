@@ -16,8 +16,11 @@
         </div>
       </div>
       <hr>
-      <h5 class="titulo" [style.display]="!mostrarArticulos ? 'block' : 'none'">NO TIENES PRODUCTOS EN TU CARRITO</h5>
-      <div class="container" [hidden]="!mostrarArticulos">
+      <div [hidden]="!cargando">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      </div>
+      <h5 class="titulo" [style.display]="(!cargando && !mostrarArticulos) ? 'block' : 'none'">NO TIENES PRODUCTOS EN TU CARRITO</h5>
+      <div class="container" [hidden]="(!cargando && !mostrarArticulos)">
         <div class="row" *ngFor="let articulo of listaArticulos; let i = index">
           <div class="col-lg-12" id="contenedorarticulo{{articulo.titulo}}">
             <div class="container-fluid">
@@ -30,11 +33,11 @@
                 </div>
                 <div class="col-6" id="colart2{{articulo.titulo}}">
                   <a class="card-title tituloPlan">{{ articulo.titulo }}</a>
-                  <p class="card-text precioPlan">S/ {{listaPlanArticulo[i].precio | number:'1.2-2'}}</p>
+                  <p class="card-text precioPlan">S/ {{articulo.precio - articulo.precio * articulo.descuento / 100 | number:'1.2-2'}}</p>
                 </div>
                 <div class="col-2">
                   <button type="button" class="close" aria-label="Close" matTooltip="Eliminar" matTooltipClass="colortooltip"
-                    (click)="eliminaritem(articulo.url)">
+                    (click)="eliminaritem(articulo.id)">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -90,8 +93,9 @@
       <p class="sol">S/</p>
       <p class="precioSubtitulo">{{subtotal + envio | number:'1.2-2'}}</p>
       <hr>
-      <button class="btn btn-warning btnandean" style="background-color: orangered; color:white" (click)="procesarCompra()">PROCESAR
-        COMPRA</button>
+      <button mat-raised-button color="accent" style="width: 100%;" (click)="enProceso()">PROCESAR COMPRA</button>
+      <!--<button mat-raised-button color="accent" style="width: 100%;" (click)="procesarCompra()">PROCESAR
+        COMPRA</button>-->
       <hr>
     </div>
   </div>
