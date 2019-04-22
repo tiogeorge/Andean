@@ -96,7 +96,6 @@ export class ArticuloDetalleComponent implements OnInit {
   numeroComentarios: Number  = 0;
   textoNumeroComentarios: String = 'Sin Comentarios';
   puntuacionPromedio: Number  = 0;
-
   ngOnInit() {
 
     this.listalineas = [{ valor: "PREPAGO", nombre: "Prepago" }, { valor: "POSTPAGO", nombre: "Postpago" }];
@@ -132,6 +131,7 @@ export class ArticuloDetalleComponent implements OnInit {
       this.buscarPreciosFiltro();
       console.log(this.articuloService.articuloSeleccionado);
       this.equipoSeleccionado = this.articuloService.articuloSeleccionado.equipos[0];
+      this.cambiar_imagen(this.equipoSeleccionado.imagen);
       //  this.obtenerPreciosArticulo();     
     });
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe(res => {
@@ -144,6 +144,7 @@ export class ArticuloDetalleComponent implements OnInit {
     this.equipoSeleccionado = equipo;
     this.colorSeleccionado = this.equipoSeleccionado.color;
     console.log(this.equipoSeleccionado);
+    this.cambiar_imagen(this.equipoSeleccionado.imagen);
   }
 
   disminuirCantidad(){

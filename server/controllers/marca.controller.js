@@ -1,19 +1,44 @@
 const Marca=require('../models/marca');
 const marcacontroller={};
 
+var jsonMarcas;
 marcacontroller.obtenerMarcaMysql = async( req, res)=>{
     req.getConnection(function (error, conn){
         var consulta = "SELECT * FROM `tamarcaproducto`";
-        conn.query(consulta, function (err, results) {
+        conn.query(consulta, async function (err, results) {
             if (err){
                 console.log(err);
             }else{
-                res.json(results);
+                
+
+                jsonMarcas = JSON.parse(JSON.stringify(results));
+                for (var i = 0; i < jsonMarcas.length; i++) {
+                    await verificarMarcaMongo(jsonMarcas[i].NombreMarca, i);
+                }
+                res.json(jsonMarcas);
             }             
         });
     });    
 }
+verificarMarcaMongo = async (nombre, i) => {
+    try {
+        const marcamongo = await Marca.find({
+            nombremarca: nombre
+        });
 
+        if (marcamongo.length > 0) {
+            jsonMarcas[i].Estado = "1";
+            jsonMarcas[i].idMarca = marcamongo[0]._id;
+
+        } else {
+            jsonMarcas[i].Estado = "0";
+        }
+
+    } catch (e) {
+        console.log("currio un error");
+    }
+
+}
 marcacontroller.obtenerMarcas= async (req, res) =>{
     const marcas = await Marca.find();
     res.json(marcas);
@@ -21,13 +46,25 @@ marcacontroller.obtenerMarcas= async (req, res) =>{
 
 marcacontroller.crearMarca= async (req,res)=>{
     const marca=new Marca({
-         idMarca:req.body.idMarca,
-         nombremarca:req.body.nombremarca,
-         descripcion:req.body.descripcion,
-         imagen:req.body.imagen,
+        nombremarca:req.body.nombremarca,
+        descripcion:req.body.descripcion,
+        imagen:req.body.imagen,
     });
-    await marca.save();
+    if(req.body._id){
+        console.log("existe marca "+req.body.nombremarca);
+        const marcaactualizada = await Marca.findByIdAndUpdate({_id:req.body._id},{$set:{
+            nombremarca:req.body.nombremarca,
+            descripcion:req.body.descripcion,
+            imagen:req.body.imagen
+        }},{new:true});
+        console.log(req.body);
+    }else{        
+        console.log("NO EXISTE marca "+req.nombremarca);
+        await marca.save();
+        
+    }
     res.json({
+
         'status': 'Marca registrada'
     });
 }
