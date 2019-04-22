@@ -22,6 +22,7 @@ export class ValoracionComponent implements OnInit {
   clienteComento = false;
   sesionActiva = false;
   valoracionNueva = new Valoracion();
+  tiempo            : number;
 
   constructor(private route: ActivatedRoute, articuloService: ArticuloDetalleService, usuarioService: UsuarioService, valoracionService: ValoracionService) {
     this.articuloService = articuloService;
@@ -34,6 +35,7 @@ export class ValoracionComponent implements OnInit {
     this.articuloService.getArticulo(url).subscribe(res => {
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       this.recuperarValoraciones();
+      this.tiempo = Date.now();
 
       this.usuarioService.getUsuarioLogeado().subscribe(res => {
         var jres = JSON.parse(JSON.stringify(res));

@@ -4,21 +4,40 @@
 .comentarioUsuario textarea{
     height: 7em;
 }
-
+.cont-comentario{
+  display : flex;flex-direction: column; padding: 20px; 
+  border-top: 1px solid rgb(233, 233, 233);
+  width: 100%;
+}
+.avatar-user{
+  font-size: 50px;
+  color: rgb(40, 174, 214);
+  
+}
+.estrella-com{
+  width: 18px !important;
+  height: 16px !important;
+  margin:0.5px !important;
+}
+.estrella{
+  width: 30px !important;
+  height: 26px !important;
+  margin:1px !important;
+}
 .estrella1[alt="5"],.estrella1[alt="4"],.estrella1[alt="3"],.estrella1[alt="2"],.estrella1[alt="1"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
 }
 .estrella2[alt="5"],.estrella2[alt="4"],.estrella2[alt="3"],.estrella2[alt="2"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
 }
 .estrella3[alt="5"],.estrella3[alt="4"],.estrella3[alt="3"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
 }
 .estrella4[alt="5"],.estrella4[alt="4"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
 }
 .estrella5[alt="5"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
 }
 
 .valoracionUsuario input[type="radio"] {
@@ -26,7 +45,7 @@
   }
 
 .valoracionUsuario label {
-    content: url("/assets/images/star.png");
+    content: url("/assets/images/star3.png");
     font-size:50px;
   }
 
@@ -37,9 +56,9 @@
 
   .valoracionUsuario label:hover,
   .valoracionUsuario label:hover ~ label {
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
   }
 
   .valoracionUsuario input[type="radio"]:checked ~ label {
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
   }

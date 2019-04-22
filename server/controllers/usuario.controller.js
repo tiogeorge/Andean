@@ -66,7 +66,6 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
  * Método que permite agregar un artículo al carrito de compras
  */
 usuarioController.agregarArticulo = async (req, res, next) => {
-  console.log(req.body);
   if (req.session.token) {
     await Usuario.findOne({
       token: req.session.token
@@ -74,16 +73,18 @@ usuarioController.agregarArticulo = async (req, res, next) => {
       if (err) {
         res.json({
           status: false,
-          error: 'Se produjo un error al obtener el usuario'
+          error: 'Se produjo un error al obtener los datos del usuario'
         });
-      } else {
+      } else { // Usuario encontrado
         if (usuario) {
           var carritoArticulo = [];
           var existeArticulo = false;
           if (usuario.carrito) {
             carritoArticulo = usuario.carrito;
             for (var i = 0; i < carritoArticulo.length; i++) {
-              if (carritoArticulo[i].url == req.params.url) {
+              // Si es igual el artículo y el equipo
+              if (carritoArticulo[i].idArticulo == req.params.id && 
+                  carritoArticulo[i].idEquipo == req.body.idequipo) {
                 existeArticulo = true;
                 break;
               }
@@ -96,14 +97,9 @@ usuarioController.agregarArticulo = async (req, res, next) => {
             });
           } else {
             const articuloCarrito = {
-              url: req.params.url,
-              tipoLinea: req.body.tipoLinea,
-              tipoPlan: req.body.tipoPlan,
-              nombrePlan: req.body.nombrePlan,
-              cuotas: req.body.cuotas,
-              idequipo: req.body.idequipo,
+              idArticulo: req.params.id,
+              idEquipo: req.body.idequipo,
               cantidad: req.body.cantidad,
-              imagen: req.body.imagen
             };
             carritoArticulo.push(articuloCarrito);
             Usuario.findOneAndUpdate({
@@ -114,11 +110,11 @@ usuarioController.agregarArticulo = async (req, res, next) => {
               }
             }, {
               new: false
-            }, function (err, usuarioArticulo) {
+            }, function (err) {
               if (err) {
                 res.json({
                   status: false,
-                  error: 'Se produjo error al agregar el artículo en tu carrito de compras'
+                  error: 'Se produjo un error al agregar el artículo en tu carrito de compras.'
                 });
               } else {
                 req.session.articulos = carritoArticulo;
@@ -132,23 +128,19 @@ usuarioController.agregarArticulo = async (req, res, next) => {
         }
       }
     });
-  } else {
+  } else { // Usuario que no ha iniciado sesión
     var carritoArticulo = [];
     var existeArticulo = false;
     const articuloCarrito = {
-      url: req.params.url,
-      tipoLinea: req.body.tipoLinea,
-      tipoPlan: req.body.tipoPlan,
-      nombrePlan: req.body.nombrePlan,
-      cuotas: req.body.cuotas,
-      idequipo: req.body.idequipo,
+      idArticulo: req.params.id,
+      idEquipo: req.body.idequipo,
       cantidad: req.body.cantidad,
-      imagen: req.body.imagen
     };
     if (req.session.articulos) {
       carritoArticulo = req.session.articulos;
       for (var i = 0; i < carritoArticulo.length; i++) {
-        if (carritoArticulo[i].url == req.params.url) {
+        if (carritoArticulo[i].idArticulo == req.params.id && 
+            carritoArticulo[i].idEquipo == req.body.idequipo) {
           existeArticulo = true;
           break;
         }
@@ -230,7 +222,7 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
   if (req.session.token) {
     await Usuario.findOne({
       token: req.session.token
-    }, function (err, usuario) {
+    },{carrito: 1}, function (err, usuario) {
       if (err) {
         res.json({
           status: false,
@@ -240,7 +232,7 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
         var carritoArticulos = usuario.carrito;
         var indice = 0;
         for (var i = 0; i < usuario.carrito.length; i++) {
-          if (usuario.carrito[i].url == req.params.url) {
+          if (usuario.carrito[i].idArticulo == req.params.id) {
             indice = i;
             break;
           }
@@ -274,7 +266,7 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
       carritoArticulo = req.session.articulos;
       var indice = 0;
       for (var i = 0; i < req.session.articulos.length; i++) {
-        if (req.session.articulos[i].url == req.params.url) {
+        if (req.session.articulos[i].idArticulo == req.params.id) {
           indice = i;
           break;
         }
@@ -298,7 +290,6 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
  * Método que elimina todos los artículos del carrito de compras
  */
 usuarioController.eliminarTodoArticulos = async (req, res, next) => {
-  console.log(req.session.articulos);
   if (req.session.token) {
     await Usuario.findOneAndUpdate({
       token: req.session.token
@@ -454,44 +445,26 @@ usuarioController.loginUsuario = async (req, res, next) => {
 /**
  * Método que permite obtener los artículos y planes de un carrito de compras
  */
-usuarioController.obtenerCarrito = async (req, res, next) => {
+usuarioController.obtenerCarrito = async (req, res) => {
   if (req.session.token) {
-    usuario = await Usuario.findOne({
-      token: req.session.token
-    });
+    usuario = await Usuario.findOne({ token: req.session.token }, {carrito : 1});
     const carrito = usuario.carrito;
     var carritoArticulos = new Array();
     for (var i = 0; i < carrito.length; i++) {
-      var precioArticulo;
-      var articulo = await Articulo.findOne({
-        url: carrito[i].url
-      });
+      var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, idprecio: 1, imagenes: 1, descuento: 1});
+      var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
       var articulocompleto = {
-        idarticulo:carrito[i].idequipo,
+        id: carrito[i].idArticulo,
+        idarticulo: carrito[i].idEquipo,
         titulo: articulo.titulo,
-        url:articulo.url,
-        categoria: articulo.categoria,
-        marca: articulo.marca,  
+        url: articulo.url,
         cantidad: carrito[i].cantidad,     
-        imagen:carrito[i].imagen
+        imagen: articulo.imagenes[0],
+        precio: precio.planes[0].precio,
+        descuento: articulo.descuento
       }
-      var precio = await Precio.findOne({
-        nombreequipo: articulo.idprecio
-      });
-      for (var j = 0; j < precio.planes.length; j++) {
-        if (carrito[i].tipoLinea == 'PREPAGO') {
-          if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas) {
-            precioArticulo = precio.planes[j];
-          }
-        } else {
-          if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan) {
-            precioArticulo = precio.planes[j];
-          }
-        }
-      }
-      carritoArticulos.push([articulocompleto, precioArticulo]);
+      carritoArticulos.push(articulocompleto);
     }
-    console.log(carritoArticulos);
     res.json({
       status: true,
       msg: 'Se obtuvieron los artículos con éxito',
@@ -502,36 +475,20 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
       const carrito = req.session.articulos;
       var carritoArticulos = new Array();
       for (var i = 0; i < carrito.length; i++) {
-        var precioArticulo;
-        var articulo = await Articulo.findOne({
-          url: carrito[i].url
-        });
+        var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, idprecio: 1, imagenes: 1, descuento: 1});
+        var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
         var articulocompleto = {
-          idarticulo:carrito[i].idequipo,
+          id: carrito[i].idArticulo,
+          idarticulo: carrito[i].idEquipo,
           titulo: articulo.titulo,
-          url:articulo.url,
-          categoria: articulo.categoria,
-          marca: articulo.marca,      
+          url: articulo.url,
           cantidad: carrito[i].cantidad,    
-          imagen:carrito[i].imagen
+          imagen: articulo.imagenes[0],
+          precio: precio.planes[0].precio,
+          descuento: articulo.descuento
         }
-        var precio = await Precio.findOne({
-          nombreequipo: articulo.idprecio
-        });
-        for (var j = 0; j < precio.planes.length; j++) {
-          if (carrito[i].tipoLinea == 'PREPAGO') {
-            if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas) {
-              precioArticulo = precio.planes[j];
-            }
-          } else {
-            if (carrito[i].tipoLinea == precio.planes[j].tipolinea && carrito[i].tipoPlan == precio.planes[j].tipoplan && carrito[i].cuotas == precio.planes[j].cuotas && carrito[i].nombrePlan == precio.planes[j].nombreplan) {
-              precioArticulo = precio.planes[j];
-            }
-          }
-        }
-        carritoArticulos.push([articulocompleto, precioArticulo]);
+        carritoArticulos.push(articulocompleto);
       }
-      console.log(carritoArticulos);
       res.json({
         status: true,
         msg: 'Se obtuvieron los artículos con éxito',
@@ -544,58 +501,6 @@ usuarioController.obtenerCarrito = async (req, res, next) => {
       });
     }
   }
-};
-
-/**
- * Método que permite obtner los datos de un elemento de un carrito
- */
-usuarioController.obtenerArticuloCarrito = async (res, req) => {
-  Articulo.findOne({
-    url: req.body.url
-  }, function (err, articulo) {
-    if (err) {
-      res.json({
-        status: false,
-        error: 'Error al obtener el artículo'
-      });
-    } else {
-      Precio.find({
-        nombreequipo: articulo.idprecio
-      }, function (err, precio) {
-        if (err) {
-          res.json({
-            status: false,
-            error: 'No se obtuvo el precio'
-          });
-        } else {
-          var preciosArticulo = [];
-          for (var i = 0; i < precio.planes.length; i++) {
-            if (req.boyd.tipoLinea == 'PREPAGO') {
-              if (precio.planes[i].tipolinea == req.body.tipoLinea &&
-                precio.planes[i].tipoplan == req.body.tipoPlan) {
-                preciosArticulo.push(precio.planes[i]);
-              }
-            } else {
-              if (precio.planes[i].tipolinea == req.body.tipoLinea &&
-                precio.planes[i].tipoplan == req.body.tipoPlan &&
-                precio.planes[i].nombreplan == req.body.nombrePlan &&
-                precio.planes[i].cuotas == req.body.cuotas) {
-                preciosArticulo.push(precio.planes[i]);
-              }
-            }
-          }
-          res.json({
-            status: true,
-            msg: 'Todos los datos obtenidos correctamente',
-            carrito: usuario.carrito,
-            data: articulos,
-            precio: precios,
-            plan: preciosArticulo
-          })
-        }
-      })
-    }
-  });
 };
 
 /**
@@ -637,7 +542,6 @@ usuarioController.obtenerUsuario = async (req, res, next) => {
  */
 usuarioController.obtenerDocUsuario = async (req, res) => {
   const documento = await Usuario.find({_id:req.params.id}).select('numeroDocumento');
-  console.log(documento);
   res.json(documento[0].numeroDocumento);
 };
 
@@ -675,7 +579,6 @@ usuarioController.recuperarContraseña = async (req, res) => {
   Usuario.findOne({
     correo: req.body.email
   }, function (err, usuario) {
-    console.log('Correo encontrado');
     if (err) {
       res.json({
         status: false,

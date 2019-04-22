@@ -1,93 +1,104 @@
 <mat-card-content>
   <form #valoracionForm="ngForm">
-    <mat-card *ngIf="sesionActiva && !clienteComento">
-      <mat-card-header>
-        <mat-icon>person</mat-icon>
-        <label>{{usuarioService.usuarioSeleccionado.nombres}}</label>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-form-field id="comentarioUsuario" class="comentarioUsuario">
-          <textarea matInput placeholder="Comentario" name="comentarioUsuario" #comentarioUsuario="ngModel" [(ngModel)]="valoracionNueva.comentario"
-            maxlength="256"></textarea>
-        </mat-form-field>
+    <div *ngIf="sesionActiva && !clienteComento" style="width: 100%; padding: 20px;">
+      <div style="display: flex; flex-direction: row;">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-content: center;">
+          <div style="font-weight: 20px; font-size: large; color: rgb(53, 53, 53);"> Hola {{usuarioService.usuarioSeleccionado.nombres.split(' ')[0]}} ¿Que te parecio este producto?</div>
+         
+        </div>
+  
+      </div>
+      <div>
         <div class="valoracionUsuario">
           <input id="radio1" type="radio" name="estrellas" value=5 #radio1="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
-          <!-- --><label for="radio1"><img src="assets/images/star.png"></label>
-          <!-- --><input id="radio2" type="radio" name="estrellas" value=4 #radio2="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
-          <!-- --><label for="radio2"><img src="assets/images/star.png"></label>
-          <!-- --><input id="radio3" type="radio" name="estrellas" value=3 #radio3="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
-          <!-- --><label for="radio3"><img src="assets/images/star.png"></label>
-          <!-- --><input id="radio4" type="radio" name="estrellas" value=2 #radio4="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
-          <!-- --><label for="radio4"><img src="assets/images/star.png"></label>
-          <!--  --><input id="radio5" type="radio" name="estrellas" value=1 #radio5="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
-          <!-- --><label for="radio5"><img src="assets/images/star.png"></label>
+          <label for="radio1" class="estrella"><img class="estrella" src="assets/images/star3.png"></label>
+          <input id="radio2" type="radio" name="estrellas" value=4 #radio2="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
+          <label for="radio2" class="estrella"><img class="estrella" src="assets/images/star3.png"></label>
+          <input id="radio3" type="radio" name="estrellas" value=3 #radio3="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
+          <label for="radio3" class="estrella"><img class="estrella" src="assets/images/star3.png"></label>
+          <input id="radio4" type="radio" name="estrellas" value=2 #radio4="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
+          <label for="radio4" class="estrella"><img class="estrella" src="assets/images/star3.png"></label>
+          <input id="radio5" type="radio" name="estrellas" value=1 #radio5="ngModel" [(ngModel)]="valoracionNueva.puntuacion">
+          <label for="radio5" class="estrella"><img class="estrella" src="assets/images/star3.png"></label>
+          
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="comentar()">Comentar</button>
-      </mat-card-actions>
-    </mat-card>
+        <div style="margin-top: 10px;">Deja un comentario (Opcional) </div>
+        <div id="comentarioUsuario" class="comentarioUsuario">
+          <textarea  style="width: 100%;" name="comentarioUsuario" #comentarioUsuario="ngModel" [(ngModel)]="valoracionNueva.comentario"
+            maxlength="256"></textarea>
+        </div>
+        
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="comentar()">Enviar Reseña</button>
+      </div>
+    </div>
   </form>
-  <mat-card *ngIf="sesionActiva && clienteComento">
-    <mat-card-header>
-      <mat-icon>person</mat-icon>
-      <label> {{valoracionService.valoracionCliente.nombrecliente}} </label>
-    </mat-card-header>
-    <mat-card-content>
+  <div *ngIf="sesionActiva && clienteComento" class="cont-comentario"> 
+    <div style="display: flex; flex-direction: row;">
+      <div style=" font-weight: 550; margin-top: 2px; margin-right: 5px;"> {{valoracionService.valoracionCliente.nombrecliente}} </div>
+      <div class="valoracion">
+        <img class="estrella-com estrella1" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star3.png">
+        <img class="estrella-com estrella2" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star3.png">
+        <img class="estrella-com estrella3" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star3.png">
+        <img class="estrella-com estrella4" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star3.png">
+        <img class="estrella-com estrella5" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star3.png">
+      </div>
+    </div>
+    <label style="color: gray;">Reseñado el {{valoracionService.valoracionCliente.fecha | date: 'dd/MM/yyyy' }} </label>
+    <div>
       <p>
         {{valoracionService.valoracionCliente.comentario}}
       </p>
-      <div class="valoracion">
-        <img class="estrella1" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star.png">
-        <img class="estrella2" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star.png">
-        <img class="estrella3" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star.png">
-        <img class="estrella4" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star.png">
-        <img class="estrella5" alt="{{valoracionService.valoracionCliente.puntuacion}}" src="assets/images/star.png">
-      </div>
-      <label>{{valoracionService.valoracionCliente.fecha | date: 'dd/MM/yyyy' }} </label>
-    </mat-card-content>
-  </mat-card>
+      
+    </div>
+    <div>
+      <button mat-stroked-button color="primary"><i class="material-icons">
+        edit
+        </i> Editar Comentario</button>
+    </div>
+  </div>
 
-  <ng-container *ngIf="sesionActiva">
-    <mat-card *ngFor="let valoracion of valoracionService.valoracionSinCliente">
-      <mat-card-header>
-        <mat-icon>person</mat-icon>
-        <label> {{valoracion.nombrecliente}} </label>
-      </mat-card-header>
-      <mat-card-content>
+  <div *ngIf="sesionActiva">
+    <div *ngFor="let valoracion of valoracionService.valoracionSinCliente" class="cont-comentario"> 
+      <div style="display: flex; flex-direction: row;">
+        <div style=" font-weight: 550; margin-top: 2px; margin-right: 5px;"> {{valoracion.nombrecliente}} </div>
+        <div class="valoracion">
+          <img class="estrella-com estrella1" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella2" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella3" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella4" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella5" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+        </div>
+      </div>
+      <label style="color: gray;">Reseñado el {{valoracion.fecha | date: 'dd/MM/yyyy' }} </label>
+      <div>
         <p>
           {{valoracion.comentario}}
         </p>
+        
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!sesionActiva">
+    <div class="cont-comentario" *ngFor="let valoracion of valoracionService.valoraciones">
+      <div style="display: flex; flex-direction: row;">
+        <div style=" font-weight: 550; margin-top: 2px; margin-right: 5px;"> {{valoracion.nombrecliente}} </div>
         <div class="valoracion">
-          <img class="estrella1" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella2" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella3" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella4" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella5" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
+          <img class="estrella-com estrella1" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella2" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella3" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella4" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
+          <img class="estrella-com estrella5" alt="{{valoracion.puntuacion}}" src="assets/images/star3.png">
         </div>
-        <label>{{valoracion.fecha | date: 'dd/MM/yyyy' }} </label>
-      </mat-card-content>
-    </mat-card>
-  </ng-container>
-  <ng-container *ngIf="!sesionActiva">
-    <mat-card *ngFor="let valoracion of valoracionService.valoraciones">
-      <mat-card-header>
-        <mat-icon>person</mat-icon>
-        <label> {{valoracion.nombrecliente}} </label>
-      </mat-card-header>
-      <mat-card-content>
+      </div>
+      <label style="color: gray;">Reseñado el {{valoracion.fecha | date: 'dd/MM/yyyy' }} </label>
+      <div>
         <p>
           {{valoracion.comentario}}
         </p>
-        <div class="valoracion">
-          <img class="estrella1" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella2" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella3" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella4" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-          <img class="estrella5" alt="{{valoracion.puntuacion}}" src="assets/images/star.png">
-        </div>
-        <label>{{valoracion.fecha | date: 'dd/MM/yyyy' }} </label>
-      </mat-card-content>
-    </mat-card>
-  </ng-container>
+        
+      </div>
+    </div>
+  </div>
 </mat-card-content>

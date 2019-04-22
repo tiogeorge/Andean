@@ -56,10 +56,8 @@ export class PagoComponent implements OnInit {
   url_imagenes_md = Constantes.URL_IMAGEN_MD;
   //fin img
   listaCarrito: any[];
-  listaArticulos: Articulo[] = [];
+  listaArticulos: any[] = [];
   tempoarti: Articulo[] = [];
-  listaPlanArticulo: any[] = [];
-  listaArticulos2: any[] = [];
   mostrarArticulos: boolean = true;
   sinProductos: boolean = false;
   usuario: Usuario;
@@ -117,13 +115,11 @@ export class PagoComponent implements OnInit {
       var jres = JSON.parse(JSON.stringify(res));
       this.listaCarrito = jres.data;
       for (var i = 0; i < this.listaCarrito.length; i++) {
-        this.listaArticulos.push(this.listaCarrito[i][0]);
-        this.listaPlanArticulo.push(this.listaCarrito[i][1]);
+        this.listaArticulos = jres.data as any[];
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
       this.sumarprecios();
-      this.insertaraarregloart();
     });
     //precios
     //   
@@ -246,27 +242,13 @@ export class PagoComponent implements OnInit {
   sumarprecios() {
     console.log('entra');
     var sum = 0;
-    for (var j = 0; j < this.listaPlanArticulo.length; j++) {
-      sum = sum + Number(this.listaPlanArticulo[j].precio);
-      console.log('suma' + sum.toString());
+    for (var j = 0; j < this.listaArticulos.length; j++) {
+      sum = sum + (this.listaArticulos[j].precio - this.listaArticulos[j].precio * this.listaArticulos[j].descuento / 100);
+      //console.log('suma' + sum.toString());
     }
     this.subtotal = sum.toString();
     this.montoenvio = '10';
     this.preciototal = (Number(this.subtotal) + Number(this.montoenvio)).toString();
-  }
-
-  insertaraarregloart() {
-    this.listaArticulos2 = this.listaArticulos;
-    for (var i = 0; i < this.listaArticulos.length; i++) {
-      this.listaArticulos2[i].cuotainicial = this.listaPlanArticulo[i].cuotainicial;
-      this.listaArticulos2[i].cuotamensual = this.listaPlanArticulo[i].cuotamensual;
-      this.listaArticulos2[i].cuotas = this.listaPlanArticulo[i].cuotas;
-      this.listaArticulos2[i].montomes = this.listaPlanArticulo[i].montomes;
-      this.listaArticulos2[i].nombreplan = this.listaPlanArticulo[i].nombreplan;
-      this.listaArticulos2[i].precio = this.listaPlanArticulo[i].precio;
-      this.listaArticulos2[i].tipolinea = this.listaPlanArticulo[i].tipolinea;
-      this.listaArticulos2[i].tipoplan = this.listaPlanArticulo[i].tipoplan;
-    }
   }
   
   resetForm(form?: NgForm) {
@@ -394,7 +376,7 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.idUsuario = this.user;
             this.pagoservice.selectPago.Correocliente = this.correoclient;
-            this.pagoservice.selectPago.Articulo = this.listaArticulos2;
+            this.pagoservice.selectPago.Articulo = this.listaArticulos;
             this.pagoservice.selectPago.FechaCompra = new Date(); //new Date(2019, 1, 17);
             this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.EstadoPago = 'Pagado';

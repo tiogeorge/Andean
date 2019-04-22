@@ -267,7 +267,7 @@
                         </mat-form-field>
                       </mat-card-content>
                       <mat-card-actions>
-                        <button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal}}.00</button>                      
+                        <button mat-raised-button color="accent" (click)="pagar()" style="width: 100%;" matStepperNext>PAGAR S/ {{preciototal | number: '1.2-2'}}</button>                      
                       </mat-card-actions>
                     </mat-card>
                   </form>              
@@ -302,11 +302,11 @@
               <form #fomrguardarventa="ngForm">
                 <input type="hidden" name="_id2" #_id2="ngModel" [(ngModel)]="pagoservice.selectPago._id">
                 <div class="card">
-                  <div class="card-header"><label>Total: s/.{{preciototal}}</label></div>
+                  <div class="card-header"><label>Total: s/.{{preciototal | number: '1.2-2'}}</label></div>
                   <div class="card-body">
-                    <p>SubTotal: s/.{{subtotal}}</p>
-                    <p>Monto de envio: s/.{{montoenvio}}</p>
-                    <p>Total a pagar: s/.{{preciototal}}</p>
+                    <p>SubTotal: s/.{{subtotal | number: '1.2-2'}}</p>
+                    <p>Monto de envio: s/.{{montoenvio | number: '1.2-2'}}</p>
+                    <p>Total a pagar: s/.{{preciototal | number: '1.2-2'}}</p>
                   </div>
                   <div class="card-body">
                     <p>Dirección</p>

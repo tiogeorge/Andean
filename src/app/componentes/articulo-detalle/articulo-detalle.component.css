@@ -74,6 +74,10 @@
 .breadcrumb a:hover{
     color: orange;
 }
+.estrella{
+    width: 34px !important;
+    height: 30px !important;
+}
 .estrella-vacia{
     margin: 2px;    
 }
@@ -232,23 +236,23 @@
     width: 13%;
 }
 .estrella1[alt="5"],.estrella1[alt="4"],.estrella1[alt="3"],.estrella1[alt="2"],.estrella1[alt="1"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
     width: 13%;
 }
 .estrella2[alt="5"],.estrella2[alt="4"],.estrella2[alt="3"],.estrella2[alt="2"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
     width: 13%;
 }
 .estrella3[alt="5"],.estrella3[alt="4"],.estrella3[alt="3"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
     width: 13%;
 }
 .estrella4[alt="5"],.estrella4[alt="4"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
     width: 13%;
 }
 .estrella5[alt="5"]{
-    content: url("/assets/images/star2.png");
+    content: url("/assets/images/star4.png");
     width: 13%;
 }
 
