@@ -18,6 +18,7 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 export class CarritocomprasComponent implements OnInit {
   listaArticulos: any[] = [];
   urlImagenes : string = Constantes.URL_IMAGEN;
+  cargando : boolean;
   mostrarArticulos: boolean = true;
   mostrarEnvio: boolean = false;
   mostrarCupon: boolean = false;
@@ -30,6 +31,12 @@ export class CarritocomprasComponent implements OnInit {
 
   ngOnInit() {
     this.responsivo(); // verificar la pantalla del dispositivo
+    this.cargando = true;
+    this.obtenerArticulosCarrito();    
+  }
+
+  obtenerArticulosCarrito(){
+    this.cargando = true;
     this.articuloDetalleService.getCarrito().subscribe(res => {
       const respuesta = res as Respuesta;
       if (respuesta.status) {
@@ -37,6 +44,7 @@ export class CarritocomprasComponent implements OnInit {
         this.mostrarArticulos = true;
         this.subtotal = this.calcularSubTotal();
       }
+      this.cargando = false;
     });
     this.mostrarArticulos = !(this.listaArticulos.length == 0);
   }
