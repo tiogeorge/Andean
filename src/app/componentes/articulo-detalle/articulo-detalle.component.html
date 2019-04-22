@@ -237,11 +237,8 @@
                   <h5 class="card-title"> Especificaciones</h5>
                   <div><hr style="margin: 0px; padding: 0px;"></div>
                   <br>
-                  <div class="contenedor-caracteristicas">
-                      <div style="display:flex" class="item-caracteristica" *ngFor="let caracteristica of articuloService.articuloSeleccionado.caracteristicas">
-                        <div style="width: 20px;"><li></li></div>
-                        <div>{{caracteristica.nombre}}: {{caracteristica.valor}}</div>
-                      </div>
+                  <div class="contenedor-caracteristicas">                      
+                        <div>{{articuloService.articuloSeleccionado.caracteristicas}}</div>
                     </div>
                 </div>
               </div>
@@ -305,6 +302,7 @@
             <div class="card" style="width: 100%" >
               <div class="card-body">
                 <h5 class="card-title"> Informacion de la garantia</h5>
+                <div>{{articuloService.articuloSeleccionado.garantias}}</div>
               </div>
             </div>
           </mat-tab>

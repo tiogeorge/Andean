@@ -8,13 +8,10 @@ const ArticuloSchema = new Schema({
     marca:{type: String, required: true},
     cantidad:{type: String, required:true},
     idprecio: {type:String, required: true},
-    caracteristicas:[{
-        nombre:{type: String, required:true},
-        valor:{type: String, required: true}
-    }],
+    caracteristicas:{type: String, required: true},
     imagenes:[String],
     descripcion:{type: String, require: true},
-    garantias:[String],
+    garantias:{type: String, required: true},
     equipos:[{
         idequipo:{type: String, required:true},
         descripcion:{type: String, required:true},
@@ -25,8 +22,8 @@ const ArticuloSchema = new Schema({
         codigocolor:{type: String, required: false}
     }],
     palabrasclaves:{type: String, required: true},
-    descuento:{type: Number, required:true}
-    
+    descuento:{type: Number, required:true},
+    seodescripcion:{type: String, required: true}
 });
 module.exports = mongoose.model('Articulo', ArticuloSchema);
 // SELECT * FROM taarticulo WHERE fnAS_StockArticulo(idArticulo) > 0
