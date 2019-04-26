@@ -13,7 +13,7 @@ router.get('/mn/:palabrasclaves/:linea/:tipoplan/:cuotas',articulo.buscararti);
 router.get('/categoriaart/:categoria/:linea/:tipoplan/:cuotas',articulo.buscararti3);
 router.get('/:id', articulo.obtenerArticulo);
 router.get('/url/:id', articulo.obtenerArticuloURL);
-router.get('/equipos/:idglobal', articulo.ObtenerEquiposArticulo);
+router.get('/equipos/:idglobal/:opcion', articulo.ObtenerEquiposArticulo);
 router.get('/mysql/precios/:id', articulo.obtenerPreciosMysql);
 router.get('/card/card/card/:tipo',articulo.obtenerCardsTipo);
 router.get('/banners/banner', articulo.obtenerBanners);

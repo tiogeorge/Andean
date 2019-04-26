@@ -19,7 +19,9 @@ const ArticuloSchema = new Schema({
         color:{type:String, required:false},
         detalle:{type: String, required:false},
         imagen:{type: String, required: false},
-        codigocolor:{type: String, required: false}
+        codigocolor:{type: String, required: false},
+        preciocompra:{type:Number, required:true},
+        precioventa:{type:Number, required:true}
     }],
     palabrasclaves:{type: String, required: true},
     descuento:{type: Number, required:true},

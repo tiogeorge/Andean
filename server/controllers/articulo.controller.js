@@ -13,7 +13,7 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
     try {
 
         req.getConnection(function (error, conn) {
-            var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0";
+            var consulta = "SELECT * FROM (SELECT idArticulo, Descripcion, fnAS_StockArticulo(idArticulo) AS Cantidad FROM taarticulo) tmp WHERE tmp.Cantidad>0";
             var consulta2 = "SELECT * FROM taarticulosglobal";
             var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAlm_StockArticuloLocal(idArticulo,'609') AS Cantidad FROM taarticulo WHERE idTipoProducto='1') tmp WHERE tmp.Cantidad>0 GROUP BY idArticuloGlobal";
             conn.query(consulta3, async function (err, results) {
@@ -52,7 +52,7 @@ articuloController.ObtenerEquiposArticulo = async (req, res) => {
     jsonEquipos = new Array();
     try {
         req.getConnection(function (error, conn) {
-            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'609')as Cantidad FROM taarticulo WHERE idArticuloGlobal = '" + req.params.idglobal + "'";
+            var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'609')as Cantidad,fnSM_RecuperarPrecioEquipo(idArticulo) as PrecioCompra FROM taarticulo WHERE idArticuloGlobal = '" + req.params.idglobal + "'";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
                     console.log(err);
@@ -63,7 +63,7 @@ articuloController.ObtenerEquiposArticulo = async (req, res) => {
                 } else {
                     var jsoneq = JSON.parse(JSON.stringify(results));
                     for (var i = 0; i < jsoneq.length; i++) {
-                        await verificarEquipoArticuloMongo(req.params.idglobal, jsoneq[i].idArticulo, jsoneq[i].Descripcion, jsoneq[i].Cantidad);
+                        await verificarEquipoArticuloMongo(req.params.idglobal, jsoneq[i].idArticulo, jsoneq[i].Descripcion, jsoneq[i].Cantidad, jsoneq[i].PrecioCompra, req.params.opcion);
                     }
                     console.log("termino verificar equipos");
                     res.json(jsonEquipos);
@@ -85,9 +85,21 @@ articuloController.ObtenerEquiposArticulo = async (req, res) => {
 }
 
 
-verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad) => {
+verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad, preciounitario, opcion) => {
     try {
         const articulomongo = await Articulo.find({ idarticulo: idGlobal }, { equipos: { $elemMatch: { idequipo: idequipo } } });
+        var precioventa = preciounitario;
+        if(precioventa<100){
+            precioventa = precioventa + precioventa *0.40;
+        }else{
+          if(precioventa <= 500){
+            precioventa = precioventa + precioventa *0.35;
+          }else{
+            precioventa = precioventa + precioventa *0.30;
+          }
+        }
+
+        precioventa = precioventa.toFixed(2);
         if (articulomongo.length > 0) {
             /*const categoriamongo = await Categoria.findById(articulomongo[0].categoria);
             jsonArticulos[i].Categoria = categoriamongo.nombre;
@@ -95,15 +107,32 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad)
             console.log(jsonArticulos[i]);*/
             console.log(articulomongo[0].equipos);
             console.log("=================================");
-            jsonEquipos.push({
-                idequipo: idequipo,
-                descripcion: descripcion,
-                cantidad: cantidad,
-                color: articulomongo[0].equipos[0].color,
-                detalle: articulomongo[0].equipos[0].detalle,
-                imagen: articulomongo[0].equipos[0].imagen,
-                codigocolor: articulomongo[0].equipos[0].codigocolor
-            });
+            console.log(opcion);
+            if(opcion == "UPDATE"){
+                jsonEquipos.push({
+                    idequipo: idequipo,
+                    descripcion: descripcion,
+                    cantidad: cantidad,
+                    color: articulomongo[0].equipos[0].color,
+                    detalle: articulomongo[0].equipos[0].detalle,
+                    imagen: articulomongo[0].equipos[0].imagen,
+                    codigocolor: articulomongo[0].equipos[0].codigocolor,
+                    preciocompra: preciounitario,
+                    precioventa: precioventa
+                });
+            }else{
+                jsonEquipos.push({
+                    idequipo: idequipo,
+                    descripcion: descripcion,
+                    cantidad: cantidad,
+                    color: articulomongo[0].equipos[0].color,
+                    detalle: articulomongo[0].equipos[0].detalle,
+                    imagen: articulomongo[0].equipos[0].imagen,
+                    codigocolor: articulomongo[0].equipos[0].codigocolor,
+                    preciocompra: preciounitario,
+                    precioventa: articulomongo[0].equipos[0].precioventa
+                });
+            }
         } else {
             /* jsonArticulos[i].Categoria = "SIN CATEGORIA";
              jsonArticulos[i].Estado = "0";*/
@@ -114,7 +143,9 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad)
                 color: "",
                 detalle: "",
                 imagen: "",
-                codigocolor: "#000000"
+                codigocolor: "#000000",
+                preciocompra: preciounitario,
+                precioventa: precioventa
             });
         }
     } catch (e) {
