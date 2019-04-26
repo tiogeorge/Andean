@@ -162,4 +162,12 @@ categoriaController.listarcategoria=async(req,res)=>{
     res.json(categoriaart);
 }
 
+/**
+ * Método que obtiene solo las subcategorias sin los padres
+ */
+categoriaController.obtenerTodosHijos = async(req, res) => {
+    const hijos = await Categoria.find({padre : {$ne: 'root'}});
+    res.json(hijos);
+}
+
 module.exports = categoriaController;

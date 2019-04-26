@@ -4,6 +4,7 @@ const router = express.Router();
 const categoria = require('../controllers/categoria.controller');
 
 router.get('/', categoria.obtenerCategorias);
+router.get('/subs', categoria.obtenerTodosHijos);
 router.get('/:id', categoria.obtenerCategoria);
 router.get('/padre/padre/:id',categoria.obtenerCategoriapadresegunhijo);
 router.get('/categoriapadre/:padre',categoria.obtenerCategoriapadre);
