@@ -261,11 +261,19 @@ articuloController.buscararti = async (req, res) => {
         const precios = await Equipo.find({ nombreequipo: id });
 
         var planesfiltrados = new Array();
-        for (var j = 0; j < precios[0].planes.length; j++) {
+      /*   for (var j = 0; j < precios[0].planes.length; j++) {
             if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
                 planesfiltrados.push(precios[0].planes[j]);
             }
-        }
+        } */
+        planesfiltrados.tipolinea='PREPAGO';
+        planesfiltrados.tipoplan='ALTA';
+        planesfiltrados.nombreplan='PREPAGO ALTA';
+        planesfiltrados.precio=articulosB[i].equipos[0].precioventa;
+        planesfiltrados.cuotas='0';
+        planesfiltrados.cuotainicial='0';
+        planesfiltrados.montomes='0';
+        planesfiltrados.cuotamensual='0';
         //fin
         //categoria padre
         var idhijo = articulosB[i].categoria;

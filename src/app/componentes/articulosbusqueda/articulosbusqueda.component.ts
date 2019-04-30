@@ -386,6 +386,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.temporallistaarti = Respuesta;
           this.temporallistaarti2 = Respuesta;
           this.listcategoraisfil();
+          console.log(this.articuloslista);
         }
         else {
           this.temprecuperarmarcas(pclave);
