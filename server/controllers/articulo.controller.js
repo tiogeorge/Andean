@@ -266,14 +266,14 @@ articuloController.buscararti = async (req, res) => {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         } */
-        planesfiltrados.tipolinea='PREPAGO';
-        planesfiltrados.tipoplan='ALTA';
-        planesfiltrados.nombreplan='PREPAGO ALTA';
-        planesfiltrados.precio=articulosB[i].equipos[0].precioventa;
-        planesfiltrados.cuotas='0';
-        planesfiltrados.cuotainicial='0';
-        planesfiltrados.montomes='0';
-        planesfiltrados.cuotamensual='0';
+        planesfiltrados[0].tipolinea='PREPAGO';
+        planesfiltrados[1].tipoplan='ALTA';
+        planesfiltrados[2].nombreplan='PREPAGO ALTA';
+        planesfiltrados[3].precio=articulosB[i].equipos[0].precioventa;
+        planesfiltrados[4].cuotas='0';
+        planesfiltrados[5].cuotainicial='0';
+        planesfiltrados[6].montomes='0';
+        planesfiltrados[7].cuotamensual='0';
         //fin
         //categoria padre
         var idhijo = articulosB[i].categoria;
@@ -298,8 +298,6 @@ articuloController.buscararti = async (req, res) => {
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
-
-
     }
     res.json(jsonarticulos);
 
