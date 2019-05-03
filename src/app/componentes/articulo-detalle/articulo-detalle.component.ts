@@ -56,7 +56,7 @@ export class ArticuloDetalleComponent implements OnInit {
   cx = 0;
   cy = 0;
   cargoMarca = false;
-  cantidadSeleccionada = 1;
+  cantidadSeleccionada = 0;
   nomostrarPlanesPostpago= true;
   colorSeleccionado="";
   equipoSeleccionado: Equipo = new Equipo();
@@ -115,6 +115,7 @@ export class ArticuloDetalleComponent implements OnInit {
     this.controlLineas = false;
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    
 
   }
 
@@ -126,10 +127,19 @@ export class ArticuloDetalleComponent implements OnInit {
       this.metaService.updateTag({name: 'description', content: 'Compra el ' + this.articuloService.articuloSeleccionado.titulo + ' aquí en la tienda virtual SMARKET a un precio increible.'})
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
+      document.getElementById("caracteristicas-articulo").innerHTML = this.articuloService.articuloSeleccionado.caracteristicas;
+      console.log("GARANTIAS");
+      console.log(this.articuloService.articuloSeleccionado.garantias);
+
       this.infoComentarios();      
       this.buscarPreciosFiltro();
-      this.equipoSeleccionado = this.articuloService.articuloSeleccionado.equipos[0];
-      this.cambiar_imagen(this.equipoSeleccionado.imagen);
+      //this.equipoSeleccionado = ;
+      this.seleccionarEquipo(this.articuloService.articuloSeleccionado.equipos[0]);
+      if(this.equipoSeleccionado.cantidad>0){
+        this.cantidadSeleccionada = 1;
+      }else{
+        this.cantidadSeleccionada = 0;
+      }
       //  this.obtenerPreciosArticulo();     
     });
     this.categoriaService.getCategoria(this.articuloService.articuloSeleccionado.categoria).subscribe(res => {
@@ -139,9 +149,15 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   seleccionarEquipo(equipo){
+    console.log(equipo);
     this.equipoSeleccionado = equipo;
     this.colorSeleccionado = this.equipoSeleccionado.color;
     this.cambiar_imagen(this.equipoSeleccionado.imagen);
+    if(this.equipoSeleccionado.cantidad>0){
+      this.cantidadSeleccionada = 1;
+    }else{
+      this.cantidadSeleccionada = 0;
+    }
   }
 
   disminuirCantidad(){
@@ -358,7 +374,11 @@ export class ArticuloDetalleComponent implements OnInit {
       }
 
     }
+    if(e.tab.textLabel == "Garantía"){
+      document.getElementById("garantias-articulo").innerHTML = this.articuloService.articuloSeleccionado.garantias;
+    }
   }
+  
   abrirDetallesPlan() {
     this.articuloService.getDetallePlan(this.planSeleccionado.nombreplan)
       .subscribe(res => {

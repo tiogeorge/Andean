@@ -85,6 +85,8 @@ articuloController.ObtenerEquiposArticulo = async (req, res) => {
 }
 
 
+
+
 verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad, preciounitario, opcion) => {
     try {
         const articulomongo = await Articulo.find({ idarticulo: idGlobal }, { equipos: { $elemMatch: { idequipo: idequipo } } });
@@ -118,7 +120,8 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
                     imagen: articulomongo[0].equipos[0].imagen,
                     codigocolor: articulomongo[0].equipos[0].codigocolor,
                     preciocompra: preciounitario,
-                    precioventa: precioventa
+                    precioventa: precioventa,
+                    precioreferencial: precioventa
                 });
             }else{
                 jsonEquipos.push({
@@ -130,7 +133,8 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
                     imagen: articulomongo[0].equipos[0].imagen,
                     codigocolor: articulomongo[0].equipos[0].codigocolor,
                     preciocompra: preciounitario,
-                    precioventa: articulomongo[0].equipos[0].precioventa
+                    precioventa: articulomongo[0].equipos[0].precioventa,
+                    precioreferencial: precioventa
                 });
             }
         } else {
@@ -145,7 +149,8 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
                 imagen: "",
                 codigocolor: "#000000",
                 preciocompra: preciounitario,
-                precioventa: precioventa
+                precioventa: precioventa,
+                precioreferencial: precioventa
             });
         }
     } catch (e) {
@@ -267,14 +272,14 @@ articuloController.buscararti = async (req, res) => {
             }
         } */
         planesfiltrados={
-            tipolinea='PREPAGO',
-            tipoplan='ALTA',
-            nombreplan='PREPAGO ALTA',
-            precio=articulosB[i].equipos[0].precioventa,
-            cuotas='0',
-            cuotainicial='0',
-            montomes='0',
-            cuotamensual='0'
+            tipolinea:'PREPAGO',
+            tipoplan:'ALTA',
+            nombreplan:'PREPAGO ALTA',
+            precio:articulosB[i].equipos[0].precioventa,
+            cuotas:'0',
+            cuotainicial:'0',
+            montomes:'0',
+            cuotamensual:'0'
         }
         //fin
         //categoria padre

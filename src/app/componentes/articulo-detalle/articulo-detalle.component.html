@@ -74,6 +74,8 @@
             </div>
             <div *ngIf="equipoSeleccionado.cantidad==1" style="color: rgb(112, 113, 114)"> {{equipoSeleccionado.cantidad}} unidad disponible</div>
             <div *ngIf="equipoSeleccionado.cantidad>1" style="color: rgb(112, 113, 114)"> {{equipoSeleccionado.cantidad}} unidades disponibles</div>
+            <div *ngIf="equipoSeleccionado.cantidad==0" style="color: rgb(224, 41, 8) ; "> PRODUCTO AGOTADO</div>
+
           </div>
           
          <!--
@@ -172,15 +174,15 @@
         <div class="contenedor-detalle-precio">
           <div style="width: 100%; display: flex; flex-direction: column;">
             <div *ngIf="articuloService.articuloSeleccionado.descuento >0"  style="margin-top:0px; font-size: 25px;color: #7e8285; display:flex; flex-direction: row;"> <del>
-              S/ {{(planSeleccionado.precio).toFixed(2)}} 
+              S/ {{(equipoSeleccionado.precioventa).toFixed(2)}} 
             </del> 
             <div style="margin-left: 10px;">
               -{{articuloService.articuloSeleccionado.descuento}}%
             </div>
           </div>    
-              <div  style="margin-top:2px; font-size: 30px;color: #df3b3b; display: flex; flex-direction: row; align-items: flex-end; "><div>S/ {{(planSeleccionado.precio-(planSeleccionado.precio*articuloService.articuloSeleccionado.descuento/100)).toFixed(2)}}</div>  <div style="font-size: 15px; padding-bottom: 8px;">/unidad</div></div>    
+              <div  style="margin-top:2px; font-size: 30px;color: #df3b3b; display: flex; flex-direction: row; align-items: flex-end; "><div>S/ {{(equipoSeleccionado.precioventa-(equipoSeleccionado.precioventa*articuloService.articuloSeleccionado.descuento/100)).toFixed(2)}}</div>  <div style="font-size: 15px; padding-bottom: 8px;">/unidad</div></div>    
               
-              <div  style="margin-top:5px; font-size:18px;">Pago Total: S/ {{((planSeleccionado.precio-(planSeleccionado.precio*articuloService.articuloSeleccionado.descuento/100))*cantidadSeleccionada).toFixed(2) }} </div>    
+              <div  style="margin-top:5px; font-size:18px;">Pago Total: S/ {{((equipoSeleccionado.precioventa-(equipoSeleccionado.precioventa*articuloService.articuloSeleccionado.descuento/100))*cantidadSeleccionada).toFixed(2) }} </div>    
               <div  style="margin-top:5px; font-size:12px; ">* Envio gratis a Cusco,Apurimac y Madre de Dios </div>    
           </div>
           <!--
@@ -238,7 +240,10 @@
                   <div><hr style="margin: 0px; padding: 0px;"></div>
                   <br>
                   <div class="contenedor-caracteristicas">                      
-                        <div>{{articuloService.articuloSeleccionado.caracteristicas}}</div>
+                    <div class="ql-container ql-snow" style="border:0px !important; width: 96%;">                     
+                      <div id="caracteristicas-articulo" class="ql-editor">
+                      </div>
+                    </div>
                     </div>
                 </div>
               </div>
@@ -301,8 +306,15 @@
           <mat-tab label="Garantía">
             <div class="card" style="width: 100%" >
               <div class="card-body">
-                <h5 class="card-title"> Informacion de la garantia</h5>
-                <div>{{articuloService.articuloSeleccionado.garantias}}</div>
+                <h5 class="card-title"> Informacion de Garantia</h5>
+                <div><hr style="margin: 0px; padding: 0px;"></div>
+                <br>
+                <div class="contenedor-caracteristicas">                      
+                  <div class="ql-container ql-snow" style="border:0px !important; width: 96%;">                     
+                    <div id="garantias-articulo" class="ql-editor">
+                    </div>
+                  </div>
+                  </div>
               </div>
             </div>
           </mat-tab>

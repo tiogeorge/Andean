@@ -13,6 +13,7 @@ const output_sm = './imagenes/sm';
 const output_md = './imagenes/md';
 const output_lg = './imagenes/lg';
 var webp=require('webp-converter');
+const imagenController = {};
 
 
 
@@ -36,7 +37,6 @@ const compressorPluginsSM = [
     pngquant({ speed: 3, quality: '20' })
 ];
 
-const imagenController = {};
 
 
 
@@ -115,4 +115,19 @@ imagenController.getImagenes = async (req,res)=>{
       });
       
 }
+imagenController.getFiles = async (req,res)=>{
+    try{
+        var listaimagenes = new Array();
+        fs.readdir('./imagenes/tmp', (err, files) => {
+            files.forEach(file => {
+                listaimagenes.push(file);
+            });
+            res.json(listaimagenes);
+        });
+    }catch(err){
+        console.log(err);
+    }
+      
+}
+
 module.exports = imagenController;
