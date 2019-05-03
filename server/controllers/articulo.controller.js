@@ -260,20 +260,22 @@ articuloController.buscararti = async (req, res) => {
         var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
-        var planesfiltrados = new Array();
+        var planesfiltrados;
       /*   for (var j = 0; j < precios[0].planes.length; j++) {
             if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
                 planesfiltrados.push(precios[0].planes[j]);
             }
         } */
-        planesfiltrados[0].tipolinea='PREPAGO';
-        planesfiltrados[1].tipoplan='ALTA';
-        planesfiltrados[2].nombreplan='PREPAGO ALTA';
-        planesfiltrados[3].precio=articulosB[i].equipos[0].precioventa;
-        planesfiltrados[4].cuotas='0';
-        planesfiltrados[5].cuotainicial='0';
-        planesfiltrados[6].montomes='0';
-        planesfiltrados[7].cuotamensual='0';
+        planesfiltrados={
+            tipolinea='PREPAGO',
+            tipoplan='ALTA',
+            nombreplan='PREPAGO ALTA',
+            precio=articulosB[i].equipos[0].precioventa,
+            cuotas='0',
+            cuotainicial='0',
+            montomes='0',
+            cuotamensual='0'
+        }
         //fin
         //categoria padre
         var idhijo = articulosB[i].categoria;
@@ -294,7 +296,7 @@ articuloController.buscararti = async (req, res) => {
         //fin 
         jsonarticulos[i].puntuacion = promredondado;
         jsonarticulos[i].categoriapadre = catepadre[0].padre;
-        jsonarticulos[i].precioplan = planesfiltrados[0];
+        jsonarticulos[i].precioplan = planesfiltrados;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
