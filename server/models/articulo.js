@@ -7,7 +7,6 @@ const ArticuloSchema = new Schema({
     categoria:{type: String, required:true},
     marca:{type: String, required: true},
     cantidad:{type: String, required:true},
-    idprecio: {type:String, required: true},
     caracteristicas:{type: String, required: true},
     imagenes:[String],
     descripcion:{type: String, require: true},
