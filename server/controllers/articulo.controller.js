@@ -260,11 +260,21 @@ articuloController.buscararti = async (req, res) => {
         var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
-        var planesfiltrados = new Array();
-        for (var j = 0; j < precios[0].planes.length; j++) {
+        var planesfiltrados;
+      /*   for (var j = 0; j < precios[0].planes.length; j++) {
             if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
                 planesfiltrados.push(precios[0].planes[j]);
             }
+        } */
+        planesfiltrados={
+            tipolinea='PREPAGO',
+            tipoplan='ALTA',
+            nombreplan='PREPAGO ALTA',
+            precio=articulosB[i].equipos[0].precioventa,
+            cuotas='0',
+            cuotainicial='0',
+            montomes='0',
+            cuotamensual='0'
         }
         //fin
         //categoria padre
@@ -286,12 +296,10 @@ articuloController.buscararti = async (req, res) => {
         //fin 
         jsonarticulos[i].puntuacion = promredondado;
         jsonarticulos[i].categoriapadre = catepadre[0].padre;
-        jsonarticulos[i].precioplan = planesfiltrados[0];
+        jsonarticulos[i].precioplan = planesfiltrados;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
-
-
     }
     res.json(jsonarticulos);
 
