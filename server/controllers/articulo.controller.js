@@ -101,7 +101,6 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
             }
         }
 
-        precioventa = precioventa.toFixed(2);
         if (articulomongo.length > 0) {
             /*const categoriamongo = await Categoria.findById(articulomongo[0].categoria);
             jsonArticulos[i].Categoria = categoriamongo.nombre;
