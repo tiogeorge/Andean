@@ -653,30 +653,28 @@ articuloController.obtenerCarteles = async (req, res) => {
         const listaArticulos = [];
         const articulosCard = await Card.find({ activo: true, tipo: 'ARTICULO'}, {idEquipo: 1, urlImagen: 1});
         for(var i=0; i < articulosCard.length; i++){
-            const articulo = await Articulo.findOne({_id: articulosCard[i].idEquipo}, {titulo: 1, url: 1, idprecio: 1, descuento: 1});
-            const precio = await Equipo.findOne({ nombreequipo: articulo.idprecio }, {planes: {$elemMatch: {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+            const articulo = await Articulo.findOne({_id: articulosCard[i].idEquipo}, {titulo: 1, url: 1, 'equipos.precioventa': 1, descuento: 1});
             listaArticulos.push({
                 idEquipo: articulosCard[i].idEquipo,
                 urlImagen: articulosCard[i].urlImagen,
                 titulo: articulo.titulo,
                 url: articulo.url,
                 descuento: articulo.descuento,
-                precio: precio.planes[0].precio
+                precio: articulo.equipos[0].precioventa
             });
         }
         // Proceso para obtener los datos de los ACCESORIOS y sus precios
         const listaAccesorios = [];
         const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'}, {idEquipo: 1, urlImagen: 1});
         for(var j = 0; j < accesoriosCard.length; j++){
-            const accesorio = await Articulo.findOne({_id: accesoriosCard[j].idEquipo}, {titulo: 1, url: 1, idprecio: 1, descuento: 1});
-            const precio = await Equipo.findOne({ nombreequipo: accesorio.idprecio }, {planes: {$elemMatch: {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+            const accesorio = await Articulo.findOne({_id: accesoriosCard[j].idEquipo}, {titulo: 1, url: 1, 'equipos.precioventa': 1, descuento: 1});
             listaAccesorios.push({
                 idEquipo: accesoriosCard[j].idEquipo,
                 urlImagen: accesoriosCard[j].urlImagen,
                 titulo: accesorio.titulo,
                 url: accesorio.url,
                 descuento: accesorio.descuento,
-                precio: precio.planes[0].precio
+                precio: accesorio.equipos[0].precioventa
             });
         }
         res.json({
