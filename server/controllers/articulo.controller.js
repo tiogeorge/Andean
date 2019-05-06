@@ -91,17 +91,16 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
     try {
         const articulomongo = await Articulo.find({ idarticulo: idGlobal }, { equipos: { $elemMatch: { idequipo: idequipo } } });
         var precioventa = preciounitario;
-        if(precioventa<100){
-            precioventa = precioventa + precioventa *0.40;
-        }else{
-          if(precioventa <= 500){
-            precioventa = precioventa + precioventa *0.35;
-          }else{
-            precioventa = precioventa + precioventa *0.30;
-          }
+        if (precioventa < 100) {
+            precioventa = precioventa + precioventa * 0.40;
+        } else {
+            if (precioventa <= 500) {
+                precioventa = precioventa + precioventa * 0.35;
+            } else {
+                precioventa = precioventa + precioventa * 0.30;
+            }
         }
 
-        precioventa = precioventa.toFixed(2);
         if (articulomongo.length > 0) {
             /*const categoriamongo = await Categoria.findById(articulomongo[0].categoria);
             jsonArticulos[i].Categoria = categoriamongo.nombre;
@@ -110,7 +109,7 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
             console.log(articulomongo[0].equipos);
             console.log("=================================");
             console.log(opcion);
-            if(opcion == "UPDATE"){
+            if (opcion == "UPDATE") {
                 jsonEquipos.push({
                     idequipo: idequipo,
                     descripcion: descripcion,
@@ -123,7 +122,7 @@ verificarEquipoArticuloMongo = async (idGlobal, idequipo, descripcion, cantidad,
                     precioventa: precioventa,
                     precioreferencial: precioventa
                 });
-            }else{
+            } else {
                 jsonEquipos.push({
                     idequipo: idequipo,
                     descripcion: descripcion,
@@ -266,20 +265,20 @@ articuloController.buscararti = async (req, res) => {
         const precios = await Equipo.find({ nombreequipo: id });
 
         var planesfiltrados;
-      /*   for (var j = 0; j < precios[0].planes.length; j++) {
-            if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                planesfiltrados.push(precios[0].planes[j]);
-            }
-        } */
-        planesfiltrados={
-            tipolinea:'PREPAGO',
-            tipoplan:'ALTA',
-            nombreplan:'PREPAGO ALTA',
-            precio:articulosB[i].equipos[0].precioventa,
-            cuotas:'0',
-            cuotainicial:'0',
-            montomes:'0',
-            cuotamensual:'0'
+        /*   for (var j = 0; j < precios[0].planes.length; j++) {
+              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                  planesfiltrados.push(precios[0].planes[j]);
+              }
+          } */
+        planesfiltrados = {
+            tipolinea: 'PREPAGO',
+            tipoplan: 'ALTA',
+            nombreplan: 'PREPAGO ALTA',
+            precio: articulosB[i].equipos[0].precioventa,
+            cuotas: '0',
+            cuotainicial: '0',
+            montomes: '0',
+            cuotamensual: '0'
         }
         //fin
         //categoria padre
@@ -320,11 +319,21 @@ articuloController.buscararti2 = async (req, res) => {
         var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
-        var planesfiltrados = new Array();
-        for (var j = 0; j < precios[0].planes.length; j++) {
-            if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                planesfiltrados.push(precios[0].planes[j]);
-            }
+        var planesfiltrados;
+        /*   for (var j = 0; j < precios[0].planes.length; j++) {
+              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                  planesfiltrados.push(precios[0].planes[j]);
+              }
+          } */
+        planesfiltrados = {
+            tipolinea: 'PREPAGO',
+            tipoplan: 'ALTA',
+            nombreplan: 'PREPAGO ALTA',
+            precio: articulosB[i].equipos[0].precioventa,
+            cuotas: '0',
+            cuotainicial: '0',
+            montomes: '0',
+            cuotamensual: '0'
         }
         //categoria padre
         var idhijo = articulosB[i].categoria;
@@ -363,11 +372,21 @@ articuloController.buscararti3 = async (req, res) => {
         var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
 
-        var planesfiltrados = new Array();
-        for (var j = 0; j < precios[0].planes.length; j++) {
-            if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                planesfiltrados.push(precios[0].planes[j]);
-            }
+        var planesfiltrados;
+        /*   for (var j = 0; j < precios[0].planes.length; j++) {
+              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                  planesfiltrados.push(precios[0].planes[j]);
+              }
+          } */
+        planesfiltrados = {
+            tipolinea: 'PREPAGO',
+            tipoplan: 'ALTA',
+            nombreplan: 'PREPAGO ALTA',
+            precio: articulosB[i].equipos[0].precioventa,
+            cuotas: '0',
+            cuotainicial: '0',
+            montomes: '0',
+            cuotamensual: '0'
         }
         if (planesfiltrados.length > 0) {
             jsonarticulos[i].precioplan = planesfiltrados[0];
@@ -421,11 +440,21 @@ articuloController.busquedaGeneral = async (req, res) => {
             var id = articulosB[i].idprecio;
             const precios = await Equipo.find({ nombreequipo: id });
 
-            var planesfiltrados = new Array();
-            for (var j = 0; j < precios[0].planes.length; j++) {
-                if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                    planesfiltrados.push(precios[0].planes[j]);
-                }
+            var planesfiltrados;
+            /*   for (var j = 0; j < precios[0].planes.length; j++) {
+                  if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                      planesfiltrados.push(precios[0].planes[j]);
+                  }
+              } */
+            planesfiltrados = {
+                tipolinea: 'PREPAGO',
+                tipoplan: 'ALTA',
+                nombreplan: 'PREPAGO ALTA',
+                precio: articulosB[i].equipos[0].precioventa,
+                cuotas: '0',
+                cuotainicial: '0',
+                montomes: '0',
+                cuotamensual: '0'
             }
             if (planesfiltrados.length > 0) {
                 jsonarticulos[i].precioplan = planesfiltrados[0];
@@ -631,8 +660,8 @@ articuloController.guardarCards = async (req, res) => {
 
 articuloController.obtenerCards = async (req, res) => {
     try {
-        const articulosCard = await Card.find({ activo: true, tipo : 'ARTICULO'});
-        const accesoriosCard = await Card.find({ activo: true, tipo : 'ACCESORIO'});
+        const articulosCard = await Card.find({ activo: true, tipo: 'ARTICULO' });
+        const accesoriosCard = await Card.find({ activo: true, tipo: 'ACCESORIO' });
         res.json({
             status: true,
             msg: 'Los artículo y accesorio se han obtenido con éxito',
@@ -683,13 +712,13 @@ articuloController.obtenerCarteles = async (req, res) => {
             data: listaArticulos,
             data2: listaAccesorios
         });
-    } catch(err) {
+    } catch (err) {
         console.error(err);
         res.json({
             status: false,
             error: err
         })
-    } 
+    }
 }
 
 articuloController.obtenerCardsTipo = async (req, res) => {
@@ -721,9 +750,9 @@ articuloController.obtenerCardsTipo = async (req, res) => {
     res.json(jsoncard);
 }
 
-articuloController.eliminarCard = async(req, res) => {
-    Card.deleteOne({_id : req.params.id }, function(err){
-        if(err){
+articuloController.eliminarCard = async (req, res) => {
+    Card.deleteOne({ _id: req.params.id }, function (err) {
+        if (err) {
             res.json({
                 status: false,
                 error: err
