@@ -259,71 +259,10 @@ articuloController.buscararti = async (req, res) => {
     const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
-        var cantidadeq = 0;
-        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
-            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
-        }
-        if (cantidadeq > 0) {
-            //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-            //precios
-            var id = articulosB[i].idprecio;
-            //const precios = await Equipo.find({ nombreequipo: id });
-
-            var planesfiltrados;
-            /*   for (var j = 0; j < precios[0].planes.length; j++) {
-                  if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                      planesfiltrados.push(precios[0].planes[j]);
-                  }
-              } */
-            planesfiltrados = {
-                tipolinea: 'PREPAGO',
-                tipoplan: 'ALTA',
-                nombreplan: 'PREPAGO ALTA',
-                precio: articulosB[i].equipos[0].precioventa,
-                cuotas: '0',
-                cuotainicial: '0',
-                montomes: '0',
-                cuotamensual: '0'
-            }
-            //fin
-            //categoria padre
-            var idhijo = articulosB[i].categoria;
-            const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-            /*   console.log('PADRE');
-              console.log(catepadre[0].padre); */
-            //fin
-            //puntuacion
-            var idarti = articulosB[i].idarticulo;
-            const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
-            var cantidadcomen = valoraciones.length;
-            var sumapuntuacion = 0;
-            for (var p = 0; p < cantidadcomen; p++) {
-                sumapuntuacion += valoraciones[p].puntuacion;
-            }
-            var promedioTotal = sumapuntuacion / cantidadcomen;
-            var promredondado = Math.round(promedioTotal);
-            //fin 
-            jsonarticulos[i].puntuacion = promredondado;
-            jsonarticulos[i].categoriapadre = catepadre[0].padre;
-            jsonarticulos[i].precioplan = planesfiltrados;
-            jsonarticulos[i].caracteristicas = [];
-            jsonarticulos[i].descripcion = "";
-            jsonarticulos[i].garantias = [];
-        }
-    }
-    res.json(jsonarticulos);
-
-}
-articuloController.buscararti2 = async (req, res) => {
-    /*     var tipoLinea = req.params.linea;
-        var tipoPlan = req.params.tipoplan;
-        var cuotas = req.params.cuotas; */
-    const articulosB = await Articulo.find({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } });
-    var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
-    for (var i = 0; i < articulosB.length; i++) {
-        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+        //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+        //precios
         var id = articulosB[i].idprecio;
-        const precios = await Equipo.find({ nombreequipo: id });
+        //const precios = await Equipo.find({ nombreequipo: id });
 
         var planesfiltrados;
         /*   for (var j = 0; j < precios[0].planes.length; j++) {
@@ -341,6 +280,71 @@ articuloController.buscararti2 = async (req, res) => {
             montomes: '0',
             cuotamensual: '0'
         }
+        //fin
+        var cantidadeq = 0;
+        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
+            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
+        }
+        var cantidadtotalequipo = cantidadeq;
+        //categoria padre
+        var idhijo = articulosB[i].categoria;
+        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+        //fin
+        //puntuacion
+        var idarti = articulosB[i].idarticulo;
+        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+        var cantidadcomen = valoraciones.length;
+        var sumapuntuacion = 0;
+        for (var p = 0; p < cantidadcomen; p++) {
+            sumapuntuacion += valoraciones[p].puntuacion;
+        }
+        var promedioTotal = sumapuntuacion / cantidadcomen;
+        var promredondado = Math.round(promedioTotal);
+        //fin 
+        jsonarticulos[i].puntuacion = promredondado;
+        jsonarticulos[i].categoriapadre = catepadre[0].padre;
+        jsonarticulos[i].precioplan = planesfiltrados;
+        jsonarticulos[i].caracteristicas = [];
+        jsonarticulos[i].descripcion = "";
+        jsonarticulos[i].garantias = [];
+        jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
+        // jsonArticulos[i].cantidadtotal=cantidadeq;
+    }
+    res.json(jsonarticulos);
+
+}
+articuloController.buscararti2 = async (req, res) => {
+    /*     var tipoLinea = req.params.linea;
+        var tipoPlan = req.params.tipoplan;
+        var cuotas = req.params.cuotas; */
+    const articulosB = await Articulo.find({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } });
+    var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
+    for (var i = 0; i < articulosB.length; i++) {
+        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+        var id = articulosB[i].idprecio;
+        //  const precios = await Equipo.find({ nombreequipo: id });
+
+        var planesfiltrados;
+        /*   for (var j = 0; j < precios[0].planes.length; j++) {
+              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                  planesfiltrados.push(precios[0].planes[j]);
+              }
+          } */
+        planesfiltrados = {
+            tipolinea: 'PREPAGO',
+            tipoplan: 'ALTA',
+            nombreplan: 'PREPAGO ALTA',
+            precio: articulosB[i].equipos[0].precioventa,
+            cuotas: '0',
+            cuotainicial: '0',
+            montomes: '0',
+            cuotamensual: '0'
+        }
+        var cantidadeq = 0;
+        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
+            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
+        }
+        var cantidadtotalequipo = cantidadeq;
         //categoria padre
         var idhijo = articulosB[i].categoria;
         const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
@@ -364,6 +368,7 @@ articuloController.buscararti2 = async (req, res) => {
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
+        jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
     }
     res.json(jsonarticulos);
 }
@@ -400,6 +405,11 @@ articuloController.buscararti3 = async (req, res) => {
                 else {
                     jsonarticulos[i].precioplan = "no tiene";
                 } */
+        var cantidadeq = 0;
+        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
+            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
+        }
+        var cantidadtotalequipo = cantidadeq;
         //categoria padre
         var idhijo = articulosB[i].categoria;
         const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
@@ -423,6 +433,7 @@ articuloController.buscararti3 = async (req, res) => {
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
+        jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
     }
 
     res.json(jsonarticulos);
@@ -440,68 +451,68 @@ articuloController.busquedaGeneral = async (req, res) => {
         const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + cathijos[q]._id + '.*', $options: 'i' } });
         var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
         for (var i = 0; i < articulosB.length; i++) {
+            //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+            var id = articulosB[i].idprecio;
+            //const precios = await Equipo.find({ nombreequipo: id });
+            var planesfiltrados;
+            /*   for (var j = 0; j < precios[0].planes.length; j++) {
+                  if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
+                      planesfiltrados.push(precios[0].planes[j]);
+                  }
+              } */
+            console.log('busqueda marca')
+            console.log(articulosB[i].titulo)
+            console.log(articulosB[i].equipos[0].precioventa)
+            planesfiltrados = {
+                tipolinea: 'PREPAGO',
+                tipoplan: 'ALTA',
+                nombreplan: 'PREPAGO ALTA',
+                precio: articulosB[i].equipos[0].precioventa,
+                cuotas: '0',
+                cuotainicial: '0',
+                montomes: '0',
+                cuotamensual: '0'
+            }
+            /*             if (planesfiltrados.length > 0) {
+                            jsonarticulos[i].precioplan = planesfiltrados[0];
+                        }
+                        else {
+                            jsonarticulos[i].precioplan = "no tiene";
+                        } */
             var cantidadeq = 0;
             for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
                 cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
             }
-            if (cantidadeq > 0) {
-                //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-                var id = articulosB[i].idprecio;
-                //const precios = await Equipo.find({ nombreequipo: id });
-                var planesfiltrados;
-                /*   for (var j = 0; j < precios[0].planes.length; j++) {
-                      if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                          planesfiltrados.push(precios[0].planes[j]);
-                      }
-                  } */
-                console.log('busqueda marca')
-                console.log(articulosB[i].titulo)
-                console.log(articulosB[i].equipos[0].precioventa)
-                planesfiltrados = {
-                    tipolinea: 'PREPAGO',
-                    tipoplan: 'ALTA',
-                    nombreplan: 'PREPAGO ALTA',
-                    precio: articulosB[i].equipos[0].precioventa,
-                    cuotas: '0',
-                    cuotainicial: '0',
-                    montomes: '0',
-                    cuotamensual: '0'
-                }
-                /*             if (planesfiltrados.length > 0) {
-                                jsonarticulos[i].precioplan = planesfiltrados[0];
-                            }
-                            else {
-                                jsonarticulos[i].precioplan = "no tiene";
-                            } */
-                //categoria padre
-                var idhijo = articulosB[i].categoria;
-                const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-                /* console.log('PADRE');
-                console.log(catepadre[0].padre); */
-                //fin
-                //puntuacion
-                var idarti = articulosB[i].idarticulo;
-                const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
-                var cantidadcomen = valoraciones.length;
-                var sumapuntuacion = 0;
-                for (var p = 0; p < cantidadcomen; p++) {
-                    sumapuntuacion += valoraciones[p].puntuacion;
-                }
-                var promedioTotal = sumapuntuacion / cantidadcomen;
-                var promredondado = Math.round(promedioTotal);
-                //fin 
-                jsonarticulos[i].puntuacion = promredondado;
-                jsonarticulos[i].categoriapadre = catepadre[0].padre;
-                jsonarticulos[i].precioplan = planesfiltrados;
-                jsonarticulos[i].caracteristicas = [];
-                jsonarticulos[i].descripcion = "";
-                jsonarticulos[i].garantias = [];
-                if (categoriapadre == '5c868b24f647673b0c262f4e') {
-                    arreglofinal.push(jsonarticulos);
-                }
-                else {
-                    arreglofinal.push(jsonarticulos[0]);
-                }
+            var cantidadtotalequipo = cantidadeq;
+            //categoria padre
+            var idhijo = articulosB[i].categoria;
+            const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+            /* console.log('PADRE');
+            console.log(catepadre[0].padre); */
+            //fin
+            //puntuacion
+            var idarti = articulosB[i].idarticulo;
+            const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+            var cantidadcomen = valoraciones.length;
+            var sumapuntuacion = 0;
+            for (var p = 0; p < cantidadcomen; p++) {
+                sumapuntuacion += valoraciones[p].puntuacion;
+            }
+            var promedioTotal = sumapuntuacion / cantidadcomen;
+            var promredondado = Math.round(promedioTotal);
+            //fin 
+            jsonarticulos[i].puntuacion = promredondado;
+            jsonarticulos[i].categoriapadre = catepadre[0].padre;
+            jsonarticulos[i].precioplan = planesfiltrados;
+            jsonarticulos[i].caracteristicas = [];
+            jsonarticulos[i].descripcion = "";
+            jsonarticulos[i].garantias = [];
+            jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
+            if (categoriapadre == '5c868b24f647673b0c262f4e') {
+                arreglofinal.push(jsonarticulos);
+            }
+            else {
+                arreglofinal.push(jsonarticulos[0]);
             }
         }
     }

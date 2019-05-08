@@ -259,10 +259,17 @@
                   <div class="product_item discount">
                     <!-- <div class="product_border"></div> -->
                     <div class="product_image d-flex flex-column align-items-center justify-content-center"
-                      style="position: relative;">
+                      style="position: relative;" *ngIf="articulo.cantidadtotal > 0" >
                       <img style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;"
                         id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
                         alt="{{articulo.imagenes[0]}}">
+                    </div>
+                    <div class="product_image d-flex flex-column align-items-center justify-content-center"
+                      style="position: relative;" *ngIf="articulo.cantidadtotal <= 0" >
+                      <img style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;filter: blur(6px);"
+                        id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
+                        alt="{{articulo.imagenes[0]}}">
+                        <div style=" position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); font-size: 24px;color: rgb(222, 184, 240)">AGOTADO</div>
                     </div>
                     <div class="product_content">
                       <div class="product_name">
