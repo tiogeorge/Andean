@@ -357,13 +357,18 @@ export class ArticulosbusquedaComponent implements OnInit {
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
+        console.log(Respuesta);
         if (Object.keys(res).length > 0) {
           Respuesta[0].sort(function (a, b) { return b.puntuacion - a.puntuacion });
           this.articuloslista = Respuesta[0];
+          console.log('articulo lista')
+          console.log(this.articuloslista)
+          console.log(this.articuloslista[0])
           this.numeroencontrados = Object.keys(res).length;
           this.temporallistaarti = Respuesta[0];
           this.temporallistaarti2 = Respuesta[0];
           this.listcategoraisfil();
+         // console.log(this.articuloslista);
         }
         else {
           this.palabraClave = '';
