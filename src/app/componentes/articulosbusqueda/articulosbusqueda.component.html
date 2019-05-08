@@ -87,8 +87,8 @@
           <!-- <div id="marcafiltro" class="col-lg-12" style="display: none"> -->
           <div id="marcafiltro" class="col-lg-12">
             <hr>
-            <!-- <div class="well" style="max-height: 300px;overflow: auto;"> -->
-            <div>
+            <div class="well" style="max-height: 300px;overflow: auto;">
+           <!--  <div> -->
               <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
                 <label style="cursor: pointer; font-size: 14px" (click)="filtroMarca()">
                   <input type="checkbox" name="checkMarca" value="{{marca._id}}" id="{{marca.nombremarca}}">
