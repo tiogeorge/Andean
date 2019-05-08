@@ -587,20 +587,28 @@ articuloController.obtenerBanners = async (req, res) => {
 articuloController.obtenerArticulosBanner = async (req, res) => {
     try {
         const banner = await Banner.find({ _id: req.params.id });
-        var tipoLinea = req.params.linea;
-        var tipoPlan = req.params.tipoplan;
-        var cuotas = req.params.cuotas;
+        
         //res.json(banner[0].articulos);
         var jsonarticulos = JSON.parse(JSON.stringify(banner[0].articulos));
 
         for (var k = 0; k < banner[0].articulos.length; k++) {
-            const precios = await Equipo.find({ nombreequipo: banner[0].articulos[k].idprecio });
-            var planesfiltrados = new Array();
-            for (var j = 0; j < precios[0].planes.length; j++) {
+            const articulo = await Articulo.find({ idarticulo: banner[0].articulos[k].idarticulo });
+            //console.log(articulo);
+            var planesfiltrados = {
+                tipolinea: 'PREPAGO',
+                tipoplan: 'ALTA',
+                nombreplan: 'PREPAGO ALTA',
+                precio: articulo[0].equipos[0].precioventa,
+                cuotas: '0',
+                cuotainicial: '0',
+                montomes: '0',
+                cuotamensual: '0'
+            };
+            /*for (var j = 0; j < precios[0].planes.length; j++) {
                 if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
                     planesfiltrados.push(precios[0].planes[j]);
                 }
-            }
+            }*/
             //categoria padre
             var idhijo = banner[0].articulos[k].categoria;
             const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
@@ -619,8 +627,16 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
             var promredondado = Math.round(promedioTotal);
             //fin
             jsonarticulos[k].categoriapadre = catepadre[0].padre;
-            jsonarticulos[k].precioplan = planesfiltrados[0];
+            jsonarticulos[k].precioplan = planesfiltrados;
             jsonarticulos[k].puntuacion = promredondado;
+            jsonarticulos[k].url = articulo[0].url;
+            jsonarticulos[k].titulo = articulo[0].titulo;
+            jsonarticulos[k].imagenes = articulo[0].imagenes;
+            jsonarticulos[k].categoria = articulo[0].categoria;
+            jsonarticulos[k].cantidad = articulo[0].cantidad;
+            jsonarticulos[k].marca = articulo[0].marca;
+            jsonarticulos[k].descuento = articulo[0].descuento;
+            
         }
 
         res.json(jsonarticulos);

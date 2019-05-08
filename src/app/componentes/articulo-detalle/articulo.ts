@@ -8,7 +8,6 @@ export class Articulo {
         this.titulo = titulo;
         this.url = url;
         this.categoria = categoria;
-        this.idprecio = idprecio;
         this.especificaciones= especaficaciones;
         this.caracteristicas = caracteristicas;
         this.imagenes = imagenes;
@@ -26,7 +25,6 @@ export class Articulo {
     categoria: string;
     marca: string;
     cantidad: Number;
-    idprecio: string;
     especificaciones: string[];
     caracteristicas:string;
     imagenes: string[];

@@ -305,7 +305,8 @@ export class ArticulosbusquedaComponent implements OnInit {
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
     this.articulodetalleService.getArticulosBanner(idbanner).subscribe(res => {
-      this.articulodetalleService.Articulo = res as Articulo[];
+      this.articulodetalleService.Articulo = res as any[];
+      console.log(res);
       var Respuesta = JSON.parse(JSON.stringify(res));
       if (Respuesta != "") {
         this.articuloslista = Respuesta;

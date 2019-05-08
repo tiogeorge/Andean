@@ -46,7 +46,7 @@ export class ChatmovilComponent implements OnInit {
   }
  
   resize(){
-    document.getElementById("contenedor-principal-chat-movil").style.height = (window.innerHeight)+"px";
+    //document.getElementById("contenedor-principal-chat-movil").style.height = (window.innerHeight)+"px";
   }
   /**
    * Método que verifica si el usuario ya ha iniciado sesión y muestra un mensaje con su nombre para pedir su consulta.

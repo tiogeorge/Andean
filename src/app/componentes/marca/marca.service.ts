@@ -15,9 +15,12 @@ export class MarcaService {
   constructor(http:HttpClient) {
     this.http=http;
    }
+   obtenerMarcas(){
+    return this.http.get(Constantes.URL_API_MARCA+"/mdb",{withCredentials: true});
+  }
 
    obtenerMarca(id:string){
-     return this.http.get(Constantes.URL_API_MARCA+"/mdb/"+id,{withCredentials: true})
+     return this.http.get(Constantes.URL_API_MARCA+"/mdb/"+id,{withCredentials: true});
    }
    listarMarcas(id:string){
     return this.http.get(Constantes.URL_API_MARCA+`/marc/` + id, {withCredentials: true});

@@ -1,4 +1,5 @@
 import { CardService } from './card.service';
+import { MarcaService} from '../marca/marca.service';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Constantes } from '../constantes';
 //import * as $ from 'jquery';
@@ -22,28 +23,30 @@ export class PortafolioComponent implements OnInit {
 
   listaofertas:any;
   listaaccesorios: any;
-  constructor(public cardservice: CardService , public router: Router) { }
+  constructor(public cardservice: CardService ,public marcaService:MarcaService, public router: Router) { }
   URL_IMAGENES = Constantes.URL_IMAGEN_MD;
   URL_IMAGEN = Constantes.URL_IMAGEN;
   banners : any[] = new Array();
   bannerPrincipal: any ;
+  marcas: any[] = new Array();
 
   @ViewChildren('carouselofertas') carouselofertas: QueryList<any>;
+  @ViewChildren('carouselaccesorios') carouselaccesorios: QueryList<any>;
+  @ViewChildren('carouselmarcas') carouselmarcas: QueryList<any>;
   ngOnInit() {
     this.bannerPrincipal =  {
       _id:'0',
       imagen:'sinimagen.webp'
     };
-    this.obtenercard();   
     this.obtenerBanner();
+    
+    
+
     
   }
   ngAfterViewInit() {
-    this.carouselofertas.changes.subscribe(t => {
-      this.iniciarCarouselAccesorios();
-      this.iniciarCarousel();
-      
-    });
+    
+    
     
   }
   
@@ -51,7 +54,16 @@ export class PortafolioComponent implements OnInit {
   abrirArticulo(url){
     this.router.navigate(['/articulo/'+url])
   }
-  
+  obtenerMarcas(){
+    this.marcaService.obtenerMarcas().subscribe(res=>{
+      this.marcas = res as any[];
+      
+    
+    this.carouselmarcas.changes.subscribe(t => {      
+      this.iniciarCarouselMarcas();     
+    });
+    });
+  }
   obtenerBanner(){
     this.cardservice.obtenerBanners().subscribe(res=>{
       this.banners = res as any[];
@@ -80,18 +92,22 @@ export class PortafolioComponent implements OnInit {
         lazyLoad : true,
         lazyLoadEager: 1
       });
+
+      this.obtenerMarcas();
+    this.obtenercard();   
     });
   }
   iniciarCarousel(){
     $("#owl-demo-ofertas").owlCarousel({
       loop:true,
       margin:10,
-      autoplay:true,
+      autoplay:false,
       autoplayTimeout:3000,
       autoplayHoverPause:true,
       lazyLoad:true,
       lazyLoadEager: 1,
       responsiveClass:true,
+      autoWidth:true,
       responsive:{
           0:{
               items:1,
@@ -121,7 +137,7 @@ export class PortafolioComponent implements OnInit {
   iniciarCarouselOfertas(){
     $("#owl-demo-ofertas2").owlCarousel({
       loop:true,
-      margin:10,
+      margin:15,
       autoplay:true,
       autoplayTimeout:3000,
       autoplayHoverPause:true,
@@ -151,7 +167,7 @@ export class PortafolioComponent implements OnInit {
     $("#owl-demo-accesorios").owlCarousel({
       loop:true,
       margin:10,
-      autoplay:true,
+      autoplay:false,
       autoplayTimeout:3000,
       autoplayHoverPause:true,
       lazyLoad:true,
@@ -178,6 +194,37 @@ export class PortafolioComponent implements OnInit {
     });
   }
 
+  iniciarCarouselMarcas(){
+    $("#owl-demo-marcas").owlCarousel({
+      loop:true,
+      margin:5,
+      autoplay:true,
+      autoplayTimeout:3000,
+      autoplayHoverPause:true,
+      lazyLoad:true,
+      responsiveClass:true,
+      nav:true,
+      dots:true,
+      responsive:{
+          0:{
+              items:2,
+              nav:true,
+              dots:false,
+          },
+          600:{
+              items:4,
+              nav:true,
+              dots:false
+          },
+          1000:{
+              items:6,
+              nav:true,
+              dots:false
+          }
+      }
+    });
+  }
+
   /**
    * Método que obtiene los carteles de equipos y de accesorios
    */
@@ -188,6 +235,12 @@ export class PortafolioComponent implements OnInit {
         this.listaofertas = rspta.data;
         this.listaaccesorios = rspta.data2;
       }
+      this.carouselofertas.changes.subscribe(t => {         
+        this.iniciarCarousel();     
+      });
+      this.carouselaccesorios.changes.subscribe(t => {      
+        this.iniciarCarouselAccesorios();     
+      });
     });
   }
 }

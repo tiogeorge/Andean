@@ -132,7 +132,7 @@ export class ArticuloDetalleComponent implements OnInit {
       console.log(this.articuloService.articuloSeleccionado.garantias);
 
       this.infoComentarios();      
-      this.buscarPreciosFiltro();
+      //this.buscarPreciosFiltro();
       //this.equipoSeleccionado = ;
       this.seleccionarEquipo(this.articuloService.articuloSeleccionado.equipos[0]);
       if(this.equipoSeleccionado.cantidad>0){
@@ -210,7 +210,7 @@ export class ArticuloDetalleComponent implements OnInit {
     this.listaDetallePlan = new Array();
   }
 
-  buscarPreciosFiltro() {
+  /*buscarPreciosFiltro() {
     var contenedor = document.getElementById("contenido-planes-equipo");
     contenedor.style.transform = "translateX(-0px)";
     this.listacuotasSeleccionadas = new Array();
@@ -262,7 +262,7 @@ export class ArticuloDetalleComponent implements OnInit {
           this.planSeleccionado = this.listPreciosFiltro[0];
         }
       });
-  }
+  }*/
   slide = 0;
   moverScroll() {
     var contenedor = document.getElementById("contenido-planes-equipo");
