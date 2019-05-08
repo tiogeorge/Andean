@@ -425,9 +425,6 @@ articuloController.buscararti3 = async (req, res) => {
 /*busqueda segun categoria */
 articuloController.busquedaGeneral = async (req, res) => {
     var categoriapadre = req.params.categoriapadre;
-    var tipoLinea = req.params.linea;
-    var tipoPlan = req.params.tipoplan;
-    var cuotas = req.params.cuotas;
     const cathijos = await Categoria.find({ padre: categoriapadre }, '_id');
     //console.log(cathijos);
     // const articulos=await Articulo.find().or([{categoria:cathijos[0]._id},{categoria:cathijos[1]._id}]);
@@ -489,7 +486,12 @@ articuloController.busquedaGeneral = async (req, res) => {
             jsonarticulos[i].caracteristicas = [];
             jsonarticulos[i].descripcion = "";
             jsonarticulos[i].garantias = [];
-            arreglofinal.push(jsonarticulos);
+            if(categoriapadre=='5c868b24f647673b0c262f4e'){
+                arreglofinal.push(jsonarticulos);
+            }
+            else{
+                arreglofinal.push(jsonarticulos[0]);
+            }
         }
     }
     //fin

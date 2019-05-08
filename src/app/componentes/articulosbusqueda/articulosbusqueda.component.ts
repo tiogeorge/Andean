@@ -359,16 +359,30 @@ export class ArticulosbusquedaComponent implements OnInit {
         var Respuesta = JSON.parse(JSON.stringify(res));
         console.log(Respuesta);
         if (Object.keys(res).length > 0) {
-          Respuesta[0].sort(function (a, b) { return b.puntuacion - a.puntuacion });
-          this.articuloslista = Respuesta[0];
-          console.log('articulo lista')
-          console.log(this.articuloslista)
-          console.log(this.articuloslista[0])
-          this.numeroencontrados = Object.keys(res).length;
-          this.temporallistaarti = Respuesta[0];
-          this.temporallistaarti2 = Respuesta[0];
-          this.listcategoraisfil();
-         // console.log(this.articuloslista);
+          if(id=='5c868b24f647673b0c262f4e'){
+            Respuesta[0].sort(function (a, b) { return b.puntuacion - a.puntuacion });
+            this.articuloslista = Respuesta[0];
+            console.log('articulo lista')
+            console.log(this.articuloslista)
+            console.log(this.articuloslista)
+            this.numeroencontrados = Object.keys(res).length;
+            this.temporallistaarti = Respuesta[0];
+            this.temporallistaarti2 = Respuesta[0];
+            this.listcategoraisfil();
+           // console.log(this.articuloslista);
+          }
+          else{
+            Respuesta.sort(function (a, b) { return b.puntuacion - a.puntuacion });
+            this.articuloslista = Respuesta;
+            console.log('articulo lista')
+            console.log(this.articuloslista)
+            console.log(this.articuloslista)
+            this.numeroencontrados = Object.keys(res).length;
+            this.temporallistaarti = Respuesta;
+            this.temporallistaarti2 = Respuesta;
+            this.listcategoraisfil();
+           // console.log(this.articuloslista);
+          }
         }
         else {
           this.palabraClave = '';
