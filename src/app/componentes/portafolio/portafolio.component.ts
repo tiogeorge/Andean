@@ -217,7 +217,7 @@ export class PortafolioComponent implements OnInit {
               dots:false
           },
           1000:{
-              items:6,
+              items:8,
               nav:true,
               dots:false
           }
