@@ -253,13 +253,13 @@ articuloController.listararticulos = async (req, res) => {
 }
 
 articuloController.buscararti = async (req, res) => {
-    var tipoLinea = req.params.linea;
+/*     var tipoLinea = req.params.linea;
     var tipoPlan = req.params.tipoplan;
-    var cuotas = req.params.cuotas;
+    var cuotas = req.params.cuotas; */
     const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
-        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
+      //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
         //precios
         var id = articulosB[i].idprecio;
         const precios = await Equipo.find({ nombreequipo: id });
@@ -309,9 +309,9 @@ articuloController.buscararti = async (req, res) => {
 
 }
 articuloController.buscararti2 = async (req, res) => {
-    var tipoLinea = req.params.linea;
+/*     var tipoLinea = req.params.linea;
     var tipoPlan = req.params.tipoplan;
-    var cuotas = req.params.cuotas;
+    var cuotas = req.params.cuotas; */
     const articulosB = await Articulo.find({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {
@@ -362,9 +362,9 @@ articuloController.buscararti2 = async (req, res) => {
     res.json(jsonarticulos);
 }
 articuloController.buscararti3 = async (req, res) => {
-    var tipoLinea = req.params.linea;
+/*     var tipoLinea = req.params.linea;
     var tipoPlan = req.params.tipoplan;
-    var cuotas = req.params.cuotas;
+    var cuotas = req.params.cuotas; */
     const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + req.params.categoria + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     for (var i = 0; i < articulosB.length; i++) {

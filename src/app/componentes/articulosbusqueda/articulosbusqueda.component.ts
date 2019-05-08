@@ -353,7 +353,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
-    this.articulodetalleService.listarArticulo4(id, this.linea, this.tipo, this.cuota)
+    this.articulodetalleService.listarArticulo4(id)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -394,7 +394,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     document.getElementById('contenedorbusqueda').hidden = false;
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
-    this.articulodetalleService.listarArticulos(pclave, this.linea, this.tipo, this.cuota)
+    this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -415,7 +415,7 @@ export class ArticulosbusquedaComponent implements OnInit {
   }
   listaraarticulos2(pclave: string) {
     //  if (pclave != null || pclave != "" || pclave != undefined) {
-    this.articulodetalleService.listarArticulos2(pclave, this.linea, this.tipo, this.cuota)
+    this.articulodetalleService.listarArticulos2(pclave)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
@@ -432,7 +432,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     // }
   }
   listararticulos3(pclave: string) {
-    this.articulodetalleService.listarArticulo3(pclave, this.linea, this.tipo, this.cuota)
+    this.articulodetalleService.listarArticulo3(pclave)
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
