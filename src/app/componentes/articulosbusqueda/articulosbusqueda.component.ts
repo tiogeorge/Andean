@@ -183,7 +183,12 @@ export class ArticulosbusquedaComponent implements OnInit {
         this.listaraarticulos(url);
       } else {
         //busqueda por banner
-        this.buscarporBanner(url);
+        if(urlcat == 'marca'){
+          this.listaraarticulos2(url);
+        }else{
+          this.buscarporBanner(url);
+        }
+        
       }
     }
     this.palabrabusq = url;

@@ -38,7 +38,6 @@
                 </div>
               </div>             
           </div>
-          <div><hr style="margin: 0px; padding: 0px;"></div>
          <!--
            <div class="preciounitario" style="margin-top:10px; display: flex; flex-direction: row; align-items: flex-end; flex-wrap: wrap;">
             <h6 style="width: 100%;">Precio: </h6>
@@ -50,7 +49,7 @@
           </div>
          --> 
           <div class="colores" style="margin-top:10px;">
-            <h6>Color: {{equipoSeleccionado.color}}</h6>
+              <div style="font-size: 18px; border-bottom: 1px solid rgb(228, 228, 228);">Elija un opción:</div>
             <div class="item-colores" style="display: flex; flex-direction: row; margin: 10px">
               <div  *ngFor="let equipo of articuloService.articuloSeleccionado.equipos" (click)="seleccionarEquipo(equipo)">
                 <div *ngIf="equipo.idequipo != equipoSeleccionado.idequipo" class="item-cantidad">
@@ -62,11 +61,18 @@
               </div>
               
             </div>
+            <div>
+              <div style="font-size: 18px; border-bottom: 1px solid rgb(228, 228, 228);">Caracteristicas</div>
+              <div style="width: 100%; height: auto; margin-top: 5px;">
+                <li>Color: {{equipoSeleccionado.color}}</li>
+                <a (click)="irADetalle()" class="btndetalle">Mas Información</a>
+              </div>
+            </div>
 
           </div>
           <div class="cantidad" style="margin-top:10px; display: flex; flex-direction: row; align-items: center; flex-wrap: wrap;">
-            <h6 style="width: 100%;">Cantidad: </h6>
-            <div style="display: flex; flex-direction: row; margin: 10px; margin-top:0px;border: 1px  solid rgb(180, 180, 180); width: 125px;align-items: center; height: 35px; border-radius: 3px;">
+              <div style="font-size: 18px; border-bottom: 1px solid rgb(228, 228, 228); width:100%; ">Cantidad</div>
+            <div style="display: flex; flex-direction: row; margin: 10px; margin-top:10px;border: 1px  solid rgb(180, 180, 180); width: 125px;align-items: center; height: 35px; border-radius: 3px;">
               <i class="material-icons btn-cantidad noseleccionable" (click)="disminuirCantidad()">remove</i>
               <div style="width: 80px; text-align: center;">{{cantidadSeleccionada}}</div>
               
@@ -231,7 +237,7 @@
 
       </div>
     </div>
-    <div class="detalle-articulo">      
+    <div class="detalle-articulo" id="detalle-producto">      
         <mat-tab-group style="width: 100%;"(selectedTabChange)="buscarDetallesArticulo($event)">
           <mat-tab label="Detalles del Producto">
               <div class="card" style="width: 100%" >

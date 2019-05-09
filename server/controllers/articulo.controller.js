@@ -364,12 +364,13 @@ articuloController.buscararti2 = async (req, res) => {
         //fin 
         jsonarticulos[i].puntuacion = promredondado;
         jsonarticulos[i].categoriapadre = catepadre[0].padre;
-        jsonarticulos[i].precioplan = planesfiltrados[0];
+        jsonarticulos[i].precioplan = planesfiltrados;
         jsonarticulos[i].caracteristicas = [];
         jsonarticulos[i].descripcion = "";
         jsonarticulos[i].garantias = [];
         jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
     }
+    console.log(jsonarticulos);
     res.json(jsonarticulos);
 }
 articuloController.buscararti3 = async (req, res) => {
@@ -647,6 +648,12 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
             }
             var promedioTotal = sumapuntuacion / cantidadcomen;
             var promredondado = Math.round(promedioTotal);
+
+            var cantidadeq = 0;
+            for (var cant = 0; cant < articulo[0].equipos.length; cant++) {
+                cantidadeq = cantidadeq + articulo[0].equipos[cant].cantidad;
+            }
+            var cantidadtotalequipo = cantidadeq;
             //fin
             jsonarticulos[k].categoriapadre = catepadre[0].padre;
             jsonarticulos[k].precioplan = planesfiltrados;
@@ -658,6 +665,7 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
             jsonarticulos[k].cantidad = articulo[0].cantidad;
             jsonarticulos[k].marca = articulo[0].marca;
             jsonarticulos[k].descuento = articulo[0].descuento;
+            jsonarticulos[k].cantidadtotal = cantidadtotalequipo;
 
         }
 

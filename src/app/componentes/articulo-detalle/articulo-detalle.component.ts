@@ -197,6 +197,10 @@ export class ArticuloDetalleComponent implements OnInit {
     });
   }
 
+  irADetalle(){
+    var div = document.getElementById("detalle-producto") ;
+    div.scrollIntoView({behavior:"smooth"});
+  }
 
   agregarCarrito() {
     this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado._id, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {

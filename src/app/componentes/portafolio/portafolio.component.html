@@ -12,7 +12,7 @@
       <div style="width: 90%; display:flex; justify-content: center; margin-top: 15px;">
           <br>
         <div id="owl-demo-marcas" class="owl-carousel owl-theme" >  
-          <div class="item-marca noseleccionable"  *ngFor="let marca of marcas;" >
+          <div class="item-marca noseleccionable"  *ngFor="let marca of marcas;"routerLink="/busqueda/marca/{{marca._id}}" >
               
               <img src="{{URL_IMAGENES}}/{{marca.imagen}}" alt="" style="width: auto; height: auto; max-height: 50px; max-width: 100%;">
               
@@ -32,7 +32,7 @@
         <br>
         <div id="owl-demo-ofertas" class="owl-carousel owl-theme" >   
           <div class="item noseleccionable"  *ngFor="let cardsimple of listaofertas;" style="width: 100%;display:flex; justify-content: center;" routerLink="/articulo/{{cardsimple.url}}">
-              <div class="simple-card noseleccionable">
+              <div class="simple-card noseleccionable" routerLink="/articulo/{{cardsimple.url}}">
                   <div class="descuento porcentaje">-{{cardsimple.descuento}}%</div>   
                 <div class="img-card">
                   <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">

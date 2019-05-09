@@ -38,15 +38,9 @@ export class PortafolioComponent implements OnInit {
       _id:'0',
       imagen:'sinimagen.webp'
     };
-    this.obtenerBanner();
-    
-    
-
-    
+    this.obtenerBanner();    
   }
-  ngAfterViewInit() {
-    
-    
+  ngAfterViewInit() {   
     
   }
   
@@ -94,12 +88,12 @@ export class PortafolioComponent implements OnInit {
       });
 
       this.obtenerMarcas();
-    this.obtenercard();   
+      this.obtenercard();   
     });
   }
   iniciarCarousel(){
     $("#owl-demo-ofertas").owlCarousel({
-      loop:true,
+      loop:false,
       margin:10,
       autoplay:false,
       autoplayTimeout:3000,
