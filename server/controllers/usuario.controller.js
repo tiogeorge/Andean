@@ -451,8 +451,8 @@ usuarioController.obtenerCarrito = async (req, res) => {
     const carrito = usuario.carrito;
     var carritoArticulos = new Array();
     for (var i = 0; i < carrito.length; i++) {
-      var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, idprecio: 1, imagenes: 1, descuento: 1});
-      var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+      var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa' : 1, imagenes: 1, descuento: 1});
+      //var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
       var articulocompleto = {
         id: carrito[i].idArticulo,
         idarticulo: carrito[i].idEquipo,
@@ -460,7 +460,7 @@ usuarioController.obtenerCarrito = async (req, res) => {
         url: articulo.url,
         cantidad: carrito[i].cantidad,     
         imagen: articulo.imagenes[0],
-        precio: precio.planes[0].precio,
+        precio: articulo.equipos[0].precioventa,
         descuento: articulo.descuento
       }
       carritoArticulos.push(articulocompleto);
@@ -475,8 +475,8 @@ usuarioController.obtenerCarrito = async (req, res) => {
       const carrito = req.session.articulos;
       var carritoArticulos = new Array();
       for (var i = 0; i < carrito.length; i++) {
-        var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, idprecio: 1, imagenes: 1, descuento: 1});
-        var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+        var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa': 1, imagenes: 1, descuento: 1});
+        //var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
         var articulocompleto = {
           id: carrito[i].idArticulo,
           idarticulo: carrito[i].idEquipo,
@@ -484,7 +484,7 @@ usuarioController.obtenerCarrito = async (req, res) => {
           url: articulo.url,
           cantidad: carrito[i].cantidad,    
           imagen: articulo.imagenes[0],
-          precio: precio.planes[0].precio,
+          precio: articulo.equipos[0].precioventa,
           descuento: articulo.descuento
         }
         carritoArticulos.push(articulocompleto);
