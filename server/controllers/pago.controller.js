@@ -2,6 +2,7 @@ const Pago = require('../models/pago');
 const Pago2 = require('../models/PagoMysql');
 const Clientecontroller = require('../controllers/usuario.controller');
 const Cliente = require('../models/usuario');
+const Articulo=require('../models/articulo');
 
 const pagoController = {};
 
@@ -262,6 +263,26 @@ pagoController.actualizarpedido2 = async (req, res) => {
             mensaje: " No se pudo actulizar los datos : ERROR:" + err
         });
     }
+}
+pagoController.actualizararticulocantidad= async(req,res)=>{
+    /* try {
+        console.log('datos a actualizar');
+        console.log(req.body);
+        console.log(req.body[0].EstadoEnvio);
+        const art = {
+            EstadoPago: req.body[0].EstadoPago,
+            EstadoEnvio: req.body[0].EstadoEnvio,
+            //  Documento: req.body[0].Documento
+        }
+        const articulo =await Articulo.findByIdAndUpdate({_id:req.params.id},{$set:art},{new:true})
+        res.json({
+            mensaje: "Se actualizo los datos"
+        });
+    } catch (err) {
+        res.json({
+            mensaje: " No se pudo actulizar los datos : ERROR:" + err
+        });
+    } */
 }
 
 pagoController.consultarnropedido = async (req, res) => {

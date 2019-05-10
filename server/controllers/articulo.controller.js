@@ -820,5 +820,4 @@ articuloController.eliminarCard = async (req, res) => {
 
 }
 
-
 module.exports = articuloController;
