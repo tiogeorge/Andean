@@ -354,7 +354,7 @@ export class PagoComponent implements OnInit {
   }
 
   finalizarcompra() {
-    //this.guardarventa();
+    this.guardarventa('11111111111');
   }
 
   guardarventa(idpago:string) {
@@ -403,6 +403,10 @@ export class PagoComponent implements OnInit {
               });
           });
       });
+  }
+
+  actualizarcantidad(){
+    
   }
 
   eliminarcarrito() {

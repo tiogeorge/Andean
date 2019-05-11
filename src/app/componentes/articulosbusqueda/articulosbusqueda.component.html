@@ -2,7 +2,7 @@
 <div class="container-fluid" id="contenedorbusqueda">
   <div class="row">
     <!--filtro-->
-    <div class="col-sm-3 col-md-3 col-lg-3" style="background: white" id="contenedorfiltro">
+    <div class="col-sm-3 col-md-3 col-lg-3" id="contenedorfiltro" style="background: white">
       <div class="container">
         <div class="row">
           <!---->
@@ -12,7 +12,7 @@
           </div>
           <div class="col-lg-12" hidden>
             <div>
-              <mat-form-field id='selectlinea'>
+              <mat-form-field id="selectlinea">
                 <mat-select [(ngModel)]="linea" (selectionChange)="mostrartipoplan()">
                   <mat-option value="PREPAGO">Prepago</mat-option>
                   <mat-option value="POSTPAGO">Postpago</mat-option>
@@ -20,7 +20,7 @@
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field id='selectplan'>
+              <mat-form-field id="selectplan">
                 <mat-select [(ngModel)]="tipo" (selectionChange)="cambiarprecio()">
                   <mat-option value="ALTA">Postpago Renovación</mat-option>
                   <mat-option value="RENOVACION">Postpago Alta nueva</mat-option>
@@ -29,7 +29,7 @@
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field id='selectcuotas'>
+              <mat-form-field id="selectcuotas">
                 <mat-select [(ngModel)]="cuota" (selectionChange)="cambiarprecio()" (change)="cambiarvistaprecio()">
                   <mat-option value="0">Sin cuotas</mat-option>
                   <mat-option value="12">12 cuotas</mat-option>
@@ -51,23 +51,22 @@
             </div>
           </div>
           <!-- <div id="categoriafiltro" class="col-lg-12" style="display: none"> -->
-          <div id="categoriafiltro" class="col-lg-12">
+          <div class="col-lg-12" id="categoriafiltro">
             <hr>
             <!-- <div class="well" style="max-height: 300px;overflow: auto;"> -->
             <div>
               <div class="checkbox" *ngFor="let categoria of listacategorias; let i=index">
                 <div>
                   <label style="cursor: pointer;; font-size: 14px" (click)="filtroCategoria()">
-                    <input type="checkbox" name="checkPadre" value="{{categoria._id}}" id="{{categoria._id}}">
+                    <input id="{{categoria._id}}" name="checkPadre" type="checkbox" value="{{categoria._id}}">
                     <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                     {{categoria.nombre | uppercase}}
                   </label>
                   <div style="margin-left: 20px">
                     <div *ngFor="let Cathijos of categoria.hijos[0]">
                       <label style="cursor: pointer; font-size: 12px" (click)="filtroCategoriaH()">
-                        <input type="checkbox" name="checkHijo" value="{{Cathijos._id}}" id="{{Cathijos._id}}">
-                        <span class="cr"><i class="cr-icon material-icons"
-                            style="color:rgb(255, 153, 0)">done</i></span>
+                        <input id="{{Cathijos._id}}" name="checkHijo" type="checkbox" value="{{Cathijos._id}}">
+                        <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                         {{Cathijos.nombre | uppercase}}
                       </label>
                     </div>
@@ -85,13 +84,13 @@
             </div>
           </div>
           <!-- <div id="marcafiltro" class="col-lg-12" style="display: none"> -->
-          <div id="marcafiltro" class="col-lg-12">
+          <div class="col-lg-12" id="marcafiltro">
             <hr>
             <div class="well" style="max-height: 300px;overflow: auto;">
            <!--  <div> -->
-              <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
+              <div class="checkbox" id="divcheck" *ngFor="let marca of tempomarcas; index as i">
                 <label style="cursor: pointer; font-size: 14px" (click)="filtroMarca()">
-                  <input type="checkbox" name="checkMarca" value="{{marca._id}}" id="{{marca.nombremarca}}">
+                  <input id="{{marca.nombremarca}}" name="checkMarca" type="checkbox" value="{{marca._id}}">
                   <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                   {{marca.nombremarca | uppercase}}
                 </label>
@@ -131,9 +130,7 @@
                 <input matInput type="number" placeholder="Maximo" [(ngModel)]="maxValue">
               </mat-form-field>
             </section>-->
-            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-              (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
-              (userChangeEnd)="onUserChangeEnd($event)">
+            <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
             </ng5-slider>
             <!--fin de slider-->
           </div>
@@ -252,23 +249,15 @@
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let articulo of articuloslista; index as i"
-                  id="contenedorarticulo{{articulo._id}}" style="padding-top: 1rem;"
-                  routerLink="/articulo/{{articulo.url}}">
+                <div class="col-lg-3 col-md-4 col-sm-6" id="contenedorarticulo{{articulo._id}}" *ngFor="let articulo of articuloslista; index as i" style="padding-top: 1rem;" routerLink="/articulo/{{articulo.url}}">
                   <!---->
                   <div class="product_item discount">
                     <!-- <div class="product_border"></div> -->
-                    <div class="product_image d-flex flex-column align-items-center justify-content-center"
-                      style="position: relative;" *ngIf="articulo.cantidadtotal > 0" >
-                      <img style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;"
-                        id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
-                        alt="{{articulo.imagenes[0]}}">
+                    <div class="product_image d-flex flex-column align-items-center justify-content-center" style="position: relative;" *ngIf="articulo.cantidadtotal > 0">
+                      <img id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}" style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;">
                     </div>
-                    <div class="product_image d-flex flex-column align-items-center justify-content-center"
-                      style="position: relative;" *ngIf="articulo.cantidadtotal <= 0" >
-                      <img style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;filter: blur(6px);"
-                        id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
-                        alt="{{articulo.imagenes[0]}}">
+                    <div class="product_image d-flex flex-column align-items-center justify-content-center" style="position: relative;" *ngIf="articulo.cantidadtotal <= 0">
+                      <img id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}" style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;filter: blur(6px);">
                         <div style=" position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); font-size: 24px;color: rgb(222, 184, 240)">AGOTADO</div>
                     </div>
                     <div class="product_content">
@@ -279,18 +268,18 @@
                             routerLink="/articulo/{{articulo.url}}">{{articulo.titulo}}</a>
                         </p> -->
                       </div>
-                      <div id="precio1" class="product_price" *ngIf="articulo.descuento > 0">S/
+                      <div class="product_price" id="precio1" *ngIf="articulo.descuento > 0">S/
                         {{ articulo.precioplan.precio - ((articulo.precioplan.precio*articulo.descuento)/100)| number:'1.1-2'}}<span>S/{{articulo.precioplan.precio}}</span>
                       </div>
                       <div class="product_price" *ngIf="articulo.descuento <= 0">S/
                         {{articulo.precioplan.precio}}
                       </div>
                       <div class="valoracionPromedio">
-                        <img class="estrella1" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
-                        <img class="estrella2" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
-                        <img class="estrella3" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
-                        <img class="estrella4" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
-                        <img class="estrella5" alt="{{articulo.puntuacion}}" src="assets/images/star3.png">
+                        <img class="estrella1" src="assets/images/star3.png" alt="{{articulo.puntuacion}}">
+                        <img class="estrella2" src="assets/images/star3.png" alt="{{articulo.puntuacion}}">
+                        <img class="estrella3" src="assets/images/star3.png" alt="{{articulo.puntuacion}}">
+                        <img class="estrella4" src="assets/images/star3.png" alt="{{articulo.puntuacion}}">
+                        <img class="estrella5" src="assets/images/star3.png" alt="{{articulo.puntuacion}}">
                       </div>
                     </div>
                     <div class="product_marks" *ngIf="articulo.descuento > 0">
@@ -309,34 +298,30 @@
             <!-- <div class="container-fluid">
               <div class="row"> -->
 
-            <div class="col-lg-12" *ngFor="let articulo of articuloslista; index as i"
-              id="contenedorarticulov{{articulo._id}}" style="padding-top: 1rem;"
-              routerLink="/articulo/{{articulo.url}}">
+            <div class="col-lg-12" id="contenedorarticulov{{articulo._id}}" *ngFor="let articulo of articuloslista; index as i" style="padding-top: 1rem;" routerLink="/articulo/{{articulo.url}}">
               <div class="bestsellers_item discount">
                 <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-                  <div class="bestsellers_image"> <img
-                      style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;"
-                      id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}"
-                      alt="{{articulo.imagenes[0]}}"></div>
+                  <div class="bestsellers_image"  *ngIf="articulo.cantidadtotal > 0"> 
+                    <img id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}" style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;">
+                  </div>
+                  <div class="bestsellers_image"  *ngIf="articulo.cantidadtotal <= 0"> 
+                      <img id="{{articulo._id}}" src="{{articulodetalleService.url_imagenes_md}}/{{articulo.imagenes[0]}}" alt="{{articulo.imagenes[0]}}" style="height: 180px; width: auto; margin-left: auto; margin-right: auto; display: block;filter: blur(6px);">
+                      <div style=" position: absolute;top: 50%;left: 25%;transform: translate(-50%, -50%); font-size: 15px;color: rgb(222, 184, 240)">AGOTADO</div>
+                    </div>
                   <div class="bestsellers_content">
                     <div class="bestsellers_name"><a tabindex="0">{{articulo.titulo}}</a></div>
-                    <div id="precio1v" class="bestsellers_price" *ngIf="articulo.descuento > 0">S/
+                    <div class="bestsellers_price" id="precio1v" *ngIf="articulo.descuento > 0">S/
                       {{ articulo.precioplan.precio - ((articulo.precioplan.precio*articulo.descuento)/100)| number:'1.1-2'}}<span>S/{{articulo.precioplan.precio}}</span>
                     </div>
                     <div class="bestsellers_price" *ngIf="articulo.descuento <= 0">S/
                       {{articulo.precioplan.precio}}
                     </div>
                     <div class="valoracionPromedio">
-                      <img class="estrella1" style="width: 14%" alt="{{articulo.puntuacion}}"
-                        src="assets/images/star3.png">
-                      <img class="estrella2" style="width: 14%" alt="{{articulo.puntuacion}}"
-                        src="assets/images/star3.png">
-                      <img class="estrella3" style="width: 14%" alt="{{articulo.puntuacion}}"
-                        src="assets/images/star3.png">
-                      <img class="estrella4" style="width: 14%" alt="{{articulo.puntuacion}}"
-                        src="assets/images/star3.png">
-                      <img class="estrella5" style="width: 14%" alt="{{articulo.puntuacion}}"
-                        src="assets/images/star3.png">
+                      <img class="estrella1" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
+                      <img class="estrella2" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
+                      <img class="estrella3" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
+                      <img class="estrella4" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
+                      <img class="estrella5" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
                     </div>
                   </div>
                 </div>
@@ -355,7 +340,7 @@
   </div>
 </div>
 <!--vista no se encontro-->
-<div id='noencontrado'>
+<div id="noencontrado">
   <div class="container">
     <div class="row">
       <div class="col-lg-1"></div>
@@ -377,7 +362,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="btn-group" id="botonfiltromodal" (click)="cambiaridfiltro()">
-        <a class="btn btn-fab" id="main" data-toggle="modal" data-target="#modalfiltro" style="background: orange">
+        <a class="btn btn-fab" id="main" data-target="#modalfiltro" data-toggle="modal" style="background: orange">
           <i class="material-icons">filter_list</i>
         </a>
       </div>
@@ -387,13 +372,12 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modalfiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
+<div class="modal fade" id="modalfiltro" role="dialog" aria-hidden="true" aria-labelledby="exampleModalCenterTitle" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Filtro</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button class="close" data-dismiss="modal" type="button" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -407,23 +391,21 @@
                 <p>Categorias</p>
               </div>
               <!-- <div id="categoriafiltro2" class="col-lg-12" style="display: none"> -->
-              <div id="categoriafiltro2" class="col-lg-12">
+              <div class="col-lg-12" id="categoriafiltro2">
                 <hr>
                 <div class="well" style="max-height: 300px;overflow: auto;">
                   <div class="checkbox" *ngFor="let categoria of listacategorias; let i=index">
                     <div>
                       <label style="cursor: pointer;" (click)="filtroCategoria()">
-                        <input type="checkbox" name="checkPadre" value="{{categoria._id}}" id="{{categoria._id}}">
-                        <span class="cr"><i class="cr-icon material-icons"
-                            style="color:rgb(255, 153, 0)">done</i></span>
+                        <input id="{{categoria._id}}" name="checkPadre" type="checkbox" value="{{categoria._id}}">
+                        <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                         {{categoria.nombre | uppercase}}
                       </label>
                       <div>
                         <div *ngFor="let Cathijos of categoria.hijos[0]">
                           <label style="cursor: pointer;margin-left: 25px;" (click)="filtroCategoriaH(this)">
-                            <input type="checkbox" name="checkHijo" value="{{Cathijos._id}}" id="{{Cathijos._id}}">
-                            <span class="cr"><i class="cr-icon material-icons"
-                                style="color:rgb(255, 153, 0)">done</i></span>
+                            <input id="{{Cathijos._id}}" name="checkHijo" type="checkbox" value="{{Cathijos._id}}">
+                            <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                             {{Cathijos.nombre}}
                           </label>
                         </div>
@@ -439,12 +421,12 @@
                 <p>Marca</p>
               </div>
               <!-- <div id="marcafiltro2" class="col-lg-12" style="display: none"> -->
-                  <div id="marcafiltro2" class="col-lg-12">
+                  <div class="col-lg-12" id="marcafiltro2">
                 <hr>
                 <div class="well" style="max-height: 300px;overflow: auto;">
-                  <div id="divcheck" class="checkbox" *ngFor="let marca of tempomarcas; index as i">
+                  <div class="checkbox" id="divcheck" *ngFor="let marca of tempomarcas; index as i">
                     <label style="cursor: pointer;" (click)="filtroMarca()">
-                      <input type="checkbox" name="checkMarca" value="{{marca._id}}" id="{{marca.nombremarca}}">
+                      <input id="{{marca.nombremarca}}" name="checkMarca" type="checkbox" value="{{marca._id}}">
                       <span class="cr"><i class="cr-icon material-icons" style="color:rgb(255, 153, 0)">done</i></span>
                       {{marca.nombremarca}}
                     </label>
@@ -482,9 +464,7 @@
                     <input matInput type="number" placeholder="Maximo" [(ngModel)]="maxValue">
                   </mat-form-field>
                 </section> -->
-                <ng5-slider style="size: 50%" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                  (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)"
-                  (userChangeEnd)="onUserChangeEnd($event)">
+                <ng5-slider style="size: 50%" [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeStart)="onUserChangeStart($event)" (userChange)="onUserChange($event)" (userChangeEnd)="onUserChangeEnd($event)">
                 </ng5-slider>
                 <!--fin de slider-->
               </div>
