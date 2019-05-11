@@ -11,11 +11,11 @@ export class Equipo{
     }
     idequipo: string;
     descripcion: string;
-    cantidad: Number;
+    cantidad: number;
     color: string;
     detalle: string;
     imagen: string;
     codigocolor: string;
-    preciocompra: Number;
-    precioventa: Number;
+    preciocompra: number;
+    precioventa: number;
 }

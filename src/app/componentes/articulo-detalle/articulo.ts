@@ -24,7 +24,7 @@ export class Articulo {
     url: string;
     categoria: string;
     marca: string;
-    cantidad: Number;
+    cantidad: number;
     especificaciones: string[];
     caracteristicas:string;
     imagenes: string[];
@@ -32,5 +32,5 @@ export class Articulo {
     garantias: string;
     equipos: Equipo[];
     palabrasclaves: string;
-    descuento: Number;
+    descuento: number;
   }

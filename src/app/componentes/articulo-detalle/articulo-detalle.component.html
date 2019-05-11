@@ -90,7 +90,7 @@
               <div class="cont-selec" >
                   <h6 style="margin-bottom: 5px;">Tipo Linea:</h6>
                   <div class="input-select" >
-                      <mat-select style="padding-left: 4px; padding-right: 4px;"  name="tipolinea"[(ngModel)]="tipoLineaSeleccionada" (selectionChange)="buscarPreciosFiltro()">
+                      <mat-select style="padding-left: 4px; padding-right: 4px;"  name="tipolinea"[(ngModel)]="tipoLineaSeleccionada" >
                           <mat-option *ngFor="let linea of listalineas" value="{{linea.valor}}">{{linea.nombre}}</mat-option>
                       </mat-select> 
                   </div>
@@ -100,7 +100,7 @@
               <div class="cont-selec" [hidden]="controlTipoPlan">
                   <h6 style="margin-bottom: 5px;">Lo quiero en: </h6>
                   <div class="input-select">
-                      <mat-select style="padding-left: 4px; padding-right: 4px;" name="tipoplan"[(ngModel)]="tipoPlanSeleccionado"  (selectionChange)="buscarPreciosFiltro()">
+                      <mat-select style="padding-left: 4px; padding-right: 4px;" name="tipoplan"[(ngModel)]="tipoPlanSeleccionado"  >
                           <mat-option *ngFor="let tipo of listatipoplanes" value="{{tipo.valor}}">{{tipo.nombre}}</mat-option>
                       </mat-select>
                   </div>                  
@@ -108,7 +108,7 @@
               <div class="cont-selec"  [hidden]="controlCuotas" >
                   <h6 style="margin-bottom: 5px;">Pagar el equipo en:</h6>
                   <div class="input-select">
-                      <mat-select  style="padding-left: 4px; padding-right: 4px;" name="tipocuota"[(ngModel)]="tipoCuotaSeleccionada" (selectionChange)="buscarPreciosFiltro()">
+                      <mat-select  style="padding-left: 4px; padding-right: 4px;" name="tipocuota"[(ngModel)]="tipoCuotaSeleccionada" >
                           <mat-option *ngFor="let cuota of listacuotasSeleccionadas" value="{{cuota.valor}}">{{cuota.nombre}}</mat-option>
                         </mat-select>
                   </div>
