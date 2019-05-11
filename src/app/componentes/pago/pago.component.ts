@@ -30,6 +30,11 @@ export interface temdoc {
   Serie: String,
   Numero: String,
 }
+export interface arttempo{
+  id:string,
+  idarticulo:string,
+  cantidad:string,
+}
 
 
 @Component({
@@ -354,7 +359,8 @@ export class PagoComponent implements OnInit {
   }
 
   finalizarcompra() {
-    this.guardarventa('11111111111');
+    //this.guardarventa('11111111111');
+    this.actualizarcantidad();
   }
 
   guardarventa(idpago:string) {
@@ -406,7 +412,18 @@ export class PagoComponent implements OnInit {
   }
 
   actualizarcantidad(){
-    
+    console.log(this.listaArticulos);
+    var art:any[]=new Array();
+    console.log(this.listaArticulos.length);
+    for(var i=0;i<this.listaArticulos.length;i++){
+      var artem={
+        id:this.listaArticulos[i].id,
+        idarticulo:this.listaArticulos[i].idarticulo,
+        cantidad:this.listaArticulos[i].cantidad,
+      }
+      art.push(artem);
+    }
+    console.log(art);
   }
 
   eliminarcarrito() {
