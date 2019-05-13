@@ -15,7 +15,7 @@ router.post('/pagomysql/', pago.guardarpagomysql);
 router.post('/detalle/', pago.guardardetallemysql);
 router.put('/:id', pago.actualizarpedido);
 router.put('/actu2/:id',pago.actualizarpedido2)
-router.put('/cantidad/:id',pago.actualizararticulocantidad);
+router.put('/cantidad/',pago.actualizararticulocantidad);
 router.delete('/:id', pago.eliminarpedido);
 
 

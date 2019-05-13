@@ -2,7 +2,7 @@ const Pago = require('../models/pago');
 const Pago2 = require('../models/PagoMysql');
 const Clientecontroller = require('../controllers/usuario.controller');
 const Cliente = require('../models/usuario');
-const Articulo=require('../models/articulo');
+const Articulo = require('../models/articulo');
 
 const pagoController = {};
 
@@ -63,7 +63,7 @@ pagoController.guardardetallemysql = async (req, res) => {
         });
     });
 }
-pagoController.corregirexistenciamysql=async (req,res)=>{
+pagoController.corregirexistenciamysql = async (req, res) => {
     const detall = JSON.parse(JSON.stringify(req.body))
     console.log(req.body);
     req.getConnection(function (error, conn) {
@@ -79,7 +79,7 @@ pagoController.corregirexistenciamysql=async (req,res)=>{
         });
     });
 }
-pagoController.anularventamysql=async (req,res)=>{
+pagoController.anularventamysql = async (req, res) => {
     const detall = JSON.parse(JSON.stringify(req.body))
     console.log(req.body);
     req.getConnection(function (error, conn) {
@@ -251,7 +251,7 @@ pagoController.actualizarpedido2 = async (req, res) => {
         const art = {
             //EstadoPago: req.body[0].EstadoPago,
             EstadoEnvio: req.body.EstadoEnvio,
-            FechaEntrega:req.body.FechaEntrega,
+            FechaEntrega: req.body.FechaEntrega,
             //  Documento: req.body[0].Documento
         }
         const pedido = await Pago.findByIdAndUpdate({ _id: req.params.id }, { $set: art }, { new: true });
@@ -264,7 +264,9 @@ pagoController.actualizarpedido2 = async (req, res) => {
         });
     }
 }
-pagoController.actualizararticulocantidad= async(req,res)=>{
+pagoController.actualizararticulocantidad = async (req, res) => {
+    console.log('datos a ');
+    console.log(req.body.id);
     /* try {
         console.log('datos a actualizar');
         console.log(req.body);

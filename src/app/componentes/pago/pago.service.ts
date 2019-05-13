@@ -12,6 +12,11 @@ export class creditCard{
   name: string;
   cvv: string;
 }
+export class arregloart{
+  id:string;
+  idarticulo:string;
+  cantidad:string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +25,7 @@ export class PagoService {
   tarjeta : creditCard = new creditCard();
   selectPago: Pago;
   pago: Pago[];
+  actualizarart:any[]=new Array();//= new arregloart();
 
   constructor(public http: HttpClient) { 
     this.selectPago = new Pago();
@@ -43,5 +49,8 @@ export class PagoService {
 
   recuperarpedidocorreo(correo:string){
     return this.http.get(Constantes.URL_API_PAGO + '/pedidos/cliente/' + correo, { withCredentials: true});
+  }
+  actualizarcantidad(arregloarti:arregloart){
+    return this.http.put(Constantes.URL_API_PAGO + '/cantidad/', arregloarti);
   }
 }

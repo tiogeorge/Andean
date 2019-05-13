@@ -412,9 +412,7 @@ export class PagoComponent implements OnInit {
   }
 
   actualizarcantidad(){
-    console.log(this.listaArticulos);
     var art:any[]=new Array();
-    console.log(this.listaArticulos.length);
     for(var i=0;i<this.listaArticulos.length;i++){
       var artem={
         id:this.listaArticulos[i].id,
@@ -422,6 +420,10 @@ export class PagoComponent implements OnInit {
         cantidad:this.listaArticulos[i].cantidad,
       }
       art.push(artem);
+      this.pagoservice.actualizarcantidad(artem)
+      .subscribe(res=>{
+        console.log(res);
+      })
     }
     console.log(art);
   }
