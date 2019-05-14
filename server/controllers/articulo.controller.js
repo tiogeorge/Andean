@@ -461,9 +461,8 @@ articuloController.busquedaGeneral = async (req, res) => {
                       planesfiltrados.push(precios[0].planes[j]);
                   }
               } */
-            console.log('busqueda marca')
+            console.log('busqueda general')
             console.log(articulosB[i].titulo)
-            console.log(articulosB[i].equipos[0].precioventa)
             planesfiltrados = {
                 tipolinea: 'PREPAGO',
                 tipoplan: 'ALTA',
@@ -509,15 +508,17 @@ articuloController.busquedaGeneral = async (req, res) => {
             jsonarticulos[i].descripcion = "";
             jsonarticulos[i].garantias = [];
             jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
+           // arreglofinal.push(jsonarticulos[i]);
             if (categoriapadre == '5c868b24f647673b0c262f4e') {
                 arreglofinal.push(jsonarticulos);
             }
             else {
-                arreglofinal.push(jsonarticulos[0]);
+                arreglofinal.push(jsonarticulos[i]);
             }
         }
     }
     //fin
+   // console.log(jsonarticulos)
     res.json(arreglofinal);
 }
 /*fin*/
