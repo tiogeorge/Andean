@@ -30,10 +30,10 @@ export interface temdoc {
   Serie: String,
   Numero: String,
 }
-export interface arttempo{
-  id:string,
-  idarticulo:string,
-  cantidad:string,
+export interface arttempo {
+  id: string,
+  idarticulo: string,
+  cantidad: string,
 }
 
 
@@ -105,7 +105,7 @@ export class PagoComponent implements OnInit {
     { value: 'Condominio' },
     { value: 'Otro' }
   ];
-  procesandoPago : boolean = false;
+  procesandoPago: boolean = false;
 
   constructor(public snackBar: MatSnackBar, public _formBuilder: FormBuilder, public direccionService: DireccionService, public pagoservice: PagoService, public usuarioService: UsuarioService, public router: Router, public regionService: RegionService, public articuloDetalleService: ArticuloDetalleService) {
   }
@@ -255,7 +255,7 @@ export class PagoComponent implements OnInit {
     this.montoenvio = '10';
     this.preciototal = (Number(this.subtotal) + Number(this.montoenvio)).toString();
   }
-  
+
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
@@ -363,8 +363,8 @@ export class PagoComponent implements OnInit {
     this.actualizarcantidad();
   }
 
-  guardarventa(idpago:string) {
-    var idpagoculqi=idpago;
+  guardarventa(idpago: string) {
+    var idpagoculqi = idpago;
     this.DocumentoT[0].Tipo = this.tipodoc;
     this.pagoservice.recuperarserie()
       .subscribe(res => {
@@ -411,21 +411,20 @@ export class PagoComponent implements OnInit {
       });
   }
 
-  actualizarcantidad(){
-    var art:any[]=new Array();
-    for(var i=0;i<this.listaArticulos.length;i++){
-      var artem={
-        id:this.listaArticulos[i].id,
-        idarticulo:this.listaArticulos[i].idarticulo,
-        cantidad:this.listaArticulos[i].cantidad,
+  actualizarcantidad() {
+    var art: any[] = new Array();
+    for (var i = 0; i < this.listaArticulos.length; i++) {
+      var artem = {
+        id: this.listaArticulos[i].id,
+        idarticulo: this.listaArticulos[i].idarticulo,
+        cantidad: this.listaArticulos[i].cantidad,
       }
-      art.push(artem);
-      this.pagoservice.actualizarcantidad(artem)
-      .subscribe(res=>{
+      this.pagoservice.actualizarartcan(artem)
+      .subscribe(res => {
         console.log(res);
-      })
+      }); 
+      art.push(artem);
     }
-    console.log(art);
   }
 
   eliminarcarrito() {
@@ -475,7 +474,7 @@ export class PagoComponent implements OnInit {
       this.openSnackBar(true, 'Procesando la compra');
       this.pagoservice.procesarPago(Culqi.token.id, Culqi.token.email, this.preciototal).subscribe(res => {
         const rspta = res as Respuesta;
-        this.terminarPago(rspta); 
+        this.terminarPago(rspta);
       });
     } else {
       this.openSnackBar(false, Culqi.error);
@@ -486,10 +485,10 @@ export class PagoComponent implements OnInit {
    * Método que oculta el progress bar y muestra el mensaje de respuesta
    * @param respuesta 
    */
-  terminarPago(respuesta: Respuesta){
-    var idpago=respuesta.data.id;
+  terminarPago(respuesta: Respuesta) {
+    var idpago = respuesta.data.id;
     this.procesandoPago = false;
-    if(respuesta.status){
+    if (respuesta.status) {
       this.openSnackBar(respuesta.status, respuesta.msg);
       this.guardarventa(idpago);
     } else {

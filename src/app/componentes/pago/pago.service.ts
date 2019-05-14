@@ -50,7 +50,7 @@ export class PagoService {
   recuperarpedidocorreo(correo:string){
     return this.http.get(Constantes.URL_API_PAGO + '/pedidos/cliente/' + correo, { withCredentials: true});
   }
-  actualizarcantidad(arregloarti:arregloart){
-    return this.http.put(Constantes.URL_API_PAGO + '/cantidad/', arregloarti);
+  actualizarartcan(arr:arregloart){
+    return this.http.put(Constantes.URL_API_PAGO + '/cantidad'+ `/${arr.id}`, arr);
   }
 }

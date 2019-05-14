@@ -264,19 +264,24 @@ pagoController.actualizarpedido2 = async (req, res) => {
         });
     }
 }
-pagoController.actualizararticulocantidad = async (req, res) => {
-    console.log('datos a ');
-    console.log(req.body.id);
-    /* try {
-        console.log('datos a actualizar');
-        console.log(req.body);
-        console.log(req.body[0].EstadoEnvio);
+pagoController.actualizarcantidadart = async (req, res) => {
+    // console.log(req.body.id);
+    var idart = req.body.id;
+    const equipo = await Articulo.find({ _id: idart }, 'equipos');
+    var jsonequipo = JSON.parse(JSON.stringify(equipo[0].equipos));
+    var lon = Object.keys(jsonequipo).length;
+    for (var i = 0; i < lon; i++) {
+        console.log('idarticulo');
+        jsonequipo[i];
+    }
+    try {
         const art = {
-            EstadoPago: req.body[0].EstadoPago,
-            EstadoEnvio: req.body[0].EstadoEnvio,
-            //  Documento: req.body[0].Documento
+            //EstadoPago: req.body[0].EstadoPago,
+            /*   id: req.body.id,
+              idarticulo: req.body.idarticulo, */
+            cantidad: req.body.cantidad,
         }
-        const articulo =await Articulo.findByIdAndUpdate({_id:req.params.id},{$set:art},{new:true})
+        const Arti = await Articulo.findByIdAndUpdate({ _id: req.params.id }, { $set: art }, { new: true });
         res.json({
             mensaje: "Se actualizo los datos"
         });
@@ -284,8 +289,9 @@ pagoController.actualizararticulocantidad = async (req, res) => {
         res.json({
             mensaje: " No se pudo actulizar los datos : ERROR:" + err
         });
-    } */
+    }
 }
+
 
 pagoController.consultarnropedido = async (req, res) => {
     console.log('entra');
