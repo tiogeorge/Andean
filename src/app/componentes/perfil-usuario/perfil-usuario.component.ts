@@ -53,7 +53,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Perfil de Usuario | Smarket');
-    this.usuarioService.getUsuarioLogeado().subscribe(res => {
+    /*this.usuarioService.getUsuarioLogeado().subscribe(res => {
       const respuesta = res as Respuesta;
       if (respuesta.status) {
         this.usuarioService.usuarioSeleccionado = respuesta.data;
@@ -64,7 +64,7 @@ export class PerfilUsuarioComponent implements OnInit {
       } else {
         this.router.navigate(['/']);
       }
-    });
+    });*/
     this.url = this.router.url;
   }
 

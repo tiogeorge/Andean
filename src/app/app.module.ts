@@ -35,6 +35,7 @@ import { CategoriahomeComponent } from './componentes/categoriahome/categoriahom
 import { RedessocialesComponent } from './componentes/redessociales/redessociales.component';
 import { ValoracionComponent } from './componentes/valoracion/valoracion.component';
 import { ChatmovilComponent } from './componentes/chatmovil/chatmovil.component';
+import {AuthGuard} from './componentes/auth.guard';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent},
@@ -47,7 +48,7 @@ const routes : Route[] = [
   {path: 'articulo/:id', component:ArticuloDetalleComponent},
   {path: 'cart', component:CarritocomprasComponent},
   {path: 'terminos', component: TerminosComponent},
-  {path: 'perfil-usuario', component: PerfilUsuarioComponent},
+  {path: 'perfil-usuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
   {path: 'pago', component: PagoComponent},
   {path: 'compararEqui',component:CompararEquiposComponent},
   {path: 'cambiarPassword/:token', component: CambiarPasswordComponent},
@@ -103,7 +104,7 @@ const routes : Route[] = [
     DialogoCarritoComponent,
     SnackbarComponent
   ],
-  providers: [Title, Meta],
+  providers: [Title, Meta, AuthGuard],
   bootstrap: [AppComponent]
 })
 

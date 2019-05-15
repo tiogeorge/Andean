@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('./auth');
 
 const articulo = require('../controllers/articulo.controller');
 
 router.get('/', articulo.obtenerArticulosMysql);
 router.get('/mongo/', articulo.listararticulos);
 router.get('/cartel', articulo.obtenerCards);
-router.get('/carteles', articulo.obtenerCarteles);
+router.get('/carteles',  auth.verificarTokenPublico ,articulo.obtenerCarteles);// LIBRE SMARKET
 router.get('/bus/:categoriapadre',articulo.busquedaGeneral);
 router.get('/marcaart/:marca',articulo.buscararti2);
 router.get('/mn/:palabrasclaves',articulo.buscararti);
@@ -16,7 +17,7 @@ router.get('/url/:id', articulo.obtenerArticuloURL);
 router.get('/equipos/:idglobal/:opcion', articulo.ObtenerEquiposArticulo);
 router.get('/mysql/precios/:id', articulo.obtenerPreciosMysql);
 router.get('/card/card/card/:tipo',articulo.obtenerCardsTipo);
-router.get('/banners/banner', articulo.obtenerBanners);
+router.get('/banners/banner', auth.verificarTokenPublico ,articulo.obtenerBanners); // LIBRE SMARKET
 router.get('/banners/banners', articulo.obtenerTodoBanners);
 router.get('/banners/banner/:id', articulo.obtenerArticulosBanner);
 

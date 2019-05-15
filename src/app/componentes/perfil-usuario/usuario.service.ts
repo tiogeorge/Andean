@@ -78,6 +78,9 @@ export class UsuarioService {
     return this.http.post(this.URL_API + '/login',usuario,{ withCredentials: true });
   }
 
+  logueado(){
+    return !!localStorage.getItem("token");
+  }
   /**
    * Método que actualiza la información de un cliente
    * @param usuario 
