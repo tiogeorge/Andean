@@ -17,7 +17,7 @@ import { RestablecerComponent } from './componentes/restablecer/restablecer.comp
 import { PortafolioComponent } from './componentes/portafolio/portafolio.component';
 import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articulo-detalle.component';
 import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CarritocomprasComponent } from './componentes/carritocompras/carritocompras.component';
 import { TerminosComponent } from './componentes/terminos/terminos.component';
 import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
@@ -36,23 +36,25 @@ import { RedessocialesComponent } from './componentes/redessociales/redessociale
 import { ValoracionComponent } from './componentes/valoracion/valoracion.component';
 import { ChatmovilComponent } from './componentes/chatmovil/chatmovil.component';
 import {AuthGuard} from './componentes/auth.guard';
+import { PublicAuthGuard} from './componentes/public-auth.guard';
+import { TokenInterceptorService } from './componentes/token-interceptor.service';
 
 const routes : Route[] = [
-  {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'registro', component: RegistroComponent},
-  {path: 'restablecer', component: RestablecerComponent},
-  {path: 'multicarro', component:CarouselmultipleComponent},
-  {path: 'busqueda/:tipobus/:pclave', component:ArticulosbusquedaComponent},
-  {path: 'articulo/:id', component:ArticuloDetalleComponent},
-  {path: 'cart', component:CarritocomprasComponent},
-  {path: 'terminos', component: TerminosComponent},
+  {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [PublicAuthGuard]},
+  {path: 'home', component: HomeComponent,canActivate: [PublicAuthGuard]},
+  {path: 'registro', component: RegistroComponent,canActivate: [PublicAuthGuard]},
+  {path: 'restablecer', component: RestablecerComponent,canActivate: [PublicAuthGuard]},
+  {path: 'multicarro', component:CarouselmultipleComponent,canActivate: [PublicAuthGuard]},
+  {path: 'busqueda/:tipobus/:pclave', component:ArticulosbusquedaComponent,canActivate: [PublicAuthGuard]},
+  {path: 'articulo/:id', component:ArticuloDetalleComponent,canActivate: [PublicAuthGuard]},
+  {path: 'cart', component:CarritocomprasComponent,canActivate: [PublicAuthGuard]},
+  {path: 'terminos', component: TerminosComponent,canActivate: [PublicAuthGuard]},
   {path: 'perfil-usuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
-  {path: 'pago', component: PagoComponent},
+  {path: 'pago', component: PagoComponent, canActivate: [AuthGuard]},
   {path: 'compararEqui',component:CompararEquiposComponent},
   {path: 'cambiarPassword/:token', component: CambiarPasswordComponent},
-  {path: 'chat', component: ChatmovilComponent}
+  {path: 'chat', component: ChatmovilComponent,canActivate: [PublicAuthGuard]}
 ];
 
 @NgModule({
@@ -104,7 +106,11 @@ const routes : Route[] = [
     DialogoCarritoComponent,
     SnackbarComponent
   ],
-  providers: [Title, Meta, AuthGuard],
+  providers: [Title, Meta, AuthGuard, PublicAuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 

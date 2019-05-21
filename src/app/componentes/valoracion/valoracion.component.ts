@@ -37,7 +37,7 @@ export class ValoracionComponent implements OnInit {
       this.recuperarValoraciones();
       this.tiempo = Date.now();
 
-      this.usuarioService.getUsuarioLogeado().subscribe(res => {
+      /*this.usuarioService.getUsuarioLogeado().subscribe(res => {
         var jres = JSON.parse(JSON.stringify(res));
         if (jres.status) {
           this.usuarioService.usuarioSeleccionado = jres.data as Usuario;
@@ -45,7 +45,7 @@ export class ValoracionComponent implements OnInit {
           this.recuperarValoracionesLogeadoCliente();  
           this.recuperarValoracionesLogeadoSinCliente();                
         }
-      }); 
+      });*/ 
     });
   }
 

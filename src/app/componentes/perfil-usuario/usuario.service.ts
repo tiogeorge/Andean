@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { catchError} from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class UsuarioService {
   public usuarioSeleccionado: Usuario;
   public usuarios: Usuario[];
   readonly URL_API = Constantes.URL_API_USUARIO;
+  readonly URL_API_SESSION = Constantes.URL_API_SESION;
 
   constructor(public http: HttpClient) { 
     this.usuarioSeleccionado = new Usuario();
@@ -79,7 +80,18 @@ export class UsuarioService {
   }
 
   logueado(){
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem("pt");
+  }
+  existeToken(){
+    return !!localStorage.getItem("pt");
+  }
+  getToken(){
+    return localStorage.getItem('pt');
+  }
+  async getPublicToken(){
+    const res = await  this.http.post(this.URL_API_SESSION+'/gt', { withCredentials : true }).toPromise();
+
+    return res;
   }
   /**
    * Método que actualiza la información de un cliente
@@ -117,6 +129,7 @@ export class UsuarioService {
    * @param result 
    */
   private handleError<T> (operation = 'operation', result?: T){
+
     return (error: any): Observable<T> => {
       return of(result as T);
     };

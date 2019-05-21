@@ -37,7 +37,7 @@ export class ChatmovilComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.verificarUsuario();
+    //this.verificarUsuario();
     //$(window).on("resize", this.resize);
     
   }

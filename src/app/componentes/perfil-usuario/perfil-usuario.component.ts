@@ -53,18 +53,25 @@ export class PerfilUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Perfil de Usuario | Smarket');
-    /*this.usuarioService.getUsuarioLogeado().subscribe(res => {
-      const respuesta = res as Respuesta;
-      if (respuesta.status) {
-        this.usuarioService.usuarioSeleccionado = respuesta.data;
-        this.getDirecciones(respuesta.data._id);
-        //recuperar pedidos
-        this.recuperarpedidoscorreo(respuesta.data.correo);
-        //
-      } else {
-        this.router.navigate(['/']);
+    this.usuarioService.getUsuarioLogeado().subscribe(res => {
+      var response = res as any;
+      console.log(response);
+      if(response.error){
+        console.log("NO ESTA AUTORIZADO");
+      }else{
+        const respuesta = res as Respuesta;
+        if (respuesta.status) {
+          this.usuarioService.usuarioSeleccionado = respuesta.data;
+          this.getDirecciones(respuesta.data._id);
+          //recuperar pedidos
+          this.recuperarpedidoscorreo(respuesta.data.correo);
+          //
+        } else {
+          this.router.navigate(['/']);
+        }
       }
-    });*/
+      
+    });
     this.url = this.router.url;
   }
 

@@ -62,7 +62,7 @@ export class MenuComponent implements OnInit {
       this.categoriaService.categorias = res as Categoria[];
       this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
     });
-    this.getSesion();   
+ //   this.getSesion();   
     //auto comple
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
