@@ -451,7 +451,7 @@ usuarioController.obtenerCarrito = async (req, res) => {
     const carrito = usuario.carrito;
     var carritoArticulos = new Array();
     for (var i = 0; i < carrito.length; i++) {
-      var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa' : 1, imagenes: 1, descuento: 1});
+      var articulo = await Articulo.findOne({ idarticulo: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa' : 1, imagenes: 1, descuento: 1});
       //var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
       var articulocompleto = {
         id: carrito[i].idArticulo,
@@ -475,7 +475,7 @@ usuarioController.obtenerCarrito = async (req, res) => {
       const carrito = req.session.articulos;
       var carritoArticulos = new Array();
       for (var i = 0; i < carrito.length; i++) {
-        var articulo = await Articulo.findOne({ _id: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa': 1, imagenes: 1, descuento: 1});
+        var articulo = await Articulo.findOne({ idarticulo: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa': 1, imagenes: 1, descuento: 1});
         //var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
         var articulocompleto = {
           id: carrito[i].idArticulo,
