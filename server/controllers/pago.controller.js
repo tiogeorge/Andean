@@ -267,16 +267,22 @@ pagoController.actualizarpedido2 = async (req, res) => {
 pagoController.actualizarcantidadart = async (req, res) => {
     // console.log(req.body.id);
     var idart = req.body.id;
-    var idequipo=req.body.idarticulo;
-    var cant=req.body.cantidad*(-1);
-    console.log('id: '+idart+' idequipo: '+idequipo+' cantidad: '+cant);
+    var idequipo = req.body.idarticulo;
+    var cant = req.body.cantidad * (-1);
+    console.log('id: ' + idart + ' idequipo: ' + idequipo + ' cantidad: ' + cant);
     try {
-        const artic = await Articulo.update( {_id : idart , "equipos.idequipo" : idequipo } , {$inc : {"equipos.$.cantidad" : cant} } , false , true);
-        console.log(artic);
+        console.log('entra');
+        const artic = Articulo.update({ idarticulo: idart }, { "equipos.idequipo": idequipo },
+            { $inc: { "equipos.$.cantidad": cant } },
+            false,
+            true);
         res.json({
             mensaje: "Se actualizo los datos"
         });
+        console.log('sale');
     } catch (err) {
+        console.log('error : ');
+        console.log(err);
         res.json({
             mensaje: " No se pudo actulizar los datos : ERROR:" + err
         });
