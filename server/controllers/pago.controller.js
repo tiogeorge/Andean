@@ -271,17 +271,12 @@ pagoController.actualizarcantidadart = async (req, res) => {
     var cant = req.body.cantidad * (-1);
     console.log('id: ' + idart + ' idequipo: ' + idequipo + ' cantidad: ' + cant);
     try {
-        console.log('entra');
-        const artic = Articulo.update({ idarticulo: idart }, { "equipos.idequipo": idequipo },
-            { $inc: { "equipos.$.cantidad": cant } },
-            false,
-            true);
+        const artic =await Articulo.update({ idarticulo: idart, 'equipos.idequipo': idequipo },
+            { $inc: { 'equipos.$.cantidad': cant } });
         res.json({
-            mensaje: "Se actualizo los datos"
+            mensaje: "Se actualizo la cantidad"
         });
-        console.log('sale');
     } catch (err) {
-        console.log('error : ');
         console.log(err);
         res.json({
             mensaje: " No se pudo actulizar los datos : ERROR:" + err
