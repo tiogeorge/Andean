@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from './usuario';
 import { catchError} from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
+import * as moment from "moment";
 
 @Injectable({
   providedIn: 'root'
@@ -80,18 +81,60 @@ export class UsuarioService {
   }
 
   logueado(){
-    return !!localStorage.getItem("pt");
+    return !!localStorage.getItem("session_token");
   }
   existeToken(){
     return !!localStorage.getItem("pt");
   }
   getToken(){
-    return localStorage.getItem('pt');
+    if(localStorage.getItem('session_token')){
+      return localStorage.getItem('session_token');
+    }else{
+      return localStorage.getItem('pt');
+    }
+  }
+  esTokenPublicoVigente(){
+    return moment().isBefore(this.getExpiration());
+  }
+  esRefreshTokenVigente(){
+    return moment().isBefore(this.getExpirationRefreshToken());
+  }
+  getExpirationRefreshToken() {
+    const expiration = localStorage.getItem("refresh_token_exp");
+    const expiresAt = JSON.parse(expiration);
+    return moment(expiresAt);
+  }
+  esSessionTokenVigente(){
+    return moment().isBefore(this.getExpirationSessionToken());
+  }
+  getExpirationSessionToken() {
+    const expiration = localStorage.getItem("session_token_exp");
+    const expiresAt = JSON.parse(expiration);
+    return moment(expiresAt);
+  }
+  getExpiration() {
+    const expiration = localStorage.getItem("expires_pt");
+    const expiresAt = JSON.parse(expiration);
+    return moment(expiresAt);
   }
   async getPublicToken(){
     const res = await  this.http.post(this.URL_API_SESSION+'/gt', { withCredentials : true }).toPromise();
 
     return res;
+  }
+  async getNewSessionToken(){
+    const res = await  this.http.post(this.URL_API_SESSION+'/newsessiontoken', {refresh_token: localStorage.getItem('refresh_token')},{ withCredentials : true }).toPromise();
+    return res;
+  }
+  async obtenerNuevoToken(){
+    const res = await this.http.post(this.URL_API_SESSION+'/newsessiontoken', {refresh_token: localStorage.getItem('refresh_token')},{ withCredentials : true }).toPromise();
+    return res;
+  }
+  logout(){
+    localStorage.removeItem('session_token');
+    localStorage.removeItem('session_token_exp');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('refresh_token_exp');
   }
   /**
    * Método que actualiza la información de un cliente

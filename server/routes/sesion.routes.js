@@ -6,6 +6,7 @@ const sesion = require('../controllers/sesion.controller');
 
 router.get('/', sesion.obtenerSesion);
 router.post('/gt',auth.generarTokenPublico);
+router.post('/newsessiontoken',auth.generarNuevoTokenPrivado);
 router.delete('/', sesion.limpiarSesion);
 router.get('/admin', sesion.obtenerSesionAdmin);
 router.delete('/admin', sesion.eliminarSesionAdmin);

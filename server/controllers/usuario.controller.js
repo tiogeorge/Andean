@@ -4,9 +4,9 @@ const Usuario = require('../models/usuario');
 const NodeMailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync();
-const jwt = require('jsonwebtoken');
+const auth  = require('../routes/auth');
 const usuarioController = {};
-process.env.JWT_SECRET = 'andeantechnology';
+
 
 /**
  * Método que permite actualizar la información de un cliente
@@ -410,21 +410,26 @@ usuarioController.loginUsuario = async (req, res, next) => {
       if (usuario) {
         var login = bcrypt.compareSync(req.body.password, usuario.password);
         if (login) {
-          req.session.token = usuario.token;
+          
+          user={
+            userId: usuario._id.toString(),
+            correo: usuario.correo,      
+            
+          };
+         // console.log(user);
+          var token = auth.generarTokenPrivado(user);
+          var refreshtoken = auth.generarRefreshToken(user);
+          var timeexpirationtoken =auth.getExpirationToken();
+          var timeexpirationrefreshtoken = auth.getExpirationRefreshToken();
+          
+          req.session.token = token;
           res.json({
             status: true,
-            msg: 'Iniciando sesión',
-            user:{
-              _id: usuario._id,
-              tipoDocumento : usuario.tipoDocumento,
-              numeroDocumento : usuario.numeroDocumento,
-              correo: usuario.correo,
-              nombres: usuario.nombres,
-              apellidos: usuario.apellidos
-              /*fecha_afiliacion: usuario.fecha_afiliacion,
-              fechaNacimiento: ususario.fechaNacimiento,
-              sexo: usuario.sexo*/
-            }
+            msg: 'Autentificacion Exitosa',                       
+            session_token: token,
+            refresh_token:  refreshtoken,
+            session_token_exp: timeexpirationtoken,
+            refresh_token_exp: timeexpirationrefreshtoken
           });
         } else {
           res.json({

@@ -5,9 +5,9 @@ const auth = require('./auth');
 const articulo = require('../controllers/articulo.controller');
 
 router.get('/', auth.verificarTokenPublico,articulo.obtenerArticulosMysql);
-router.get('/mongo/', auth.verificarTokenPublico,articulo.listararticulos);
+router.get('/mongo/', auth.verificarTokenPrivado,articulo.listararticulos);
 router.get('/cartel', auth.verificarTokenPublico,articulo.obtenerCards);
-router.get('/carteles', auth.verificarTokenPublico, auth.verificarTokenPublico ,articulo.obtenerCarteles);// LIBRE SMARKET
+router.get('/carteles', auth.verificarTokenPublico ,articulo.obtenerCarteles);// LIBRE SMARKET
 router.get('/bus/:categoriapadre',auth.verificarTokenPublico,articulo.busquedaGeneral);
 router.get('/marcaart/:marca',auth.verificarTokenPublico,articulo.buscararti2);
 router.get('/mn/:palabrasclaves',auth.verificarTokenPublico,articulo.buscararti);

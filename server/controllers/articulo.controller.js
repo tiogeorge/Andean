@@ -18,7 +18,7 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
             var consulta3 = "SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) as Descripcion, SUM(Cantidad) as Cantidad FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnAlm_StockArticuloLocal(idArticulo,'609') AS Cantidad FROM taarticulo) tmp GROUP BY idArticuloGlobal";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
-                    console.log(err);
+                   // console.log(err);
                     res.json({
                         estado: "0",
                         mensaje: "ERROR: " + err
@@ -28,7 +28,7 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
                     for (var i = 0; i < jsonArticulos.length; i++) {
                         await verificarArticulosMongo(jsonArticulos[i].idArticulo, i);
                     }
-                    console.log("termino verificar articulos");
+                   // console.log("termino verificar articulos");
                     res.json(jsonArticulos);
                     // console.log(jsonArticulos);
 
@@ -48,14 +48,14 @@ articuloController.obtenerArticulosMysql = async (req, res) => {
 }
 
 articuloController.ObtenerEquiposArticulo = async (req, res) => {
-    console.log("ONTENIENDO EQUIPOS DE LOS ARTICULOS..");
+    //console.log("ONTENIENDO EQUIPOS DE LOS ARTICULOS..");
     jsonEquipos = new Array();
     try {
         req.getConnection(function (error, conn) {
             var consulta3 = "SELECT idArticulo, Descripcion , fnAlm_StockArticuloLocal(idArticulo,'609')as Cantidad,fnSM_RecuperarPrecioEquipo(idArticulo) as PrecioCompra FROM taarticulo WHERE idArticuloGlobal = '" + req.params.idglobal + "'";
             conn.query(consulta3, async function (err, results) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                     res.json({
                         estado: "0",
                         mensaje: "ERROR: " + err
@@ -65,7 +65,7 @@ articuloController.ObtenerEquiposArticulo = async (req, res) => {
                     for (var i = 0; i < jsoneq.length; i++) {
                         await verificarEquipoArticuloMongo(req.params.idglobal, jsoneq[i].idArticulo, jsoneq[i].Descripcion, jsoneq[i].Cantidad, jsoneq[i].PrecioCompra, req.params.opcion);
                     }
-                    console.log("termino verificar equipos");
+                    //console.log("termino verificar equipos");
                     res.json(jsonEquipos);
                     // console.log(jsonArticulos);
 
@@ -596,12 +596,12 @@ articuloController.guardarBanners = async (req, res) => {
 }
 articuloController.obtenerBanners = async (req, res) => {
     try {
-        console.log("INGRESANDO A BANNERS");
+       // console.log("INGRESANDO A BANNERS");
         const banners = await Banner.find({}).select('imagen');
         res.json(banners)
 
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         res.json({
             status: false,
             error: err
@@ -641,7 +641,7 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
 
             //Puntuacion
             const valoraciones = await Valoracion.find({ idarticulo: banner[0].articulos[k].idarticulo }, 'puntuacion');
-            console.log(banner[0].articulos[k].idarticulo);
+            //console.log(banner[0].articulos[k].idarticulo);
             var cantidadcomen = valoraciones.length;
             var sumapuntuacion = 0;
             for (var p = 0; p < cantidadcomen; p++) {
@@ -673,7 +673,7 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
         res.json(jsonarticulos);
 
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         res.json({
             status: false,
             error: err
@@ -783,7 +783,7 @@ articuloController.obtenerCardsTipo = async (req, res) => {
     const card = await Card.find({ tipo: req.params.tipo, activo: true });
     var jsoncard = JSON.parse(JSON.stringify(card));
     for (var i = 0; i < card.length; i++) {
-        console.log(card[i].tipo);
+      //  console.log(card[i].tipo);
         var id = card[i].idPrecio;
         const precios = await Equipo.find({ nombreequipo: id });
         var planesfiltrados = new Array();
