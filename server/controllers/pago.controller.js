@@ -274,7 +274,7 @@ pagoController.actualizarcantidadart = async (req, res) => {
         const artic =await Articulo.update({ idarticulo: idart, 'equipos.idequipo': idequipo },
             { $inc: { 'equipos.$.cantidad': cant } });
         res.json({
-            mensaje: "Se actualizo la cantidad"
+            mensaje: "HECHO"
         });
     } catch (err) {
         console.log(err);

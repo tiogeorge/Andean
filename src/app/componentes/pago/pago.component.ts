@@ -401,6 +401,7 @@ export class PagoComponent implements OnInit {
               .subscribe(res => {
                 console.log(res);
                 if (JSON.parse(JSON.stringify(res)).mensaje == 'ok') {
+                  this.actualizarcantidad();
                   this.snackBar.open('Venta Realizada', '🧓🏻', {
                     duration: 2000,
                   });
