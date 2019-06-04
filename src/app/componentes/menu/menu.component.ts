@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
 import { Constantes } from '../constantes';
-import { Router, DefaultUrlSerializer} from '@angular/router';
+import { Router, DefaultUrlSerializer, Event, NavigationEnd} from '@angular/router';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { ServicioapoyoService } from '../articulosbusqueda/servicioapoyo.service';
 import { SesionService } from '../perfil-usuario/sesion.service';
@@ -32,26 +32,22 @@ export class MenuComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   listasubcategorias : Categoria[] = new Array();
   //fin auto completado
-  subscription: Subscription;
+  Usersubscription: Subscription;
   catsubscription : Subscription;
+  valsubscription : Subscription;
   nombreusuario = "Identificate";
   nomostrarbusquedap = true;
   categorias = new Array();
-  usuarioLogueado :any;
+  usuarioLogueado :any = null;
 
-  constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public sesionService : SesionService, public comService: comunicacionService) {
-    this.subscription = this.comService.inicioSesion()
-    .subscribe(user => {
-      if(user.nombres){
-        this.estaLogeado = true;
-        var nombre = user.nombres.split(" ")[0];
-        this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase();
-      }
-      
-    });
+  constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public usuarioService : UsuarioService, public comService: comunicacionService) {
+    
     this.catsubscription = this.comService.getCategorias()
     .subscribe(cat =>{
       this.categorias = cat as any[];
+    });  
+    this.valsubscription = this.comService.atenderPedidoUsuario().subscribe(res=>{
+      this.comService.enviarUsuarioValoracion(this.usuarioLogueado);
     });
 
   }
@@ -62,7 +58,7 @@ export class MenuComponent implements OnInit {
       this.categoriaService.categorias = res as Categoria[];
       this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
     });
- //   this.getSesion();   
+    this.getSesion();   
     //auto comple
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
@@ -78,7 +74,7 @@ export class MenuComponent implements OnInit {
     document.getElementById("mySidepanel2").style.height = window.innerHeight+"px";
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.Usersubscription.unsubscribe();
   }
   
   /* Set the width of the sidebar to 250px (show it) */
@@ -164,32 +160,49 @@ export class MenuComponent implements OnInit {
   }
 
   getSesion(){
-    this.sesionService.obtenerSesion().subscribe( res => {
-      var jres = JSON.parse(JSON.stringify(res));
-      if (jres.status){   
-        var nombre = jres.user.nombres.split(" ")[0];
-        this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase(); 
-        this.estaLogeado = true;
-        this.comService.enviarUsuario(jres.user);
-        this.usuarioLogueado = jres.user;
-      } else {
-        this.estaLogeado = false;
-      }
-    });
+    if(localStorage.getItem('session_token')){
+      console.log("SI ESTA LOGUEADO OBTENIENDO INFORMACION DEL USUARIO");
+      this.usuarioService.getUsuario().subscribe( res => {
+        var jres = JSON.parse(JSON.stringify(res));
+        if (jres.status){   
+          var nombre = jres.data.nombres.split(" ")[0];
+          this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase(); 
+          this.estaLogeado = true;
+          this.comService.enviarUsuario(jres.data);
+          this.usuarioLogueado = jres.data;
+          this.comService.enviarUsuario(jres.data);
+        } else {
+          this.estaLogeado = false;
+          this.comService.enviarUsuario(null);
+        }
+      });
+    }else{
+      console.log("NO SE INICIO SESION");
+      this.estaLogeado = false;
+      this.comService.enviarUsuario(null);
+    }    
   }
 
   logout(){
-    this.sesionService.cerrarSesion().subscribe( res => {
+    /*this.sesionService.cerrarSesion().subscribe( res => {
       var jres = JSON.parse(JSON.stringify(res));
       if (jres.status){
         
-        this.router.navigate(['/']);
+        
         this.comService.enviarCerrarSesion();
         this.nombreusuario="Identificate";
         this.estaLogeado = false;
         
       }
-    })
+    })*/
+    this.usuarioService.logout();
+    this.estaLogeado = false;
+    this.comService.enviarUsuario(null);
+    this.nombreusuario = "Identificate";
+    this.usuarioLogueado = null;
+    location.reload();
+    
+    
   }
   abrirChatMovil(){
     this.comService.enviarUsuario(this.usuarioLogueado);

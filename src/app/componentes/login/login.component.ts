@@ -27,12 +27,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Inicio de Sesión | Smarket');
     this.metaService.updateTag({name: 'description', content: 'Inicia sesión en la tienda virtual SMARKET y accede a todos los beneficios que tiene para comprar.'})
-    this.usuarioService.getUsuarioLogeado().subscribe( res => {
-      const respuesta = res as Respuesta;
-      if(respuesta.status){
-        this.router.navigate(['/perfil-usuario']);
-      }
-    });
+    if(this.usuarioService.logueado()){
+      this.router.navigate(['/']);
+    }
   }
 
   /**
@@ -48,11 +45,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('session_token_exp',respuesta.session_token_exp);
         localStorage.setItem('refresh_token',respuesta.refresh_token);
         localStorage.setItem('refresh_token_exp',respuesta.refresh_token_exp);
-        this.openSnackBar(respuesta.status, respuesta.msg);        
-        //this.comService.enviarUsuario(respuesta.user);
-        console.log("ENVIANDO A USUARIO");
+        this.openSnackBar(respuesta.status, respuesta.msg);  
+        location.reload();
         
-        this.router.navigate(['/perfil-usuario']);       
+        location.reload()
       } else {
         this.openSnackBar(respuesta.status, respuesta.error);
         console.log(respuesta.error);

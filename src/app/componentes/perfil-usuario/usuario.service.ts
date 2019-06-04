@@ -136,6 +136,12 @@ export class UsuarioService {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('refresh_token_exp');
   }
+  getUsuario(){
+    return this.http.get(Constantes.URL_API_USUARIO+"/cliente", { withCredentials: true });
+  }
+  getDatosUsuario(){
+    return this.http.get(Constantes.URL_API_USUARIO+"/datoscliente",{ withCredentials: true });
+  }
   /**
    * Método que actualiza la información de un cliente
    * @param usuario 

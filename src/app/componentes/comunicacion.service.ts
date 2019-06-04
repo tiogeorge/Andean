@@ -7,32 +7,42 @@ import { Usuario}  from '../componentes/perfil-usuario/usuario';
   })
   export class comunicacionService {  
  
-    subject = new Subject<any>();
+    subjectUsuario = new Subject<any>();
+    subjectPedirUsuario = new Subject<any>();
     subjectCategorias = new Subject<any>();
     subjectChat = new Subject<any>();
+    subjectUsuarioValoracion = new Subject<any>();
     constructor() {
     }
     enviarUsuario(usuario: any) { 
-      this.subject.next(usuario);
+      this.subjectUsuario.next(usuario);
+    }
+    enviarUsuarioValoracion(usuario: any) { 
+      this.subjectUsuarioValoracion.next(usuario);
+    }
+    pedirUsuario(){
+      this.subjectPedirUsuario.next();
     }
     enviarCategorias(cat: any){
       this.subjectCategorias.next(cat);
     }
-    limpiarMensaje() {
+    /*limpiarMensaje() {
         this.subject.next();
-    }
+    }*/
     getUsuario(): Observable<any> {
-        return this.subject.asObservable();
+        return this.subjectUsuario.asObservable();
     }
-    inicioSesion(): Observable<any> {
-        return this.subject.asObservable();
+    
+    getUsuarioValoracion():Observable<any>{
+      return this.subjectUsuarioValoracion.asObservable();
     }
     getCategorias(): Observable<any>{
       return this.subjectCategorias.asObservable();
     }
-    enviarCerrarSesion(){
-      this.subject.next("CERRAR");
+    atenderPedidoUsuario(){
+      return this.subjectPedirUsuario.asObservable();
     }
+    
     abrirChat(){
       this.subjectChat.next("ABRIR");
     }

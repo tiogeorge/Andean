@@ -3,7 +3,7 @@
     <div *ngIf="sesionActiva && !clienteComento" style="width: 100%; padding: 20px;">
       <div style="display: flex; flex-direction: row;">
         <div style="display: flex; flex-direction: column; justify-content: center; align-content: center;">
-          <div style="font-weight: 20px; font-size: large; color: rgb(53, 53, 53);"> Hola {{usuarioService.usuarioSeleccionado.nombres.split(' ')[0]}} ¿Que te parecio este producto?</div>
+          <div style="font-weight: 18px; font-size: medium; color: rgb(68, 68, 68);"> Hola  <strong>{{usuarioService.usuarioSeleccionado.nombres.split(' ')[0]}}</strong>  ¿Que te parecio este producto?</div>
          
         </div>
   
@@ -22,11 +22,13 @@
           <label for="radio5" class="estrella"><img class="estrella" src="assets/images/star3.png"></label>
           
         </div>
-        <div style="margin-top: 10px;">Deja un comentario (Opcional) </div>
-        <div id="comentarioUsuario" class="comentarioUsuario">
-          <textarea  style="width: 100%;" name="comentarioUsuario" #comentarioUsuario="ngModel" [(ngModel)]="valoracionNueva.comentario"
-            maxlength="256"></textarea>
-        </div>
+        <mat-card-content style="width: 100%;">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Deja una reseña (Opcional)</mat-label>
+            <textarea  name="comentarioUsuario" #comentarioUsuario="ngModel" [(ngModel)]="valoracionNueva.comentario" style="width: 100%;" matInput placeholder="Aqui escribi tu reseña" type="text" size="20"
+             rows="7"></textarea>
+          </mat-form-field>
+        </mat-card-content>
         
       </div>
       <div>

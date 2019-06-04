@@ -512,36 +512,44 @@ usuarioController.obtenerCarrito = async (req, res) => {
  * Método que permite obtener los datos de un usuario
  */
 usuarioController.obtenerUsuario = async (req, res, next) => {
-  if (req.session.token) {
-    Usuario.findOne({
-      token: req.session.token
-    }, function (err, usuario) {
+  console.log("INFORMECION DE USUARIOS RECIBIDA");
+  console.log("correo del usuario: "+req.userData.correo);
+  if(req.userData.correo){
+    Usuario.findOne({ correo: req.userData.correo },{correo:1,nombres:1, apellidos:1} ,function (err, usuario) {
+      console.log(usuario);
       if (err) {
-        res.json({
-          status: false,
-          error: 'Se produjo el siguiente error: ' + err
-        });
+        res.json({ status: false,error: 'Se produjo el siguiente error: ' + err});
       } else {
         if (usuario) {
-          res.json({
-            status: true,
-            data: usuario
-          });
+          res.json({status: true, data: usuario});
         } else {
-          res.json({
-            status: false,
-            error: 'No se encontró al usuario'
-          })
+          res.json({status: false,error: 'No se encontró al usuario'});
         }
       }
-    })
-  } else {
-    res.json({
-      status: false,
-      error: 'La sesión no está activada'
     });
+  }else{
+    res.json({ status: false,error: 'No se recibio la informacion del cliente'});
   }
+  
 };
+usuarioController.obtenerDatosUsuario = async (req,res)=>{
+  if(req.userData.correo){
+    Usuario.findOne({ correo: req.userData.correo },{tipoDocumento:1,numeroDocumento:1,promociones:1,fecha_afiliacion:1,correo:1,nombres:1, apellidos:1,carrito:1,fechaNacimiento:1,sexo:1} ,function (err, usuario) {
+      console.log(usuario);
+      if (err) {
+        res.json({ status: false,error: 'Se produjo el siguiente error: ' + err});
+      } else {
+        if (usuario) {
+          res.json({status: true, data: usuario});
+        } else {
+          res.json({status: false,error: 'No se encontró al usuario'});
+        }
+      }
+    });
+  }else{
+    res.json({ status: false,error: 'No se recibio la informacion del cliente'});
+  }
+}
 /**
  * Método que permite obtener el numero de documento
  */

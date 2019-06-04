@@ -171,6 +171,9 @@ export class ArticuloDetalleComponent implements OnInit {
   infoComentarios() {
     this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
       var a = res as Valoracion[];
+      console.log("VALORACIONES");
+      console.log(a);
+
       
       this.puntuacionPromedio = 0;
       this.numeroComentarios = 0;

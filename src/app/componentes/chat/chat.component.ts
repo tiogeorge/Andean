@@ -38,13 +38,18 @@ export class ChatComponent implements OnInit {
               public comService: comunicacionService,public  router: Router ) { 
     this.subscription = this.comService.getUsuario()
     .subscribe(user => {
-      if(user == "CERRAR"){
-        this.mensajeFormulario =  " Por favor especifique su consulta para ayudarle: ";
-      }else{
+      if(user != null){
         this.chatService.usuario =user;      
         this.mostrarCampos = false;
         this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte.";
+      
+      }else{
+        //NO ESTA LOGUEADO
+        this.mostrarCampos = true;
+        this.mensajeFormulario = " Por favor ingrese la siguiente información para poder ayudarle: ";;
+
       }
+      
     });
     this.router.events.subscribe((event: Event)=>{
       if (event instanceof NavigationEnd) {
@@ -61,24 +66,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {    
-  }
- 
-  /**
-   * Método que verifica si el usuario ya ha iniciado sesión y muestra un mensaje con su nombre para pedir su consulta.
-   */
-  verificarUsuario(){
-    this.usuarioService.getUsuarioLogeado().subscribe( res => {
-      var respuesta = JSON.parse(JSON.stringify(res));
-      if(respuesta.status){
-        this.chatService.usuario = respuesta.data as Usuario;      
-        this.mostrarCampos = false;
-        this.mensajeFormulario = "Bienvenido "+this.chatService.usuario.nombres+ ", especifica tu consulta para ayudarte";
-      }else {
-        this.chatService.usuario = new Usuario();
-        this.mensajeFormulario = " Por favor especifique su consulta para ayudarle: ";
-        this.mostrarCampos = true;
-      }   
-    });
   }
 
   /**

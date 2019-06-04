@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { UsuarioService } from './usuario.service';
 import { PagoService } from '../pago/pago.service';
+import { Subscription } from 'rxjs';
+import { comunicacionService } from '../comunicacion.service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -38,6 +40,7 @@ export class PerfilUsuarioComponent implements OnInit {
   preciototalP:number=0;
   articulosP:any='';
   valuePedido=0;
+  subscription: Subscription;
 
   constructor(public adapter: DateAdapter<any>, 
       public direccionService: DireccionService, 
@@ -45,6 +48,7 @@ export class PerfilUsuarioComponent implements OnInit {
       public router: Router, 
       public usuarioService: UsuarioService, 
       public snackBar: MatSnackBar,
+      public comService: comunicacionService,
       public pagoservice: PagoService,
       public titleService: Title) {
     this.adapter.setLocale('es');
@@ -53,7 +57,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Perfil de Usuario | Smarket');
-    this.usuarioService.getUsuarioLogeado().subscribe(res => {
+    this.usuarioService.getDatosUsuario().subscribe(res => {
       var response = res as any;
       console.log(response);
       if(response.error){
@@ -72,6 +76,7 @@ export class PerfilUsuarioComponent implements OnInit {
       }
       
     });
+    
     this.url = this.router.url;
   }
 
