@@ -121,6 +121,7 @@ export class PagoComponent implements OnInit {
       this.listaCarrito = jres.data;
       for (var i = 0; i < this.listaCarrito.length; i++) {
         this.listaArticulos = jres.data as any[];
+        console.log(this.listaCarrito);
         this.mostrarArticulos = true;
         this.sinProductos = false;
       }
@@ -400,6 +401,7 @@ export class PagoComponent implements OnInit {
               .subscribe(res => {
                 console.log(res);
                 if (JSON.parse(JSON.stringify(res)).mensaje == 'ok') {
+                  this.actualizarcantidad();
                   this.snackBar.open('Venta Realizada', '🧓🏻', {
                     duration: 2000,
                   });

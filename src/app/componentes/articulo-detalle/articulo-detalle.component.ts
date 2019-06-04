@@ -206,7 +206,7 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   agregarCarrito() {
-    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado._id, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {
+    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.idarticulo, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {
       const rspta = res as Respuesta;
       this.openDialog(rspta);
     });
