@@ -15,6 +15,7 @@ export interface temarti {
     precio: String,
     tipolinea: String,
     tipoplan: String,
+    serieart:String
 }
 export interface temdoc {
     Tipo: String,

@@ -21,7 +21,8 @@ const pagoSchema= new Schema({
         nombreplan:{type: String},
         precio:{type: String},
         tipolinea:{type: String},
-        tipoplan:{type: String}
+        tipoplan:{type: String},
+        serieart:{type:String,required:false}
         
     }],
   //  Articulo:{type: String, required:true},
