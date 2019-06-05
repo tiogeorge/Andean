@@ -264,6 +264,23 @@ pagoController.actualizarpedido2 = async (req, res) => {
         });
     }
 }
+pagoController.actualizarserieart = async (req, res) => {
+    var id = req.body.id;
+    var idart = req.body.idart;
+    var serieart = req.body.serieart;
+    try {
+        const artic = await Pago.update({ _id: id, 'Articulo.idarticulo': idart },
+            { $set: { 'equipos.$.serieart': serieart } });
+        res.json({
+            mensaje: "HECHO"
+        });
+    } catch (err) {
+        console.log(err);
+        res.json({
+            mensaje: " No se pudo actulizar los datos : ERROR:" + err
+        });
+    }
+}
 pagoController.actualizarcantidadart = async (req, res) => {
     // console.log(req.body.id);
     var idart = req.body.id;
@@ -271,7 +288,7 @@ pagoController.actualizarcantidadart = async (req, res) => {
     var cant = req.body.cantidad * (-1);
     console.log('id: ' + idart + ' idequipo: ' + idequipo + ' cantidad: ' + cant);
     try {
-        const artic =await Articulo.update({ idarticulo: idart, 'equipos.idequipo': idequipo },
+        const artic = await Articulo.update({ idarticulo: idart, 'equipos.idequipo': idequipo },
             { $inc: { 'equipos.$.cantidad': cant } });
         res.json({
             mensaje: "HECHO"
