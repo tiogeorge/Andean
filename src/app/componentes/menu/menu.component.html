@@ -1,8 +1,41 @@
+<div class="info-header">
+  <div class="item-info-header" >Nuestras Tiendas</div>
+  <div class="item-info-header">Servicio al Cliente</div>
+  <div class="item-info-header">FONO COMPRAS : 4155262655</div>
+  <div class="item-info-header">Terminos y Condiciones</div>
+  <div class="item-info-header">Sobre Nosotros</div>
+  
+  
+</div>
+<div class="menu-movil-footer">
+  <div class="item-menu-movil-footer" style="color: rgb(255, 153, 0);">
+      <i class="material-icons" style="font-size: 30px;">home</i>
+      <div style="font-size: small;">Inicio</div>
+  </div>
+  <div class="item-menu-movil-footer">
+      <i class="material-icons" style="font-size: 30px;">format_list_bulleted
+        </i>
+      <div style="font-size: small;">Categorias</div>
+  </div>
+  <div class="item-menu-movil-footer">
+      <i class="material-icons" style="font-size: 30px;">shopping_cart</i>
+      <div style="font-size: small;">Carrito</div>
+  </div>
+  <div class="item-menu-movil-footer">
+      <i class="material-icons" style="font-size: 30px;">account_circle</i>
+      <div style="font-size: small;">Mi Cuenta</div>
+  </div>
+  <div class="item-menu-movil-footer" style="margin: 2px; padding: 0px;">
+      <i class="material-icons" style="font-size: 30px;">more_vert</i>
+  </div>
+
+</div>
+
 <nav class="navbar navbar-expand-lg " id="menu-principal">
   <a class="navbar-brand" routerLink="/home" style="width: auto; height: 40px; display: flex; align-items: center;z-index: 100;"><img
-      id="logosmarket" src="/assets/images/logoS.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
+      id="logosmarket" src="/assets/images/logoS2.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
       height="40px"></a>
-  <button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #8600fe;  color: white; z-index: 100;">
+  <button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #7f7c81;  color: white; z-index: 100;">
     <i class="material-icons">
       menu
     </i>
@@ -11,8 +44,8 @@
     
     <div class="menu-categorias">
       <div class="btn-manu-categorias">
-          <i class="fas fa-bars"></i>
-          <p style="padding: 0px; margin:0px; margin-left: 5px;">CATEGORÍAS</p>
+          <i class="fas fa-bars" style="color: gray;"></i>
+          <p style="padding: 0px; margin:0px; margin-left: 5px; color: gray;">CATEGORÍAS</p>
       </div>
       
       <div class="dropdown-content-cat">
@@ -27,17 +60,17 @@
     
    
     <div class="campo-busqueda">
-      <i class="material-icons btn-busqueda" style="margin-left: 5px;" id="btnbusqueda2" (click)="buscarArti()">search</i>
+      <i class="material-icons btn-busqueda" style="margin-left: 5px;color: orange" id="btnbusqueda2" (click)="buscarArti()">search</i>
       <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
       
     </div>
     <div class="campo-opciones-usuario">
       <div class="item-menu-opciones opcion-busqueda-movil" (click) = "mostrarCampoBusqueda()">
-        <i class="material-icons" style="font-size:30px; margin-right: 10px;">search</i>
+        <i class="material-icons" style="font-size:30px; margin-right: 10px; color: orange">search</i>
       </div>
       <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
-        <i class="fa fa-user" style="font-size:30px; margin-right: 5px;"></i>
-        <div id="labelnombreusuario">{{nombreusuario}} </div>
+        <i class="fa fa-user" style="font-size:30px; margin-right: 5px; color: rgb(71, 71, 70)"></i>
+        <div id="labelnombreusuario" style="color: rgb(71, 71, 70)">{{nombreusuario}} </div>
       </div>
       <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px; background-color: black !important" xPosition="before">
         <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i
@@ -72,22 +105,16 @@
         <hr *ngIf="!estaLogeado" style="margin: 0px;">
       </mat-menu>
       <div class="item-menu-opciones">
-        <i class="material-icons" style="font-size:30px; margin-right: 5px;" routerLink="/cart"> shopping_cart </i>
+        <i class="material-icons" style="font-size:30px; margin-right: 5px;color: rgb(71, 71, 70)" routerLink="/cart"> shopping_cart </i>
       </div>
       <div class="item-menu-opciones opcion-pedidos" >
-        <i class="material-icons" style="font-size:30px; margin-right: 10px;"> local_shipping </i>
+        <i class="material-icons" style="font-size:30px; margin-right: 10px;color: rgb(71, 71, 70)"> local_shipping </i>
       </div>
     </div>
   </div>
 </nav>
 
-<div id="menu-todas-opciones">
- <!--
-<ul>
-    <li class="active-menu-cont"><a class="active-menu">CATEGORIAS</a></li>
-  </ul>
- --> 
-</div>
+
 <div id="campo-busqueda-movil" class="cont-busqueda-peque">
     <div  id="input-busqueda-movil" style="display: none; flex-direction: row; width: 100%;" >
         <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: rgb(71, 71, 71); padding-left: 5px;"

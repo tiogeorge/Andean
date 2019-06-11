@@ -138,7 +138,7 @@
       </div>
     </div>
     <!--finfiltro-->
-    <div class="col-sm-9 col-md-9 col-lg-9">
+    <div class="col-sm-9 col-md-9 col-lg-9" style="padding: 0px;">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
@@ -298,7 +298,7 @@
             <!-- <div class="container-fluid">
               <div class="row"> -->
 
-            <div class="col-lg-12" id="contenedorarticulov{{articulo._id}}" *ngFor="let articulo of articuloslista; index as i" style="padding-top: 1rem;" routerLink="/articulo/{{articulo.url}}">
+            <div class="col-lg-12" id="contenedorarticulov{{articulo._id}}" *ngFor="let articulo of articuloslista; index as i" style=" margin: 0px; padding: 0px;padding-top: 1rem;" routerLink="/articulo/{{articulo.url}}">
               <div class="bestsellers_item discount">
                 <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
                   <div class="bestsellers_image"  *ngIf="articulo.cantidadtotal > 0"> 
@@ -317,11 +317,11 @@
                       {{articulo.precioplan.precio}}
                     </div>
                     <div class="valoracionPromedio">
-                      <img class="estrella1" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
-                      <img class="estrella2" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
-                      <img class="estrella3" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
-                      <img class="estrella4" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
-                      <img class="estrella5" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 14%">
+                      <img class="estrella1" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 10%">
+                      <img class="estrella2" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 10%">
+                      <img class="estrella3" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 10%">
+                      <img class="estrella4" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 10%">
+                      <img class="estrella5" src="assets/images/star3.png" alt="{{articulo.puntuacion}}" style="width: 10%">
                     </div>
                   </div>
                 </div>

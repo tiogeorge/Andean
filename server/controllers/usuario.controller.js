@@ -66,9 +66,11 @@ usuarioController.actualizarUsuario = async (req, res, next) => {
  * Método que permite agregar un artículo al carrito de compras
  */
 usuarioController.agregarArticulo = async (req, res, next) => {
-  if (req.session.token) {
+  console.log(req.userData);
+  if (req.userData) {
+    
     await Usuario.findOne({
-      token: req.session.token
+      correo: req.userData.correo
     }, function (err, usuario) {
       if (err) {
         res.json({
@@ -77,6 +79,7 @@ usuarioController.agregarArticulo = async (req, res, next) => {
         });
       } else { // Usuario encontrado
         if (usuario) {
+          console.log(usuario);
           var carritoArticulo = [];
           var existeArticulo = false;
           if (usuario.carrito) {
@@ -103,7 +106,7 @@ usuarioController.agregarArticulo = async (req, res, next) => {
             };
             carritoArticulo.push(articuloCarrito);
             Usuario.findOneAndUpdate({
-              token: req.session.token
+              correo:req.userData.correo
             }, {
               $set: {
                 carrito: carritoArticulo
@@ -117,7 +120,7 @@ usuarioController.agregarArticulo = async (req, res, next) => {
                   error: 'Se produjo un error al agregar el artículo en tu carrito de compras.'
                 });
               } else {
-                req.session.articulos = carritoArticulo;
+                //req.session.articulos = carritoArticulo;
                 res.json({
                   status: true,
                   msg: 'El artículo se agregó con éxito en tu carrito de compras'
@@ -451,8 +454,8 @@ usuarioController.loginUsuario = async (req, res, next) => {
  * Método que permite obtener los artículos y planes de un carrito de compras
  */
 usuarioController.obtenerCarrito = async (req, res) => {
-  if (req.session.token) {
-    usuario = await Usuario.findOne({ token: req.session.token }, {carrito : 1});
+  if (req.userData) {
+    usuario = await Usuario.findOne({ correo:req.userData.correo}, {carrito : 1});
     const carrito = usuario.carrito;
     var carritoArticulos = new Array();
     for (var i = 0; i < carrito.length; i++) {

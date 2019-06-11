@@ -11,9 +11,10 @@ mat-form-field {
 }
 
 .card-header {
-  background: linear-gradient(to right, #8700ff, #3863a7);
-  color: white;
+  background: linear-gradient(to right, #ffffff, #ffffff);
+  color: rgb(44, 44, 44);
   padding: 4px 10px;
+  border-bottom: 2px solid rgb(105, 105, 107);
 }
 
 .card-header div {
@@ -269,7 +270,8 @@ mat-form-field {
     z-index: 100;
     width: 290px;
     height: 450px;
-    border: 1px solid #6e6f70;
+    border: 1px solid #e0a872;
+    transition: 0.2s;
   }
 
   .contenido-chat {

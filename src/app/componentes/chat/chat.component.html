@@ -84,7 +84,7 @@
     </div>
     <div id="conectarChat" class="footer-chat" [hidden]="!mostrarFooter">
       <div>
-        <button mat-raised-button color="primary" (click)="iniciarChat(tipoConsulta.value, consulta.value)">Conectarse
+        <button mat-raised-button color="primary" style="background-color: rgb(255, 154, 1);" (click)="iniciarChat(tipoConsulta.value, consulta.value)">Conectarse
           al Chat</button>
       </div>
     </div>
@@ -100,5 +100,5 @@
   </div>
 </div>
 <div class="btn-chat-prin" [hidden]="!mostrarBotonChat" id="btnmostrarchat">
-  <button mat-fab color="primary" (click)="mostrarChat()"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
+  <button mat-fab color="primary" (click)="mostrarChat()" style="background-color: rgb(64, 165, 51);"><i class="fa fa-comments" style="font-size: 20px;"></i></button>
 </div>

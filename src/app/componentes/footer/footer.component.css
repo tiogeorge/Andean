@@ -73,7 +73,13 @@ footer {
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
+@media (min-width: 320px) {
+  .espacio-menu{
+    margin-top: 70px;
+  }
+  .footer-class{
+    display:none;
+  }
   p {
     margin-bottom: .5rem;
   }
@@ -120,6 +126,12 @@ footer {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .espacio-menu{
+    margin-top: 0px;
+  }
+  .footer-class{
+    display:flex;
+  }
   .label-rs {
     font-size: .65rem;
   }
@@ -144,6 +156,12 @@ footer {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  .espacio-menu{
+    margin-top: 0px;
+  }
+  .footer-class{
+    display:flex;
+  }
   .label-rs {
     font-size: 16px;
   }

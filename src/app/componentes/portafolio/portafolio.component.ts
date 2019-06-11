@@ -96,12 +96,9 @@ export class PortafolioComponent implements OnInit {
       loop:false,
       margin:10,
       autoplay:false,
-      autoplayTimeout:3000,
-      autoplayHoverPause:true,
       lazyLoad:true,
       lazyLoadEager: 1,
       responsiveClass:true,
-      autoWidth:true,
       responsive:{
           0:{
               items:1,
@@ -111,7 +108,8 @@ export class PortafolioComponent implements OnInit {
           360:{
             items:2,
             nav:true,
-            dots:false,
+            dots:false,            
+            autoWidth:false
           },
           600:{
               items:3,
@@ -121,7 +119,8 @@ export class PortafolioComponent implements OnInit {
           1000:{
               items:5,
               nav:true,
-              dots:false
+              dots:false,              
+              autoWidth:true
           }
       }
     });

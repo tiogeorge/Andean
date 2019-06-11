@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit {
       }
       
     });
-    this.router.events.subscribe((event: Event)=>{
+    /*this.router.events.subscribe((event: Event)=>{
       if (event instanceof NavigationEnd) {
         if(event.url == "/chat"){
           this.mostrarBotonChat = true;
@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit {
           document.getElementById("btnmostrarchat").style.display= "flex";
         }
       }
-    })
+    })*/
 
   }
 

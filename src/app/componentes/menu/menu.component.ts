@@ -1,5 +1,5 @@
 import { ArticulosbusquedaComponent } from './../articulosbusqueda/articulosbusqueda.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
 import { Constantes } from '../constantes';
@@ -51,6 +51,17 @@ export class MenuComponent implements OnInit {
     });
 
   }
+  
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event){
+    var offsetscroll = $event.srcElement.children[0].scrollTop;
+    if(offsetscroll>=24){
+      console.log("MOSTRAR MENU");
+      document.getElementById("menu-principal").style.position = "fixed";
+    }else{
+      console.log("OCULTAR MENU");
+      document.getElementById("menu-principal").style.position = "relative";
+    }
+  } 
 
   ngOnInit() {
   //  this.actualizarcomponente();

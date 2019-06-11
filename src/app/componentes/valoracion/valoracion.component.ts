@@ -41,7 +41,8 @@ export class ValoracionComponent implements OnInit {
           this.recuperarValoracionesLogeadoSinCliente();      
       }else{
         //NO ESTA LOGUEADO
-        
+        this.sesionActiva = false;
+        this.recuperarValoraciones();
       }
       
     });

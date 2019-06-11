@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { UsuarioService} from './componentes/perfil-usuario/usuario.service';
 
 @Component({
@@ -6,6 +6,7 @@ import { UsuarioService} from './componentes/perfil-usuario/usuario.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   constructor(public usuarioService: UsuarioService){
 

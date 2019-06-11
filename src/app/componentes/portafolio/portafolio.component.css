@@ -2,17 +2,23 @@
   width: 193px;
   background: #FFFFFF;
   border-radius: 8px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   border: solid 2px #e8e8e8;
  
   transition: 0.2s;
   min-height: 250px;
 }
+.nombre-articulo-card{
+  font-size: 14px;
+  font-weight: 430;
+  color: #000000; 
+  min-height: 42px;
+}
 .simple-card:hover{
-  border: solid 2px #eab3ff;
+  border: solid 2px rgba(238, 143, 20, 0.767);
 }
 
 .btn-cardsimple{
@@ -194,17 +200,55 @@
   z-index: 2000;
 }
 .cont-carouseles{
-  width: 100%; 
+  width: 95%; 
   display:flex; 
   flex-direction: column; 
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 10px;
+  margin-top: 5px;
+  box-shadow: 0px 5px 5px rgba(90, 90, 90, 0.1);
+  margin: 5px;
+  padding: 10px;
+  padding-top: 5px;
+
+}
+.label-home{
+  margin-bottom: 3px; 
+  margin-left: 5px;  
+  margin-top: 10px; 
+  font-size: x-large; 
+  font-weight: 450; 
+  margin-bottom: 10px;
 }
 @media (min-width: 320px) {
+  .nombre-articulo-card{
+    font-size: 10px;
+    min-height: 25px;
+  }
+  .imagen-card{
+    max-height: 150px;
+  }
+  .imagen-card-articulo{
+    max-height: 130px;
+  }
+  .label-home{
+    margin-bottom: 0px; 
+    margin-left: 2px;  
+    margin-top: 3px; 
+    font-size: medium; 
+    font-weight: 450; 
+    margin-bottom: 3px;
+  }
+  .carusel-grande{
+    min-height: 180px;
+  }
  
   .simple-card {
     width: 180px;
+    min-height: 0px;
   }
   .carousel-ofertas-peque{
     display: flex;
@@ -220,6 +264,24 @@
   
 }
 @media (min-width: 768px) {
+  .nombre-articulo-card{
+    font-size: 12px;
+    min-height: 40px;
+  }
+  .imagen-card{
+    max-height: 180px;
+  }
+  .imagen-card-articulo{
+    max-height: 160px;
+  }
+  .label-home{
+    margin-bottom: 3px; 
+    margin-left: 5px;  
+    margin-top: 10px; 
+    font-size: large; 
+    font-weight: 450; 
+    margin-bottom: 10px;
+  }
  
   .simple-card {
     width: 180px;
@@ -237,6 +299,24 @@
   
 }
 @media (min-width: 992px) {
+  .nombre-articulo-card{
+    font-size: 14px;
+    min-height: 42px;
+  }
+  .imagen-card{
+    max-height: 200px;
+  }
+  .imagen-card-articulo{
+    max-height: 180px;
+  }
+  .label-home{
+    margin-bottom: 3px; 
+    margin-left: 5px;  
+    margin-top: 10px; 
+    font-size: x-large; 
+    font-weight: 450; 
+    margin-bottom: 10px;
+  }
   .simple-card {
     width: 193px;
   }
@@ -249,6 +329,9 @@
   }
   .articulo-principal{
     width: 30%;
+  }
+  .carusel-grande{
+    min-height: 348px;
   }
   
 }
