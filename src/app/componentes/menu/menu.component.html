@@ -7,12 +7,17 @@
   
   
 </div>
+<div class="logo-movil">
+  <img
+  id="logosmarket" src="/assets/images/logoS2.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
+  height="40px">
+</div>
 <div class="menu-movil-footer">
-  <div class="item-menu-movil-footer" style="color: rgb(255, 153, 0);">
+  <div class="item-menu-movil-footer" style="color: rgb(255, 153, 0);" (click) = "cerrarMenus()"  routerLink="/home">
       <i class="material-icons" style="font-size: 30px;">home</i>
       <div style="font-size: small;">Inicio</div>
   </div>
-  <div class="item-menu-movil-footer">
+  <div class="item-menu-movil-footer" (click)="mostrarMenuCategorias()">
       <i class="material-icons" style="font-size: 30px;">format_list_bulleted
         </i>
       <div style="font-size: small;">Categorias</div>
@@ -21,7 +26,7 @@
       <i class="material-icons" style="font-size: 30px;">shopping_cart</i>
       <div style="font-size: small;">Carrito</div>
   </div>
-  <div class="item-menu-movil-footer">
+  <div class="item-menu-movil-footer" (click)="mostrarMenuUser()">
       <i class="material-icons" style="font-size: 30px;">account_circle</i>
       <div style="font-size: small;">Mi Cuenta</div>
   </div>
@@ -29,17 +34,66 @@
       <i class="material-icons" style="font-size: 30px;">more_vert</i>
   </div>
 
+
+  <!-- Menu de CATEGORIAS en movil -->
+  <div class="drop-down-content-menu-cat" id="drop-down-content-menu-cat">
+      <div style="width: 100%; display: flex; flex-direction: row; align-items: center; height: 55px;padding: 5px;border-bottom: 1px solid rgb(189, 189, 189);">
+          <i class="material-icons" style="font-size: 30px;" (click)="cerrarMenuCategorias()">close</i>
+        <div style="width: 100%; padding-left: 5%;">
+          CATEGORIAS
+        </div>
+        
+      </div>
+      <div style="width: 100%; display: flex; height: auto; overflow-y: auto; overflow-x: hidden; flex-direction: column">
+        <div class="item-menu-user-movil" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}" (click)="cerrarMenuCategorias()">
+            <i class="material-icons" style="font-size: 25px;margin-left: 14px;width: 25px;">{{categoria.icono}}</i>
+          <div style="margin-left: 10px;">{{categoria.nombre}}</div>
+        </div>        
+      </div>
+
+  </div>
+  <div class="drop-down-content-menu-user" id="drop-down-content-menu-user">
+      <div style="width: 100%; display: flex; flex-direction: row; align-items: center; height: 55px;padding: 5px;border-bottom: 1px solid rgb(189, 189, 189);">
+          <i class="material-icons" style="font-size: 30px;" (click)="cerrarMenuUser()">close</i>
+        <div style="width: 100%; padding-left: 5%;">
+          Bienvenido <strong>{{nombreusuario}}</strong> 
+        </div>
+        
+      </div>
+      <div style="width: 100%; display: flex; height: auto; overflow-y: auto; overflow-x: hidden; flex-direction: column">
+        <div class="item-menu-user-movil"  routerLink="/perfil-usuario" (click) = "cerrarMenus()" >
+            <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">person</i>
+          <div style="margin-left: 10px;">Perfil de Usuario</div>
+        </div>
+        <div class="item-menu-user-movil"  routerLink="/perfil-usuario" (click) = "cerrarMenus()" >
+            <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">local_shipping</i>
+          <div style="margin-left: 10px;">Pedidos</div>
+        </div>
+        <div class="item-menu-user-movil" routerLink="/carrito" (click) = "cerrarMenus()" >
+            <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">shopping_cart</i>
+          <div style="margin-left: 10px;">Carrito de Compras</div>
+        </div>
+        <div class="item-menu-user-movil" (click)="logout()" (click) = "cerrarMenus()">
+            <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">close</i>
+          <div style="margin-left: 10px;">Cerrar Sesión</div>
+        </div>
+      </div>
+
+  </div>
+  
+  <!-- ================================= -->
+
 </div>
 
 <nav class="navbar navbar-expand-lg " id="menu-principal">
-  <a class="navbar-brand" routerLink="/home" style="width: auto; height: 40px; display: flex; align-items: center;z-index: 100;"><img
+  <a class="navbar-brand brand-cont-logo" routerLink="/home" style="width: auto; height: 40px; align-items: center;z-index: 100;"><img
       id="logosmarket" src="/assets/images/logoS2.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
       height="40px"></a>
-  <button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #7f7c81;  color: white; z-index: 100;">
+  <!--<button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #7f7c81;  color: white; z-index: 100;">
     <i class="material-icons">
       menu
     </i>
-  </button>
+  </button> --> 
   <div class="navbar navbar-expand-lg contendor-menu-principal" id="menu-iconos" >
     
     <div class="menu-categorias">
@@ -64,10 +118,24 @@
       <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
       
     </div>
-    <div class="campo-opciones-usuario">
-      <div class="item-menu-opciones opcion-busqueda-movil" (click) = "mostrarCampoBusqueda()">
-        <i class="material-icons" style="font-size:30px; margin-right: 10px; color: orange">search</i>
+    <!--
+      <div class="menu-header-movil">
+      <div class="campo-busqueda-movil">
+        <i class="material-icons btn-busqueda" style="margin-left: 5px;color: orange" id="btnbusqueda2" (click)="buscarArti()">search</i>
+        <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
+        
       </div>
+    </div>
+    --><div class="menu-header-movil">
+      <div class="campo-busqueda-movil">
+        <i class="material-icons btn-busqueda" style="margin-left: 5px;color: orange" id="btnbusqueda2" (click)="buscarArti()">search</i>
+        <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
+        
+      </div>
+    </div>
+    
+    <div class="campo-opciones-usuario">
+      
       <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
         <i class="fa fa-user" style="font-size:30px; margin-right: 5px; color: rgb(71, 71, 70)"></i>
         <div id="labelnombreusuario" style="color: rgb(71, 71, 70)">{{nombreusuario}} </div>

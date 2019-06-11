@@ -14,7 +14,7 @@ li {
   float: left;
 }
 .contendor-menu-principal{
-  height: 100% !important;top: 0 !important; width: 80% !important;
+  height: 100% !important;top: 0 !important; 
 }
 .info-header{
   width: 100%;
@@ -439,9 +439,88 @@ select:hover{
   margin-right:5px;
   color: rgb(80, 80, 80);
 }
+.item-menu-movil-footer:hover{
+  cursor: pointer;
+  color: orange;
+}
+.campo-busqueda-movil{
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 3px;
+  border: 1px solid rgb(235, 161, 25);
+}
+.menu-header-movil{
+  display:flex; 
+  justify-content: flex-end; 
+  width: 100%;
+}
+.logo-movil{
+  display:flex; 
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 35px;
+  border-bottom: 1px solid rgb(194, 194, 194);
+}
+
+/* menu para movil */
+.drop-down-content-menu-cat {
+  position: absolute;
+  width: 100%;
+  z-index: 150;
+  height: 100%;
+  background-color: rgb(248, 248, 248);
+  display: none;
+  bottom: 60px;
+  
+}
+.drop-down-content-menu-user {
+  position: absolute;
+  width: 100%;
+  z-index: 150;
+  height: 100%;
+  background-color: rgb(248, 248, 248);
+  display: none;
+  bottom: 60px;
+  flex-direction: column;
+  
+}
+.item-menu-user-movil{
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  height: 53px;
+  border-bottom: 1px solid rgb(233, 233, 233);
+  align-items: center;
+}
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 320px) {
+  .logo-movil{
+    display:flex; 
+  }
+  #menu-principal{
+    height: 50px;
+  }
+  .brand-cont-logo{
+    display:none;
+  }
+  .menu-header-movil{
+    display:flex; 
+  }
+  .contendor-menu-principal{
+    width: 100%;
+  }
+  .campo-busqueda-movil{
+    display: flex;
+  }
   .menu-movil-footer{
     display: flex;
     width: 100%;
@@ -455,6 +534,7 @@ select:hover{
     flex-direction: row;    
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
     
   }
   .info-header{
@@ -473,10 +553,11 @@ select:hover{
     display: none;
   }
   #menu-iconos{
-    right: 4rem;
+    right: 0rem;
   }
   .campo-opciones-usuario{
     width: 100%;
+    display: none;
   }
   #logosmarket{
     content: url("/assets/images/logo2.png");
@@ -578,6 +659,21 @@ select:hover{
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
+  .logo-movil{
+    display:none; 
+  }
+  #menu-principal{
+    height: 64px;
+  }
+  .brand-cont-logo{
+    display:flex;
+  }
+  .menu-header-movil{
+    display:none; 
+  }
+  .campo-busqueda-movil{
+    display: none;
+  }
   .menu-movil-footer{
     display: none;
   }
@@ -615,6 +711,7 @@ select:hover{
   .campo-opciones-usuario{
     width: 30%;
     justify-content: center;
+    display: flex;
   }
   .campo-busqueda{
     display: flex;
@@ -663,6 +760,21 @@ select:hover{
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
+  .logo-movil{
+    display:none; 
+  }
+  #menu-principal{
+    height: 64px;
+  }
+  .brand-cont-logo{
+    display:flex;
+  }
+  .menu-header-movil{
+    display:none; 
+  }
+  .campo-busqueda-movil{
+    display: none;
+  }
   .menu-movil-footer{
     display: none;
   }
@@ -703,6 +815,7 @@ select:hover{
   .campo-opciones-usuario{
     width: 30%;
     justify-content: flex-end;
+    display: flex;
   }
   .dropdown {
     position: static;

@@ -61,6 +61,11 @@ export class MenuComponent implements OnInit {
       console.log("OCULTAR MENU");
       document.getElementById("menu-principal").style.position = "relative";
     }
+  }
+  @HostListener('window:resize', ['$event'])onResize(event) {
+    if(event.target.innerWidth>450){
+      this.cerrarMenuUser();
+    }
   } 
 
   ngOnInit() {
@@ -104,6 +109,8 @@ export class MenuComponent implements OnInit {
     }
   }
   mostrocategorias= false;
+
+
   mostrarCategorias(){
     var campo = document.getElementById("cont-categorias-menu-movil");
     var campobusqueda = document.getElementById("cont-categorias-menu-movil-list");
@@ -136,7 +143,48 @@ export class MenuComponent implements OnInit {
       campobusqueda.style.display="none";
     }
   }
+  displayMenuprincipalant = "";
+  mostrandoMenu=false;
+  cerrarMenuUser(){
+    this.mostrandoMenu=false;
+   // this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
+    document.getElementById("menu-principal").style.display=this.displayMenuprincipalant;
+    //document.getElementById("drop-down-content-menu-user").style.height= (screen.height-60)+"px";
+    document.getElementById("drop-down-content-menu-user").style.display= "none";
+  }
+  mostrarMenuUser(){
+    if(!this.mostrandoMenu){
+      this.mostrandoMenu=true;
+      this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
+      document.getElementById("menu-principal").style.display="none";
+      document.getElementById("drop-down-content-menu-user").style.height= (window.innerHeight-60)+"px";
+      document.getElementById("drop-down-content-menu-user").style.display= "block";
+    }
+  }
+  cerrarMenus(){
+    this.cerrarMenuCategorias();
+    this.cerrarMenuUser();
+  }
   
+  cerrarMenuCategorias(){
+    this.mostrandoMenu=false;
+   // this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
+    document.getElementById("menu-principal").style.display=this.displayMenuprincipalant;
+    //document.getElementById("drop-down-content-menu-user").style.height= (screen.height-60)+"px";
+    document.getElementById("drop-down-content-menu-cat").style.display= "none";
+  }
+  mostrarMenuCategorias(){
+    if(!this.mostrandoMenu){
+      this.mostrandoMenu=true;
+      this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
+      document.getElementById("menu-principal").style.display="none";
+      document.getElementById("drop-down-content-menu-cat").style.height= (window.innerHeight-60)+"px";
+      document.getElementById("drop-down-content-menu-cat").style.display= "block";
+    }
+  }
+
+
+
   abrirChat(){
     this.comService.abrirChat();
     this.closeNav();
