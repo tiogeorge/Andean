@@ -112,7 +112,7 @@ pagoController.recuperarseriesequipos = async (req, res) => {
 }
 pagoController.recuperarseriedoc = async (req, res) => {
     req.getConnection(function (error, conn) {
-        var consulta = "SELECT NroSerie FROM `tadocumentosventa` WHERE idLocal=('609') AND idTipoDocumento=('BBV')";
+        var consulta = "SELECT NroSerie FROM `tadocumentosventa` WHERE idLocal=('611') AND idTipoDocumento=('BBV')";
         conn.query(consulta, function (err, results) {
             if (err) {
                 res.json(error);
@@ -268,9 +268,12 @@ pagoController.actualizarserieart = async (req, res) => {
     var id = req.body.id;
     var idart = req.body.idart;
     var serieart = req.body.serieart;
+    console.log(id);
+    console.log(req.body.idart);
+    console.log(serieart);
     try {
         const artic = await Pago.update({ _id: id, 'Articulo.idarticulo': idart },
-            { $set: { 'equipos.$.serieart': serieart } });
+            { $set: { 'Articulo.$.serieart': serieart } });
         res.json({
             mensaje: "HECHO"
         });
