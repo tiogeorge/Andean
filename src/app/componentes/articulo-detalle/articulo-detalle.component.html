@@ -267,8 +267,8 @@
               </div>              
           </mat-tab>
           <mat-tab label="Calificación">
-            <mat-card style="display: flex; flex-direction: row; margin-top: 20px;  ">
-              <div style="width: auto; height: 150px;box-shadow: 0px 10px 25px rgba(0,0,0,0.1); border-radius: 5px;padding: 20px;border: 1px solid rgb(235, 234, 234); margin-right: 10px;">
+            <mat-card style="display: flex; flex-direction: row; margin-top: 20px;  flex-wrap: wrap; ">
+              <div class="resumen-valoracion">
                 <div style="font-size: 20px;font-weight: 5px; width: 100%;">Calificación Promedio</div>
                 <div class="valoracionPromedio" style="width: 100%; display:flex; flex-direction: row; align-items: center; "> 
                     <img class="estrella estrella1" alt="{{puntuacionPromedio}}" src="assets/images/star3.png">
@@ -286,7 +286,7 @@
                     </div>
                 </div>   
               </div>
-              <div style="width: 70%;box-shadow: 0px 10px 25px rgba(0,0,0,0.1); border-radius: 5px;padding: 0px;border: 1px solid rgb(235, 234, 234)">
+              <div class="todos-comentarios">
                   <app-valoracion (messageEvent)="receiveMessage($event)"></app-valoracion>
 
               </div>
@@ -327,6 +327,10 @@
         </mat-tab-group> 
       </div>
   </div>
+</div>
+<div style="width: 100%; height: 50px;">
+  
+    
 </div>
 
 <div id="modalPlan" class="modal fade" role="dialog">

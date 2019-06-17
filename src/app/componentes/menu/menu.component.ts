@@ -35,6 +35,7 @@ export class MenuComponent implements OnInit {
   Usersubscription: Subscription;
   catsubscription : Subscription;
   valsubscription : Subscription;
+  catpetsubscription : Subscription;
   nombreusuario = "Identificate";
   nomostrarbusquedap = true;
   categorias = new Array();
@@ -46,8 +47,13 @@ export class MenuComponent implements OnInit {
     .subscribe(cat =>{
       this.categorias = cat as any[];
     });  
+    this.catpetsubscription = this.comService.atenderPedidoCategorias()
+    .subscribe(cat =>{
+      this.obtenerCategorias();
+    });  
     this.valsubscription = this.comService.atenderPedidoUsuario().subscribe(res=>{
       this.comService.enviarUsuarioValoracion(this.usuarioLogueado);
+      this.comService.enviarUsuario(this.usuarioLogueado);
     });
 
   }
@@ -55,25 +61,23 @@ export class MenuComponent implements OnInit {
   @HostListener('window:scroll', ['$event']) onScrollEvent($event){
     var offsetscroll = $event.srcElement.children[0].scrollTop;
     if(offsetscroll>=24){
-      console.log("MOSTRAR MENU");
+     // console.log("MOSTRAR MENU");
       document.getElementById("menu-principal").style.position = "fixed";
     }else{
-      console.log("OCULTAR MENU");
+      //console.log("OCULTAR MENU");
       document.getElementById("menu-principal").style.position = "relative";
     }
-  }
-  @HostListener('window:resize', ['$event'])onResize(event) {
-    if(event.target.innerWidth>450){
-      this.cerrarMenuUser();
+  }  
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    var modal = document.getElementById("modalBusqueda");
+    if (event.target == modal) {
+      modal.style.display = "none";
     }
-  } 
+  }
 
   ngOnInit() {
-  //  this.actualizarcomponente();
-    this.categoriaService.getSubCategorias("root").subscribe( res => {
-      this.categoriaService.categorias = res as Categoria[];
-      this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
-    });
+  //  this.actualizarcomponente();    
     this.getSesion();   
     //auto comple
     this.filteredOptions = this.myControl.valueChanges
@@ -82,12 +86,41 @@ export class MenuComponent implements OnInit {
       map(value => this._filter(value))
     );
     //fin auto comple
-
     $(window).on("resize", this.resize);
   }
+  obteniendocategorias = false;
+
+  obtenerCategorias(){
+    console.log("Encima de categorias");
+    if(!this.categoriaService.categorias && !this.obteniendocategorias){
+      this.obteniendocategorias = true;      
+      console.log("OBTENIENDO CATEGORIAS");
+      this.categoriaService.getSubCategorias("root").subscribe( res => {
+        this.categoriaService.categorias = res as Categoria[];
+        this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
+        this.obteniendocategorias= false;
+        this.comService.enviarCategorias(this.categoriaService.categorias);
+      });
+    }else{
+      this.comService.enviarCategorias(this.categoriaService.categorias);    
+    }
+    
+  }
+  abrirModal(){
+    var modal = document.getElementById("modalBusqueda");
+    modal.style.display = "block";
+    document.getElementById("buscarartpal2").focus();
+  }
+  cerrarModal(){
+    var modal = document.getElementById("modalBusqueda");
+    modal.style.display = "none";
+  }
+  enviarIdCategoria(id){
+    this.comService.enviarIDCategoria(id);
+  }
   resize() {
-    document.getElementById("mySidepanel").style.height = window.innerHeight+"px";
-    document.getElementById("mySidepanel2").style.height = window.innerHeight+"px";
+    
+    
   }
   ngOnDestroy() {
     this.Usersubscription.unsubscribe();
@@ -142,46 +175,7 @@ export class MenuComponent implements OnInit {
       campo.style.height= "0px";
       campobusqueda.style.display="none";
     }
-  }
-  displayMenuprincipalant = "";
-  mostrandoMenu=false;
-  cerrarMenuUser(){
-    this.mostrandoMenu=false;
-   // this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
-    document.getElementById("menu-principal").style.display=this.displayMenuprincipalant;
-    //document.getElementById("drop-down-content-menu-user").style.height= (screen.height-60)+"px";
-    document.getElementById("drop-down-content-menu-user").style.display= "none";
-  }
-  mostrarMenuUser(){
-    if(!this.mostrandoMenu){
-      this.mostrandoMenu=true;
-      this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
-      document.getElementById("menu-principal").style.display="none";
-      document.getElementById("drop-down-content-menu-user").style.height= (window.innerHeight-60)+"px";
-      document.getElementById("drop-down-content-menu-user").style.display= "block";
-    }
-  }
-  cerrarMenus(){
-    this.cerrarMenuCategorias();
-    this.cerrarMenuUser();
-  }
-  
-  cerrarMenuCategorias(){
-    this.mostrandoMenu=false;
-   // this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
-    document.getElementById("menu-principal").style.display=this.displayMenuprincipalant;
-    //document.getElementById("drop-down-content-menu-user").style.height= (screen.height-60)+"px";
-    document.getElementById("drop-down-content-menu-cat").style.display= "none";
-  }
-  mostrarMenuCategorias(){
-    if(!this.mostrandoMenu){
-      this.mostrandoMenu=true;
-      this.displayMenuprincipalant = document.getElementById("menu-principal").style.display;
-      document.getElementById("menu-principal").style.display="none";
-      document.getElementById("drop-down-content-menu-cat").style.height= (window.innerHeight-60)+"px";
-      document.getElementById("drop-down-content-menu-cat").style.display= "block";
-    }
-  }
+  }  
 
 
 
@@ -272,6 +266,7 @@ export class MenuComponent implements OnInit {
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
     if(event.key=="Enter"){
+      this.cerrarModal();
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
      this.router.navigateByUrl('busqueda/palclav/'+this.pclave2);
@@ -288,6 +283,7 @@ export class MenuComponent implements OnInit {
     //this.actualizarcomponente();
     this.pclave2=(document.getElementById('buscarartpal2') as HTMLInputElement).value;//(<HTMLInputElement>document.getElementById("buscarartpal")).value;//(document.getElementsByName('buscarartpal')[0] as HTMLInputElement).value;//
     if(event.key=="Enter"){
+      this.cerrarModal();
     // this.router.navigate(['busqueda/'+this.pclave2]);
     //this.bus(this.pclave2);
      this.router.navigateByUrl('busqueda/palclav/'+this.pclave2);
@@ -298,7 +294,8 @@ export class MenuComponent implements OnInit {
      /* var input=document.getElementById('buscar2input') as HTMLInputElement;
       this.actualizarcomponente();
       document.getElementById('btnbusqueda2').click();*/
-      document.getElementById("buscarartpal2").blur();
+      var inputbusqueda2 = document.getElementById("buscarartpal2") as HTMLInputElement;
+      inputbusqueda2.value = "";
     }
   }
   bus(p:string){
@@ -309,6 +306,7 @@ export class MenuComponent implements OnInit {
     var tipoplan='ALTA';
     var cuotas='0'; 
     document.getElementById("buscarartpal2").blur();
+    this.cerrarModal();
 
     this.pclave2=(<HTMLInputElement>document.getElementById("buscarartpal")).value;
      var clave3 = (<HTMLInputElement>document.getElementById("buscarartpal2")).value;
@@ -332,6 +330,11 @@ export class MenuComponent implements OnInit {
         this.router.navigate(['busqueda/palclav/celulares']);
       }
     }
+    var inputbusqueda = document.getElementById("buscarartpal") as HTMLInputElement;
+    var inputbusqueda2 = document.getElementById("buscarartpal2") as HTMLInputElement;
+    inputbusqueda.value = "";
+    inputbusqueda2.value = "";
+    
   }
   busquedacat(id:string){
     var valor="cat/"+id;

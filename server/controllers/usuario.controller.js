@@ -222,9 +222,9 @@ usuarioController.crearUsuario = async (req, res, next) => {
  * Método que permite eliminar un artículo del carrito de compras
  */
 usuarioController.eliminarArticulo = async (req, res, next) => {
-  if (req.session.token) {
+  if (req.userData) {
     await Usuario.findOne({
-      token: req.session.token
+      correo: req.userData.correo
     },{carrito: 1}, function (err, usuario) {
       if (err) {
         res.json({
@@ -242,7 +242,7 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
         }
         carritoArticulos.splice(indice, 1);
         Usuario.findOneAndUpdate({
-          token: req.session.token
+          correo: req.userData.correo
         }, {
           $set: {
             carrito: carritoArticulos
@@ -293,9 +293,9 @@ usuarioController.eliminarArticulo = async (req, res, next) => {
  * Método que elimina todos los artículos del carrito de compras
  */
 usuarioController.eliminarTodoArticulos = async (req, res, next) => {
-  if (req.session.token) {
+  if (req.userData) {
     await Usuario.findOneAndUpdate({
-      token: req.session.token
+      correo: req.userData.correo
     }, {
       $set: {
         carrito: []

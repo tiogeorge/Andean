@@ -17,7 +17,7 @@ router.get('/clien/doc/:id',usuario.obtenerDocUsuario);
 router.put('/cambiar', usuario.cambiarPassword);
 router.put('/carrito/:id', auth.verificarTokenPrivado,usuario.agregarArticulo);
 router.put('/:id',usuario.actualizarUsuario);
-router.delete('/carrito', usuario.eliminarTodoArticulos);
-router.delete('/carrito/:id',usuario.eliminarArticulo);
+router.delete('/carrito',auth.verificarTokenPrivado, usuario.eliminarTodoArticulos);
+router.delete('/carrito/:id',auth.verificarTokenPrivado,usuario.eliminarArticulo);
 
 module.exports = router;

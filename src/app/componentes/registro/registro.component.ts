@@ -19,12 +19,15 @@ export class RegistroComponent implements OnInit {
   constructor(public usuarioService: UsuarioService, public router: Router, public snackBar: MatSnackBar){}
 
   ngOnInit() {
-    this.usuarioService.getUsuarioLogeado().subscribe( res => {
+    /*this.usuarioService.getUsuarioLogeado().subscribe( res => {
       const respuesta = res as Respuesta;
       if(respuesta.status){
         this.router.navigate(['/perfil-usuario']);
       }
-    })
+    })*/
+    if(this.usuarioService.logueado()){
+      this.router.navigate(['/home']);
+    }
   }
 
   /**

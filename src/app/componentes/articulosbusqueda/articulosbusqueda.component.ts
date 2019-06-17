@@ -18,6 +18,7 @@ import { filter } from 'rxjs/operators';
 import { DataRowOutlet } from '@angular/cdk/table';
 import { IfStmt } from '@angular/compiler';
 import { Subscription } from 'rxjs';
+import { comunicacionService } from '../comunicacion.service';
 
 
 @Component({
@@ -149,13 +150,18 @@ export class ArticulosbusquedaComponent implements OnInit {
 
   palabraClave: any;
   subscription: Subscription;
+  subscriptioncat: Subscription;
 
-  constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService) {
+  constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService, public comService: comunicacionService) {
     this.subscription = this.servicioapoyo.getPalabraClave()
       .subscribe(clave => {
         this.palabraClave = clave.clave;
         this.listaraarticulos(this.palabraClave)
-      })
+      });
+      this.subscriptioncat = this.comService.getCategoria().subscribe(id=>{
+        this.listararticate(id);
+      });
+
   }
 
   ngOnInit() {

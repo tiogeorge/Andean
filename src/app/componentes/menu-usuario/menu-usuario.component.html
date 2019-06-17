@@ -1,0 +1,38 @@
+<div class="drop-down-content-menu-user" id="drop-down-content-menu-user" *ngIf="usuarioService.logueado()">
+  <div style="width: 100%; display: flex; flex-direction: row; align-items: center; height: 55px;padding: 5px;border-bottom: 1px solid rgb(189, 189, 189);">
+      
+    <div style="width: 100%; padding-left: 5%;">
+      Bienvenido <strong>{{usuario.nombres}}</strong> 
+    </div>
+    
+  </div>
+  <div style="width: 100%; display: flex; height: auto; overflow-y: auto; overflow-x: hidden; flex-direction: column">
+    <div class="item-menu-user-movil"  routerLink="/perfil-usuario"  >
+        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">person</i>
+      <div style="margin-left: 10px;">Perfil de Usuario</div>
+    </div>
+    <div class="item-menu-user-movil"  routerLink="/perfil-usuario" >
+        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">local_shipping</i>
+      <div style="margin-left: 10px;">Pedidos</div>
+    </div>
+    <div class="item-menu-user-movil" routerLink="/carrito" >
+        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">shopping_cart</i>
+      <div style="margin-left: 10px;">Carrito de Compras</div>
+    </div>
+    <div class="item-menu-user-movil" (click)="logout()">
+        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">close</i>
+      <div style="margin-left: 10px;">Cerrar Sesión</div>
+    </div>
+  </div>
+</div>
+<div id="myModal" class="modal" >  
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-body">
+      <h4 style="color: rgb(107, 107, 107);">Bienvenid@ a Smarket</h4>
+      <button mat-raised-button style="width: 70%; margin-bottom: 10px;">Iniciar Sesión</button>
+      <button mat-raised-button style="width: 70%;" color="primary">Registrate</button>
+    </div>
+  </div>
+
+</div>

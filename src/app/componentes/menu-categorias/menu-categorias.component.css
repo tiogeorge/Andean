@@ -1,0 +1,18 @@
+.drop-down-content-menu-user {
+    width: 100%;
+    z-index: 150;
+    height: 100%;
+    background-color: rgb(248, 248, 248);
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .item-menu-user-movil{
+    width: 100%;
+    display:flex;
+    height: 100%;;
+    flex-direction: row;
+    height: 53px;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    align-items: center;
+  }

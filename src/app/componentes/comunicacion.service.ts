@@ -12,16 +12,24 @@ import { Usuario}  from '../componentes/perfil-usuario/usuario';
     subjectCategorias = new Subject<any>();
     subjectChat = new Subject<any>();
     subjectUsuarioValoracion = new Subject<any>();
+    subjectPedirCategorias= new Subject<any>();
+    subjectCategoria = new Subject<any>();
     constructor() {
     }
     enviarUsuario(usuario: any) { 
       this.subjectUsuario.next(usuario);
+    }
+    enviarIDCategoria(cat:any){
+      this.subjectCategoria.next(cat);
     }
     enviarUsuarioValoracion(usuario: any) { 
       this.subjectUsuarioValoracion.next(usuario);
     }
     pedirUsuario(){
       this.subjectPedirUsuario.next();
+    }
+    pedirCategorias(){
+      this.subjectPedirCategorias.next();
     }
     enviarCategorias(cat: any){
       this.subjectCategorias.next(cat);
@@ -39,8 +47,14 @@ import { Usuario}  from '../componentes/perfil-usuario/usuario';
     getCategorias(): Observable<any>{
       return this.subjectCategorias.asObservable();
     }
+    getCategoria(): Observable<any>{
+      return this.subjectCategoria.asObservable();
+    }
     atenderPedidoUsuario(){
       return this.subjectPedirUsuario.asObservable();
+    }
+    atenderPedidoCategorias(){
+      return this.subjectPedirCategorias.asObservable();
     }
     
     abrirChat(){

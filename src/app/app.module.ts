@@ -38,6 +38,8 @@ import { ChatmovilComponent } from './componentes/chatmovil/chatmovil.component'
 import {AuthGuard} from './componentes/auth.guard';
 import { PublicAuthGuard} from './componentes/public-auth.guard';
 import { TokenInterceptorService } from './componentes/token-interceptor.service';
+import { MenuCategoriasComponent } from './componentes/menu-categorias/menu-categorias.component';
+import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
@@ -54,7 +56,9 @@ const routes : Route[] = [
   {path: 'pago', component: PagoComponent, canActivate: [AuthGuard]},
   {path: 'compararEqui',component:CompararEquiposComponent},
   {path: 'cambiarPassword/:token', component: CambiarPasswordComponent},
-  {path: 'chat', component: ChatmovilComponent,canActivate: [PublicAuthGuard]}
+  {path: 'chat', component: ChatmovilComponent,canActivate: [PublicAuthGuard]},
+  {path: 'usuario', component: MenuUsuarioComponent,canActivate: [PublicAuthGuard]},
+  {path: 'categorias', component: MenuCategoriasComponent,canActivate: [PublicAuthGuard]}
 ];
 
 @NgModule({
@@ -85,7 +89,9 @@ const routes : Route[] = [
     CategoriahomeComponent,
     RedessocialesComponent,
     ValoracionComponent,
-    ChatmovilComponent
+    ChatmovilComponent,
+    MenuCategoriasComponent,
+    MenuUsuarioComponent
   ],
   imports: [
     BrowserModule,
