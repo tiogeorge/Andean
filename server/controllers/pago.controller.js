@@ -265,6 +265,7 @@ pagoController.actualizarpedido2 = async (req, res) => {
     }
 }
 pagoController.actualizarserieart = async (req, res) => {
+    console.log('entra actualizar serie');
     var id = req.body.id;
     var idart = req.body.idart;
     var serieart = req.body.serieart;
