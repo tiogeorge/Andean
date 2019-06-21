@@ -61,6 +61,8 @@ export class ArticuloDetalleComponent implements OnInit {
   colorSeleccionado="";
   equipoSeleccionado: Equipo = new Equipo();
 
+  carritoLocal: any[] = new Array();;
+
   planSeleccionado = {
     nombreplan: "",
     precio: 0,
@@ -205,11 +207,36 @@ export class ArticuloDetalleComponent implements OnInit {
     div.scrollIntoView({behavior:"smooth"});
   }
 
+  
   agregarCarrito() {
-    this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.idarticulo, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {
-      const rspta = res as Respuesta;
-      this.openDialog(rspta);
-    });
+    if(this.usuarioService.logueado()){
+        this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.idarticulo, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {
+        const rspta = res as Respuesta;
+        this.openDialog(rspta);
+      });
+    }else{
+      //AGREGAR EL CARRITO EN LOCAL STORAGE
+      if(localStorage.getItem("cart")){
+        this.carritoLocal = JSON.parse(localStorage.getItem("cart"));
+      }
+      const articulo = {
+        id: this.articuloService.articuloSeleccionado.idarticulo,
+        idarticulo:  this.equipoSeleccionado.idequipo,
+        titulo: this.articuloService.articuloSeleccionado.titulo,
+        url: this.articuloService.articuloSeleccionado.url,
+        cantidad: this.cantidadSeleccionada,     
+        imagen: this.equipoSeleccionado.imagen,
+        precio: this.equipoSeleccionado.precioventa,
+        descuento: this.articuloService.articuloSeleccionado.descuento
+        
+      };
+      this.carritoLocal.push(articulo);
+      localStorage.setItem("cart", JSON.stringify(this.carritoLocal));
+      //this.openDialog(rspta);
+      
+
+    }
+    
   }
 
   seleccionarPlan(plan) {

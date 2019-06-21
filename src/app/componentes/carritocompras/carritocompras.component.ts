@@ -36,17 +36,25 @@ export class CarritocomprasComponent implements OnInit {
   }
 
   obtenerArticulosCarrito(){
-    this.cargando = true;
-    this.articuloDetalleService.getCarrito().subscribe(res => {
-      const respuesta = res as Respuesta;
-      if (respuesta.status) {
-        this.listaArticulos = respuesta.data as any[];
-        this.mostrarArticulos = true;
-        this.subtotal = this.calcularSubTotal();
-      }
+    if(this.usuarioService.logueado()){
+      this.cargando = true;
+      this.articuloDetalleService.getCarrito().subscribe(res => {
+        const respuesta = res as Respuesta;
+        if (respuesta.status) {
+          this.listaArticulos = respuesta.data as any[];
+          this.mostrarArticulos = true;
+          this.subtotal = this.calcularSubTotal();
+        }
+        this.cargando = false;
+      });
+      this.mostrarArticulos = !(this.listaArticulos.length == 0);
+    }else{
+      this.listaArticulos = JSON.parse(localStorage.getItem("cart"));
+      this.mostrarArticulos = true;
+      this.subtotal = this.calcularSubTotal();
       this.cargando = false;
-    });
-    this.mostrarArticulos = !(this.listaArticulos.length == 0);
+    }
+    
   }
 
   /**

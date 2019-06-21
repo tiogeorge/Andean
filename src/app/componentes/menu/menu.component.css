@@ -504,8 +504,8 @@ select:hover{
   justify-content: center;
   align-items: center;
   padding: 5px;
-  margin-left:5px;
-  margin-right:5px;
+  margin-left:3px;
+  margin-right:3px;
   color: rgb(80, 80, 80);
 }
 .item-menu-movil-footer:hover{

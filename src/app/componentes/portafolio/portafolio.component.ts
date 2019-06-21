@@ -33,6 +33,7 @@ export class PortafolioComponent implements OnInit {
   @ViewChildren('carouselofertas') carouselofertas: QueryList<any>;
   @ViewChildren('carouselaccesorios') carouselaccesorios: QueryList<any>;
   @ViewChildren('carouselmarcas') carouselmarcas: QueryList<any>;
+  @ViewChildren('carouselbanners') carouselbanners: QueryList<any>;
   ngOnInit() {
     this.bannerPrincipal =  {
       _id:'0',
@@ -62,30 +63,24 @@ export class PortafolioComponent implements OnInit {
     this.cardservice.obtenerBanners().subscribe(res=>{
       this.banners = res as any[];
       var content = "";
-      // poner banners
-      for(var i=0; i<this.banners.length;i++){
-          
-        var img = this.banners[i].imagen;
-
-        
-        content += " <div class='item' routerLink='/busqueda/ban/"+this.banners[i]._id+"'><a href='/busqueda/ban/"+this.banners[i]._id+"'> <img src='"+Constantes.URL_IMAGEN_LG+"/"+img+"'"+"></a></div>"
-      }
-      $("#carousel-grande-owl").html(content);
-      $("#carousel-grande-owl").owlCarousel({
-        loop:true,
-        autoplay:true,
-        margin:1,
-        autoplayTimeout:2000,
-        autoplayHoverPause:true,
-        navigation : true, // Show next and prev buttons
-        slideSpeed : 300,
-        paginationSpeed : 400,
-        singleItem:true,
-        items : 1,
-        nav:true,
-        lazyLoad : true,
-        lazyLoadEager: 1
+      this.carouselbanners.changes.subscribe(t => {         
+        $("#carousel-grande-owl").owlCarousel({
+          loop:true,
+          autoplay:true,
+          margin:1,
+          autoplayTimeout:2000,
+          autoplayHoverPause:true,
+          navigation : true, // Show next and prev buttons
+          slideSpeed : 300,
+          paginationSpeed : 400,
+          singleItem:true,
+          items : 1,
+          nav:true,
+          lazyLoad : true,
+          lazyLoadEager: 1
+        });  
       });
+      
 
       this.obtenerMarcas();
       this.obtenercard();   

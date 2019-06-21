@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; flex-wrap: wrap; margin-top:10px ; align-items: center;">
-  <div class="carusel-grande">
+  <div #carouselbanners  class="carusel-grande">
     <div id="carousel-grande-owl" class="owl-carousel owl-theme">
-
+      <div class='item' *ngFor="let banner of banners" routerLink="/busqueda/ban/{{banner._id}}" ><a href="/busqueda/ban/{{banner._id}}"> <img src="{{URL_IMAGENES}}/{{banner.imagen}}"></a></div>
     </div> 
   </div> 
  
