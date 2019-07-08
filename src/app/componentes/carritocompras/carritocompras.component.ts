@@ -170,6 +170,6 @@ export class CarritocomprasComponent implements OnInit {
   }    
 
   enProceso(){
-    this.openSnackBar(false, 'Lo sentimos, esta opción todavia no está disponible');
+    this.openSnackBar(false, 'Lo sentimos, esta opción todavia no está disponible. Puede ir a nuestra tienda y obtenerlo a un buen precio.');
   }
 }
