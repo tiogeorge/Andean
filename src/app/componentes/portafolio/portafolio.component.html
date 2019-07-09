@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; flex-wrap: wrap; margin-top:10px ; align-items: center;">
   <div #carouselbanners  class="carusel-grande">
     <div id="carousel-grande-owl" class="owl-carousel owl-theme">
-      <div class='item' *ngFor="let banner of banners" routerLink="/busqueda/ban/{{banner._id}}" ><a href="/busqueda/ban/{{banner._id}}"> <img src="{{URL_IMAGENES}}/{{banner.imagen}}"></a></div>
+      <div class='item' *ngFor="let banner of banners" routerLink="/busqueda/ban/{{banner._id}}" ><a href="/busqueda/ban/{{banner._id}}" aria-label="Banner de búsqueda"> <img src="{{URL_IMAGENES}}/{{banner.imagen}}" alt="smarket banner {{banner.imagen}}"></a></div>
     </div> 
   </div> 
  
@@ -16,7 +16,7 @@
         <div id="owl-demo-marcas" class="owl-carousel owl-theme" >  
           <div class="item-marca noseleccionable"  *ngFor="let marca of marcas;"routerLink="/busqueda/marca/{{marca._id}}" >
               
-              <img src="{{URL_IMAGENES}}/{{marca.imagen}}" alt="" style="width: auto; height: auto; max-height: 50px; max-width: 100%;">
+              <img src="{{URL_IMAGENES}}/{{marca.imagen}}" alt="smarket {{marca.imagen}}" style="width: auto; height: auto; max-height: 50px; max-width: 100%;">
               
           </div>  
         </div>          
@@ -37,7 +37,7 @@
               <div class="simple-card noseleccionable" routerLink="/articulo/{{cardsimple.url}}">
                   <div class="descuento porcentaje">-{{cardsimple.descuento}}%</div>   
                 <div class="img-card">
-                  <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="">
+                  <img  class="imagen-card-articulo" src="{{URL_IMAGENES}}/{{cardsimple.urlImagen}}" alt="smarket {{cardsimple.urlImagen}}">
                 </div> 
                 <div class="nombre-articulo-card">
                   {{cardsimple.titulo}}
