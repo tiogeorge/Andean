@@ -38,7 +38,21 @@ const compressorPluginsSM = [
 ];
 
 
+imagenController.crearCarpeta = async (req, res)=>{
 
+    if (!fs.existsSync('./imagenes/'+req.body.carpeta)){
+        fs.mkdirSync('./imagenes/'+req.body.carpeta);
+        res.json({
+            estado:1,
+            mensaje:'Exito.'
+        });
+    }else{
+        res.json({
+            estado:0,
+            mensaje:'ERROR. El directorio ya existe.'
+        });
+    }
+}
 
 imagenController.subirImagen = function (req,res){
     
@@ -128,6 +142,9 @@ imagenController.getFiles = async (req,res)=>{
         console.log(err);
     }
       
+}
+imagenController.getListaArchivos = function(req,res){
+
 }
 
 module.exports = imagenController;

@@ -4,7 +4,7 @@ const auth = require('./auth');
 
 const articulo = require('../controllers/articulo.controller');
 
-router.get('/', auth.verificarTokenPublico,articulo.obtenerArticulosMysql);
+router.get('/', auth.verificarTokenPublico,articulo.obtenerArticulosMysql);// solo admin?
 router.get('/mongo/', auth.verificarTokenPrivado,articulo.listararticulos);
 router.get('/cartel', auth.verificarTokenPublico,articulo.obtenerCards);
 router.get('/carteles', auth.verificarTokenPublico ,articulo.obtenerCarteles);// LIBRE SMARKET
@@ -22,11 +22,11 @@ router.get('/banners/banners', auth.verificarTokenPublico,articulo.obtenerTodoBa
 router.get('/banners/banner/:id',auth.verificarTokenPublico, articulo.obtenerArticulosBanner);
 
 //router.get('/subcategorias/:id', articulo.obtenerSubCategorias);
-router.post('/', articulo.crearArticulo);
-router.post('/cartel', articulo.guardarCards);
-router.post('/banner', articulo.guardarBanners);
-router.put('/:id', articulo.actualizarArticulo);
+router.post('/', auth.verificarTokenPrivado,articulo.crearArticulo);
+router.post('/cartel', auth.verificarTokenPrivado, articulo.guardarCards);
+router.post('/banner',  auth.verificarTokenPrivado,articulo.guardarBanners);
+router.put('/:id', auth.verificarTokenPrivado, articulo.actualizarArticulo);
 //router.delete('/:id', articulo.eliminarCategoria);
-router.delete('/cartel/:id', articulo.eliminarCard);
+router.delete('/cartel/:id', auth.verificarTokenPrivado, articulo.eliminarCard);
 
 module.exports = router;

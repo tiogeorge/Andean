@@ -378,13 +378,35 @@ usuarioController.loginAdmin = async (req, res, next) => {
           // if user not found
           // Se obtiene mensaje, idEmpleado, Nombres, idTipoUusario
           if (results[0][0].Mensaje == 'HECHO') {
-            req.session.idEmpleado = req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado;
-            req.session.usuario = req.session.usuario ? req.session.usuario : results[0][0].Nombres;
-            req.session.idTipoUsuario = req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario;
+            user={
+              userId: req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado,
+              correo: req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado      
+              
+            };
+           // console.log(user);
+            var token = auth.generarTokenPrivado(user);
+            var refreshtoken = auth.generarRefreshToken(user);
+            var timeexpirationtoken =auth.getExpirationToken();
+            var timeexpirationrefreshtoken = auth.getExpirationRefreshToken();
+            
+            //req.session.token = token;
             res.json({
               status: true,
-              msg: 'Iniciando sesión'
+              msg: 'Autentificacion Exitosa',                       
+              session_token: token,
+              refresh_token:  refreshtoken,
+              session_token_exp: timeexpirationtoken,
+              refresh_token_exp: timeexpirationrefreshtoken,
+              user:{
+                idEmpleado: req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado,
+                usuario: req.session.usuario ? req.session.usuario : results[0][0].Nombres,
+                idTipoUsuario: req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario
+              }
             });
+            /*req.session.idEmpleado = req.session.idEmpleado ? req.session.idEmpleado : results[0][0].idEmpleado;
+            req.session.usuario = req.session.usuario ? req.session.usuario : results[0][0].Nombres;
+            req.session.idTipoUsuario = req.session.idTipoUsuario ? req.session.idTipoUsuario : results[0][0].idTipoUsuario;*/
+            
           } else {
             res.json({
               status: false,

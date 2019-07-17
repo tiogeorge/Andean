@@ -22,7 +22,10 @@ router.get('/planesequipo/:id/:linea/:tipoplan/:cuotas',precio.getPlanesEquipo);
 router.get('/planeq/:nombre',precio.listarplanesequipo);
 router.get('/plan', precio.getPlanes);
 router.get('/plan/:id', precio.getDetallePlan);
-router.post('/subir',upload.single('excel'), precio.subirExcel);
+router.get('/obtener-precio/:idarticuloglobal',precio.obtenerPrecioArticulo);
+router.get('/generar-reporte-excel',precio.generarExcelArticulos);
+router.post('/subir',upload.single('excel'), precio.recibirExcel);
+router.post('/guardar-lista-precios', precio.guardarListaPrecios);
 router.put('/plan/:id',precio.actualizarPlan);
 router.delete('/plan/del/:id', precio.eliminarPlan);
 
