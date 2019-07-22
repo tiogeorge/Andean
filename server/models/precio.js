@@ -7,7 +7,8 @@ const precioSchema= new Schema({
     preciocomprasinigv:{type:Number, required:true},
     precioventa:{type:Number, required:true},
     precioventaminimo:{type:Number, required:false},
-    descuento:{type:Number, required:false}    
+    descuento:{type:Number, required:false},
+    fechavigencia:{type:Date,required:false}  
 
 });
 
