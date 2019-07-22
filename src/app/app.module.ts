@@ -4,7 +4,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './componentes/login/login.component';
 import { RouterModule, Route } from '@angular/router';
 import { HomeComponent } from './componentes/home/home.component';
 import { MenuComponent } from './componentes/menu/menu.component';
@@ -42,7 +41,11 @@ import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.co
 
 const routes : Route[] = [
   {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
-  {path: 'login', component: LoginComponent, canActivate: [PublicAuthGuard]},
+  {
+    path: 'login', 
+    loadChildren: () => import('./login/login.module').then(mod => mod.LoginModule),
+    canActivate: [PublicAuthGuard]
+  },
   {path: 'home', component: HomeComponent,canActivate: [PublicAuthGuard]},
   {path: 'registro', component: RegistroComponent,canActivate: [PublicAuthGuard]},
   {path: 'restablecer', component: RestablecerComponent,canActivate: [PublicAuthGuard]},
@@ -63,7 +66,6 @@ const routes : Route[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
     MenuComponent,
     CarouselComponent,
