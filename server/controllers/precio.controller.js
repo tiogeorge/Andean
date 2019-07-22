@@ -62,12 +62,12 @@ precioController.generarExcelArticulos = async(req,res)=>{
                     //jsonArticulos[i].PrecioVenta="";
                     jsonArticulos[i].PrecioCompraIGV = jsonArticulos[i].PrecioCompra*1.18;
                     
-                    //if(jsonArticulos[i].PrecioVentaMinimo == 0){
+                    if(jsonArticulos[i].PrecioVentaMinimo == 0){
                       jsonArticulos[i].PrecioVentaMinimo = jsonArticulos[i].PrecioCompraIGV*1.20;
-                   // }
-                   // if(jsonArticulos[i].PrecioVenta == 0){
+                    }
+                    if(jsonArticulos[i].PrecioVenta == 0){
                         jsonArticulos[i].PrecioVenta = jsonArticulos[i].PrecioCompraIGV*1.25;
-                   // }
+                    }
                     
                     //jsonArticulos[i].PrecioCompra = jsonArticulos[i].PrecioCompra.toFixed(2);
                   }
@@ -382,8 +382,9 @@ precioController.recibirExcel = async(req,res) =>{
 }
 
 precioController.guardarListaPrecios=async(req,res)=>{
+  var listapreciosmongo = new Array();
   var listaprecios = req.body.precios;
-  var fechavigencia = req.body.fechavigencia;
+  var fechavigencia = req.body.fechavigencia.substr(0,10);
   var consultaMYSQL = "INSERT INTO tapreciosventa (idArticuloGlobal, FechaVigencia,idTipoPlan,PrecioVenta,ComisionVenta,PlanActivo,PrecioVentaMinimo) VALUES ";
   for(var i = 0;i<listaprecios.length;i++){
     var fila = listaprecios[i];
@@ -401,17 +402,14 @@ precioController.guardarListaPrecios=async(req,res)=>{
       preciocomprasinigv: fila[3],
       precioventa: fila[5],
       precioventaminimo:fila[6],
+      fechavigencia:req.body.fechavigencia,
       descuento:0
     });
-    const existePrecio = await Precio.countDocuments({idarticuloglobal:precio.idarticuloglobal});
-    if(existePrecio > 0){//SI EXISTE precio
-        await Precio.update({idarticuloglobal: precio.idarticuloglobal},{$set: {precioventa:precio.precioventa}});          
-    }else{
-      await precio.save();    
-    }
+    listapreciosmongo.push(precio);   
     
   }
- /* try {
+  try {
+    console.log("  PRECIOS A MYSQL");
     req.getConnection(function (error, conn) {    
       conn.query(consultaMYSQL, async function (err, results) {
         if (err) {
@@ -420,7 +418,17 @@ precioController.guardarListaPrecios=async(req,res)=>{
                 mensaje: "ERROR: " + err
             });
         } else {
-          res.json({estado: 1, mensaje:"Exito." , resultado: results});
+          console.log("GUARDANDO DATOS EN MONGODB");
+          for(var i = 0;i<listapreciosmongo.length;i++){
+            const precio = new Precio(listapreciosmongo[i]);
+            const existePrecio = await Precio.countDocuments({idarticuloglobal:precio.idarticuloglobal});
+            if(existePrecio > 0){//SI EXISTE precio
+                await Precio.update({idarticuloglobal: precio.idarticuloglobal},{$set: {preciocomprasinigv:precio.preciocomprasinigv , precioventa:precio.precioventa, precioventaminimo: precio.precioventaminimo, descuento:precio.descuento, fechavigencia: precio.fechavigencia}});          
+            }else{
+                await precio.save();    
+            }
+          }
+          res.json({estado: 1, mensaje:"Se actualizaron los precios exitosamente." , resultado: results});
         }
       });
     });
@@ -429,16 +437,41 @@ precioController.guardarListaPrecios=async(req,res)=>{
       estado: "0",
       mensaje: "ERROR: " + e
     });
-  }*/
-  res.json({
-    estado: "1",
-    mensaje: "exito"
-});
+  } 
 }
 
 precioController.obtenerPrecioArticulo= async(req,res)=>{
   const precio = await Precio.find({idarticuloglobal: req.params.idarticuloglobal});
   res.json(precio);
+
+}
+precioController.actualizarPrecio= async(req,res)=>{
+  try {
+    req.getConnection(function (error, conn) {   
+      var date = req.body.fechavigencia;
+      date = date.substr(0,10);
+      var consultaMYSQL = "INSERT INTO tapreciosventa (idArticuloGlobal, FechaVigencia,idTipoPlan,PrecioVenta,ComisionVenta,PlanActivo,PrecioVentaMinimo) VALUES "+
+                          "('"+req.body.idarticuloglobal+"','"+date+"',1,"+req.body.precioventa+",0,1,"+req.body.precioventaminimo+");";
+      conn.query(consultaMYSQL, async function (err, results) {
+        if (err) {
+            res.json({
+                estado: "0",
+                mensaje: "ERROR: " + err
+            });
+        } else {
+          const precio = await Precio.findOneAndUpdate({idarticuloglobal:req.body.idarticuloglobal},{$set:{preciocomprasinigv:req.body.preciocomprasinigv , precioventa:req.body.precioventa, precioventaminimo: req.body.precioventaminimo, descuento:req.body.descuento, fechavigencia: req.body.fechavigencia }});
+ 
+          res.json({estado: 1, mensaje:"Se actualizo el precio exitosamente." , resultado: results});
+        }
+      });
+    });
+    
+  }catch(e){
+    res.json({
+      estado: "0",
+      mensaje: "ERROR: " + e
+    });
+  }
 
 }
 
@@ -476,6 +509,7 @@ precioController.eliminarPlan= async(req,res)=>{
     mensaje:"Se elimino los datos correctamente"
   });
 }
+
 precioController.getDetallePlan = async(req,res)=>{
   const detalle = await Plan.find({nombreplan: req.params.id}).select('detalle');
   res.json(detalle);

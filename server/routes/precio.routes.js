@@ -26,7 +26,9 @@ router.get('/obtener-precio/:idarticuloglobal',precio.obtenerPrecioArticulo);
 router.get('/generar-reporte-excel',precio.generarExcelArticulos);
 router.post('/subir',upload.single('excel'), precio.recibirExcel);
 router.post('/guardar-lista-precios', precio.guardarListaPrecios);
-router.put('/plan/:id',precio.actualizarPlan);
+router.post('/actualizar-precio',precio.actualizarPrecio);
+//router.put('/plan/:id',precio.actualizarPlan);
+
 router.delete('/plan/del/:id', precio.eliminarPlan);
 
 

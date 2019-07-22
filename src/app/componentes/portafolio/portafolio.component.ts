@@ -24,7 +24,7 @@ export class PortafolioComponent implements OnInit {
   listaofertas:any;
   listaaccesorios: any;
   constructor(public cardservice: CardService ,public marcaService:MarcaService, public router: Router) { }
-  URL_IMAGENES = Constantes.URL_IMAGEN_MD;
+  URL_IMAGENES = Constantes.URL_IMAGEN_LG ;
   URL_IMAGEN = Constantes.URL_IMAGEN;
   banners : any[] = new Array();
   bannerPrincipal: any ;
