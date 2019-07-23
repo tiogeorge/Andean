@@ -10,11 +10,8 @@ import { MenuComponent } from './componentes/menu/menu.component';
 import { CarouselComponent } from './componentes/carousel/carousel.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { CarouselmultipleComponent } from './componentes/carouselmultiple/carouselmultiple.component';
-import { RegistroComponent } from './componentes/registro/registro.component';
-import { RestablecerComponent } from './componentes/restablecer/restablecer.component';
 import { PortafolioComponent } from './componentes/portafolio/portafolio.component';
 import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articulo-detalle.component';
-import { ArticulosbusquedaComponent } from './componentes/articulosbusqueda/articulosbusqueda.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CarritocomprasComponent } from './componentes/carritocompras/carritocompras.component';
 import { TerminosComponent } from './componentes/terminos/terminos.component';
@@ -41,26 +38,19 @@ import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.co
 
 const routes : Route[] = [
   {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
-  {
-    path: 'login', 
-    loadChildren: () => import('./login/login.module').then(mod => mod.LoginModule),
-    canActivate: [PublicAuthGuard]
-  },
   {path: 'home', component: HomeComponent,canActivate: [PublicAuthGuard]},
-  {path: 'registro', component: RegistroComponent,canActivate: [PublicAuthGuard]},
-  {path: 'restablecer', component: RestablecerComponent,canActivate: [PublicAuthGuard]},
-  {path: 'multicarro', component:CarouselmultipleComponent,canActivate: [PublicAuthGuard]},
-  {path: 'busqueda/:tipobus/:pclave', component:ArticulosbusquedaComponent,canActivate: [PublicAuthGuard]},
+  {path: 'login', loadChildren: () => import('./login/login.module').then(mod => mod.LoginModule), canActivate: [PublicAuthGuard]},
+  {path: 'registro', loadChildren: () => import('./registro/registro.module').then(mod => mod.RegistroModule), canActivate: [PublicAuthGuard]},
+  {path: 'restablecer', loadChildren: () => import('./restablecer/restablecer.module').then(mod => mod.RestablecerModule) ,canActivate: [PublicAuthGuard]},
+  {path: 'busqueda', loadChildren: () => import('./busqueda/busqueda.module').then(mod => mod.BusquedaModule) ,canActivate: [PublicAuthGuard]},
   {path: 'articulo/:id', component:ArticuloDetalleComponent,canActivate: [PublicAuthGuard]},
   {path: 'cart', component:CarritocomprasComponent,canActivate: [PublicAuthGuard]},
   {path: 'terminos', component: TerminosComponent,canActivate: [PublicAuthGuard]},
   {path: 'perfil-usuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
   {path: 'pago', component: PagoComponent, canActivate: [AuthGuard]},
-  {path: 'compararEqui',component:CompararEquiposComponent},
   {path: 'cambiarPassword/:token', component: CambiarPasswordComponent},
   {path: 'chat', component: ChatmovilComponent,canActivate: [PublicAuthGuard]},
   {path: 'usuario', component: MenuUsuarioComponent,canActivate: [PublicAuthGuard]},
-  {path: 'categorias', component: MenuCategoriasComponent,canActivate: [PublicAuthGuard]}
 ];
 
 @NgModule({
@@ -71,11 +61,8 @@ const routes : Route[] = [
     CarouselComponent,
     FooterComponent,
     CarouselmultipleComponent,
-    RegistroComponent,
-    RestablecerComponent,
     PortafolioComponent,
     ArticuloDetalleComponent,
-    ArticulosbusquedaComponent,
     CarritocomprasComponent,
     TerminosComponent,
     PerfilUsuarioComponent,

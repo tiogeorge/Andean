@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../componentes/login/login.component';
-import { LoginRoutingModule } from './login-routing.module';
-import { MaterialModule } from '../material';
+
+import { RegistroRoutingModule } from './registro-routing.module';
+import { RegistroComponent } from '../componentes/registro/registro.component';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../material';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    LoginComponent,
+    RegistroComponent
   ],
   imports: [
-    FormsModule,
     CommonModule,
-    LoginRoutingModule,
+    RegistroRoutingModule,
+    FormsModule,
     MaterialModule,
     HttpClientModule
   ]
 })
-export class LoginModule { }
+export class RegistroModule { }
