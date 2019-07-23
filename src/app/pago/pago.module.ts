@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RegistroRoutingModule } from './registro-routing.module';
-import { RegistroComponent } from '../componentes/registro/registro.component';
+import { PagoRoutingModule } from './pago-routing.module';
+import { PagoComponent } from '../componentes/pago/pago.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material';
 
 @NgModule({
-  declarations: [
-    RegistroComponent
-  ],
+  declarations: [PagoComponent],
   imports: [
     CommonModule,
-    RegistroRoutingModule,
+    PagoRoutingModule,
     FormsModule,
     MaterialModule
   ]
 })
-export class RegistroModule { }
+export class PagoModule { }

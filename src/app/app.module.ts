@@ -7,29 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Route } from '@angular/router';
 import { HomeComponent } from './componentes/home/home.component';
 import { MenuComponent } from './componentes/menu/menu.component';
-import { CarouselComponent } from './componentes/carousel/carousel.component';
 import { FooterComponent } from './componentes/footer/footer.component';
-import { CarouselmultipleComponent } from './componentes/carouselmultiple/carouselmultiple.component';
 import { PortafolioComponent } from './componentes/portafolio/portafolio.component';
-import { ArticuloDetalleComponent } from './componentes/articulo-detalle/articulo-detalle.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CarritocomprasComponent } from './componentes/carritocompras/carritocompras.component';
-import { TerminosComponent } from './componentes/terminos/terminos.component';
-import { PerfilUsuarioComponent } from './componentes/perfil-usuario/perfil-usuario.component';
-import { PagoComponent } from './componentes/pago/pago.component';
-import { PedidosComponent } from './componentes/pedidos/pedidos.component';
 import { ChatComponent } from './componentes/chat/chat.component';
 import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
-import { CompararEquiposComponent } from './componentes/comparar-equipos/comparar-equipos.component';
-import { MapaComponent } from './componentes/mapa/mapa.component';
-import { DialogoCarritoComponent } from './componentes/articulo-detalle/dialogo-carrito/dialogo-carrito.component';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SnackbarComponent } from './componentes/snackbar/snackbar.component';
-import { CambiarPasswordComponent } from './componentes/restablecer/cambiar-password/cambiar-password.component';
 import { CategoriahomeComponent } from './componentes/categoriahome/categoriahome.component';
-import { RedessocialesComponent } from './componentes/redessociales/redessociales.component';
-import { ValoracionComponent } from './componentes/valoracion/valoracion.component';
-import { ChatmovilComponent } from './componentes/chatmovil/chatmovil.component';
 import {AuthGuard} from './componentes/auth.guard';
 import { PublicAuthGuard} from './componentes/public-auth.guard';
 import { TokenInterceptorService } from './componentes/token-interceptor.service';
@@ -42,15 +27,14 @@ const routes : Route[] = [
   {path: 'login', loadChildren: () => import('./login/login.module').then(mod => mod.LoginModule), canActivate: [PublicAuthGuard]},
   {path: 'registro', loadChildren: () => import('./registro/registro.module').then(mod => mod.RegistroModule), canActivate: [PublicAuthGuard]},
   {path: 'restablecer', loadChildren: () => import('./restablecer/restablecer.module').then(mod => mod.RestablecerModule) ,canActivate: [PublicAuthGuard]},
-  {path: 'busqueda', loadChildren: () => import('./busqueda/busqueda.module').then(mod => mod.BusquedaModule) ,canActivate: [PublicAuthGuard]},
-  {path: 'articulo/:id', component:ArticuloDetalleComponent,canActivate: [PublicAuthGuard]},
-  {path: 'cart', component:CarritocomprasComponent,canActivate: [PublicAuthGuard]},
-  {path: 'terminos', component: TerminosComponent,canActivate: [PublicAuthGuard]},
-  {path: 'perfil-usuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
-  {path: 'pago', component: PagoComponent, canActivate: [AuthGuard]},
-  {path: 'cambiarPassword/:token', component: CambiarPasswordComponent},
-  {path: 'chat', component: ChatmovilComponent,canActivate: [PublicAuthGuard]},
-  {path: 'usuario', component: MenuUsuarioComponent,canActivate: [PublicAuthGuard]},
+  {path: 'busqueda/:tipobus/:pclave', loadChildren: () => import('./busqueda/busqueda.module').then(mod => mod.BusquedaModule) ,canActivate: [PublicAuthGuard]},
+  {path: 'articulo/:id', loadChildren: () => import('./articulo/articulo.module').then(mod => mod.ArticuloModule),canActivate: [PublicAuthGuard]},
+  {path: 'cart', loadChildren: () => import('./carro-compras/carro-compras.module').then(mod => mod.CarroComprasModule),canActivate: [PublicAuthGuard]},
+  {path: 'terminos', loadChildren: () => import('./terminos/terminos.module').then(mod => mod.TerminosModule),canActivate: [PublicAuthGuard]},
+  {path: 'perfil-usuario', loadChildren: () => import('./perfil-usuario/perfil-usuario.module').then(mod => mod.PerfilUsuarioModule), canActivate: [AuthGuard]},
+  {path: 'pago', loadChildren: () => import('./pago/pago.module').then(mod => mod.PagoModule), canActivate: [AuthGuard]},
+  {path: 'cambiarPassword/:token', loadChildren: () => import('./cambiar-password/cambiar-password.module').then(mod => mod.CambiarPasswordModule)},
+  {path: 'chat', loadChildren: () => import('./chat-movil/chat-movil.module').then(mod => mod.ChatMovilModule),canActivate: [PublicAuthGuard]},
 ];
 
 @NgModule({
@@ -58,26 +42,11 @@ const routes : Route[] = [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    CarouselComponent,
     FooterComponent,
-    CarouselmultipleComponent,
     PortafolioComponent,
-    ArticuloDetalleComponent,
-    CarritocomprasComponent,
-    TerminosComponent,
-    PerfilUsuarioComponent,
-    PagoComponent,
-    PedidosComponent,
     ChatComponent,
-    CompararEquiposComponent,
-    MapaComponent,
-    DialogoCarritoComponent,
     SnackbarComponent,
-    CambiarPasswordComponent,
     CategoriahomeComponent,
-    RedessocialesComponent,
-    ValoracionComponent,
-    ChatmovilComponent,
     MenuCategoriasComponent,
     MenuUsuarioComponent
   ],
@@ -94,7 +63,6 @@ const routes : Route[] = [
     Ng5SliderModule
   ],
   entryComponents: [
-    DialogoCarritoComponent,
     SnackbarComponent
   ],
   providers: [Title, Meta, AuthGuard, PublicAuthGuard, {

@@ -4,7 +4,7 @@ import { RegistroComponent } from '../componentes/registro/registro.component';
 import { PublicAuthGuard } from '../componentes/public-auth.guard';
 
 const routes: Routes = [
-  {path: '', component: RegistroComponent, canActivate: [PublicAuthGuard]}
+  {path: '', component: RegistroComponent}
 ];
 
 @NgModule({

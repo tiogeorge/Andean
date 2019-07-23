@@ -4,7 +4,6 @@ import { LoginComponent } from '../componentes/login/login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { MaterialModule } from '../material';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,8 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     CommonModule,
     LoginRoutingModule,
-    MaterialModule,
-    HttpClientModule
+    MaterialModule
   ]
 })
 export class LoginModule { }

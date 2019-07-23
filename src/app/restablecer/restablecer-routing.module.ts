@@ -4,7 +4,7 @@ import { RestablecerComponent } from '../componentes/restablecer/restablecer.com
 import { PublicAuthGuard } from '../componentes/public-auth.guard';
 
 const routes: Routes = [
-  {path: '', component: RestablecerComponent, canActivate: [PublicAuthGuard]}
+  {path: '', component: RestablecerComponent}
 ];
 
 @NgModule({
