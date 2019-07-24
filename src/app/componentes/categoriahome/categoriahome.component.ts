@@ -23,10 +23,10 @@ export class CategoriahomeComponent implements OnInit {
   listarcategoriasP(){
     this.categoriaservice.listarcategoriaspadres()
     .subscribe(res=>{
-      console.log(res);
+      //console.log(res);
       var Respuesta = JSON.parse(JSON.stringify(res));
       this.listacategoriaspadre=Respuesta;
-      console.log(this.listacategoriaspadre[1].hijos)
+      //console.log(this.listacategoriaspadre[1].hijos)
       this.comService.enviarCategorias(this.listacategoriaspadre);
     });
   }
@@ -41,14 +41,14 @@ export class CategoriahomeComponent implements OnInit {
   mostrarDetalle(categoriap){
     this.mostrarDetalleCategoria = true;
     this.listahijos = categoriap.hijos[0];
-    console.log(categoriap);
+    //console.log(categoriap);
   }
   ocultarDetalle(){
     this.mostrarDetalleCategoria = false;
   }
   
   buscararti(id:string){
-    console.log(id);
+    //console.log(id);
   }
 
 }

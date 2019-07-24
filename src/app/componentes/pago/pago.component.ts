@@ -369,16 +369,16 @@ export class PagoComponent implements OnInit {
     this.DocumentoT[0].Tipo = this.tipodoc;
     this.pagoservice.recuperarserie()
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.seriedoc = JSON.parse(JSON.stringify(res));
         this.DocumentoT[0].Serie = this.seriedoc;
-        console.log(this.seriedoc);
+        //console.log(this.seriedoc);
         this.pagoservice.recuperarnumerodoc()
           .subscribe(res => {
-            console.log(res);
+            //console.log(res);
             this.numerodoc = (Number(JSON.parse(JSON.stringify(res))) + 1).toString();
             this.DocumentoT[0].Numero = this.numerodoc;
-            console.log(this.numerodoc);
+            //console.log(this.numerodoc);
             //
             this.pagoservice.selectPago.idTipoPago = 'tarjeta';
             this.pagoservice.selectPago.idUsuario = this.user;
@@ -394,12 +394,12 @@ export class PagoComponent implements OnInit {
             this.pagoservice.selectPago.PrecioTotal = this.preciototal;
             this.pagoservice.selectPago.NroTransaccion = idpagoculqi;
             this.pagoservice.selectPago.Documento = this.DocumentoT;
-            console.log('documento actua');
-            console.log(this.pagoservice.selectPago.Documento);
+            //console.log('documento actua');
+            //console.log(this.pagoservice.selectPago.Documento);
             this.pagoservice.selectPago.idVendedor = 'ROOT';
             this.pagoservice.GuardarPago(this.pagoservice.selectPago)
               .subscribe(res => {
-                console.log(res);
+                //console.log(res);
                 if (JSON.parse(JSON.stringify(res)).mensaje == 'ok') {
                   this.actualizarcantidad();
                   this.snackBar.open('Venta Realizada', '🧓🏻', {
@@ -440,14 +440,14 @@ export class PagoComponent implements OnInit {
     this.recuperarserie();
     this.recuperarnumero();
     this.DocumentoT[0].Tipo = this.tipodoc;
-    console.log('documentos');
-    console.log(this.DocumentoT);
+    //console.log('documentos');
+    //console.log(this.DocumentoT);
     this.pagoservice.selectPago.Documento = this.DocumentoT;
-    console.log(this.pagoservice.selectPago.Documento);
+    //console.log(this.pagoservice.selectPago.Documento);
   }
 
   recuperarserie() {
-    console.log('serie');
+    //console.log('serie');
     this.pagoservice.recuperarserie()
       .subscribe(res => {
         this.seriedoc = JSON.parse(JSON.stringify(res));
@@ -459,10 +459,10 @@ export class PagoComponent implements OnInit {
   recuperarnumero() {
     this.pagoservice.recuperarnumerodoc()
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.numerodoc = (Number(JSON.parse(JSON.stringify(res))) + 1).toString();
         this.DocumentoT[0].Numero = this.numerodoc;
-        console.log(this.numerodoc);
+        //console.log(this.numerodoc);
       });
   }
 

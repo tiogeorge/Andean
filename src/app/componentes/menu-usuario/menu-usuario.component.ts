@@ -33,7 +33,7 @@ export class MenuUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.comService.pedirUsuario();
-    console.log("MENU USUARIO OPCIONES PIDIENDO USAURIO");
+    //console.log("MENU USUARIO OPCIONES PIDIENDO USAURIO");
     if(window.innerWidth >= 750){
       this.router.navigate(['/home']);
     }
@@ -51,7 +51,7 @@ export class MenuUsuarioComponent implements OnInit {
     
   }
   abrirModal(){
-    console.log("AbrirModal");
+    //console.log("AbrirModal");
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
   }

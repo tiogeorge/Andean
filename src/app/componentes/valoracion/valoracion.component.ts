@@ -85,12 +85,12 @@ export class ValoracionComponent implements OnInit {
   }
 
   recuperarValoracionesLogeadoCliente() {
-    console.log("USUARIO LOGUEADO ES:");
-    console.log(this.usuarioService.usuarioSeleccionado._id);
+    //console.log("USUARIO LOGUEADO ES:");
+    //console.log(this.usuarioService.usuarioSeleccionado._id);
     this.valoracionService.obtenerValoracionCliente(this.articuloService.articuloSeleccionado.idarticulo, this.usuarioService.usuarioSeleccionado._id).subscribe(res => {
-      console.log("COMENTARIO DE USAURIOS LOGUEADO:");
+      //console.log("COMENTARIO DE USAURIOS LOGUEADO:");
     
-      console.log(res);
+      //console.log(res);
       this.valoracionService.valoracionCliente = (res as Valoracion[])[0];
       if (this.valoracionService.valoracionCliente != undefined ) {
         this.clienteComento = true;

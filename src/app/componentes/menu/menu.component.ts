@@ -91,10 +91,10 @@ export class MenuComponent implements OnInit {
   obteniendocategorias = false;
 
   obtenerCategorias(){
-    console.log("Encima de categorias");
+    //console.log("Encima de categorias");
     if(!this.categoriaService.categorias && !this.obteniendocategorias){
       this.obteniendocategorias = true;      
-      console.log("OBTENIENDO CATEGORIAS");
+      //console.log("OBTENIENDO CATEGORIAS");
       this.categoriaService.getSubCategorias("root").subscribe( res => {
         this.categoriaService.categorias = res as Categoria[];
         this.categoriaService.categoriaSeleccionada = this.categoriaService.categorias[0];
@@ -214,7 +214,7 @@ export class MenuComponent implements OnInit {
 
   getSesion(){
     if(localStorage.getItem('session_token')){
-      console.log("SI ESTA LOGUEADO OBTENIENDO INFORMACION DEL USUARIO");
+      //console.log("SI ESTA LOGUEADO OBTENIENDO INFORMACION DEL USUARIO");
       this.usuarioService.getUsuario().subscribe( res => {
         var jres = JSON.parse(JSON.stringify(res));
         if (jres.status){   
@@ -230,7 +230,7 @@ export class MenuComponent implements OnInit {
         }
       });
     }else{
-      console.log("NO SE INICIO SESION");
+      //console.log("NO SE INICIO SESION");
       this.estaLogeado = false;
       this.comService.enviarUsuario(null);
     }    

@@ -14,7 +14,7 @@ export class CarouselmultipleComponent implements OnInit {
   ngOnInit() {
   }
   prueba(){
-    console.log('entra');
+    //console.log('entra');
   }
 
 }

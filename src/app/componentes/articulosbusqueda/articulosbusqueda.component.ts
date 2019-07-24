@@ -317,7 +317,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.articuloslista = new Array();
     this.articulodetalleService.getArticulosBanner(idbanner).subscribe(res => {
       this.articulodetalleService.Articulo = res as any[];
-      console.log(res);
+      //console.log(res);
       var Respuesta = JSON.parse(JSON.stringify(res));
       if (Respuesta != "") {
         this.articuloslista = Respuesta;
@@ -369,14 +369,14 @@ export class ArticulosbusquedaComponent implements OnInit {
       .subscribe(res => {
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
-        console.log(Respuesta);
+        //console.log(Respuesta);
         if (Object.keys(res).length > 0) {
           if(id=='5c868b24f647673b0c262f4e'){
             Respuesta[0].sort(function (a, b) { return b.puntuacion - a.puntuacion });
             this.articuloslista = Respuesta[0];
-            console.log('articulo lista')
-            console.log(this.articuloslista)
-            console.log(this.articuloslista)
+            //console.log('articulo lista')
+            //console.log(this.articuloslista)
+            //console.log(this.articuloslista)
             this.numeroencontrados = Object.keys(res).length;
             this.temporallistaarti = Respuesta[0];
             this.temporallistaarti2 = Respuesta[0];
@@ -386,9 +386,9 @@ export class ArticulosbusquedaComponent implements OnInit {
           else{
             Respuesta.sort(function (a, b) { return b.puntuacion - a.puntuacion });
             this.articuloslista = Respuesta;
-            console.log('articulo lista')
-            console.log(this.articuloslista)
-            console.log(this.articuloslista)
+            //console.log('articulo lista')
+            //console.log(this.articuloslista)
+            //console.log(this.articuloslista)
             this.numeroencontrados = Object.keys(res).length;
             this.temporallistaarti = Respuesta;
             this.temporallistaarti2 = Respuesta;
@@ -417,7 +417,7 @@ export class ArticulosbusquedaComponent implements OnInit {
           this.temporallistaarti = Respuesta;
           this.temporallistaarti2 = Respuesta;
           this.listcategoraisfil();
-          console.log(this.articuloslista);
+          //console.log(this.articuloslista);
         }
         else {
           this.temprecuperarmarcas(pclave);

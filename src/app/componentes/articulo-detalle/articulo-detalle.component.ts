@@ -130,8 +130,8 @@ export class ArticuloDetalleComponent implements OnInit {
       this.cambiar_imagen(this.articuloService.articuloSeleccionado.imagenes[0]);
       document.getElementById("descripcion-articulo").innerHTML = this.articuloService.articuloSeleccionado.descripcion;
       document.getElementById("caracteristicas-articulo").innerHTML = this.articuloService.articuloSeleccionado.caracteristicas;
-      console.log("GARANTIAS");
-      console.log(this.articuloService.articuloSeleccionado.garantias);
+     //console.log("GARANTIAS");
+      //console.log(this.articuloService.articuloSeleccionado.garantias);
 
       this.infoComentarios();      
       //this.buscarPreciosFiltro();
@@ -151,7 +151,7 @@ export class ArticuloDetalleComponent implements OnInit {
   }
 
   seleccionarEquipo(equipo){
-    console.log(equipo);
+    //console.log(equipo);
     this.equipoSeleccionado = equipo;
     this.colorSeleccionado = this.equipoSeleccionado.color;
     this.cambiar_imagen(this.equipoSeleccionado.imagen);
@@ -173,8 +173,8 @@ export class ArticuloDetalleComponent implements OnInit {
   infoComentarios() {
     this.valoracionService.obtenerValoracionesArticulo(this.articuloService.articuloSeleccionado.idarticulo).subscribe(res => {
       var a = res as Valoracion[];
-      console.log("VALORACIONES");
-      console.log(a);
+      //console.log("VALORACIONES");
+      //console.log(a);
 
       
       this.puntuacionPromedio = 0;

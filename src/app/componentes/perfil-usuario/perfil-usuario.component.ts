@@ -59,7 +59,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.titleService.setTitle('Perfil de Usuario | Smarket');
     this.usuarioService.getDatosUsuario().subscribe(res => {
       var response = res as any;
-      console.log(response);
+      //console.log(response);
       if(response.error){
         console.log("NO ESTA AUTORIZADO");
       }else{

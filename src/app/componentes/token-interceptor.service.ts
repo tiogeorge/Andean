@@ -12,7 +12,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   constructor(public usuarioService: UsuarioService, public router : Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    console.log("EJECUTANDOSE INTERCEPTOR");
+    //console.log("EJECUTANDOSE INTERCEPTOR");
     let tokenizedReq = req.clone({
       setHeaders:{
         Authorization: `Bearer ${this.usuarioService.getToken()}`
