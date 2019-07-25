@@ -24,17 +24,17 @@ import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.co
 const routes : Route[] = [
   {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
   {path: 'home', component: HomeComponent,canActivate: [PublicAuthGuard]},
-  {path: 'login', loadChildren: () => import('./login/login.module').then(mod => mod.LoginModule), canActivate: [PublicAuthGuard]},
-  {path: 'registro', loadChildren: () => import('./registro/registro.module').then(mod => mod.RegistroModule), canActivate: [PublicAuthGuard]},
-  {path: 'restablecer', loadChildren: () => import('./restablecer/restablecer.module').then(mod => mod.RestablecerModule) ,canActivate: [PublicAuthGuard]},
-  {path: 'busqueda/:tipobus/:pclave', loadChildren: () => import('./busqueda/busqueda.module').then(mod => mod.BusquedaModule) ,canActivate: [PublicAuthGuard]},
-  {path: 'articulo/:id', loadChildren: () => import('./articulo/articulo.module').then(mod => mod.ArticuloModule),canActivate: [PublicAuthGuard]},
-  {path: 'cart', loadChildren: () => import('./carro-compras/carro-compras.module').then(mod => mod.CarroComprasModule),canActivate: [PublicAuthGuard]},
-  {path: 'terminos', loadChildren: () => import('./terminos/terminos.module').then(mod => mod.TerminosModule),canActivate: [PublicAuthGuard]},
-  {path: 'perfil-usuario', loadChildren: () => import('./perfil-usuario/perfil-usuario.module').then(mod => mod.PerfilUsuarioModule), canActivate: [AuthGuard]},
-  {path: 'pago', loadChildren: () => import('./pago/pago.module').then(mod => mod.PagoModule), canActivate: [AuthGuard]},
-  {path: 'cambiarPassword/:token', loadChildren: () => import('./cambiar-password/cambiar-password.module').then(mod => mod.CambiarPasswordModule)},
-  {path: 'chat', loadChildren: () => import('./chat-movil/chat-movil.module').then(mod => mod.ChatMovilModule),canActivate: [PublicAuthGuard]},
+  {path: 'login', loadChildren: './login/login.module#LoginModule', canActivate: [PublicAuthGuard]},
+  {path: 'registro', loadChildren: './registro/registro.module#RegistroModule', canActivate: [PublicAuthGuard]},
+  {path: 'restablecer', loadChildren: './restablecer/restablecer.module#RestablecerModule' ,canActivate: [PublicAuthGuard]},
+  {path: 'busqueda/:tipobus/:pclave', loadChildren: './busqueda/busqueda.module#BusquedaModule',canActivate: [PublicAuthGuard]},
+  {path: 'articulo/:id', loadChildren: './articulo/articulo.module#ArticuloModule',canActivate: [PublicAuthGuard]},
+  {path: 'cart', loadChildren: './carro-compras/carro-compras.module#CarroComprasModule',canActivate: [PublicAuthGuard]},
+  {path: 'terminos', loadChildren: './terminos/terminos.module#TerminosModule',canActivate: [PublicAuthGuard]},
+  {path: 'perfil-usuario', loadChildren: './perfil-usuario/perfil-usuario.module#PerfilUsuarioModule', canActivate: [AuthGuard]},
+  {path: 'pago', loadChildren: './pago/pago.module#PagoModule', canActivate: [AuthGuard]},
+  {path: 'cambiarPassword/:token', loadChildren: './cambiar-password/cambiar-password.module#CambiarPasswordModule', canActivate: [PublicAuthGuard]},
+  {path: 'chat', loadChildren: './chat-movil/chat-movil.module#ChatMovilModule',canActivate: [PublicAuthGuard]},
 ];
 
 @NgModule({
