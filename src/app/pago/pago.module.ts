@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PagoRoutingModule } from './pago-routing.module';
 import { PagoComponent } from '../componentes/pago/pago.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material';
 
 @NgModule({
@@ -12,7 +12,8 @@ import { MaterialModule } from '../material';
     CommonModule,
     PagoRoutingModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class PagoModule { }
