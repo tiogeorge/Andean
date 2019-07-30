@@ -18,8 +18,6 @@ import { CategoriahomeComponent } from './componentes/categoriahome/categoriahom
 import {AuthGuard} from './componentes/auth.guard';
 import { PublicAuthGuard} from './componentes/public-auth.guard';
 import { TokenInterceptorService } from './componentes/token-interceptor.service';
-import { MenuCategoriasComponent } from './componentes/menu-categorias/menu-categorias.component';
-import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
@@ -35,6 +33,8 @@ const routes : Route[] = [
   {path: 'pago', loadChildren: './pago/pago.module#PagoModule', canActivate: [AuthGuard]},
   {path: 'cambiarPassword/:token', loadChildren: './cambiar-password/cambiar-password.module#CambiarPasswordModule', canActivate: [PublicAuthGuard]},
   {path: 'chat', loadChildren: './chat-movil/chat-movil.module#ChatMovilModule',canActivate: [PublicAuthGuard]},
+  {path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule',canActivate: [PublicAuthGuard]},
+  {path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasModule',canActivate: [PublicAuthGuard]}
 ];
 
 @NgModule({
@@ -46,9 +46,7 @@ const routes : Route[] = [
     PortafolioComponent,
     ChatComponent,
     SnackbarComponent,
-    CategoriahomeComponent,
-    MenuCategoriasComponent,
-    MenuUsuarioComponent
+    CategoriahomeComponent, 
   ],
   imports: [
     BrowserModule,
