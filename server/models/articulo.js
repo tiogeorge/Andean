@@ -14,13 +14,8 @@ const ArticuloSchema = new Schema({
     equipos:[{
         idequipo:{type: String, required:true},
         descripcion:{type: String, required:true},
-        cantidad:{type: Number, required: false},
-        color:{type:String, required:false},
         detalle:{type: String, required:false},
-        imagen:{type: String, required: false},
-        codigocolor:{type: String, required: false},
-        preciocompra:{type:Number, required:true},
-        precioventa:{type:Number, required:true}
+        imagen:{type: String, required: false}
     }],
     palabrasclaves:{type: String, required: true},
     descuento:{type: Number, required:true},

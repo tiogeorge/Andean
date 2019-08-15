@@ -29,6 +29,7 @@ export class PortafolioComponent implements OnInit {
   banners : any[] = new Array();
   bannerPrincipal: any ;
   marcas: any[] = new Array();
+  mostrarCargandoOfertas = false;
 
   @ViewChildren('carouselofertas') carouselofertas: QueryList<any>;
   @ViewChildren('carouselaccesorios') carouselaccesorios: QueryList<any>;
@@ -217,11 +218,14 @@ export class PortafolioComponent implements OnInit {
    * Método que obtiene los carteles de equipos y de accesorios
    */
   obtenercard() {
+    this.mostrarCargandoOfertas = true;
     this.cardservice.obtenerCarteles().subscribe( res => {
+      this.mostrarCargandoOfertas = false;
       const rspta = res as Respuesta;
       if(rspta.status){
         this.listaofertas = rspta.data;
         this.listaaccesorios = rspta.data2;
+        console.log(rspta.data);
       }
       this.carouselofertas.changes.subscribe(t => {         
         this.iniciarCarousel();     

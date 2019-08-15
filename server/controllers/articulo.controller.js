@@ -192,7 +192,73 @@ articuloController.obtenerArticuloURL = async (req, res) => {
     const articulo = await Articulo.find({
         url: req.params.id
     });
-    res.json(articulo);
+    //console.log(articulo);
+    var jsonArticulo = JSON.parse(JSON.stringify(articulo));
+    console.log(jsonArticulo);
+
+    if(jsonArticulo[0].equipos){
+        try {
+            req.getConnection(function (error, conn) {   
+              var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta('"+jsonArticulo[0].idarticulo+"') AS precioventa,fnSM_RecuperarDescuentoGlobal('"+jsonArticulo[0].idarticulo+"') as descuento";
+              conn.query(consultaMYSQL, async function (err, results) {
+                if (err) {
+                    res.json({
+                        estado: "0",
+                        mensaje: "ERROR: " + err
+                    });
+                } else {
+                    console.log(jsonArticulo[0].equipos);
+                    var precioventaarticulo = results[0].precioventa;
+                    var descuentoarticulo = results[0].descuento;
+                    var jsonEquipos = jsonArticulo[0].equipos;
+                    var parametros = "";
+                    for(var i = 0;i<jsonEquipos.length;i++){    
+                        if(i< jsonEquipos.length-1){
+                            parametros = parametros+"'"+jsonEquipos[i].idequipo+"',"
+                        }else{
+                            parametros = parametros+"'"+jsonEquipos[i].idequipo+"'"
+                        }                           
+                    }
+                    console.log("parametros = "+parametros);
+
+                    var consultaMYSQLequipos = "SELECT fnSM_StockArticuloLocal(idArticulo) AS cantidad FROM `taarticulo` WHERE idArticulo IN ("+parametros+") ORDER BY FIELD(idArticulo,"+parametros+")";
+                    conn.query(consultaMYSQLequipos, async function (err, results) {
+                        if (err) {
+                            res.json({
+                                estado: "0",
+                                mensaje: "ERROR: " + err
+                            });
+                        } else {
+                            console.log("termino la consulta de cantidades");
+                            
+                            var cantidades = results;
+                            console.log(cantidades);
+                            for(var j = 0;j<cantidades.length; j++){
+                                jsonEquipos[j].precioventa= precioventaarticulo;
+                                jsonEquipos[j].cantidad = cantidades[j].cantidad;
+                            }
+                            jsonArticulo[0].equipos = jsonEquipos;
+                            jsonArticulo[0].descuento = descuentoarticulo;
+                            console.log(jsonEquipos);
+                            
+                            res.json(jsonArticulo);
+                        }
+                    });
+                }
+              });
+            });
+            
+        }catch(e){
+            res.json({
+                estado: "0",
+                mensaje: "ERROR: " + e
+            });
+        }
+            
+    }else{
+        console.log("ERROR NO EXISTE TODOS LOS DATOS");
+    }
+    //res.json(articulo);
 }
 
 articuloController.crearArticulo = async (req, res) => {
@@ -253,273 +319,290 @@ articuloController.listararticulos = async (req, res) => {
 }
 
 articuloController.buscararti = async (req, res) => {
-    /*     var tipoLinea = req.params.linea;
-        var tipoPlan = req.params.tipoplan;
-        var cuotas = req.params.cuotas; */
+    
     const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
-    for (var i = 0; i < articulosB.length; i++) {
-        //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        //precios
-        var id = articulosB[i].idprecio;
-        //const precios = await Equipo.find({ nombreequipo: id });
-
-        var planesfiltrados;
-        /*   for (var j = 0; j < precios[0].planes.length; j++) {
-              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                  planesfiltrados.push(precios[0].planes[j]);
-              }
-          } */
-        planesfiltrados = {
-            tipolinea: 'PREPAGO',
-            tipoplan: 'ALTA',
-            nombreplan: 'PREPAGO ALTA',
-            precio: articulosB[i].equipos[0].precioventa,
-            cuotas: '0',
-            cuotainicial: '0',
-            montomes: '0',
-            cuotamensual: '0'
-        }
-        //fin
-        var cantidadeq = 0;
-        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
-            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
-        }
-        var cantidadtotalequipo = cantidadeq;
-        //categoria padre
-        var idhijo = articulosB[i].categoria;
-        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-        //fin
-        //puntuacion
-        var idarti = articulosB[i].idarticulo;
-        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
-        var cantidadcomen = valoraciones.length;
-        var sumapuntuacion = 0;
-        for (var p = 0; p < cantidadcomen; p++) {
-            sumapuntuacion += valoraciones[p].puntuacion;
-        }
-        var promedioTotal = sumapuntuacion / cantidadcomen;
-        var promredondado = Math.round(promedioTotal);
-        //fin 
-        jsonarticulos[i].puntuacion = promredondado;
-        jsonarticulos[i].categoriapadre = catepadre[0].padre;
-        jsonarticulos[i].precioplan = planesfiltrados;
-        jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion = "";
-        jsonarticulos[i].garantias = [];
-        jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
-        // jsonArticulos[i].cantidadtotal=cantidadeq;
+    // Buscar precio del articulo en mysql
+    var parametros = "";
+    for(var i = 0;i<articulosB.length;i++){        
+        if(i< articulosB.length-1){
+            parametros = parametros+"'"+articulosB[i].idarticulo+"',"
+        }else{
+            parametros = parametros+"'"+articulosB[i].idarticulo+"'"
+        } 
     }
-    res.json(jsonarticulos);
+    try {
+        req.getConnection(function (error, conn) {   
+          var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+          conn.query(consultaMYSQL, async function (err, results) {
+            if (err) {res.json({estado: "0",mensaje: "ERROR: " + err});
+            } else {
+                console.log("============================================");
+                console.log(results)
+                var preciosycantidades = results;
+
+                for (var i = 0; i < articulosB.length; i++) {
+                   // var id = articulosB[i].idprecio;
+                    var planesfiltrados;
+                    planesfiltrados = {
+                        tipolinea: 'PREPAGO',
+                        tipoplan: 'ALTA',
+                        nombreplan: 'PREPAGO ALTA',
+                        precio: preciosycantidades[i].precioventa,
+                        cuotas: '0',
+                        cuotainicial: '0',
+                        montomes: '0',
+                        cuotamensual: '0'
+                    }
+                    //fin
+                   
+                    //categoria padre
+                    var idhijo = articulosB[i].categoria;
+                    const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                    //fin
+                    //puntuacion
+                    var idarti = articulosB[i].idarticulo;
+                    const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                    var cantidadcomen = valoraciones.length;
+                    var sumapuntuacion = 0;
+                    for (var p = 0; p < cantidadcomen; p++) {
+                        sumapuntuacion += valoraciones[p].puntuacion;
+                    }
+                    var promedioTotal = sumapuntuacion / cantidadcomen;
+                    var promredondado = Math.round(promedioTotal);
+                    //fin 
+                    jsonarticulos[i].puntuacion = promredondado;
+                    jsonarticulos[i].categoriapadre = catepadre[0].padre;
+                    jsonarticulos[i].precioplan = planesfiltrados;
+                    jsonarticulos[i].caracteristicas = [];
+                    jsonarticulos[i].descripcion = "";
+                    jsonarticulos[i].garantias = [];
+                    jsonarticulos[i].descuento = preciosycantidades[i].descuento;
+                    jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
+                }
+                res.json(jsonarticulos);
+
+            }
+          });
+        });        
+      }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
 
 }
 articuloController.buscararti2 = async (req, res) => {
-    /*     var tipoLinea = req.params.linea;
-        var tipoPlan = req.params.tipoplan;
-        var cuotas = req.params.cuotas; */
     const articulosB = await Articulo.find({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
-    for (var i = 0; i < articulosB.length; i++) {
-        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        var id = articulosB[i].idprecio;
-        //  const precios = await Equipo.find({ nombreequipo: id });
-
-        var planesfiltrados;
-        /*   for (var j = 0; j < precios[0].planes.length; j++) {
-              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                  planesfiltrados.push(precios[0].planes[j]);
-              }
-          } */
-        planesfiltrados = {
-            tipolinea: 'PREPAGO',
-            tipoplan: 'ALTA',
-            nombreplan: 'PREPAGO ALTA',
-            precio: articulosB[i].equipos[0].precioventa,
-            cuotas: '0',
-            cuotainicial: '0',
-            montomes: '0',
-            cuotamensual: '0'
-        }
-        var cantidadeq = 0;
-        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
-            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
-        }
-        var cantidadtotalequipo = cantidadeq;
-        //categoria padre
-        var idhijo = articulosB[i].categoria;
-        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-        console.log('PADRE');
-        console.log(catepadre[0].padre);
-        //fin
-        //puntuacion
-        var idarti = articulosB[i].idarticulo;
-        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
-        var cantidadcomen = valoraciones.length;
-        var sumapuntuacion = 0;
-        for (var p = 0; p < cantidadcomen; p++) {
-            sumapuntuacion += valoraciones[p].puntuacion;
-        }
-        var promedioTotal = sumapuntuacion / cantidadcomen;
-        var promredondado = Math.round(promedioTotal);
-        //fin 
-        jsonarticulos[i].puntuacion = promredondado;
-        jsonarticulos[i].categoriapadre = catepadre[0].padre;
-        jsonarticulos[i].precioplan = planesfiltrados;
-        jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion = "";
-        jsonarticulos[i].garantias = [];
-        jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
+    // Buscar precio del articulo en mysql
+    var parametros = "";
+    for(var i = 0;i<articulosB.length;i++){        
+        if(i< articulosB.length-1){
+            parametros = parametros+"'"+articulosB[i].idarticulo+"',"
+        }else{
+            parametros = parametros+"'"+articulosB[i].idarticulo+"'"
+        } 
     }
-    console.log(jsonarticulos);
-    res.json(jsonarticulos);
+    try {
+        req.getConnection(function (error, conn) {   
+          var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+          conn.query(consultaMYSQL, async function (err, results) {
+            if (err) {res.json({estado: "0",mensaje: "ERROR: " + err});
+            } else {
+                console.log("============================================");
+                console.log(results)
+                var preciosycantidades = results;
+
+                for (var i = 0; i < articulosB.length; i++) {
+                   // var id = articulosB[i].idprecio;
+                    var planesfiltrados;
+                    planesfiltrados = {
+                        tipolinea: 'PREPAGO',
+                        tipoplan: 'ALTA',
+                        nombreplan: 'PREPAGO ALTA',
+                        precio: preciosycantidades[i].precioventa,
+                        cuotas: '0',
+                        cuotainicial: '0',
+                        montomes: '0',
+                        cuotamensual: '0'
+                    }
+                    //fin
+                   
+                    //categoria padre
+                    var idhijo = articulosB[i].categoria;
+                    const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                    //fin
+                    //puntuacion
+                    var idarti = articulosB[i].idarticulo;
+                    const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                    var cantidadcomen = valoraciones.length;
+                    var sumapuntuacion = 0;
+                    for (var p = 0; p < cantidadcomen; p++) {
+                        sumapuntuacion += valoraciones[p].puntuacion;
+                    }
+                    var promedioTotal = sumapuntuacion / cantidadcomen;
+                    var promredondado = Math.round(promedioTotal);
+                    //fin 
+                    jsonarticulos[i].puntuacion = promredondado;
+                    jsonarticulos[i].categoriapadre = catepadre[0].padre;
+                    jsonarticulos[i].precioplan = planesfiltrados;
+                    jsonarticulos[i].caracteristicas = [];
+                    jsonarticulos[i].descripcion = "";
+                    jsonarticulos[i].garantias = [];
+                    jsonarticulos[i].descuento = preciosycantidades[i].descuento;
+                    jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
+                }
+                res.json(jsonarticulos);
+
+            }
+          });
+        });        
+      }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
 }
 articuloController.buscararti3 = async (req, res) => {
-    /*     var tipoLinea = req.params.linea;
-        var tipoPlan = req.params.tipoplan;
-        var cuotas = req.params.cuotas; */
     const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + req.params.categoria + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
-    for (var i = 0; i < articulosB.length; i++) {
-        console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-        var id = articulosB[i].idprecio;
-        const precios = await Equipo.find({ nombreequipo: id });
-
-        var planesfiltrados;
-        /*   for (var j = 0; j < precios[0].planes.length; j++) {
-              if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                  planesfiltrados.push(precios[0].planes[j]);
-              }
-          } */
-        planesfiltrados = {
-            tipolinea: 'PREPAGO',
-            tipoplan: 'ALTA',
-            nombreplan: 'PREPAGO ALTA',
-            precio: articulosB[i].equipos[0].precioventa,
-            cuotas: '0',
-            cuotainicial: '0',
-            montomes: '0',
-            cuotamensual: '0'
-        }
-        /*         if (planesfiltrados.length > 0) {
-                    jsonarticulos[i].precioplan = planesfiltrados[0];
-                }
-                else {
-                    jsonarticulos[i].precioplan = "no tiene";
-                } */
-        var cantidadeq = 0;
-        for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
-            cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
-        }
-        var cantidadtotalequipo = cantidadeq;
-        //categoria padre
-        var idhijo = articulosB[i].categoria;
-        const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-        //  console.log('PADRE');
-        //  console.log(catepadre[0].padre);
-        //fin
-        //puntuacion
-        var idarti = articulosB[i].idarticulo;
-        const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
-        var cantidadcomen = valoraciones.length;
-        var sumapuntuacion = 0;
-        for (var p = 0; p < cantidadcomen; p++) {
-            sumapuntuacion += valoraciones[p].puntuacion;
-        }
-        var promedioTotal = sumapuntuacion / cantidadcomen;
-        var promredondado = Math.round(promedioTotal);
-        //fin 
-        jsonarticulos[i].puntuacion = promredondado;
-        jsonarticulos[i].categoriapadre = catepadre[0].padre;
-        jsonarticulos[i].precioplan = planesfiltrados;
-        jsonarticulos[i].caracteristicas = [];
-        jsonarticulos[i].descripcion = "";
-        jsonarticulos[i].garantias = [];
-        jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
+    // Buscar precio del articulo en mysql
+    var parametros = "";
+    for(var i = 0;i<articulosB.length;i++){        
+        if(i< articulosB.length-1){
+            parametros = parametros+"'"+articulosB[i].idarticulo+"',"
+        }else{
+            parametros = parametros+"'"+articulosB[i].idarticulo+"'"
+        } 
     }
+    try {
+        req.getConnection(function (error, conn) {   
+          var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+          conn.query(consultaMYSQL, async function (err, results) {
+            if (err) {res.json({estado: "0",mensaje: "ERROR: " + err});
+            } else {
+                console.log("============================================");
+                console.log(results)
+                var preciosycantidades = results;
 
-    res.json(jsonarticulos);
+                for (var i = 0; i < articulosB.length; i++) {
+                   // var id = articulosB[i].idprecio;
+                    var planesfiltrados;
+                    planesfiltrados = {
+                        tipolinea: 'PREPAGO',
+                        tipoplan: 'ALTA',
+                        nombreplan: 'PREPAGO ALTA',
+                        precio: preciosycantidades[i].precioventa,
+                        cuotas: '0',
+                        cuotainicial: '0',
+                        montomes: '0',
+                        cuotamensual: '0'
+                    }
+                    //fin
+                   
+                    //categoria padre
+                    var idhijo = articulosB[i].categoria;
+                    const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                    //fin
+                    //puntuacion
+                    var idarti = articulosB[i].idarticulo;
+                    const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                    var cantidadcomen = valoraciones.length;
+                    var sumapuntuacion = 0;
+                    for (var p = 0; p < cantidadcomen; p++) {
+                        sumapuntuacion += valoraciones[p].puntuacion;
+                    }
+                    var promedioTotal = sumapuntuacion / cantidadcomen;
+                    var promredondado = Math.round(promedioTotal);
+                    //fin 
+                    jsonarticulos[i].puntuacion = promredondado;
+                    jsonarticulos[i].categoriapadre = catepadre[0].padre;
+                    jsonarticulos[i].precioplan = planesfiltrados;
+                    jsonarticulos[i].caracteristicas = [];
+                    jsonarticulos[i].descripcion = "";
+                    jsonarticulos[i].garantias = [];
+                    jsonarticulos[i].descuento = preciosycantidades[i].descuento;
+                    jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
+                }
+                //console.log("ARTICULOS POR CATEGORIA");
+                res.json(jsonarticulos);
+                
+
+            }
+          });
+        });        
+      }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
 }
 
 /*busqueda segun categoria */
 articuloController.busquedaGeneral = async (req, res) => {
     var categoriapadre = req.params.categoriapadre;
     const cathijos = await Categoria.find({ padre: categoriapadre }, '_id');
-    //console.log(cathijos);
-    // const articulos=await Articulo.find().or([{categoria:cathijos[0]._id},{categoria:cathijos[1]._id}]);
-    //busqueda
-    var arreglofinal = new Array();
-    for (var q = 0; q < cathijos.length; q++) {
-        const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + cathijos[q]._id + '.*', $options: 'i' } });
-        var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
-        for (var i = 0; i < articulosB.length; i++) {
-            //  console.log(req.params.linea + " - " + req.params.tipoplan + " - " + req.params.cuotas);
-            var id = articulosB[i].idprecio;
-            //const precios = await Equipo.find({ nombreequipo: id });
-            var planesfiltrados;
-            /*   for (var j = 0; j < precios[0].planes.length; j++) {
-                  if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                      planesfiltrados.push(precios[0].planes[j]);
-                  }
-              } */
-            console.log('busqueda general')
-            console.log(articulosB[i].titulo)
-            planesfiltrados = {
-                tipolinea: 'PREPAGO',
-                tipoplan: 'ALTA',
-                nombreplan: 'PREPAGO ALTA',
-                precio: articulosB[i].equipos[0].precioventa,
-                cuotas: '0',
-                cuotainicial: '0',
-                montomes: '0',
-                cuotamensual: '0'
-            }
-            /*             if (planesfiltrados.length > 0) {
-                            jsonarticulos[i].precioplan = planesfiltrados[0];
-                        }
-                        else {
-                            jsonarticulos[i].precioplan = "no tiene";
-                        } */
-            var cantidadeq = 0;
-            for (var cant = 0; cant < articulosB[i].equipos.length; cant++) {
-                cantidadeq = cantidadeq + articulosB[i].equipos[cant].cantidad;
-            }
-            var cantidadtotalequipo = cantidadeq;
-            //categoria padre
-            var idhijo = articulosB[i].categoria;
-            const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-            /* console.log('PADRE');
-            console.log(catepadre[0].padre); */
-            //fin
-            //puntuacion
-            var idarti = articulosB[i].idarticulo;
-            const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
-            var cantidadcomen = valoraciones.length;
-            var sumapuntuacion = 0;
-            for (var p = 0; p < cantidadcomen; p++) {
-                sumapuntuacion += valoraciones[p].puntuacion;
-            }
-            var promedioTotal = sumapuntuacion / cantidadcomen;
-            var promredondado = Math.round(promedioTotal);
-            //fin 
-            jsonarticulos[i].puntuacion = promredondado;
-            jsonarticulos[i].categoriapadre = catepadre[0].padre;
-            jsonarticulos[i].precioplan = planesfiltrados;
-            jsonarticulos[i].caracteristicas = [];
-            jsonarticulos[i].descripcion = "";
-            jsonarticulos[i].garantias = [];
-            jsonarticulos[i].cantidadtotal = cantidadtotalequipo;
-           // arreglofinal.push(jsonarticulos[i]);
-            if (categoriapadre == '5c868b24f647673b0c262f4e') {
-                arreglofinal.push(jsonarticulos);
-            }
-            else {
-                arreglofinal.push(jsonarticulos[i]);
-            }
-        }
+    var idcatHijos = new Array();
+    for(var i = 0;i<cathijos.length;i++){
+        idcatHijos.push(cathijos[i]._id);
     }
-    //fin
-   // console.log(jsonarticulos)
-    res.json(arreglofinal);
+    const articulosB = await Articulo.find({ "categoria": { $in:idcatHijos} });
+    var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
+    // Buscar precio del articulo en mysql
+    var parametros = "";
+    for(var i = 0;i<articulosB.length;i++){        
+        if(i< articulosB.length-1){
+            parametros = parametros+"'"+articulosB[i].idarticulo+"',"
+        }else{
+            parametros = parametros+"'"+articulosB[i].idarticulo+"'"
+        } 
+    }
+    try {
+        req.getConnection(function (error, conn) {   
+          var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+          conn.query(consultaMYSQL, async function (err, results) {
+            if (err) {res.json({estado: "0",mensaje: "ERROR: " + err});
+            } else {
+                console.log("============================================");
+                console.log(results)
+                var preciosycantidades = results;
+
+                for (var i = 0; i < articulosB.length; i++) {
+                   // var id = articulosB[i].idprecio;
+                    var planesfiltrados;
+                    planesfiltrados = {
+                        tipolinea: 'PREPAGO',
+                        tipoplan: 'ALTA',
+                        nombreplan: 'PREPAGO ALTA',
+                        precio: preciosycantidades[i].precioventa,
+                        cuotas: '0',
+                        cuotainicial: '0',
+                        montomes: '0',
+                        cuotamensual: '0'
+                    }
+                    //fin
+                   
+                    //categoria padre
+                    var idhijo = articulosB[i].categoria;
+                    const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                    //fin
+                    //puntuacion
+                    var idarti = articulosB[i].idarticulo;
+                    const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                    var cantidadcomen = valoraciones.length;
+                    var sumapuntuacion = 0;
+                    for (var p = 0; p < cantidadcomen; p++) {
+                        sumapuntuacion += valoraciones[p].puntuacion;
+                    }
+                    var promedioTotal = sumapuntuacion / cantidadcomen;
+                    var promredondado = Math.round(promedioTotal);
+                    //fin 
+                    jsonarticulos[i].puntuacion = promredondado;
+                    jsonarticulos[i].categoriapadre = catepadre[0].padre;
+                    jsonarticulos[i].precioplan = planesfiltrados;
+                    jsonarticulos[i].caracteristicas = [];
+                    jsonarticulos[i].descripcion = "";
+                    jsonarticulos[i].garantias = [];
+                    jsonarticulos[i].descuento = preciosycantidades[i].descuento;
+                    jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
+                }
+                //console.log("ARTICULOS POR CATEGORIA");
+                res.json(jsonarticulos);
+                
+
+            }
+          });
+        });        
+      }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
 }
 /*fin*/
 
@@ -614,63 +697,70 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
 
         //res.json(banner[0].articulos);
         var jsonarticulos = JSON.parse(JSON.stringify(banner[0].articulos));
+        // Buscar precio del articulo en mysql
+    var parametros = "";
+    for(var i = 0;i<articulosB.length;i++){        
+        if(i< articulosB.length-1){
+            parametros = parametros+"'"+articulosB[i].idarticulo+"',"
+        }else{
+            parametros = parametros+"'"+articulosB[i].idarticulo+"'"
+        } 
+    }
+    try {
+        req.getConnection(function (error, conn) {   
+          var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+          conn.query(consultaMYSQL, async function (err, results) {
+            if (err) {res.json({estado: "0",mensaje: "ERROR: " + err});
+            } else {
+                console.log("============================================");
+                console.log(results)
+                var preciosycantidades = results;
 
-        for (var k = 0; k < banner[0].articulos.length; k++) {
-            const articulo = await Articulo.find({ idarticulo: banner[0].articulos[k].idarticulo });
-            //console.log(articulo);
-            var planesfiltrados = {
-                tipolinea: 'PREPAGO',
-                tipoplan: 'ALTA',
-                nombreplan: 'PREPAGO ALTA',
-                precio: articulo[0].equipos[0].precioventa,
-                cuotas: '0',
-                cuotainicial: '0',
-                montomes: '0',
-                cuotamensual: '0'
-            };
-            /*for (var j = 0; j < precios[0].planes.length; j++) {
-                if (precios[0].planes[j].tipolinea == tipoLinea && precios[0].planes[j].tipoplan == tipoPlan && precios[0].planes[j].cuotas == cuotas) {
-                    planesfiltrados.push(precios[0].planes[j]);
+                for (var i = 0; i < articulosB.length; i++) {
+                   // var id = articulosB[i].idprecio;
+                    var planesfiltrados;
+                    planesfiltrados = {
+                        tipolinea: 'PREPAGO',
+                        tipoplan: 'ALTA',
+                        nombreplan: 'PREPAGO ALTA',
+                        precio: preciosycantidades[i].precioventa,
+                        cuotas: '0',
+                        cuotainicial: '0',
+                        montomes: '0',
+                        cuotamensual: '0'
+                    }
+                    //fin
+                   
+                    //categoria padre
+                    var idhijo = articulosB[i].categoria;
+                    const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                    //fin
+                    //puntuacion
+                    var idarti = articulosB[i].idarticulo;
+                    const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                    var cantidadcomen = valoraciones.length;
+                    var sumapuntuacion = 0;
+                    for (var p = 0; p < cantidadcomen; p++) {
+                        sumapuntuacion += valoraciones[p].puntuacion;
+                    }
+                    var promedioTotal = sumapuntuacion / cantidadcomen;
+                    var promredondado = Math.round(promedioTotal);
+                    //fin 
+                    jsonarticulos[i].puntuacion = promredondado;
+                    jsonarticulos[i].categoriapadre = catepadre[0].padre;
+                    jsonarticulos[i].precioplan = planesfiltrados;
+                    jsonarticulos[i].caracteristicas = [];
+                    jsonarticulos[i].descripcion = "";
+                    jsonarticulos[i].garantias = [];
+                    jsonarticulos[i].descuento = preciosycantidades[i].descuento;
+                    jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
                 }
-            }*/
-            //categoria padre
-            var idhijo = banner[0].articulos[k].categoria;
-            const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
-            //console.log('PADRE');
-            //console.log(catepadre[0].padre);
+                res.json(jsonarticulos);
 
-            //Puntuacion
-            const valoraciones = await Valoracion.find({ idarticulo: banner[0].articulos[k].idarticulo }, 'puntuacion');
-            //console.log(banner[0].articulos[k].idarticulo);
-            var cantidadcomen = valoraciones.length;
-            var sumapuntuacion = 0;
-            for (var p = 0; p < cantidadcomen; p++) {
-                sumapuntuacion += valoraciones[p].puntuacion;
             }
-            var promedioTotal = sumapuntuacion / cantidadcomen;
-            var promredondado = Math.round(promedioTotal);
-
-            var cantidadeq = 0;
-            for (var cant = 0; cant < articulo[0].equipos.length; cant++) {
-                cantidadeq = cantidadeq + articulo[0].equipos[cant].cantidad;
-            }
-            var cantidadtotalequipo = cantidadeq;
-            //fin
-            jsonarticulos[k].categoriapadre = catepadre[0].padre;
-            jsonarticulos[k].precioplan = planesfiltrados;
-            jsonarticulos[k].puntuacion = promredondado;
-            jsonarticulos[k].url = articulo[0].url;
-            jsonarticulos[k].titulo = articulo[0].titulo;
-            jsonarticulos[k].imagenes = articulo[0].imagenes;
-            jsonarticulos[k].categoria = articulo[0].categoria;
-            jsonarticulos[k].cantidad = articulo[0].cantidad;
-            jsonarticulos[k].marca = articulo[0].marca;
-            jsonarticulos[k].descuento = articulo[0].descuento;
-            jsonarticulos[k].cantidadtotal = cantidadtotalequipo;
-
-        }
-
-        res.json(jsonarticulos);
+          });
+        });        
+      }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
 
     } catch (err) {
         //console.log(err);
@@ -731,48 +821,170 @@ articuloController.obtenerCards = async (req, res) => {
 }
 
 articuloController.obtenerCarteles = async (req, res) => {
-    try {
-        //  Proceso para obtener los datos de los ARTÍCULOS y sus precios
-        const listaArticulos = [];
-        const articulosCard = await Card.find({ activo: true, tipo: 'ARTICULO' }, { idEquipo: 1, urlImagen: 1 });
-        for (var i = 0; i < articulosCard.length; i++) {
-            const articulo = await Articulo.findOne({ _id: articulosCard[i].idEquipo }, { titulo: 1, url: 1, 'equipos.precioventa': 1, descuento: 1 });
-            listaArticulos.push({
-                idEquipo: articulosCard[i].idEquipo,
-                urlImagen: articulosCard[i].urlImagen,
-                titulo: articulo.titulo,
-                url: articulo.url,
-                descuento: articulo.descuento,
-                precio: articulo.equipos[0].precioventa
-            });
-        }
-        // Proceso para obtener los datos de los ACCESORIOS y sus precios
-        const listaAccesorios = [];
-        const accesoriosCard = await Card.find({ activo: true, tipo: 'ACCESORIO' }, { idEquipo: 1, urlImagen: 1 });
-        for (var j = 0; j < accesoriosCard.length; j++) {
-            const accesorio = await Articulo.findOne({ _id: accesoriosCard[j].idEquipo }, { titulo: 1, url: 1, 'equipos.precioventa': 1, descuento: 1 });
-            listaAccesorios.push({
-                idEquipo: accesoriosCard[j].idEquipo,
-                urlImagen: accesoriosCard[j].urlImagen,
-                titulo: accesorio.titulo,
-                url: accesorio.url,
-                descuento: accesorio.descuento,
-                precio: accesorio.equipos[0].precioventa
-            });
-        }
-        res.json({
-            status: true,
-            msg: 'Los carteles han sido obtnidos con éxito',
-            data: listaArticulos,
-            data2: listaAccesorios
-        });
-    } catch (err) {
-        console.error(err);
-        res.json({
-            status: false,
-            error: err
-        })
+    
+    //  Proceso para obtener los datos de los ARTÍCULOS y sus precios
+    const listaArticulos = [];
+    const listaAccesorios = [];
+    const articulosCard = await Card.find({ activo: true, tipo: 'ARTICULO' }, { idEquipo: 1, urlImagen: 1 });
+    const accesoriosCard = await Card.find({ activo: true, tipo: 'ACCESORIO' }, { idEquipo: 1, urlImagen: 1 });
+    var idarticuloscard = new Array();
+    var idaccesorioscard = new Array();
+    for(var i = 0;i<articulosCard.length;i++){
+        idarticuloscard.push(articulosCard[i].idEquipo);
     }
+    for(var i = 0;i<accesoriosCard.length;i++){
+        idaccesorioscard.push(accesoriosCard[i].idEquipo);
+    }
+
+    //Obtener articulos
+    const articulos = await Articulo.find({ _id:{ $in:idarticuloscard} });
+    const accesorios = await Articulo.find({ _id:{ $in:idaccesorioscard} });
+    console.log("ARTICULOS");
+    console.log(idarticuloscard);
+    console.log(articulos);
+
+    //Convertir a json
+    var jsonarticulos = JSON.parse(JSON.stringify(articulos));
+    var jsonaccesorios = JSON.parse(JSON.stringify(accesorios));
+
+    // Buscar precio del articulo en mysql
+    var parametros = "";
+    for(var i = 0;i<articulos.length;i++){        
+        if(i< articulos.length-1){
+            parametros = parametros+"'"+articulos[i].idarticulo+"',"
+        }else{
+            parametros = parametros+"'"+articulos[i].idarticulo+"'"
+        } 
+    }
+    try {
+        console.log("OBTENIENDO PRECIOS DEL ARICULOS");
+        req.getConnection(function (error, conn) {   
+          var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+          conn.query(consultaMYSQL, async function (err, results) {
+            if (err) {  console.log(err); res.json({estado: "0",mensaje: "ERROR: " + err});
+            } else {
+                //console.log("============================================");
+                //console.log(results)
+                var preciosycantidades = results;
+
+                for (var i = 0; i < articulos.length; i++) {
+                   // var id = articulosB[i].idprecio;
+                    var planesfiltrados;
+                    planesfiltrados = {
+                        tipolinea: 'PREPAGO',
+                        tipoplan: 'ALTA',
+                        nombreplan: 'PREPAGO ALTA',
+                        precio: preciosycantidades[i].precioventa,
+                        cuotas: '0',
+                        cuotainicial: '0',
+                        montomes: '0',
+                        cuotamensual: '0'
+                    }
+                    //fin
+                   
+                    //categoria padre
+                    var idhijo = articulos[i].categoria;
+                    const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                    //fin
+                    //puntuacion
+                    var idarti = articulos[i].idarticulo;
+                    const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                    var cantidadcomen = valoraciones.length;
+                    var sumapuntuacion = 0;
+                    for (var p = 0; p < cantidadcomen; p++) {
+                        sumapuntuacion += valoraciones[p].puntuacion;
+                    }
+                    var promedioTotal = sumapuntuacion / cantidadcomen;
+                    var promredondado = Math.round(promedioTotal);
+                    //fin 
+                    jsonarticulos[i].puntuacion = promredondado;
+                    jsonarticulos[i].categoriapadre = catepadre[0].padre;
+                    jsonarticulos[i].precioventa = preciosycantidades[i].precioventa;
+                    jsonarticulos[i].caracteristicas = [];
+                    jsonarticulos[i].descripcion = "";
+                    jsonarticulos[i].garantias = [];
+                    jsonarticulos[i].descuento = preciosycantidades[i].descuento;
+                    jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
+                }
+
+                //buscasr accesorios
+                var parametros2 = "";
+                for(var i = 0;i<accesorios.length;i++){        
+                    if(i< accesorios.length-1){
+                        parametros2 = parametros2+"'"+accesorios[i].idarticulo+"',"
+                    }else{
+                        parametros2 = parametros2+"'"+accesorios[i].idarticulo+"'"
+                    } 
+                }
+                try {
+                    console.log("OBTENIENDO PRECIOS DEL ACCESORIOS");
+                    req.getConnection(function (error, conn) {   
+                    var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros2+") ORDER BY FIELD(idArticuloGlobal,"+parametros2+")";
+                    conn.query(consultaMYSQL, async function (err, results) {
+                        if (err) {
+                            console.log(err);   res.json({status: true,
+                                msg: 'Los carteles han sido obtnidos con éxito',
+                                data: jsonarticulos,
+                                data2: jsonaccesorios});
+                        } else {
+                            console.log("============================================");
+                            console.log(results)
+                            var preciosycantidades = results;
+
+                            for (var i = 0; i < accesorios.length; i++) {
+                            // var id = articulosB[i].idprecio;
+                                var planesfiltrados;
+                                planesfiltrados = {
+                                    tipolinea: 'PREPAGO',
+                                    tipoplan: 'ALTA',
+                                    nombreplan: 'PREPAGO ALTA',
+                                    precio: preciosycantidades[i].precioventa,
+                                    cuotas: '0',
+                                    cuotainicial: '0',
+                                    montomes: '0',
+                                    cuotamensual: '0'
+                                }
+                                //fin
+                            
+                                //categoria padre
+                                var idhijo = accesorios[i].categoria;
+                                const catepadre = await Categoria.find({ _id: idhijo }, 'padre');
+                                //fin
+                                //puntuacion
+                                var idarti = accesorios[i].idarticulo;
+                                const valoraciones = await Valoracion.find({ idarticulo: idarti }, 'puntuacion')
+                                var cantidadcomen = valoraciones.length;
+                                var sumapuntuacion = 0;
+                                for (var p = 0; p < cantidadcomen; p++) {
+                                    sumapuntuacion += valoraciones[p].puntuacion;
+                                }
+                                var promedioTotal = sumapuntuacion / cantidadcomen;
+                                var promredondado = Math.round(promedioTotal);
+                                //fin 
+                                jsonaccesorios[i].puntuacion = promredondado;
+                                jsonaccesorios[i].categoriapadre = catepadre[0].padre;
+                                jsonaccesorios[i].precioventa = preciosycantidades[i].precioventa;
+                                jsonaccesorios[i].caracteristicas = [];
+                                jsonaccesorios[i].descripcion = "";
+                                jsonaccesorios[i].garantias = [];
+                                jsonaccesorios[i].descuento = preciosycantidades[i].descuento;
+                                jsonaccesorios[i].cantidadtotal = preciosycantidades[i].cantidad;
+                            }
+                            res.json({
+                                status: true,
+                                msg: 'Los carteles han sido obtnidos con éxito',
+                                data: jsonarticulos,
+                                data2: jsonaccesorios
+                            });
+                        }
+                    });
+                    });        
+                }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});} 
+            }
+          });
+        });        
+      }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
+
 }
 
 articuloController.obtenerCardsTipo = async (req, res) => {

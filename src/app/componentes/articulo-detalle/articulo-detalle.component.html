@@ -64,7 +64,7 @@
             <div>
               <div style="font-size: 18px; border-bottom: 1px solid rgb(228, 228, 228);">Caracteristicas</div>
               <div style="width: 100%; height: auto; margin-top: 5px;">
-                <li>Color: {{equipoSeleccionado.color}}</li>
+                <li> {{equipoSeleccionado.detalle}}</li>
                 <a (click)="irADetalle()" class="btndetalle">Mas Información</a>
               </div>
             </div>
@@ -85,99 +85,15 @@
           </div>
           
          <!--
-           
-         --> <div hidden="true" class="cont-lineas" style="width: 100%; padding-left: 10px; display: flex; flex-direction: row;flex-wrap: wrap;">
-              <div class="cont-selec" >
-                  <h6 style="margin-bottom: 5px;">Tipo Linea:</h6>
-                  <div class="input-select" >
-                      <mat-select style="padding-left: 4px; padding-right: 4px;"  name="tipolinea"[(ngModel)]="tipoLineaSeleccionada" >
-                          <mat-option *ngFor="let linea of listalineas" value="{{linea.valor}}">{{linea.nombre}}</mat-option>
-                      </mat-select> 
-                  </div>
-                  
-              </div>
-              <div class="cont-select" style="width: 200px;"></div>
-              <div class="cont-selec" [hidden]="controlTipoPlan">
-                  <h6 style="margin-bottom: 5px;">Lo quiero en: </h6>
-                  <div class="input-select">
-                      <mat-select style="padding-left: 4px; padding-right: 4px;" name="tipoplan"[(ngModel)]="tipoPlanSeleccionado"  >
-                          <mat-option *ngFor="let tipo of listatipoplanes" value="{{tipo.valor}}">{{tipo.nombre}}</mat-option>
-                      </mat-select>
-                  </div>                  
-              </div>
-              <div class="cont-selec"  [hidden]="controlCuotas" >
-                  <h6 style="margin-bottom: 5px;">Pagar el equipo en:</h6>
-                  <div class="input-select">
-                      <mat-select  style="padding-left: 4px; padding-right: 4px;" name="tipocuota"[(ngModel)]="tipoCuotaSeleccionada" >
-                          <mat-option *ngFor="let cuota of listacuotasSeleccionadas" value="{{cuota.valor}}">{{cuota.nombre}}</mat-option>
-                        </mat-select>
-                  </div>
-                  
-              </div>
-            </div>
-            <div  hidden="true"class="cont-precios">
-                <div class="btn-planes" (click)="moverScrollRigth()">                
-                      <i class="material-icons" style="font-size: 35px;">chevron_left</i>                    
-                </div>
-                <div  style="width: 88%; display: flex; flex-direction: row; height: 210px; justify-content: center; align-items: center;" [hidden]="!nomostrarPrecios">
-                  <div [hidden]="hayPrecios">
-                      <mat-spinner style="width: 10px; height: 10px;"></mat-spinner>
-                  </div>
-                  <div [hidden]="!hayPrecios">
-                    <label for=""> No se encontraron precios.</label>
-                  </div>
-                  
-                </div>
-                <div id="cont-carousel"  class="contenido-planes-equipo" [hidden]="nomostrarPrecios">
-                    <div class="contenido-planes-equipo-carousel" id="contenido-planes-equipo" >
-                  
-                        <div *ngFor="let plan of listPreciosFiltro" (click)="seleccionarPlan(plan)">
-                          <mat-card class="card-planes" *ngIf="plan.nombreplan != planSeleccionado.nombreplan">
-                            <mat-card-content style="text-align: center;">
-                              <h6 style="color: gray;"><strong>{{plan.nombreplan}}</strong> </h6>
-                              
-                                <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
-                                  <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
-                                  <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
-                                  <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: rgb(43, 40, 40); font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
-      
-                                </div>
-                              <!--  <div style="width: 100%;">
-                                  <button class="btn btn-link" style="color: grey">Ver Detalle Plan</button>
-                                </div>-->
-                            
-                            </mat-card-content>
-                          </mat-card> 
-      
-                          <mat-card class="card-planes-seleccionado" *ngIf="plan.nombreplan == planSeleccionado.nombreplan">
-                            <mat-card-content style="text-align: center;">
-                              <h6><strong>{{plan.nombreplan}}</strong> </h6>
-                              
-                                <div style=" display: flex; flex-direction: column; width: 100%;justify-content: center;">
-                                  <div style="font-weight: bold; color: rgb(83, 82, 79); font-size: 12px;">Precio:</div>
-                                  <div *ngIf="plan.tipolinea=='POSTPAGO'" style="font-weight: bold; color: #ff8c00; font-size: 17px; width: 100%;">S/ {{plan.montomes.toFixed(2)}}{{almes}}</div>
-                                  <div *ngIf="plan.tipolinea=='PREPAGO'" style="font-weight: bold; color: #ff8c00; font-size: 17px; width: 100%;">S/ {{plan.precio.toFixed(2)}}</div>
-      
-                                </div>
-                              <!--   <div style="width: 100%;">
-                                  <button class="btn btn-link" style="color: rgb(36, 36, 39);">Ver Detalle Plan</button>
-                                </div>-->
-                            
-                            </mat-card-content>
-                          </mat-card>  
-                        </div>       
-                </div>
-                
-                    
-                </div>
-                <div class="btn-planes" (click)="moverScroll()">
-                    <i class="material-icons" style="font-size: 35px;">chevron_right</i>
-                </div>
-            </div>  
+           AQUI ESTABAN LOS PLANES
+         --> 
       </div>
       
       <div class="contenedor-precios">
-        <div class="contenedor-detalle-precio">
+        <div class="contenedor-carga" [hidden]="mostrarPrecioArticulo">
+            <mat-spinner [diameter]="35"></mat-spinner> 
+        </div>
+        <div class="contenedor-detalle-precio" [hidden]="!mostrarPrecioArticulo">
           <div style="width: 100%; display: flex; flex-direction: column;">
             <div *ngIf="articuloService.articuloSeleccionado.descuento >0"  style="margin-top:0px; font-size: 25px;color: #7e8285; display:flex; flex-direction: row;"> <del>
               S/ {{(equipoSeleccionado.precioventa).toFixed(2)}} 
@@ -190,35 +106,7 @@
               
               <div  style="margin-top:5px; font-size:18px;">Pago Total: S/ {{((equipoSeleccionado.precioventa-(equipoSeleccionado.precioventa*articuloService.articuloSeleccionado.descuento/100))*cantidadSeleccionada).toFixed(2) }} </div>    
               <div  style="margin-top:5px; font-size:12px; ">* Envio gratis a Cusco,Apurimac y Madre de Dios </div>    
-          </div>
-          <!--
-<div [hidden]="nomostrarPlanesPostpago" class="detalle-precio-plan">
-              <div class="item-precio-plan">
-                  <div style="margin-right: 5px; font-size: 14px;">Plan: </div>     
-                  <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 14px; width: auto; text-align: center;">{{planSeleccionado.nombreplan}}</div>
-        
-              </div>
-            <div class="item-precio-plan">
-                <div style="margin-right: 5px;">Precio del Plan: </div>     
-                <div style="font-weight: bold; color: rgb(53, 53, 52); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.montomes.toFixed(2)}}</div>
-      
-            </div>
-            <div class="item-precio-plan">
-                <div style="margin-right: 5px;">Cuota : </div>     
-                <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{planSeleccionado.cuotamensual.toFixed(2)}}</div>
-    
-            </div>
-            <div class="item-precio-plan">
-              <div style="margin-right: 5px;">Pago Mensual : </div>     
-              <div  style="font-weight: bold; color: rgb(32, 32, 31); font-size: 12px; width: auto; text-align: center;"> S/ {{(planSeleccionado.montomes+planSeleccionado.cuotamensual).toFixed(2)}}</div>
-            </div>
-            <div class="item-precio-plan" *ngIf="tipoLineaSeleccionada != 'PREPAGO'">
-              <button class="btn-detalle-plan" (click)="abrirDetallesPlan()" data-toggle="modal" data-target="#modalPlan"> Ver Detalles </button>
-
-            </div>
-              
-          </div>
-          --> 
+          </div>         
          
           <div class="botones-compra">
             <!--<button class="btn-compra btn-procesar" ><i class="fa fa-credit-card"></i> Procesar Compra</button>--> 

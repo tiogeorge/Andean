@@ -62,6 +62,7 @@ export class ArticuloDetalleComponent implements OnInit {
   equipoSeleccionado: Equipo = new Equipo();
 
   carritoLocal: any[] = new Array();;
+  mostrarPrecioArticulo = false;
 
   planSeleccionado = {
     nombreplan: "",
@@ -98,7 +99,7 @@ export class ArticuloDetalleComponent implements OnInit {
   textoNumeroComentarios: String = 'Sin Comentarios';
   puntuacionPromedio: Number  = 0;
   ngOnInit() {
-
+    this.articuloService.articuloSeleccionado  = new Articulo();
     this.listalineas = [{ valor: "PREPAGO", nombre: "Prepago" }, { valor: "POSTPAGO", nombre: "Postpago" }];
     this.listatipoplanes = [
       { valor: "ALTA", nombre: "Linea Nueva" },
@@ -123,7 +124,9 @@ export class ArticuloDetalleComponent implements OnInit {
 
   ngAfterViewInit() {
     var url = this.route.snapshot.paramMap.get("id");
+    this.mostrarPrecioArticulo = false;
     this.articuloService.getArticulo(url).subscribe(res => {
+      this.mostrarPrecioArticulo = true;
       this.articuloService.articuloSeleccionado = res[0] as Articulo;
       this.titleService.setTitle('Comprar ' + this.articuloService.articuloSeleccionado.titulo + ' | Smarket');
       this.metaService.updateTag({name: 'description', content: 'Compra el ' + this.articuloService.articuloSeleccionado.titulo + ' aquí en la tienda virtual SMARKET a un precio increible.'})
@@ -210,6 +213,8 @@ export class ArticuloDetalleComponent implements OnInit {
   
   agregarCarrito() {
     if(this.usuarioService.logueado()){
+      console.log(this.equipoSeleccionado);
+      console.log(this.cantidadSeleccionada);
         this.usuarioService.agregarArticuloCarrito(this.articuloService.articuloSeleccionado.idarticulo, this.equipoSeleccionado.idequipo, this.cantidadSeleccionada, this.equipoSeleccionado.imagen).subscribe( res => {
         const rspta = res as Respuesta;
         this.openDialog(rspta);

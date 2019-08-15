@@ -245,6 +245,9 @@
               </div>
             </div>
           </div> -->
+          <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; width: 100%;min-height:250px; color: gray;" [hidden]="!mostrarBuscando">
+              <mat-spinner [diameter]="60"></mat-spinner> <h4 style="margin-left: 15px; color: gray;">Buscando</h4>
+          </div>
           <!--vista 2-->
           <div class="col-lg-12" id="contenedorarticulos">
             <div class="container-fluid">
@@ -334,6 +337,16 @@
             </div> -->
           </div>
           <!--fin-->
+
+
+          <!--PAGINACIÓN-->
+
+          <div class="pagination" [hidden]="mostrarBuscando">
+            <a href="#">❮ Anterior</a>
+            <a class="active" href="#">1</a>
+            <a href="#">Siguiente ❯</a>
+          </div>
+
         </div>
       </div>
     </div>

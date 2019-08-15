@@ -123,6 +123,7 @@ imagenController.getImagenes = async (req,res)=>{
     var listaimagenes = new Array();
     fs.readdir('./imagenes/lg', (err, files) => {
         files.forEach(file => {
+           // console.log(f)
             listaimagenes.push(file);
         });
         res.json(listaimagenes);
@@ -131,10 +132,11 @@ imagenController.getImagenes = async (req,res)=>{
 }
 imagenController.getFiles = async (req,res)=>{
     try{
+        console.log(req.body.nombre);
         var listaimagenes = new Array();
-        fs.readdir('./imagenes/tmp', (err, files) => {
+        fs.readdir('./imagenes/md'+req.body.nombre, (err, files) => {
             files.forEach(file => {
-                listaimagenes.push(file);
+                listaimagenes.push(file);   
             });
             res.json(listaimagenes);
         });

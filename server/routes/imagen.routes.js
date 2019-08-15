@@ -17,7 +17,7 @@ var upload = multer({storage: storage});
 
 
 router.get('/', imagen.getImagenes);
-router.put('/files', imagen.getFiles);
+router.post('/files', imagen.getFiles);
 router.post('/subir',upload.single('image'), imagen.subirImagen);
 router.post('/crear-carpeta', imagen.crearCarpeta);
 

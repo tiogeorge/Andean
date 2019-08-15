@@ -228,7 +228,7 @@ button:focus{
 }
 
  #logosmarket{
-  content: url("/assets/images/logo2.png");;
+  content: url("/assets/images/logo.png");;
  }
 .item-menu-opciones{
   margin-left: 15px; 
@@ -631,7 +631,7 @@ select:hover{
     display: none;
   }
   #logosmarket{
-    content: url("/assets/images/logo2.png");
+    content: url("/assets/images/logo.png");
     height: 26px;
    }
    #labelnombreusuario{
@@ -771,8 +771,8 @@ select:hover{
     display: flex;
   }
   #logosmarket{
-    content: url("/assets/images/logo2.png");;
-    height: 36px;
+    content: url("/assets/images/logo.png");;
+    height: 40px;
    }
    #labelnombreusuario{
     display: none;
@@ -876,7 +876,8 @@ select:hover{
     display: flex;
   }
   #logosmarket{
-    content: url("/assets/images/logo2.png");
+    content: url("/assets/images/logo.png");
+    height: 45px;
    }
    #labelnombreusuario{
     display: flex;

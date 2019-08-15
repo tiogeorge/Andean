@@ -59,6 +59,8 @@ export class ArticulosbusquedaComponent implements OnInit {
   arreglocategorias: string[];
   arreglocategoriasP: string[];
 
+  mostrarBuscando = false;
+
   selected = 'option1';
   listacategorias = new Array();
   listamarcas: any;
@@ -155,10 +157,12 @@ export class ArticulosbusquedaComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public snackBar: MatSnackBar, private route: ActivatedRoute, private articulodetalleService: ArticuloDetalleService, private marcaservice: MarcaService, private categoriaservice: CategoriaService, private servicioapoyo: ServicioapoyoService, public comService: comunicacionService) {
     this.subscription = this.servicioapoyo.getPalabraClave()
       .subscribe(clave => {
+        this.mostrarBuscando = true;
         this.palabraClave = clave.clave;
         this.listaraarticulos(this.palabraClave)
       });
       this.subscriptioncat = this.comService.getCategoria().subscribe(id=>{
+        this.mostrarBuscando = true;
         this.listararticate(id);
       });
 
@@ -181,6 +185,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.tipordenado = 'orden1';
     var urlcat = this.route.snapshot.paramMap.get("tipobus");
     var url = this.route.snapshot.paramMap.get("pclave");
+    this.mostrarBuscando = true;
     if (urlcat == 'cat') {
       this.listararticate(url);
     }
@@ -316,6 +321,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     document.getElementById('noencontrado').hidden = true;
     this.articuloslista = new Array();
     this.articulodetalleService.getArticulosBanner(idbanner).subscribe(res => {
+      this.mostrarBuscando = false;
       this.articulodetalleService.Articulo = res as any[];
       //console.log(res);
       var Respuesta = JSON.parse(JSON.stringify(res));
@@ -367,6 +373,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.articuloslista = new Array();
     this.articulodetalleService.listarArticulo4(id)
       .subscribe(res => {
+        this.mostrarBuscando = false;
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         //console.log(Respuesta);
@@ -408,6 +415,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     this.articuloslista = new Array();
     this.articulodetalleService.listarArticulos(pclave)
       .subscribe(res => {
+        this.mostrarBuscando = false;
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         if (Respuesta != "") {
@@ -429,6 +437,7 @@ export class ArticulosbusquedaComponent implements OnInit {
     //  if (pclave != null || pclave != "" || pclave != undefined) {
     this.articulodetalleService.listarArticulos2(pclave)
       .subscribe(res => {
+        this.mostrarBuscando = false;
         this.articulodetalleService.Articulo = res as Articulo[];
         var Respuesta = JSON.parse(JSON.stringify(res));
         Respuesta.sort(function (a, b) { return b.puntuacion - a.puntuacion });

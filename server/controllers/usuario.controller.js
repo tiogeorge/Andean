@@ -480,26 +480,52 @@ usuarioController.obtenerCarrito = async (req, res) => {
     usuario = await Usuario.findOne({ correo:req.userData.correo}, {carrito : 1});
     const carrito = usuario.carrito;
     var carritoArticulos = new Array();
-    for (var i = 0; i < carrito.length; i++) {
-      var articulo = await Articulo.findOne({ idarticulo: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa' : 1, imagenes: 1, descuento: 1});
-      //var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
-      var articulocompleto = {
-        id: carrito[i].idArticulo,
-        idarticulo: carrito[i].idEquipo,
-        titulo: articulo.titulo,
-        url: articulo.url,
-        cantidad: carrito[i].cantidad,     
-        imagen: articulo.imagenes[0],
-        precio: articulo.equipos[0].precioventa,
-        descuento: articulo.descuento
-      }
-      carritoArticulos.push(articulocompleto);
+    var parametros = "";
+    for(var i = 0;i<carrito.length;i++){        
+        if(i< carrito.length-1){
+            parametros = parametros+"'"+carrito[i].idArticulo+"',"
+        }else{
+            parametros = parametros+"'"+carrito[i].idArticulo+"'"
+        } 
     }
-    res.json({
-      status: true,
-      msg: 'Se obtuvieron los artículos con éxito',
-      data: carritoArticulos
-    });
+
+    try {
+      req.getConnection(function (error, conn) {   
+        var consultaMYSQL = "SELECT fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa, fnSM_StockArticuloGlobal(idArticuloGlobal) as cantidad, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) as descuento FROM `taarticulosglobal` WHERE idArticuloGlobal IN ("+parametros+") ORDER BY FIELD(idArticuloGlobal,"+parametros+")";
+        conn.query(consultaMYSQL, async function (err, results) {
+          if (err) {res.json({estado: "0",mensaje: "ERROR: " + err});
+          } else {
+              console.log("============================================");
+              console.log(results)
+              var preciosydescuentos = results;
+              for (var i = 0; i < carrito.length; i++) {
+                var articulo = await Articulo.findOne({ idarticulo: carrito[i].idArticulo }, {titulo: 1, url: 1, 'equipos.precioventa' : 1, imagenes: 1, descuento: 1});
+                //var precio = await Precio.findOne({nombreequipo: articulo.idprecio}, {planes: {$elemMatch : {nombreplan: 'PREPAGO ALTA'}}, 'planes.precio': 1});
+                var articulocompleto = {
+                  id: carrito[i].idArticulo,
+                  idarticulo: carrito[i].idEquipo,
+                  titulo: articulo.titulo,
+                  url: articulo.url,
+                  cantidad: carrito[i].cantidad,     
+                  imagen: articulo.imagenes[0],
+                  precio: preciosydescuentos[i].precioventa,
+                  descuento: preciosydescuentos[i].descuento
+                }
+                carritoArticulos.push(articulocompleto);
+              }
+              res.json({
+                status: true,
+                msg: 'Se obtuvieron los artículos con éxito',
+                data: carritoArticulos
+              });
+
+          }
+        });
+      });        
+    }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
+
+
+    
   } else {
     if (req.session.articulos) {
       const carrito = req.session.articulos;

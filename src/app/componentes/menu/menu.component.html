@@ -1,7 +1,6 @@
 <div class="info-header">
   <div class="item-info-header" >Nuestras Tiendas</div>
   <div class="item-info-header">Servicio al Cliente</div>
-  <div class="item-info-header">FONO COMPRAS : 4155262655</div>
   <div class="item-info-header">Terminos y Condiciones</div>
   <div class="item-info-header">Sobre Nosotros</div>
   
@@ -9,8 +8,8 @@
 </div>
 <div class="logo-movil">
   <img
-  id="logosmarketMovil" src="/assets/images/logoS2.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
-  height="55px"> 
+  id="logosmarketMovil" src="/assets/images/logo.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
+  height="45px"> 
 </div>
 <div class="menu-movil-footer">
   <div class="item-menu-movil-footer" style="color: rgb(255, 153, 0);"  routerLink="/home">
@@ -54,7 +53,7 @@
 
 <nav class="navbar navbar-expand-lg " id="menu-principal">
   <a class="navbar-brand brand-cont-logo" routerLink="/home" style="width: auto; height: 40px; align-items: center;z-index: 100;"><img
-      id="logosmarket" src="/assets/images/logoS2.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
+      id="logosmarket" src="/assets/images/logo.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
       height="40px"></a>
   <!--<button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #7f7c81;  color: white; z-index: 100;">
     <i class="material-icons">
@@ -99,7 +98,8 @@
       
       <div [matMenuTriggerFor]="menu" class="item-menu-opciones">
         <i class="fa fa-user" style="font-size:30px; margin-right: 5px; color: rgb(71, 71, 70)"></i>
-        <div id="labelnombreusuario" style="color: rgb(71, 71, 70)">{{nombreusuario}} </div>
+        <div id="labelnombreusuario" style="color: rgb(71, 71, 70)">{{nombreusuario}} 
+          <mat-spinner [diameter]="20"[hidden]="!mostrarCargandoDatosUsuario"></mat-spinner></div>
       </div>
       <mat-menu #menu="matMenu" style="margin: 0px;padding: 0px; background-color: black !important" xPosition="before">
         <button *ngIf="estaLogeado" routerLink="/perfil-usuario" mat-menu-item style="font-size: 15px; margin: 0px; display: flex; flex-direction: row; align-items: center;"><i

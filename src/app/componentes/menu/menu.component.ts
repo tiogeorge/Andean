@@ -40,6 +40,8 @@ export class MenuComponent implements OnInit {
   nomostrarbusquedap = true;
   categorias = new Array();
   usuarioLogueado :any = null;
+  mostrarCargandoDatosUsuario = false;
+  
 
   constructor(public categoriaService: CategoriaService,public router: Router, public servicioapoyo:ServicioapoyoService, public usuarioService : UsuarioService, public comService: comunicacionService) {
     
@@ -213,11 +215,16 @@ export class MenuComponent implements OnInit {
   }
 
   getSesion(){
+    this.mostrarCargandoDatosUsuario = true;
+    this.nombreusuario = "";
     if(localStorage.getItem('session_token')){
+      
       //console.log("SI ESTA LOGUEADO OBTENIENDO INFORMACION DEL USUARIO");
       this.usuarioService.getUsuario().subscribe( res => {
+        this.mostrarCargandoDatosUsuario = false;
         var jres = JSON.parse(JSON.stringify(res));
         if (jres.status){   
+          
           var nombre = jres.data.nombres.split(" ")[0];
           this.nombreusuario = nombre.charAt(0).toUpperCase() + nombre.substr(1).toLowerCase(); 
           this.estaLogeado = true;
@@ -225,11 +232,15 @@ export class MenuComponent implements OnInit {
           this.usuarioLogueado = jres.data;
           this.comService.enviarUsuario(jres.data);
         } else {
+          this.nombreusuario = "Identificate";
           this.estaLogeado = false;
           this.comService.enviarUsuario(null);
         }
       });
     }else{
+      this.nombreusuario = "Identificate";
+
+      this.mostrarCargandoDatosUsuario = false;
       //console.log("NO SE INICIO SESION");
       this.estaLogeado = false;
       this.comService.enviarUsuario(null);

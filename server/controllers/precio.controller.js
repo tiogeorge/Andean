@@ -26,8 +26,33 @@ precioController.getPlanesEquipo = async(req,res)=>{
 
 
 precioController.getListaPrecios=async(req,res)=>{
-  const listaprecios = await Precio.find();
-  res.json(listaprecios);
+  /*const listaprecios = await Precio.find();
+  res.json(listaprecios);*/
+  console.log("OBTENIENDO PRECIOS");
+  var query = "SELECT `idArticuloGlobal`AS idarticuloglobal, `NombreGlobal` AS descripcion,fnSM_RecuperarPrecioGlobal(idArticuloGlobal) AS preciocomprasinigv,fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS precioventa  ,fnSM_RecuperarPrecioVentaMinimo(idArticuloGlobal) AS precioventaminimo, fnSM_RecuperarDescuentoGlobal(idArticuloGlobal) AS descuento FROM `taarticulosglobal`";
+  
+  try {
+    req.getConnection(function (error, conn) {   
+      conn.query(query, async function (err, results) {
+        if (err) {
+            res.json({
+                estado: "0",
+                mensaje: "ERROR: " + err
+            });
+        } else {
+ 
+          res.json(results);
+        }
+      });
+    });
+    
+  }catch(e){
+    res.json({
+      estado: "0",
+      mensaje: "ERROR: " + e
+    });
+  }
+
 }
 precioController.generarExcelArticulos = async(req,res)=>{
   let workbook = new excel.Workbook({useStyles: true}); //creating workbook
@@ -38,7 +63,7 @@ precioController.generarExcelArticulos = async(req,res)=>{
   try {
       req.getConnection(function (error, conn) {          
           //var consulta = "SELECT idArticuloGlobal,NombreGlobal, fnSM_RecuperarPrecioGlobal(idArticuloGlobal) as PrecioCompra FROM taarticulosglobal ORDER BY NombreGlobal";
-          var consulta2 = "SELECT * FROM( SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) AS Descripcion, SUM(Cantidad) AS Cantidad,fnSM_RecuperarPrecioGlobal(idArticuloGlobal) AS PrecioCompra, fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS PrecioVenta, fnSM_RecuperarPrecioVentaMinimo(idArticuloGlobal) AS PrecioVentaMinimo FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnSM_StockArticuloLocal(idArticulo) AS Cantidad FROM taarticulo) tmp  WHERE Cantidad >0 GROUP BY idArticuloGlobal) tmp2 ORDER BY Descripcion";
+          var consulta2 = "SELECT * FROM( SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) AS Descripcion, SUM(Cantidad) AS Cantidad,fnSM_RecuperarPrecioGlobal(idArticuloGlobal) AS PrecioCompra, fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS PrecioVenta, fnSM_RecuperarPrecioVentaMinimo(idArticuloGlobal) AS PrecioVentaMinimo FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnSM_StockArticuloLocal(idArticulo) AS Cantidad FROM taarticulo) tmp  WHERE Cantidad >0 GROUP BY idArticuloGlobal) tmp2 WHERE PrecioVenta=0 ORDER BY Descripcion";
           conn.query(consulta2, async function (err, results) {
               if (err) {
                   res.json({
@@ -409,7 +434,7 @@ precioController.guardarListaPrecios=async(req,res)=>{
     
   }
   try {
-    console.log("  PRECIOS A MYSQL");
+    console.log("INGRESANDO PRECIOS A MYSQL");
     req.getConnection(function (error, conn) {    
       conn.query(consultaMYSQL, async function (err, results) {
         if (err) {
@@ -418,7 +443,7 @@ precioController.guardarListaPrecios=async(req,res)=>{
                 mensaje: "ERROR: " + err
             });
         } else {
-          console.log("GUARDANDO DATOS EN MONGODB");
+          /*console.log("GUARDANDO DATOS EN MONGODB");
           for(var i = 0;i<listapreciosmongo.length;i++){
             const precio = new Precio(listapreciosmongo[i]);
             const existePrecio = await Precio.countDocuments({idarticuloglobal:precio.idarticuloglobal});
@@ -427,7 +452,7 @@ precioController.guardarListaPrecios=async(req,res)=>{
             }else{
                 await precio.save();    
             }
-          }
+          }*/
           res.json({estado: 1, mensaje:"Se actualizaron los precios exitosamente." , resultado: results});
         }
       });
@@ -441,17 +466,9 @@ precioController.guardarListaPrecios=async(req,res)=>{
 }
 
 precioController.obtenerPrecioArticulo= async(req,res)=>{
-  const precio = await Precio.find({idarticuloglobal: req.params.idarticuloglobal});
-  res.json(precio);
-
-}
-precioController.actualizarPrecio= async(req,res)=>{
   try {
     req.getConnection(function (error, conn) {   
-      var date = req.body.fechavigencia;
-      date = date.substr(0,10);
-      var consultaMYSQL = "INSERT INTO tapreciosventa (idArticuloGlobal, FechaVigencia,idTipoPlan,PrecioVenta,ComisionVenta,PlanActivo,PrecioVentaMinimo) VALUES "+
-                          "('"+req.body.idarticuloglobal+"','"+date+"',1,"+req.body.precioventa+",0,1,"+req.body.precioventaminimo+");";
+      var consultaMYSQL = "SELECT PrecioVenta AS precioventa,descuento FROM tapreciosventa WHERE idArticuloGlobal='"+req.params.idarticuloglobal+"' ORDER BY FechaVigencia DESC LIMIT 1;";
       conn.query(consultaMYSQL, async function (err, results) {
         if (err) {
             res.json({
@@ -459,7 +476,35 @@ precioController.actualizarPrecio= async(req,res)=>{
                 mensaje: "ERROR: " + err
             });
         } else {
-          const precio = await Precio.findOneAndUpdate({idarticuloglobal:req.body.idarticuloglobal},{$set:{preciocomprasinigv:req.body.preciocomprasinigv , precioventa:req.body.precioventa, precioventaminimo: req.body.precioventaminimo, descuento:req.body.descuento, fechavigencia: req.body.fechavigencia }});
+          //const precio = await Precio.findOneAndUpdate({idarticuloglobal:req.body.idarticuloglobal},{$set:{preciocomprasinigv:req.body.preciocomprasinigv , precioventa:req.body.precioventa, precioventaminimo: req.body.precioventaminimo, descuento:req.body.descuento, fechavigencia: req.body.fechavigencia }});
+          res.json(results);
+        }
+      });
+    });
+    
+  }catch(e){
+    res.json({
+      estado: "0",
+      mensaje: "ERROR: " + e
+    });
+  }
+
+}
+precioController.actualizarPrecio= async(req,res)=>{
+  try {
+    req.getConnection(function (error, conn) {   
+      var date = req.body.fechavigencia;
+      date = date.substr(0,10);
+      var consultaMYSQL = "INSERT INTO tapreciosventa (idArticuloGlobal, FechaVigencia,idTipoPlan,PrecioVenta,ComisionVenta,PlanActivo,PrecioVentaMinimo,descuento) VALUES "+
+                          "('"+req.body.idarticuloglobal+"','"+date+"',1,"+req.body.precioventa+",0,1,"+req.body.precioventaminimo+","+req.body.descuento+");";
+      conn.query(consultaMYSQL, async function (err, results) {
+        if (err) {
+            res.json({
+                estado: "0",
+                mensaje: "ERROR: " + err
+            });
+        } else {
+          //const precio = await Precio.findOneAndUpdate({idarticuloglobal:req.body.idarticuloglobal},{$set:{preciocomprasinigv:req.body.preciocomprasinigv , precioventa:req.body.precioventa, precioventaminimo: req.body.precioventaminimo, descuento:req.body.descuento, fechavigencia: req.body.fechavigencia }});
  
           res.json({estado: 1, mensaje:"Se actualizo el precio exitosamente." , resultado: results});
         }
