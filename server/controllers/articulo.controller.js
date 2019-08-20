@@ -314,7 +314,7 @@ articuloController.eliminarArticulo = async (req, res) => {
 }
 
 articuloController.listararticulos = async (req, res) => {
-    const articulos = await Articulo.find();
+    const articulos = await Articulo.find({},{idarticulo:1,titulo:1,url:1,categoria:1,marca:1,imagenes:1});
     res.json(articulos);
 }
 
@@ -696,7 +696,15 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
         const banner = await Banner.find({ _id: req.params.id });
 
         //res.json(banner[0].articulos);
-        var jsonarticulos = JSON.parse(JSON.stringify(banner[0].articulos));
+        var idArticulosBanner=new Array();
+        for(var i =0;i<banner[0].articulos.length;i++){
+            idArticulosBanner.push(banner[0].articulos[i].idarticulo);
+        }
+        console.log(banner[0].articulos);
+        console.log("SE OBTUVO LOS DATOS DE ARTICULOS");
+        console.log(idArticulosBanner);
+        const articulosB = await Articulo.find({ idarticulo:{ $in:idArticulosBanner} });
+        var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
         // Buscar precio del articulo en mysql
     var parametros = "";
     for(var i = 0;i<articulosB.length;i++){        
@@ -764,10 +772,7 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
 
     } catch (err) {
         //console.log(err);
-        res.json({
-            status: false,
-            error: err
-        });
+        res.json({estado: "0",mensaje: "ERROR: " + e});
     }
 }
 articuloController.obtenerTodoBanners = async (req, res) => {
