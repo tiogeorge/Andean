@@ -1,27 +1,47 @@
 .pagination {
-  display: inline-block;
+  display: flex;
   margin-top: 50px;
   margin-left: 15px;
+  flex-direction: row;
+  
 }
 
 .pagination a {
   color: black;
   float: left;
-  padding: 8px 16px;
+  padding: 6px 12px;
   text-decoration: none;
   margin:2px;
+  border: 1px solid rgb(172, 172, 172);
+  font-size: small;
+}
+.pagination div {
+  color: rgb(68, 68, 68);
+  float: left;
+  padding: 6px 8px;
+  text-decoration: none;
+  margin:2px;
+  font-size: small;
 }
 .pagination a:hover{
-  background-color: rgb(233, 233, 233);
-  border-radius: 50%;
+  background-color: rgb(201, 200, 200);
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .pagination a.active {
   background-color: orange;
+  border: 1px solid rgb(240, 92, 7);
   color: white;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
+  border-radius: 2px;
    
+}
+.pagination a.disable {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
 }
 
 

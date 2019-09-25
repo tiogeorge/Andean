@@ -1,8 +1,13 @@
-<app-menu></app-menu>
-<div style="min-height: 400px" >
-    <router-outlet ></router-outlet>
-</div>
+<mat-drawer-container class="example-container" [hasBackdrop]="true" fullscreen>
+    <mat-drawer class="contenedor-opciones-menu" #drawer [mode]="side" >
+        <app-menu-usuario (sidenavToggle)="drawer.toggle()" ></app-menu-usuario>
+    </mat-drawer>
+    <mat-drawer-content  >   
+        <app-menu (sidenavToggle)="drawer.toggle()"></app-menu>
+        <main>
+            <router-outlet ></router-outlet>
+        </main>      
+    </mat-drawer-content>
+</mat-drawer-container>
 
 
-<app-footer></app-footer>
-<app-chat  class="chat"></app-chat>

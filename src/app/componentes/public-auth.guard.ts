@@ -12,6 +12,7 @@ export class PublicAuthGuard implements CanActivate {
 
   }
   canActivate():Promise<boolean>{
+    
     if(localStorage.getItem('session_token')){
       return this.verificarToken();
     }else{

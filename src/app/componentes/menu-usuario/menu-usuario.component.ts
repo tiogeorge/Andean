@@ -1,8 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { comunicacionService } from '../comunicacion.service';
 import { UsuarioService } from '../perfil-usuario/usuario.service';
 import { Subscription } from 'rxjs';
 import { Route, Router } from '@angular/router';
+import { MatDialog, MatSidenav } from '@angular/material';
+import { DialogCategoriasComponent } from '../dialog-categorias/dialog-categorias.component';
 
 @Component({
   selector: 'app-menu-usuario',
@@ -13,47 +15,48 @@ import { Route, Router } from '@angular/router';
 export class MenuUsuarioComponent implements OnInit {
   subscription: Subscription;
   usuario:any = null;
-  constructor( public usuarioService : UsuarioService, public comService: comunicacionService, public router:Router) {
+  @Output() public sidenavToggle = new EventEmitter();
+
+  
+  constructor( public usuarioService : UsuarioService, public comService: comunicacionService, public router:Router,public dialog: MatDialog) {
     this.subscription = this.comService.getUsuario()
     .subscribe(user => {
       if(user != null){
         this.usuario =user;   
       }else{
-        //NO ESTA LOGUEADO
-        
-      }
-      
+        //NO ESTA LOGUEADO        
+      }      
     });
-  }
-  @HostListener('window:resize', ['$event'])onResize(event) {
-    if(event.target.innerWidth>=750){
-      this.router.navigate(['/home']);
-    };
   }
 
   ngOnInit() {
-    this.comService.pedirUsuario();
-    //console.log("MENU USUARIO OPCIONES PIDIENDO USAURIO");
-    if(window.innerWidth >= 750){
-      this.router.navigate(['/home']);
-    }
-    if(!this.usuarioService.logueado()){
-      this.abrirModal();
-    }
-    
+    this.comService.pedirUsuario();    
   }
-  logout(){
-    
+  logout(){    
     this.usuarioService.logout();
     this.comService.enviarUsuario(null);
-    location.reload();
-    
-    
+    location.reload(); 
   }
-  abrirModal(){
-    //console.log("AbrirModal");
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
+  public onToggleSidenav = () => {
+    this.sidenavToggle.emit();
+  }
+  openDialogCategorias(){
+    this.onToggleSidenav();
+    var datos = {option: "simple"}
+    const dialogRef = this.dialog.open(DialogCategoriasComponent, {
+      width: '98%',
+      height:'80%',
+      data: datos ,
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+       console.log("cERRO DIALOG CATEGORIAS")
+      }else{
+        console.log("CANCELO");
+      }
+    });
+
   }
 
 }

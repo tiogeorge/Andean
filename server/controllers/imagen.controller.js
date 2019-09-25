@@ -61,13 +61,46 @@ imagenController.crearCarpeta = async (req, res)=>{
             });
         }
       }
+}
+imagenController.eliminarCarpeta = async(req,res)=>{
+    try{
+        console.log(req.body.ruta);
+        await fs.rmdirSync('./imagenes/lg'+req.body.ruta);
+        await fs.rmdirSync('./imagenes/md'+req.body.ruta);
+        await fs.rmdirSync('./imagenes/sm'+req.body.ruta);
+        res.json({
+            estado:1,
+            mensaje:'Exito.'
+        });
 
-    /*if (!fs.existsSync(ruta)){
-        fs.mkdirSync(ruta);        
-        
-    }else{
-        
-    }*/
+    }catch(e){
+        console.log(e);
+            res.json({
+                estado:0,
+                mensaje:'ERROR. NO se pudo eliminar la carpeta. Debe estar vacia para eliminar'
+            });
+    
+    }
+}
+imagenController.eliminarArchivo = async(req,res) =>{
+    try{
+        console.log(req.body.ruta);
+        await fs.unlinkSync('./imagenes/lg'+req.body.ruta);
+        await fs.unlinkSync('./imagenes/md'+req.body.ruta);
+        await fs.unlinkSync('./imagenes/sm'+req.body.ruta);
+        res.json({
+            estado:1,
+            mensaje:'Exito.'
+        });
+
+    }catch(e){
+        console.log(e);
+            res.json({
+                estado:0,
+                mensaje:'ERROR. NO se pudo eliminar el archivo.'
+            });
+    
+    }
 }
 
 imagenController.subirImagen = function (req,res){

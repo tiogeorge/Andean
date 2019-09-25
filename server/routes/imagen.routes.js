@@ -20,5 +20,7 @@ router.get('/', imagen.getImagenes);
 router.post('/files', imagen.getFiles);
 router.post('/subir',upload.single('image'), imagen.subirImagen);
 router.post('/crear-carpeta', imagen.crearCarpeta);
+router.post('/eliminar-archivo', imagen.eliminarArchivo);
+router.post('/eliminar-carpeta',imagen.eliminarCarpeta);
 
 module.exports = router;

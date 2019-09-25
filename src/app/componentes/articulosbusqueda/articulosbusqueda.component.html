@@ -175,7 +175,7 @@
             <div class="store-filter clearfix">
               <div class="store-sort">
                 <label>
-                  Encontrados: {{numeroencontrados}}
+                  Encontrados: {{totalResultados}}
                 </label>
                 <label>
                   Ordenar por:
@@ -342,9 +342,17 @@
           <!--PAGINACIÓN-->
 
           <div class="pagination" [hidden]="mostrarBuscando">
-            <a href="#">❮ Anterior</a>
-            <a class="active" href="#">1</a>
-            <a href="#">Siguiente ❯</a>
+            <a class="disable" *ngIf="(paginaSeleccionada-1)  == 0">❮ Anterior</a>
+            <a *ngIf="paginaSeleccionada-1>0" href="/busqueda/{{opcionBusqueda}}/{{palabraClave}}/{{paginaSeleccionada-1}}">❮ Anterior</a>
+            <a  *ngFor="let iz of izquierda" href="/busqueda/{{opcionBusqueda}}/{{palabraClave}}/{{iz}}"  style="width: 33px; height: 33px;">{{iz}}</a>
+            <a class="active" style="width: 33px; height: 33px;" >{{paginaSeleccionada}}</a>
+            <a  *ngFor="let der of derecha" href="/busqueda/{{opcionBusqueda}}/{{palabraClave}}/{{der}}"  style="width: 33px; height: 33px;">{{der}}</a>
+            <a *ngIf="(paginaSeleccionada+1) <= numeroPaginas" href="/busqueda/{{opcionBusqueda}}/{{palabraClave}}/{{paginaSeleccionada+1}}">Siguiente ❯</a>
+            <a  class="disable" *ngIf="(paginaSeleccionada+1) > numeroPaginas">Siguiente ❯</a>
+
+            <div>
+              {{numeroPaginas}} paginas
+            </div>
           </div>
 
         </div>

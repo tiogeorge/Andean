@@ -1,0 +1,45 @@
+
+/*Para moviles*/
+.logo {
+    background-image: url('/assets/images/logo3.png');
+    display: block;
+    width: 166px;
+    height: 40px;
+    text-indent: -999em;
+    margin: 0 auto;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.toolbar {
+    background-color: white;
+}
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+.normal-toolbar {
+    width: 100%;
+    display: flex;align-items: center;
+    flex-direction: row; 
+}
+/* Tool bar de busqueda Movil*/
+.search-toolbar {
+    width: 0;
+    /*transform: translate(-50%,-100%);*/
+    transition: all 1s;
+    display: flex; flex-direction: row;
+    outline: none; 
+    display: none;
+}
+
+.input-search{
+    font-size: medium;
+    width: 100%;
+    border: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    outline: none;
+    text-justify: auto;
+}

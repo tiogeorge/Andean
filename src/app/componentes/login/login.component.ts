@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
               public titleService: Title,
               public metaService: Meta) { }
 
+              hide = true;
   ngOnInit() {
     this.titleService.setTitle('Inicio de Sesión | Smarket');
     this.metaService.updateTag({name: 'description', content: 'Inicia sesión en la tienda virtual SMARKET y accede a todos los beneficios que tiene para comprar.'})

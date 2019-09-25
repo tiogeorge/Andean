@@ -1,0 +1,23 @@
+<div class="header">
+  <h3>CATEGORIAS</h3>
+  <button mat-icon-button aria-label="menu"  (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+</div>
+<div class="contenido-principal">
+    <mat-nav-list *ngIf= "mostrarCategorias">
+        <a class="item" mat-list-item href="/"  *ngFor= "let cat of categorias">
+            <!--<i class="material-icons">{{cat.icono}}</i>-->
+            <div class="cont-imagen">
+                <img class="imagen" src="{{URL_IMAGES}}/{{cat.imagen}}" alt="imagen de la categoria">
+            </div>
+            
+            <span class="nav-caption">{{cat.nombre}}</span>
+        </a>
+    </mat-nav-list>
+    <div class="cont-carga" *ngIf= "!mostrarCategorias">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+
+</div>

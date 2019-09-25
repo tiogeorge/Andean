@@ -1,38 +1,48 @@
-<div class="drop-down-content-menu-user" id="drop-down-content-menu-user" *ngIf="usuarioService.logueado()">
-  <div style="width: 100%; display: flex; flex-direction: row; align-items: center; height: 55px;padding: 5px;border-bottom: 1px solid rgb(189, 189, 189);">
-      
-    <div style="width: 100%; padding-left: 5%;">
-      Bienvenido <strong>{{usuario.nombres}}</strong> 
-    </div>
-    
-  </div>
-  <div style="width: 100%; display: flex; height: auto; overflow-y: auto; overflow-x: hidden; flex-direction: column">
-    <div class="item-menu-user-movil"  routerLink="/perfil-usuario"  >
-        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">person</i>
-      <div style="margin-left: 10px;">Perfil de Usuario</div>
-    </div>
-    <div class="item-menu-user-movil"  routerLink="/perfil-usuario" >
-        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">local_shipping</i>
-      <div style="margin-left: 10px;">Pedidos</div>
-    </div>
-    <div class="item-menu-user-movil" routerLink="/carrito" >
-        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">shopping_cart</i>
-      <div style="margin-left: 10px;">Carrito de Compras</div>
-    </div>
-    <div class="item-menu-user-movil" (click)="logout()">
-        <i class="material-icons" style="font-size: 25px;margin-left: 14px; ">close</i>
-      <div style="margin-left: 10px;">Cerrar Sesión</div>
-    </div>
-  </div>
+<div class="header_menu_user">
+  <div class="user_icon">
+      <i class="material-icons">person</i>     
+  </div>  
+  <div class="titulo">Bienvenid@ a Smarket</div>
 </div>
-<div id="myModal" class="modal" >  
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-body">
-      <h4 style="color: rgb(107, 107, 107); font-size: medium;">Bienvenid@ a Smarket</h4>
-      <button mat-raised-button style="width: 70%; margin-bottom: 10px;" routerLink="/login">Iniciar Sesión</button>
-      <button mat-raised-button style="width: 70%;" color="primary" routerLink="/registro">Registrate</button>
-    </div>
-  </div>
+<div class="fila">
+    <button class="boton" mat-button routerLink="/login" (click)="onToggleSidenav()">Identificate</button>
+    <button class="boton" mat-button (click)="onToggleSidenav()">Registrate</button>
 
 </div>
+
+<mat-nav-list >
+    <a class="item" mat-list-item href="/" >
+        <i class="material-icons icon rojo">account_circle</i>
+        <span class="nav-caption">Mi cuenta</span>
+    </a>
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <i class="material-icons icon azul">shopping_cart</i>
+        <span class="nav-caption">Carrito de Compras</span><span matBadge="4" matBadgeOverlap="false"></span> 
+    </a>
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <i class="material-icons icon verde">local_shipping</i>
+        <span class="nav-caption">Mis Pedidos</span>
+    </a>
+</mat-nav-list>
+<mat-nav-list >
+    <a class="item" mat-list-item (click)="openDialogCategorias()">
+        <span class="nav-caption" >Categorias</span>
+    </a>
+</mat-nav-list>
+<mat-nav-list >
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <span class="nav-caption">Términos y Condiciones</span>
+    </a>
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <span class="nav-caption">Sobre Nosotros</span>
+    </a>
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <span class="nav-caption">Cambios y Devoluciones</span>
+    </a>
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <span class="nav-caption">Chatea con nosotros</span>
+    </a>
+    <a class="item" mat-list-item href="/" (click)="onToggleSidenav()">
+        <span class="nav-caption">Servicio al Cliente</span>
+    </a>
+</mat-nav-list>

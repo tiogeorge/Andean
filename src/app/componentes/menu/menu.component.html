@@ -1,8 +1,40 @@
+
+<mat-toolbar class="toolbar">  
+  <div #normaltoolbar *ngIf="showNormalToolbar" id="normal-toolbar" class="normal-toolbar">
+      <span class="logo" (click)="iraHome()">Smarket</span>
+      <!-- This fills the remaining space of the current row -->
+      <span class="example-fill-remaining-space"></span>
+      
+      <button mat-icon-button aria-label="shopping cart">
+        <mat-icon matBadge="15" >shopping_cart</mat-icon>
+      </button>
+      <button class="search-button" mat-icon-button aria-label="buscar" (click)="openToolBarSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="menu"  (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+  </div>
+  <div #searchtoolbar *ngIf="!showNormalToolbar" id="search-toolbar" class="normal-toolbar" (after-if)="focusInputSearch()">
+      <button mat-icon-button aria-label="buscar" (click)="closeToolBarSearch()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <input #search_input class="input-search" placeholder="Buscar Producto"  id="buscarartpal2" name="buscarartpal2" (keyup)="buscarpa2($event)" >
+      <button mat-icon-button aria-label="buscar" (click)="buscarArti()">
+        <mat-icon>search</mat-icon>
+      </button>
+  </div>
+  
+</mat-toolbar> 
+
+
+
+<!--
 <div class="info-header">
-  <div class="item-info-header" >Nuestras Tiendas</div>
+  <div class="item-info-header" > Nuestras Tiendas</div>
   <div class="item-info-header">Servicio al Cliente</div>
   <div class="item-info-header">Terminos y Condiciones</div>
-  <div class="item-info-header">Sobre Nosotros</div>
+  <div class="item-info-header" routerLink="/sobre-nosotros">Sobre Nosotros</div>
   
   
 </div>
@@ -39,7 +71,7 @@
   </div>
 </div>
 <div id="modalBusqueda" class="modal" >  
-  <!-- Modal content -->
+
   <div class="modal-content">
     <div class="modal-body">
       <div class="campo-busqueda-movil">
@@ -55,11 +87,7 @@
   <a class="navbar-brand brand-cont-logo" routerLink="/home" style="width: auto; height: 40px; align-items: center;z-index: 100;"><img
       id="logosmarket" src="/assets/images/logo.png" alt="Smarket. Lo último en tecnología, en un solo lugar" width="auto"
       height="40px"></a>
-  <!--<button class="navbar-toggler" type="button" (click)="openNav()" style=" background: #7f7c81;  color: white; z-index: 100;">
-    <i class="material-icons">
-      menu
-    </i>
-  </button> --> 
+
   <div class="navbar navbar-expand-lg contendor-menu-principal" id="menu-iconos" >
     
     <div class="menu-categorias">
@@ -70,8 +98,13 @@
       
       <div class="dropdown-content-cat">
         <div class="contenido-menu-cat">
-            <div class="item-categoria-menu" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}" (click)="enviarIdCategoria(categoria._id)">
-                <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoria.icono}}</i><div>{{categoria.nombre}}</div>     
+            <div class="item-categoria-menu" *ngFor="let categoria of categoriaService.categorias" routerLink="/busqueda/cat/{{categoria._id}}/1" (click)="enviarIdCategoria(categoria._id)">
+              <i class="material-icons" style="width: 30px;">
+                {{categoria.icono}}
+                </i>
+              
+               
+               <div style="margin-left: 5px;">{{categoria.nombre}}</div>     
             </div>
         </div>
         
@@ -84,15 +117,7 @@
       <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
       
     </div>
-    <!--
-      <div class="menu-header-movil">
-      <div class="campo-busqueda-movil">
-        <i class="material-icons btn-busqueda" style="margin-left: 5px;color: orange" id="btnbusqueda2" (click)="buscarArti()">search</i>
-        <input class="input-busqueda" placeholder="Buscar Productos" id="buscarartpal" name="buscarartpal" (keyup)="buscarpa($event)">
-        
-      </div>
-    </div>
-    -->
+   
     
     <div class="campo-opciones-usuario">
       
@@ -144,42 +169,7 @@
 </nav>
 
 
-<!--<div id="campo-busqueda-movil" class="cont-busqueda-peque">
-    <div  id="input-busqueda-movil" style="display: none; flex-direction: row; width: 100%;" >
-        <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: rgb(71, 71, 71); padding-left: 5px;"
-        (click)="buscarArti()">search</i>
-      <div style="width: 100%; ">
-        <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;background-color: rgb(255, 255, 255);outline:0px !important;" placeholder="Busca productos"
-          id="buscarartpal2" name="buscarartpal2" (keyup)="buscarpa2($event)">
-      </div>
-      
-    </div>
-</div> --> 
-<!--
-  <div id="campo-busqueda-movil" class="cont-busqueda-peque">
-    <div  id="input-busqueda-movil" style="display: none; flex-direction: row; width: 100%;" >
-        <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: rgb(71, 71, 71); padding-left: 5px;"
-        (click)="buscarArti()">search</i>
-      <div style="width: 100%; ">
-        <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;background-color: rgb(255, 255, 255);outline:0px !important;" placeholder="Busca productos"
-          id="buscarartpal2" name="buscarartpal2" (keyup)="buscarpa2($event)">
-      </div>
-      
-    </div>
-</div>
-<div id="campo-busqueda-movil" class="cont-busqueda-peque">
-    <div  id="input-busqueda-movil" style="display: none; flex-direction: row; width: 100%;" >
-        <i class="material-icons btncerrar-menu" style="font-size:25px; margin-right: 5px; color: rgb(71, 71, 71); padding-left: 5px;"
-        (click)="buscarArti()">search</i>
-      <div style="width: 100%; ">
-        <input type="text" style="width: 100%; border-radius: 5px; border: 0px;height: 30px;padding-left: 5px;background-color: rgb(255, 255, 255);outline:0px !important;" placeholder="Busca productos"
-          id="buscarartpal2" name="buscarartpal2" (keyup)="buscarpa2($event)">
-      </div>
-      
-    </div>
-</div>-->
 
-<!-- MENU EN CELULARES-->
 <div id="mySidepanel2" class="sidepanel" style="z-index: 1600;">
   <div id="mySidepanel" class="cont-menu-peque">
     <div class="header-menu-peque" *ngIf="!estaLogeado">
@@ -233,17 +223,8 @@
     <div class="item-menu-movil" (click)="closeNav()"  routerLink="/terminos">
       Terminos y Condiciones
     </div>
-    <!--
-      <div style="width: 100%; padding: 5px; padding-top: 15px; display: flex; flex-direction: column;">
-      <h5>Categorias</h5>
-      <hr style="margin: 0px; padding: 0px;">
-      <div style="width: 100%; display:flex; flex-direction: column">
-        <div *ngFor="let categoriap of categorias; index as i" class="item-cat-menu-peque" (click)="busquedacat(categoriap._id)">
-          <i class="material-icons" style="font-size: 20px;margin-right: 5px; width: 25px;">{{categoriap.icono}}</i>
-          <div>{{categoriap.nombre}}</div>
-        </div>
-      </div>
-    </div>
-    --> 
+    
   </div>
 </div>
+
+--> 

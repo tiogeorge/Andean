@@ -8,6 +8,7 @@ const Equipo = require('../models/equipos');
 const Card = require('../models/card');
 const Banner = require('../models/banner');
 var jsonEquipos = new Array();
+const resPerPage = 20;
 
 articuloController.obtenerArticulosMysql = async (req, res) => {
     try {
@@ -319,8 +320,11 @@ articuloController.listararticulos = async (req, res) => {
 }
 
 articuloController.buscararti = async (req, res) => {
+    var page = req.params.page;
+    console.log("pagina: "+page);
+    const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } }).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+    const numeroTotalArticulos = await Articulo.count({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
     
-    const articulosB = await Articulo.find({ "palabrasclaves": { $regex: '.*' + req.params.palabrasclaves + '.*', $options: 'i' } });
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     // Buscar precio del articulo en mysql
     var parametros = "";
@@ -380,7 +384,15 @@ articuloController.buscararti = async (req, res) => {
                     jsonarticulos[i].descuento = preciosycantidades[i].descuento;
                     jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
                 }
-                res.json(jsonarticulos);
+
+                //RETORNAR DATOS DE LA BUSQUEDA
+                res.json(
+                    {
+                        articulos: jsonarticulos,
+                        total: numeroTotalArticulos,
+                        numpaginas: Math.ceil(numeroTotalArticulos / resPerPage)
+
+                    });
 
             }
           });
@@ -389,7 +401,10 @@ articuloController.buscararti = async (req, res) => {
 
 }
 articuloController.buscararti2 = async (req, res) => {
-    const articulosB = await Articulo.find({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } });
+    var page = req.params.page;
+    const articulosB = await Articulo.find({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } }).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+    const numeroTotalArticulos = await Articulo.count({ "marca": { $regex: '.*' + req.params.marca + '.*', $options: 'i' } });
+
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     // Buscar precio del articulo en mysql
     var parametros = "";
@@ -449,7 +464,14 @@ articuloController.buscararti2 = async (req, res) => {
                     jsonarticulos[i].descuento = preciosycantidades[i].descuento;
                     jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
                 }
-                res.json(jsonarticulos);
+                //RETORNAR DATOS DE LA BUSQUEDA
+                res.json(
+                    {
+                        articulos: jsonarticulos,
+                        total: numeroTotalArticulos,
+                        numpaginas: Math.ceil(numeroTotalArticulos / resPerPage)
+
+                    });
 
             }
           });
@@ -457,7 +479,10 @@ articuloController.buscararti2 = async (req, res) => {
       }catch(e){res.json({estado: "0",mensaje: "ERROR: " + e});}  
 }
 articuloController.buscararti3 = async (req, res) => {
-    const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + req.params.categoria + '.*', $options: 'i' } });
+    var page = req.params.page;
+    const articulosB = await Articulo.find({ "categoria": { $regex: '.*' + req.params.categoria + '.*', $options: 'i' } }).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+    const numeroTotalArticulos = await Articulo.count({ "categoria": { $regex: '.*' + req.params.categoria + '.*', $options: 'i' } });
+
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     // Buscar precio del articulo en mysql
     var parametros = "";
@@ -518,7 +543,14 @@ articuloController.buscararti3 = async (req, res) => {
                     jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
                 }
                 //console.log("ARTICULOS POR CATEGORIA");
-                res.json(jsonarticulos);
+                //RETORNAR DATOS DE LA BUSQUEDA
+                res.json(
+                    {
+                        articulos: jsonarticulos,
+                        total: numeroTotalArticulos,
+                        numpaginas: Math.ceil(numeroTotalArticulos / resPerPage)
+
+                    });
                 
 
             }
@@ -529,13 +561,16 @@ articuloController.buscararti3 = async (req, res) => {
 
 /*busqueda segun categoria */
 articuloController.busquedaGeneral = async (req, res) => {
+    var page = req.params.page;
     var categoriapadre = req.params.categoriapadre;
     const cathijos = await Categoria.find({ padre: categoriapadre }, '_id');
     var idcatHijos = new Array();
     for(var i = 0;i<cathijos.length;i++){
         idcatHijos.push(cathijos[i]._id);
     }
-    const articulosB = await Articulo.find({ "categoria": { $in:idcatHijos} });
+    const articulosB = await Articulo.find({ "categoria": { $in:idcatHijos} }).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+    const numeroTotalArticulos = await Articulo.count({ "categoria": { $in:idcatHijos} });
+
     var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
     // Buscar precio del articulo en mysql
     var parametros = "";
@@ -596,7 +631,14 @@ articuloController.busquedaGeneral = async (req, res) => {
                     jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
                 }
                 //console.log("ARTICULOS POR CATEGORIA");
-                res.json(jsonarticulos);
+                //RETORNAR DATOS DE LA BUSQUEDA
+                res.json(
+                    {
+                        articulos: jsonarticulos,
+                        total: numeroTotalArticulos,
+                        numpaginas: Math.ceil(numeroTotalArticulos / resPerPage)
+
+                    });
                 
 
             }
@@ -693,6 +735,7 @@ articuloController.obtenerBanners = async (req, res) => {
 }
 articuloController.obtenerArticulosBanner = async (req, res) => {
     try {
+        var page = req.params.page;
         const banner = await Banner.find({ _id: req.params.id });
 
         //res.json(banner[0].articulos);
@@ -703,8 +746,10 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
         console.log(banner[0].articulos);
         console.log("SE OBTUVO LOS DATOS DE ARTICULOS");
         console.log(idArticulosBanner);
-        const articulosB = await Articulo.find({ idarticulo:{ $in:idArticulosBanner} });
+
+        const articulosB = await Articulo.find({ idarticulo:{ $in:idArticulosBanner} }).skip((resPerPage * page) - resPerPage).limit(resPerPage);
         var jsonarticulos = JSON.parse(JSON.stringify(articulosB));
+        const numeroTotalArticulos = await Articulo.count({ idarticulo:{ $in:idArticulosBanner} });
         // Buscar precio del articulo en mysql
     var parametros = "";
     for(var i = 0;i<articulosB.length;i++){        
@@ -763,7 +808,13 @@ articuloController.obtenerArticulosBanner = async (req, res) => {
                     jsonarticulos[i].descuento = preciosycantidades[i].descuento;
                     jsonarticulos[i].cantidadtotal = preciosycantidades[i].cantidad;
                 }
-                res.json(jsonarticulos);
+                res.json(
+                    {
+                        articulos: jsonarticulos,
+                        total: numeroTotalArticulos,
+                        numpaginas: Math.ceil(numeroTotalArticulos / resPerPage)
+
+                    });
 
             }
           });

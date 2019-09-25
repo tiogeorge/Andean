@@ -1,11 +1,13 @@
 import { CardService } from './card.service';
 import { MarcaService} from '../marca/marca.service';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { CategoriaService } from '../menu/categoria.service';
 import { Constantes } from '../constantes';
 //import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import './owl.carousel.min.js';
 import { Respuesta } from '../perfil-usuario/respuesta';
+import { Categoria } from '../menu/categoria';
 //import * as owlCarousel from './owl.carousel.min.js';
 declare var owlCarousel : any;
 declare var $: any;
@@ -14,7 +16,7 @@ declare var $: any;
 @Component({
   selector: 'app-portafolio',
   templateUrl: './portafolio.component.html',
-  styleUrls: ['./portafolio.component.css','./carouselmultiple.css']
+  styleUrls: ['./portafolio.component2.css']
 })
 export class PortafolioComponent implements OnInit {
   listarcardtipo1: any;
@@ -23,13 +25,14 @@ export class PortafolioComponent implements OnInit {
 
   listaofertas:any;
   listaaccesorios: any;
-  constructor(public cardservice: CardService ,public marcaService:MarcaService, public router: Router) { }
+  constructor(public cardservice: CardService ,public marcaService:MarcaService, public router: Router,public categoriaService: CategoriaService) { }
   URL_IMAGENES = Constantes.URL_IMAGEN_LG ;
   URL_IMAGEN = Constantes.URL_IMAGEN;
   banners : any[] = new Array();
   bannerPrincipal: any ;
   marcas: any[] = new Array();
   mostrarCargandoOfertas = false;
+  categorias = new Array();
 
   @ViewChildren('carouselofertas') carouselofertas: QueryList<any>;
   @ViewChildren('carouselaccesorios') carouselaccesorios: QueryList<any>;
@@ -40,12 +43,25 @@ export class PortafolioComponent implements OnInit {
       _id:'0',
       imagen:'sinimagen.webp'
     };
+    this.obtenerCategorias();
     this.obtenerBanner();    
+    
   }
   ngAfterViewInit() {   
     
   }
-  
+  obtenerCategorias(){
+    //console.log("Encima de categorias");
+    if(this.categorias.length == 0){     
+      //console.log("OBTENIENDO CATEGORIAS");
+      this.categoriaService.getSubCategorias("root").subscribe( res => {
+        this.categorias = res as Categoria[];
+      });
+    }else{
+      //caso contrario
+    }
+    
+  }
 
   abrirArticulo(url){
     this.router.navigate(['/articulo/'+url])
@@ -71,12 +87,10 @@ export class PortafolioComponent implements OnInit {
           margin:1,
           autoplayTimeout:2000,
           autoplayHoverPause:true,
-          navigation : true, // Show next and prev buttons
           slideSpeed : 300,
-          paginationSpeed : 400,
+          paginationSpeed : 450,
           singleItem:true,
           items : 1,
-          nav:true,
           lazyLoad : true,
           lazyLoadEager: 1
         });  
@@ -98,12 +112,12 @@ export class PortafolioComponent implements OnInit {
       responsive:{
           0:{
               items:1,
-              nav:true,
+              nav:false,
               dots:false,
           },
           360:{
             items:2,
-            nav:true,
+            nav:false,
             dots:false,            
             autoWidth:false
           },
@@ -186,18 +200,17 @@ export class PortafolioComponent implements OnInit {
   iniciarCarouselMarcas(){
     $("#owl-demo-marcas").owlCarousel({
       loop:true,
-      margin:5,
-      autoplay:true,
-      autoplayTimeout:3000,
-      autoplayHoverPause:true,
+      margin:10,
+      autoplay:false,
+      autoplayHoverPause:false ,
       lazyLoad:true,
       responsiveClass:true,
-      nav:true,
+      nav:false,
       dots:true,
       responsive:{
           0:{
-              items:2,
-              nav:true,
+              items:3,
+              nav:false,
               dots:false,
           },
           600:{

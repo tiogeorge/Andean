@@ -88,14 +88,14 @@ li {
 .info-header{
   width: 100%;
   height: 30px; 
-  background-color: rgb(255, 255, 255); 
+  background-color: rgb(241, 241, 241); 
   display: flex; 
   flex-direction: row; 
   align-items: center; 
   justify-content:flex-end; 
   color: rgb(0, 0, 0); 
   padding-right: 15px; 
-  border-bottom: 1px solid rgb(179, 179, 179)
+  border-bottom: 1px solid rgb(201, 201, 201)
 }
 
 
@@ -688,7 +688,7 @@ select:hover{
   min-width: 100%;
   height: auto;
   margin-top: 10px;
-  background: rgb(241, 241, 241);
+  background: rgb(255, 255, 255);
   box-shadow: 10px 10px 10px rgba(88, 88, 87, 0.438);
   display: none;
   height: auto;
@@ -696,6 +696,7 @@ select:hover{
   display: flex;
   flex-direction: column;
   position: relative;
+  border: 1px solid rgb(221, 221, 221);
 }
 .item-categoria-menu{
   height: 46px;
@@ -704,17 +705,17 @@ select:hover{
   padding-right: 30px;
   white-space: nowrap;
   width: 100%;
-  color:#3a3a3a;
+  color:#696969;
   display:flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-left: solid 3px #ffffff;
+ 
   
 }
 .item-categoria-menu:hover{
-  color:rgb(0, 96, 221);
-  border-left: solid 3px rgb(0, 96, 221);
+  color:rgb(0, 0, 0);
+ 
   cursor: pointer;
 }
 

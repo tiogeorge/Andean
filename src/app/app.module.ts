@@ -18,6 +18,10 @@ import { CategoriahomeComponent } from './componentes/categoriahome/categoriahom
 import {AuthGuard} from './componentes/auth.guard';
 import { PublicAuthGuard} from './componentes/public-auth.guard';
 import { TokenInterceptorService } from './componentes/token-interceptor.service';
+import { SobreNosotrosComponent } from './componentes/sobre-nosotros/sobre-nosotros.component';
+import { PaginaMantemientoComponent } from './componentes/pagina-mantemiento/pagina-mantemiento.component';
+import { MenuUsuarioComponent } from './componentes/menu-usuario/menu-usuario.component';
+import { DialogCategoriasComponent } from './componentes/dialog-categorias/dialog-categorias.component';
 
 const routes : Route[] = [
   {path: '', component: HomeComponent, canActivate: [PublicAuthGuard]},
@@ -25,7 +29,7 @@ const routes : Route[] = [
   {path: 'login', loadChildren: './login/login.module#LoginModule', canActivate: [PublicAuthGuard]},
   {path: 'registro', loadChildren: './registro/registro.module#RegistroModule', canActivate: [PublicAuthGuard]},
   {path: 'restablecer', loadChildren: './restablecer/restablecer.module#RestablecerModule' ,canActivate: [PublicAuthGuard]},
-  {path: 'busqueda/:tipobus/:pclave', loadChildren: './busqueda/busqueda.module#BusquedaModule',canActivate: [PublicAuthGuard]},
+  {path: 'busqueda/:tipobus/:pclave/:page', loadChildren: './busqueda/busqueda.module#BusquedaModule',canActivate: [PublicAuthGuard]},
   {path: 'articulo/:id', loadChildren: './articulo/articulo.module#ArticuloModule',canActivate: [PublicAuthGuard]},
   {path: 'cart', loadChildren: './carro-compras/carro-compras.module#CarroComprasModule',canActivate: [PublicAuthGuard]},
   {path: 'terminos', loadChildren: './terminos/terminos.module#TerminosModule',canActivate: [PublicAuthGuard]},
@@ -34,7 +38,9 @@ const routes : Route[] = [
   {path: 'cambiarPassword/:token', loadChildren: './cambiar-password/cambiar-password.module#CambiarPasswordModule', canActivate: [PublicAuthGuard]},
   {path: 'chat', loadChildren: './chat-movil/chat-movil.module#ChatMovilModule',canActivate: [PublicAuthGuard]},
   {path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule',canActivate: [PublicAuthGuard]},
-  {path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasModule',canActivate: [PublicAuthGuard]}
+  {path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasModule',canActivate: [PublicAuthGuard]},
+  {path: 'sobre-nosotros', loadChildren: './sobre-nosotros/sobre-nosotros.module#SobreNosotrosModule',canActivate: [PublicAuthGuard]},
+  {path: 'comunicado', component: PaginaMantemientoComponent,canActivate: [PublicAuthGuard]},
 ];
 
 @NgModule({
@@ -46,7 +52,10 @@ const routes : Route[] = [
     PortafolioComponent,
     ChatComponent,
     SnackbarComponent,
-    CategoriahomeComponent, 
+    CategoriahomeComponent,
+    PaginaMantemientoComponent,
+    MenuUsuarioComponent,
+    DialogCategoriasComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +70,8 @@ const routes : Route[] = [
     Ng5SliderModule
   ],
   entryComponents: [
-    SnackbarComponent
+    SnackbarComponent,
+    DialogCategoriasComponent
   ],
   providers: [Title, Meta, AuthGuard, PublicAuthGuard, {
     provide: HTTP_INTERCEPTORS,

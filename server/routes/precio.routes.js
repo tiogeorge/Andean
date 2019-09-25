@@ -23,7 +23,7 @@ router.get('/planeq/:nombre',precio.listarplanesequipo);
 router.get('/plan', precio.getPlanes);
 router.get('/plan/:id', precio.getDetallePlan);
 router.get('/obtener-precio/:idarticuloglobal',precio.obtenerPrecioArticulo);
-router.get('/generar-reporte-excel',precio.generarExcelArticulos);
+router.get('/generar-reporte-excel/:opcion',precio.generarExcelArticulos);
 router.post('/subir',upload.single('excel'), precio.recibirExcel);
 router.post('/guardar-lista-precios', precio.guardarListaPrecios);
 router.post('/actualizar-precio',precio.actualizarPrecio);

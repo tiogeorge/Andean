@@ -58,12 +58,17 @@ precioController.generarExcelArticulos = async(req,res)=>{
   let workbook = new excel.Workbook({useStyles: true}); //creating workbook
   var datetime = new Date().toISOString().split("T")[0];
   let worksheet = workbook.addWorksheet('Lista Articulos '+datetime, {views: [{state: 'frozen', ySplit: 1}]}); //creating worksheet
-  
+  var sinPrecios = req.params.opcion;
   //Obtener lista de articulos
   try {
       req.getConnection(function (error, conn) {          
           //var consulta = "SELECT idArticuloGlobal,NombreGlobal, fnSM_RecuperarPrecioGlobal(idArticuloGlobal) as PrecioCompra FROM taarticulosglobal ORDER BY NombreGlobal";
-          var consulta2 = "SELECT * FROM( SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) AS Descripcion, SUM(Cantidad) AS Cantidad,fnSM_RecuperarPrecioGlobal(idArticuloGlobal) AS PrecioCompra, fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS PrecioVenta, fnSM_RecuperarPrecioVentaMinimo(idArticuloGlobal) AS PrecioVentaMinimo FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnSM_StockArticuloLocal(idArticulo) AS Cantidad FROM taarticulo) tmp  WHERE Cantidad >0 GROUP BY idArticuloGlobal) tmp2 WHERE PrecioVenta=0 ORDER BY Descripcion";
+          var consultaSinprecios = "SELECT * FROM( SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) AS Descripcion, SUM(Cantidad) AS Cantidad,fnSM_RecuperarPrecioGlobal(idArticuloGlobal) AS PrecioCompra, fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS PrecioVenta, fnSM_RecuperarPrecioVentaMinimo(idArticuloGlobal) AS PrecioVentaMinimo FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnSM_StockArticuloLocal(idArticulo) AS Cantidad FROM taarticulo) tmp  WHERE Cantidad >0 GROUP BY idArticuloGlobal) tmp2 WHERE PrecioVenta=0 ORDER BY Descripcion";
+          var consulta2 = "SELECT * FROM( SELECT idArticuloGlobal AS idArticulo, fnAS_NombreEquipo(idArticuloGlobal) AS Descripcion, SUM(Cantidad) AS Cantidad,fnSM_RecuperarPrecioGlobal(idArticuloGlobal) AS PrecioCompra, fnSM_RecuperarPrecioVenta(idArticuloGlobal) AS PrecioVenta, fnSM_RecuperarPrecioVentaMinimo(idArticuloGlobal) AS PrecioVentaMinimo FROM (SELECT idArticulo, Descripcion,idArticuloGlobal, fnSM_StockArticuloLocal(idArticulo) AS Cantidad FROM taarticulo) tmp  WHERE Cantidad >0 GROUP BY idArticuloGlobal) tmp2 ORDER BY Descripcion";
+
+          if(sinPrecios == 1){
+            consulta2 = consultaSinprecios;
+          }
           conn.query(consulta2, async function (err, results) {
               if (err) {
                   res.json({

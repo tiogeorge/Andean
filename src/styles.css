@@ -1,61 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+html * {font-family: 'Oxygen', sans-serif;}
+body{background: whitesmoke;} 
+.exito { background-color: #2ECC71;}
 
-body{
-    background: #ffffff;
-}
- 
-.exito {
-    background-color: #2ECC71;
-}
-
-.error {
-    background-color: #E74C3C;
-}
-.ql-video{
-    width: 50%;
-}
-.owl-carousel {
-    position: relative;
-}
-.owl-prev,
-.owl-next {
-    position: absolute;
-    top: 50%;
-    margin-top: -25px !important;
-    width: 30px;
-    height: 50px;
-    background-color: rgba(196, 192, 192, 0)!important;
-    outline:0px !important;
-}
-.owl-prev {
-    left: 0;
-}
-.owl-next {
-    right: 0;
-}
+.error { background-color: #E74C3C;}
+.ql-video{ width: 50%;}
+.mat-dialog-container{ border-radius: 15px !important;}
 .owl-dots{
     position: absolute;
-    bottom: 10px;
     display: flex;
-    justify-content: center!important;
+    justify-content: center;
+    bottom: 0;
     width: 100%;
+    outline: none;
 }
-.owl-nav span{
-    font-size: 50px;
-    position: absolute;
-    top: -38%;
-    left: 25%;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline:0px !important;
-    color: rgb(219, 218, 218);
+.owl-dot{
+    outline: none;
 }
-.owl-nav { display: block !important; }
+.owl-stage{
+    padding-bottom: 10px;
+}
+.mat-card{
+    padding: 10px !important;
+}
+
 
 
 @media (min-width: 320px) {

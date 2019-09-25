@@ -1,0 +1,64 @@
+/* Extra small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap */
+h2 {
+    text-align: center;
+  }
+  h6{
+    margin-left: 10%;
+  }
+  .tabla{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 30px;
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: auto;
+  }
+  
+  td, th {
+    border: 1px solid #c7c7c7;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  h5 {
+    padding-left: 10%;
+  }
+  .terminos {
+    padding: 1rem .5rem;
+  }
+  .terminos p {
+    text-align: justify;
+    line-height: 1.8;
+    font-size: 18px;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  /* Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) { 
+    .terminos {
+      padding: 1rem .75rem;
+    }
+  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) { 
+    .terminos {
+      padding: 1rem 2.5rem;
+    }
+  }
+  
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) { 
+    .terminos {
+      padding: 1rem 5rem;
+    }
+    
+  }
+  
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+
+   }

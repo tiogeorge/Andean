@@ -1,3 +1,28 @@
+
+        <div class="contenido">  
+          <mat-form-field appearance="standard" class="input-login" >
+            <mat-label>Ingrese su usuario</mat-label>
+            <mat-icon matPrefix style="margin-right: 5px;">person</mat-icon>
+            <input matInput placeholder="Ingrese su usuario" >          
+          </mat-form-field>
+
+          <mat-form-field class="input-login">
+            <mat-icon matPrefix style="margin-right: 5px;">lock</mat-icon>
+            <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <button mat-raised-button class="btn-login">Iniciar Sesión</button>
+
+
+        </div>
+   
+
+
+<!--
+
 <div class="container">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-8 col-lg-6 mx-auto">
@@ -38,16 +63,7 @@
           <div class="card-body" id="footer-login">
             <div class="row">
               <div class="col col-lg-6 col-md-12 col-sm-12">
-                <!--<label> Inicia Sesión con :</label>
-                <button type="button" class="btn btn-default btn-circle" id="boton-facebook" aria-placeholder="Facebook"><i
-                    class="fab fa-facebook-f"></i>
-                </button>
-                <button type="button" class="btn btn-primary btn-circle" id="boton-google" placeholder="Google"><i
-                    class="fab fa-google"></i>
-                </button>
-                <button type="button" class="btn btn-success btn-circle" id="boton-twitter" placeholder="Twitter"><i
-                    class="fab fa-twitter"></i>
-                </button>-->
+                
               </div>
               <div class="col col-lg-6 col-md-12 col-sm-12">
                 <label>¿Eres nuevo? <a routerLink="/registro">Regístrate</a></label>
@@ -59,3 +75,5 @@
     </div>
   </div>
 </div>
+  
+-->
